@@ -1,6 +1,5 @@
 # TG_TMC_MOBILE
-Projeto para mobile desenvolvido em DART com Framework sdk FLUTTER, utilizado como parte do trabalho de Gradução do curso de Sistemas para Internet - FATEC 2021.
+Repositório do projeto MTC (Music Trade Center). Aplicação e site para apresentação do TRABALHO DE GRADUAÇÃO - Sistemas para Internet - FATEC 2022
 
 #INTEGRANTES
 #Vinícius Lessa
-#Anderson Nascimento
