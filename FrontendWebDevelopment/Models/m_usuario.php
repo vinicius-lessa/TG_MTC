@@ -4,6 +4,7 @@
 Author: Vinícius Lessa da Silva / Anderson Nascimento
 Since: 2020/06/19
 */
+
 function validarUsuario($user, $pass, $conn)
 {
   $sql = 'SELECT cod_usuario, nome_usuario, log, senha  from usuario where log = ? ';

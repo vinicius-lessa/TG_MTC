@@ -29,9 +29,6 @@
             //     echo "Filme: " . $filme . "<br>";
             // }            
         }
-
-        
-
         ?>
     </body>
 </html>

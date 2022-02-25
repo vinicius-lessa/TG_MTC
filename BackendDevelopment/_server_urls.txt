@@ -1,0 +1,48 @@
+
+	SERVIDOR APACHE (MAMP)
+	
+		LOCAL
+			phpMyAdmin:
+				http://127.0.0.1/phpMyAdmin/
+				http://localhost/phpMyAdmin
+			
+			Main root
+				http://localhost:80
+				
+			Paths:
+				http://localhost:80/TG_MTC/BackendDevelopment/
+
+		WEB
+			HEROKU
+				HOST: us-cdbr-east-04.cleardb.com
+				DB NAME: heroku_f8611d16df426e6
+				USER: bc5758a825e4d6
+				PASSWORD: aa7c67cc
+
+			InfinityFree			
+				Site: https://app.infinityfree.net/
+				My Account 1:
+					URL: smashed-game.epizy.com
+					Account UserName: epiz_29215994
+					Account Password: Hy55QIMDeEn
+					
+					MySQL DataBase Name: epiz_29215994_smashed
+					MySQL User Name: epiz_29215994
+					MySQL DataBase Password: Hy55QIMDeEn
+					MySQL Host: sql200.epizy.com
+			
+			DB4FREE:
+				phpMyAdmin: https://www.db4free.net/phpMyAdmin/
+				DB Host: db4free.net
+				Port: 3306
+				
+				SMASHED:
+					DB Name: smashedboxdb
+					UserName: root_smashed
+					Password: TAunrBApLYGLru4					
+					Mail: vinicius.lessa33@outlook.com
+				
+				TG_2022:
+					DB Name: dbtg2021
+					UserName: root_lessa
+					Password: Estraterrestre@9
