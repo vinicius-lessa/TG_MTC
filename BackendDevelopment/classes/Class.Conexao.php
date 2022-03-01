@@ -2,8 +2,8 @@
 
 // LOCALHOST Version
 
-define('HOST'       , '127.0.0.1'       );
-define('DBNAME'     , 'unbreakble_box'  );
+define('HOST'       , 'localhost:3306'  );
+define('DBNAME'     , 'dbtg2022'        );
 define('USER'       , 'root'            );
 define('PASSWORD'   , 'root'            );
 
@@ -18,7 +18,7 @@ class ConexaoDB
 {
     private static $pdo;
  
-    private function __construct(){}
+    // private function __construct(){}
  
     public static function getConexao()
     {
