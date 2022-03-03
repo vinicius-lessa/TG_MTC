@@ -16,7 +16,7 @@ footer{
 /*----- CORES PADRÃO -----*/
 /*background*/
 .bk-preto {
-  background-color: #000000;
+  background-color: #333030;
 }
 
 .bk-escuro {
@@ -100,8 +100,8 @@ a.link-none:link {
 }
 
 .border-button:hover {
-  background-color: rgb(255, 0, 0);
-  color: #000000;
+  background-color: rgb(211, 40, 40);
+  color: #252424;
 }
 
 
@@ -719,4 +719,8 @@ h5.titulo-comentario {
 #listaMeusPedidos li img {
   width: 40px;
   margin-right: 2px;
+}
+
+main > .container {
+  padding: 60px 15px 0;
 }

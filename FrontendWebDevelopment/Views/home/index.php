@@ -1,10 +1,4 @@
 <?php
-  /* 
-  4 SEMESTRE - SISTEMAS PARA INTERNET
-  Author: Vinícius Lessa da Silva / Anderson Nascimento
-  Since: 2020/06/19
-  */
-
   if (!defined('SITE_URL')) {
     include_once '../../config.php';
   }
@@ -13,215 +7,55 @@
     session_start();
   }
 
-  $titlePage = 'Sua Loja de Instrumentos on-line';
+  $titlePage = 'HomePage';
   $data_slide = 0;
 
-  require SITE_PATH . '/Controllers/c_home.php';
+  // require SITE_PATH . '/Controllers/c_home.php';
 
 ?>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="h-100">
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/styles.css">
-  <link rel="icon" href="<?php echo SITE_URL ?>/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
-  <title>
-    Tmc.com | <?php echo $titlePage; ?>
-  </title>
-</head>
+    <title> <?php echo $titlePage; ?> </title>
+    
+    <link rel="icon" href="<?php echo SITE_URL ?>/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
 
-<body>
-<!-- menu do site -->
-<?php include SITE_PATH . '/includes/menu.php'; ?>
+    <!-- Bootstrap core CSS -->
+    <link href="<?php echo SITE_URL ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!--conteudo da pagina -->
-<main class="min-h-60 mx-4">
-  <article>
-    <div class="container">
-      <div class="row">
-        <div class="col-md">
+    <script src='<?php echo SITE_URL ?>/js/main.js'></script>
+  </head>
 
-<!-- PESQUISA -->
-<section>
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <h4 class="cor-letras font-weight-bold">Busca</h4>
-    <!--PESQUISA PRODUTOS-->
-      <form class="box-search ml-3" action="<?php echo SITE_URL ?>/Views/produtos/todos.php" method="get">
-        <div class="form-row">  
-          <div class="row">
-              <input class="form-control" type="search" name="pesquisa" id="pesquisa" placeholder="Digite aqui o que procura">
-          </div>
-        </div>
-      </form>
-
-      <div class="row">
-      <h4 class="cor-letras font-weight-bold ml-3">Filtros</h4>
+  <body class="d-flex flex-column h-100">
+    
+    <!-- menu do site -->
+    <?php include SITE_PATH . '/includes/menu.php'; ?>
+    
+    <!-- Begin page content -->
+    <main>
+      <div class="container">
+        <!-- <div class="row">
+          <div class="col"> -->
+            <h1 class="mt-5">Seja Bem Vindo!</h1>
+            <p class="lead">Music Trade Center é onde todos os <code class="small">músicos</code> se <code class="small">encontram</code>.</p>
+            <p><a href="#">Entrar agora!</a></p>
+          <!-- </div>
+        </div> -->
       </div>
+    </main>
+    
+    <!-- footer -->
+    <?php include SITE_PATH . '/includes/footer.php'; ?>    
+  
+    <script src="<?php echo SITE_URL ?>/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Guitarras</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Violões</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Teclados</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Contra Baixo</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Pedaleiras</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Pedais</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Baterias</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Amplificadores</label>
-        </div>
-      </div>
-
-      <div class="row ml-1">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">Microfones</label>
-        </div>
-      </div>
-      </div>
-
-    <!-- LINHA SEPARATÓRIO VERTICAL -->
-    <!-- <div class="vl"></div> -->
-
-    <!-- ANUNCIOS -->
-    <div class="col-md-8 ml-4 mt-3">
-    <h1 class="cor-letras">Anúncios Recentes</h1>
-
-    <!-- LINHA SEPARATÓRIO HORIZONTAL -->
-    <hr></hr>
-
-<!-- CONTEÚDO DA PÁGINA DE BUSCA -->
-<section>
-    <?php if ($listaSugestao) {?>
-      <div class="row justify-content-center">
-        
-        <?php
-         /* TESTEEEEEEEEEEEEE
-          
-          var_dump($listaSugestao);
-
-          foreach ($listaSugestao as $key => $value) {
-            echo "<hr>";
-            // var_dump($value);
-            echo "ID: " . $value->cod_anuncio . "<br>";
-            echo "Descrição: " . $value->descricao_anuncio . "<br>";
-              
-            // foreach ($ator->films as $filme) {
-            //     echo "Filme: " . $filme . "<br>";
-            // }            
-          }
-          */
-        ?>
-
-        <?php foreach ($listaSugestao as $key => $value) { ?>
-          <div class="col-sm-6 col-12 mt-2">
-            <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe.php?produto=<?php echo $value->cod_anuncio ?>"
-               class="linkCardsVioloes">
-              <div class="card text-center border-0 card-produto">
-                <div class="card-header border-0 bg-transparent">
-                  <h5 class="card-title text-uppercase">
-                    <?php echo $value->titulo_anuncio ?>
-                  </h5>
-                  <p class="mt-n3"><?php echo $value->descricao_categoria ?>
-                  </p>
-                </div>
-                <img class="card-img-top px-4 img-cover"
-                     src="<?php echo SITE_URL ?>/images/produtos/<?php echo $value->cover_img ?>"
-                     alt="Cover: <?php echo $value->titulo_anuncio ?>">
-                <div class="card-body">
-                  <p class="card-text mt-n3"><small class="text-muted">À Vista</small></p>
-                  <p class="card-text h2 font-weight-bold"><small>R$
-                    </small><?php echo number_format($value->valor_un, 2, ',', '.') ?>
-                  </p>
-                </div>
-                <div class="card-footer border-0 bg-transparent">
-                  <a href="<?php echo SITE_URL ?>/Controllers/c_pedido.php?addProduto=<?php echo $value->cod_anuncio ?>&valor=<?php echo $value->valor_un ?>" class="btn btn-dark btn-block btn-success">
-                    Comprar
-                  </a>
-                </div>
-              </div>
-            </a>
-          </div>
-        <?php } ?>
-
-      </div>
-
-    <?php } else {
-      /*Carregar a pagina de erro quando nÃ£o tiver produto cadastrado*/
-      include SITE_PATH . '/includes/erroCarregarProduto.php';
-    } ?>
-  </div>
-</section>
-
-    </div>
-  </div>
-</div>
-</section>
-
-        </div>
-      </div>
-    </div>
-  </article>
-</main>
-
-
-<!-- footer site -->
-<?php include SITE_PATH . '/includes/footer.php'; ?>
-<!-- script bootstrap -->
-<script src="<?php echo SITE_URL ?>/js/jquery-3.4.1.min.js">
-</script>
-<script src="<?php echo SITE_URL ?>/js/bootstrap.min.js">
-</script>
-
-</body>
-
+  </body>
 </html>

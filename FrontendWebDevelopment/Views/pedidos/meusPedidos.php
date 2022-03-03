@@ -30,7 +30,7 @@ require SITE_PATH . '/Controllers/c_pedido.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/styles.css">
+  <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 
   <title>

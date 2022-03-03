@@ -1,10 +1,13 @@
-<footer class="bk-preto mt-5">
-  <div class="container-fluid">
+<footer class="footer mt-auto py-3 bg-light">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+  
+  <!-- <div class="container-fluid">
     <div class="row">
       <div class="col-md-4">
         <nav id="lista-footer" class="bk-preto">
           <ul>
-            <!--RETIRAR FAVORITOS-->
             <li>
               <a class="border-button ft-escuro font-weight-bold text-center mt-5" href="<?php echo SITE_URL ?>/Views/home/sobreNos.php">Fale Conosco</a>
             </li>
@@ -38,5 +41,5 @@
         <p><small>2020 - TMC - Trade Music Center - Vinicius Lessa da Silva</small></p>
       </div>
     </div>
-  </div>
+  </div> -->
 </footer>

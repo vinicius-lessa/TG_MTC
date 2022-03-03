@@ -14,5 +14,4 @@ echo $_SERVER['SCRIPT_FILENAME'] . "<br />";
 echo $_SERVER['SCRIPT_NAME'] . "<br />";
 */
 
-//direcionar para home
 header("location:" . SITE_URL . "/Views/home/index.php");
