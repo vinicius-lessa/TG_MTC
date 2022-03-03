@@ -1,5 +1,6 @@
 # TG_MTC
-Repositório do projeto MTC (Music Trade Center). Aplicação e site para apresentação do TRABALHO DE GRADUAÇÃO - Sistemas para Internet - FATEC 2022
+Repositório do projeto MTC (Music Trade Center). Aplicação e site para apresentação do TRABALHO DE GRADUAÇÃO - Sistemas para Internet - FATEC 2022.
 
-#INTEGRANTES
-- Vinícius Lessa
+# INTEGRANTES
+- Vinícius Lessa da Silva
+- Iury Alexander Kuklik Ferreira

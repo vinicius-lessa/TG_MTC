@@ -1,58 +1,87 @@
--- phpMyAdmin SQL Dump
--- version 5.0.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 22-Jun-2020 às 03:28
--- Versão do servidor: 10.4.11-MariaDB
--- versão do PHP: 7.4.3
+/** 
+* @description  SCRIP Oficial da criação do Banco de dados do projeto MTC (Musci Trade Center) e suas propriedades.
+* @changeLog
+*   2022/03/03 - Vinícius Lessa: Inserção das primeiras instruções.
+*/
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+-- ## 1º - Criar Banco de Dados
+CREATE DATABASE 'dbtg2022' CHARSET='utf8_general_ci'
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `tmc_com`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `cliente`
---
-
-CREATE TABLE `cliente` (
-  `cod_cliente` int(11) NOT NULL,
-  `nome_cliente` varchar(150) NOT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
-  `cpf` varchar(13) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `senha` varchar(255) DEFAULT NULL,
-  `logradouro` varchar(255) DEFAULT NULL,
-  `numero` varchar(9) DEFAULT NULL,
-  `uf` varchar(2) DEFAULT NULL,
-  `cep` varchar(10) DEFAULT NULL
+-- ## 2º - Criar tabel de USUÁRIOS do sistema
+CREATE TABLE `users`
+(
+    `user_id`       int(11) NOT NULL auto_increment ,
+    `username`      varchar(150) NOT NULL ,
+    `birthday`      date NOT NULL , -- 'YYYY-MM-DD'
+    `phone`         varchar(15) DEFAULT NULL ,
+    `tipo_pessoa`   char NOT NULL ,
+    `email`         varchar(150) NOT NULL ,
+    `cpf_cnpj`      varchar(14) DEFAULT NULL ,
+    `cep`           varchar(8) DEFAULT NULL ,
+    `city`          varchar(50) DEFAULT NULL ,
+    `district`      varchar(50) DEFAULT NULL ,
+    `bio`           varchar(255) DEFAULT NULL ,
+    `active_status` boolean NOT NULL , -- 0 is false, 1 is true
+    `password`      varchar(255) NOT NULL ,
+    CONSTRAINT users_pk PRIMARY KEY (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `cliente`
---
 
-INSERT INTO `cliente` (`cod_cliente`, `nome_cliente`, `telefone`, `cpf`, `email`, `senha`, `logradouro`, `numero`, `uf`, `cep`) VALUES
-(1, 'denovo', '22222222', '1111111', 'denovo@email.com', '$2y$10$UAUTYsuqAgVLkbJ/m5QY0u34XoswF6ZH9dYeleB129PKsBAZ0r28K', NULL, NULL, NULL, NULL),
-(2, 'vini', '65656565', '215135952', 'vinicius@teste.com', '$2y$10$2d8OhrAiXdHujit2V9Fqvud6.Epz6qi1s/9yyoR/XCXkP8a5UTBFS', NULL, NULL, NULL, NULL),
-(3, 're', '1218455121', '54512314963', 're@re', '$2y$10$FpMAvQcbZP14/eHgJzvtTO6rr3cscyU2IBGXFn.ndZ7.ru5kC7xNm', NULL, NULL, NULL, NULL),
-(4, 'Vini', '848284805', '55232423232', 'vini@vini.com', '$2y$10$XPVklqCg3/FeuCIxoQ0TIu/NMWLymE0uSIixnei1fYU5i4s7RYfrm', NULL, NULL, NULL, NULL);
+-- ## 3º - Show info about USERS Table
+DESCRIBE `users`;
 
--- --------------------------------------------------------
 
+-- ## 4º Inserting Data into the USERS Table
+INSERT INTO `users`
+(
+	`username`,
+	`birthday`,
+	`phone`,
+	`tipo_pessoa`,
+	`email`,
+	`cpf_cnpj`,
+	`cep`,
+	`city`,
+	`district`,
+	`bio`,
+	`active_status`,
+	`password`
+) 
+VALUES
+(
+    'Vinícius Lessa',
+    '1998-10-17',
+    '+55011950769587',
+    'F', 
+    'vinicius.lessa33@gmail.com',
+    '46269889898',
+    '18147000',
+    'Araçariguama',
+    'Jardim Bela Vista',
+    'Músico a 10 anos, toco guitarra, violão, contrabaixo, teclado e bateria. Possui um Home Studio onde realizo minhas gravações e demos.',
+    true, 
+	'$2y$10$dPxmh5OM5vULhzJ9ukd3r.DJ9275YEng7u.iQrHRYd.WY0eCkBoRu'
+),
+(
+    'Renata Carrillo',
+    '1998-10-17',
+    '+55011950769587',
+    'F',
+    'renata.carrillo@gmail.com',
+    '46269889898',
+    '18147000',
+    'São Roque',
+    'Jardim Meny',
+    'Tentei tocar um pouco de vioção, mas FRACASSEI duas vezes',
+    true,
+	'$2y$10$dPxmh5OM5vULhzJ9ukd3r.DJ9275YEng7u.iQrHRYd.WY0eCkBoRu'
+);
+
+-- #######################################################################################################################
+
+/**
+* ## ANALISAR
+*/
 --
 -- Estrutura da tabela `comentario`
 --
@@ -70,7 +99,7 @@ CREATE TABLE `comentario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `comentario`
+-- Dados da tabela `comentario`
 --
 
 INSERT INTO `comentario` (`cod_comentario`, `cod_cliente`, `cod_anuncio`, `comentario`, `data_comentario`, `data_edit`, `excluido`, `avaliacao`, `titulo_comentario`) VALUES
@@ -79,7 +108,7 @@ INSERT INTO `comentario` (`cod_comentario`, `cod_cliente`, `cod_anuncio`, `comen
 (5, 2, 3, 'eee', '2020-06-20', NULL, 0, 3, 'eee'),
 (7, 3, 5, 'Excelente', '2020-06-20', NULL, 1, 4, 'Excelente'),
 (8, 3, 5, 'Excelente', '2020-06-20', NULL, 0, 4, 'Excelente'),
-(9, 4, 7, 'foda', '2020-06-22', NULL, 1, 4, 'foda'),
+(9, 4, 7, 'Legal', '2020-06-22', NULL, 1, 4, 'Legal'),
 (10, 4, 7, 'w,lopqwloq', '2020-06-22', NULL, 0, 4, 'odsodkl');
 
 -- --------------------------------------------------------
@@ -103,54 +132,6 @@ INSERT INTO `favorito` (`cod_favorito`, `cod_anuncio`, `cod_cliente`, `data_incl
 (1, 6, 2, '2020-06-20');
 
 -- --------------------------------------------------------
-
---
--- Estrutura da tabela `pedido`
---
-
-CREATE TABLE `pedido` (
-  `cod_pedido` int(11) NOT NULL,
-  `cod_cliente` int(11) NOT NULL,
-  `data_pedido` date NOT NULL,
-  `data_entrega` date DEFAULT NULL,
-  `valor_pedido` decimal(6,2) DEFAULT NULL,
-  `cod_carrinho` varchar(50) DEFAULT NULL,
-  `situacao` int(1) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `pedido`
---
-
-INSERT INTO `pedido` (`cod_pedido`, `cod_cliente`, `data_pedido`, `data_entrega`, `valor_pedido`, `cod_carrinho`, `situacao`) VALUES
-(1, 2, '2020-06-20', '2020-07-05', '1500.00', '0-20062063417', 0),
-(2, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(3, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(4, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(5, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(6, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(7, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(8, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(9, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(10, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(11, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(12, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0),
-(13, 2, '2021-09-10', NULL, '1500.00', '0-20062063417', 0);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `pedido_item`
---
-
-CREATE TABLE `pedido_item` (
-  `cod_pedido` int(11) NOT NULL,
-  `cod_anuncio` int(11) NOT NULL,
-  `valor_item` decimal(6,2) DEFAULT NULL,
-  `quantidade` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/***************************************************************************************************/
 
 --
 -- TABELA MARCA
@@ -260,69 +241,6 @@ ALTER TABLE `categoria`
 
 ALTER TABLE `categoria`
   MODIFY `cod_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
-
---
--- TABELA USUÁRIOS
---
-
--- ESTRUTURA
-
-CREATE TABLE `usuario` (
-  `cod_usuario` int(11) NOT NULL,
-  `nome_usuario` varchar(150) NOT NULL,
-  `idade` int(11) NOT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
-  `tipo_pessoa` char NOT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `cpf_cnpj` varchar(14) DEFAULT NULL,  
-  `cep` varchar(8) DEFAULT NULL, 
-  `cidade` varchar(50) DEFAULT NULL,
-  `bairro` varchar(50) DEFAULT NULL,
-  `biografia` varchar(255) DEFAULT NULL,
-  `ativo` char NOT NULL,
-  `senha` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- INSERÇÃO DE DADOS
-
-INSERT INTO `usuario` 
-(
-`cod_usuario`,
-`nome_usuario`,
-`idade`,
-`telefone`,
-`tipo_pessoa`,
-`email`,
-`cpf_cnpj`,
-`cep`,
-`cidade`,
-`bairro`,
-`biografia`,
-`ativo`,
-`senha`
-) 
-VALUES
-(
-  1, 
-  'Vinícius Lessa',
-  21,
-  '11950769587',
-  'F', 
-  'vinicius@teste.com',
-  '46269889898',
-  '18131070',
-  'São Roque',
-  'Jardim Esther',
-  'Músico a 10 anos, toco guitarra, violão, contrabaixo, teclado e bateria. Possui um Home Studio onde realizo minhas gravações e demos.',
-  'T', 
-  '$2y$10$dPxmh5OM5vULhzJ9ukd3r.DJ9275YEng7u.iQrHRYd.WY0eCkBoRu'
-);
-
--- ÍNDICES - CHAVES ESTRANGEIRAS
-
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`cod_usuario`);
 
 --
 -- TABELA ANUNCIOS
