@@ -11,7 +11,6 @@
   $data_slide = 0;
 
   // require SITE_PATH . '/Controllers/c_home.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -21,15 +20,15 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-
-    <title> <?php echo $titlePage; ?> </title>
-    
-    <link rel="icon" href="<?php echo SITE_URL ?>/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-
-    <!-- Bootstrap core CSS -->
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>    
+        
     <link href="<?php echo SITE_URL ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
+    <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/favicon.ico">
+
+    <title> 
+      <?php echo $titlePage; ?>
+    </title>
 
     <script src='<?php echo SITE_URL ?>/js/main.js'></script>
   </head>

@@ -1,6 +1,6 @@
 <footer class="footer mt-auto py-3 bg-light">
   <div class="container">
-    <span class="text-muted">Place sticky footer content here.</span>
+    <span class="text-muted">&copy; Music Trade Center / 2018 – 2022</span>
   </div>
   
   <!-- <div class="container-fluid">

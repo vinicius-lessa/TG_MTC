@@ -1,11 +1,3 @@
-<?php
-  /*ITENS NO CARRINHO*/
-  // $itPendentes = false;
-  // if (isset($_SESSION['carrinho'])) {
-  //     $itPendentes = count($_SESSION['carrinho']);
-  // }
-?>
-
 <header>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -20,7 +12,7 @@
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Cadastrar-se</a>
+            <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar-se</a>
           </li>
           <li class="nav-item">
             <a class="nav-link">Login</a>

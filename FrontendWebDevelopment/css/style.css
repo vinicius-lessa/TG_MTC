@@ -1,5 +1,11 @@
+/**
+* @descrption CSS File for the entire project - 2022/03 
+* @ChangeLog
+*   2022/03/04 - Vinícius Lessa - Primeiras mudanças, e criação das próprias classes.
+*/
 
-/* Pré Definiões Default*/
+/* ################################ Default
+*/
 
 html, body {
   margin: 0;
@@ -13,8 +19,20 @@ footer{
   left: 0;
 }
 
-/*----- CORES PADRÃO -----*/
-/*background*/
+
+/* ################################ Forms
+*/
+
+.form-cadastro {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+/* ################################ Colors
+*/
+
 .bk-preto {
   background-color: #333030;
 }
@@ -23,7 +41,7 @@ footer{
   background-color: #ce0000;
 }
 
-.bk-total{ /*ADICIONEI*/
+.bk-total{
   background-color: #5f5f5f;
 }
 
@@ -197,10 +215,6 @@ hr {
 
 .menu-entrar ul li:last-child a {
   color: rgb(255, 255, 255);
-}
-
-.cor-letras {
-  color: #ff0000;
 }
 
 /* --------------FOOTER--------------*/
@@ -412,13 +426,6 @@ img.img-detalhe {
 
 /* --------------PÁGINA CADASTRO CLIENTES --------------*/
 
-.caixa-cadastro {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 28px;
-}
-
 .paragrafo-cadastro {
   /* text-align: center; */
   font-size: 14px;
@@ -437,10 +444,6 @@ img.img-detalhe {
     transparent 0
   );
   color: #666;
-}
-
-.cadastroForm input {
-  padding-left: 9px;
 }
 
 .botao-cadastro {
@@ -469,22 +472,6 @@ img.img-detalhe {
 .display-cadastro {
   color: rgb(0, 0, 0);
   /* padding-top: 25px; */
-}
-
-.caixa-formulario {
-  max-width: 500px;
-  margin: 3rem auto 0;
-}
-
-.cadastroForm {
-  width: 400px;
-  margin: auto;
-}
-
-.inputGroup {
-  width: 100%;
-  margin-bottom: 15px;
-  position: relative;
 }
 
 input:-internal-autofill-selected {
@@ -719,8 +706,4 @@ h5.titulo-comentario {
 #listaMeusPedidos li img {
   width: 40px;
   margin-right: 2px;
-}
-
-main > .container {
-  padding: 60px 15px 0;
 }
