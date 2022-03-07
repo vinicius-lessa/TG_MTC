@@ -4,4 +4,3 @@ Repositório do projeto MTC (Music Trade Center). Aplicação e site para aprese
 # INTEGRANTES
 - Vinícius Lessa da Silva
 - Iury Alexander Kuklik Ferreira
-teste
