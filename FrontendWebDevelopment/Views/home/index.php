@@ -58,7 +58,7 @@
     </main>
     
     <!-- MEIO DA HOME -->
-<div class="col-6 bk-left"></div>
+<div class="col-6 bk-left" style="margin-padding:50px;"></div>
 <div class="col-6"></div>
 
 <div class="container">
