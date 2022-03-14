@@ -37,13 +37,13 @@ footer{
   background-color: #161A1D;
 }
 
-.text-red {
-  background-color: #CD0000;
-}
-
 /*Fonte color*/
 .text-white {
   color: #ffffff;
+}
+
+.text-red {
+  color: #CD0000;
 }
 
 /*remover sublinhado*/
