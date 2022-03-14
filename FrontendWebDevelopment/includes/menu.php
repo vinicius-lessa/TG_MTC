@@ -2,11 +2,11 @@
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
+    <div class="col-4">
       <a class="row align-items-start navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <div class="col-4">
       <img src="images/ícone.png" class="img-thumbnail" alt="...">
       </a>
-      </div>
+    </div>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> -->
