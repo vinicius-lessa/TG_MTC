@@ -41,16 +41,17 @@
     <!-- Begin page content -->
     <main>
       <div class="container">
-        <!-- <div class="row">
-          <div class="col"> -->
+        <div class="row">
+        <div class="col-6">
+          <img src="../../images/icon.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-6">
             <h1 class="mt-5">Seja Bem Vindo!</h1>
             <p class="lead">Music Trade Center é onde todos os <code class="small">músicos</code> se <code class="small">encontram</code>.</p>
             <p><a href="#">Entrar agora!</a></p>
-            <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="TG_MTC/FrontendWebDevelopment/images/icon.png" alt="" width="300" height="300">
-      </a>
-          <!-- </div>
-        </div> -->
+          </div>
+        </div>
       </div>
     </main>
     
