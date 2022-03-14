@@ -66,9 +66,9 @@
           <h5 class="text-white" style="text-align:center;"><strong>Brasil</strong></h5>
         </div>
       
-      <div class="col-4 bk-left">
+      <div class="col-4 bk-red">
       <div class="card" style="width: 18rem;">
-        <div class="card-body">
+        <div class="card-body bk-left">
           <h5 class="card-title">Special title treatment</h5>
           <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
@@ -85,13 +85,12 @@
         </div>
       </div>
       </div>
-      
+
       </div>
     </div>
 
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-
-  <div class="col bk-left">
+  <div class="row">
+  <div class="col-6 bk-left">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title text-red" style="text-align:center;"><strong>25</strong></h5>
@@ -101,32 +100,12 @@
     </div>
   </div>
 
-  <div class="col">
+  <div class="col-6">
     <div class="card">
       <img src="..." class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title">Card title</h5>
         <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
       </div>
     </div>
   </div>
