@@ -58,11 +58,11 @@
     
     <!-- MEIO DA HOME -->
     <div class="container">
-      <div class="row row-cols-2">
-        <div class="col bk-escuro">
-        <img src="../../images/icon.png" class="img-fluid" alt="">
+      <div class="row">
+        <div class="col-6 bk-escuro">
+        <h3>25 Usuários em todo o Brasil</h3>
         </div>
-        <div class="col">
+        <div class="col-6">
         <img src="../../images/icon.png" class="img-fluid" alt="">
         </div>
       </div>
