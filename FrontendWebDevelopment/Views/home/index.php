@@ -46,11 +46,11 @@
           <img src="../../images/icon.png" class="img-fluid" alt="">
           </div>
 
-          <div class="col-6">
-            <h6 class="text-red mt-5">Negociação Online</h6>
+          <div class="col-6 mt-5">
+            <h6 class="text-red">Negociação Online</h6>
             <h1 class="text-white">Music Trade Center</h1>
             <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <p class="text-white"><a href="#">NEGOCIA AGORA</a></p>
+            <button type="button" class="btn btn-danger"><a href="#">NEGOCIE AGORA</a></button>
           </div>
         </div>
       </div>
