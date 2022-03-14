@@ -63,7 +63,7 @@
   <div class="col-6 bk-left">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title text-red" style="text-align:center;"><strong>25</strong></h5>
+      <i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>
         <p class="card-title text-white" style="text-align:center;">Usuários em todo o</p>
         <p class="card-title text-white" style="text-align:center;">Brasil.</p>
       </div>
