@@ -46,6 +46,9 @@
             <h1 class="mt-5">Seja Bem Vindo!</h1>
             <p class="lead">Music Trade Center é onde todos os <code class="small">músicos</code> se <code class="small">encontram</code>.</p>
             <p><a href="#">Entrar agora!</a></p>
+            <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
+      <img src="/FrontendWebDevelopment/images/icon.png" alt="" width="30" height="24">
+      </a>
           <!-- </div>
         </div> -->
       </div>
