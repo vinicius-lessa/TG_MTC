@@ -63,23 +63,23 @@
   <div class="col-6">
     <div class="card">
       <div class="card-body bk-left">
-        <i class="bi bi-bag-check color:red;"></i>
+        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue;"></i>
         <p class="card-title text-white" style="text-align:center;">Entrega</p>
         <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
       </div>
     </div>
   </div>
 
+  <div class="row">
   <div class="col-6">
     <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <div class="card-body bk-left">
+        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:center;">Entrega</p>
+        <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
       </div>
     </div>
   </div>
-</div>
 
     <div class="container mt-5 mb-5">
       <div class="row">
