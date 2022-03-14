@@ -3,13 +3,13 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="../css/images/favicon.ico" alt="" width="30" height="24">
+      <img src="FrontdnWebDevelopment/css/images/favicon.ico" alt="" width="30" height="24">
       </a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> -->
       <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
-        <ul class="nav justify-content-center">
+        <ul class="nav justify-content-center mr-5">
         <li class="nav-item">
             <a class="nav-link text-white" aria-current="page" href="#">Home</a>
           </li>
