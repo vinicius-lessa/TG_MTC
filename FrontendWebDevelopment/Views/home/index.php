@@ -61,7 +61,6 @@
 
   <div class="col bk-left">
     <div class="card">
-      <img src="..." class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title text-red" style="text-align:center;"><strong>25</strong></h5>
         <p class="card-title text-white" style="text-align:center;">Usuários em todo o</p>
