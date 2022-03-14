@@ -60,7 +60,8 @@
     <div class="container">
       <div class="row">
         <div class="col-6 bk-left">
-        <h3>25 Usuários em todo o Brasil</h3>
+        <h1 class="text-red"><strong>25</strong></h1>
+        <h3>Usuários em todo o Brasil</h3>
         </div>
         <div class="col-6">
         <img src="../../images/icon.png" class="img-fluid" alt="">
