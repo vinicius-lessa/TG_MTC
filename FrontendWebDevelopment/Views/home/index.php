@@ -40,7 +40,7 @@
     
     <!-- Begin page content -->
     <main>
-      <div class="container">
+      <div class="container mt-5">
         <div class="row">
         <div class="col-6">
           <img src="../../images/icon.png" class="img-fluid" alt="">
