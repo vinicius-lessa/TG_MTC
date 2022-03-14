@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="../images/ícone.png" alt="" width="30" height="24">
+      <img src="/FrontendWebDevelopment/images/ícone.png" alt="" width="30" height="24">
       </a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
