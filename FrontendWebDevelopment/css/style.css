@@ -38,7 +38,7 @@ footer{
 }
 
 .color-red-buttom  {
-  background-color: #CD0000 !important;
+  background-color: #CD0000;
 }
 
 /*Fonte color*/
@@ -47,7 +47,7 @@ footer{
 }
 
 .text-red {
-  color: #CD0000;
+  color: #5500cd;
 }
 
 /*remover sublinhado*/
