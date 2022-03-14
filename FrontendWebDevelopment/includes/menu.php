@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="/images/favicon.ico" alt="" width="30" height="24">
+      <img src="css/images/favicon.ico" alt="" width="30" height="24">
       </a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
       <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
         <ul class="nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Home</a>
+            <a class="nav-link text-white" aria-current="page" href="#">Home</a>
           </li>
         </ul>
       <!-- </div> -->
@@ -22,10 +22,10 @@
       <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
       <ul class="nav justify-content-end">
         <li class="nav-item">
-            <a class="nav-link ft-escuro" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
+            <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Entrar</a>
+            <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Entrar</a>
         </li>
       </ul>
       <!-- </div> -->
