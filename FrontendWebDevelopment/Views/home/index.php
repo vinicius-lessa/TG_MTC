@@ -56,6 +56,14 @@
       </div>
     </main>
     
+    <!-- MEIO DA HOME -->
+    <div class="container">
+      <div class="row row-cols-2">
+        <div class="col-6 bk-escuro">Column</div>
+        <div class="col-6">Column</div>
+      </div>
+    </div>
+
     <!-- footer -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
