@@ -1,6 +1,6 @@
 <header>
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto mb-5">
     <div class="container-fluid">
       <a class="row align-items-start navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
       <img src="images/favicon.ico" class="rounded float-start" alt="Ícone">
@@ -19,12 +19,16 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0 ft-escuro">
         <li class="nav-item">
             <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link">Entrar</a>
+            <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Entrar</a>
         </li>
+      </ul>
+      </div>
 
     </div>
   </nav>
