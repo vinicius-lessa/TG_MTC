@@ -58,7 +58,6 @@
     </main>
     
     <!-- MEIO DA HOME -->
-<div class="row">
 <div class="col-6 bk-left"></div>
 <div class="col-6"></div>
 
@@ -130,7 +129,6 @@
       </div>
     </div>
 
-</div>
     <!-- footer -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
