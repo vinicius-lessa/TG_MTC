@@ -20,9 +20,9 @@
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form> -->
       <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
-      <ul class="nav justify-content-end ft-escuro">
+      <ul class="nav justify-content-end">
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
+            <a class="nav-link ft-escuro" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Entrar</a>
