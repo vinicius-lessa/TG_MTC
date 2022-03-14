@@ -33,6 +33,14 @@ footer{
 /* ################################ Colors
 */
 
+.bk-preto {
+  background-color: #40cd28;
+}
+
+.bk-left {
+  background-color: #f8fc0c;
+}
+
 /*Fonte color*/
 .text-white {
   color: #ffffff;
