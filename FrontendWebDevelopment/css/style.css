@@ -53,3 +53,8 @@ footer{
 .text-red {
   color: #af0b0b;
 }
+
+/*remover sublinhado*/
+a.link-none:link {
+  text-decoration: none;
+}
