@@ -9,7 +9,7 @@
         <span class="navbar-toggler-icon"></span>
       </button> -->
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <ul class="nav justify-content-center">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
@@ -22,10 +22,10 @@
       <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
       <ul class="nav justify-content-end ft-escuro">
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
+            <a class="nav-link active" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Cadastrar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Entrar</a>
+            <a class="nav-link active" href="<?php echo SITE_URL ?>/Views/Users/Cadastro.php">Entrar</a>
         </li>
       </ul>
       <!-- </div> -->
