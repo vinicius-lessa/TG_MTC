@@ -1,6 +1,6 @@
 <header class="mb-5">
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
       <img src="../../images/icon.png" alt="" width="30" height="24">
