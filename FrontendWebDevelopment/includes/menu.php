@@ -1,4 +1,4 @@
-<header class="mb-5">
+<header class="mb-5 p-5">
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
