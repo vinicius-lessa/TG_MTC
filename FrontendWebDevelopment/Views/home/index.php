@@ -57,6 +57,29 @@
     </main>
     
     <!-- MEIO DA HOME -->
+
+<div class="row">
+  <div class="col-6 bk-left">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title text-red" style="text-align:center;"><strong>25</strong></h5>
+        <p class="card-title text-white" style="text-align:center;">Usuários em todo o</p>
+        <p class="card-title text-white" style="text-align:center;">Brasil.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
     <div class="container mt-5 mb-5">
       <div class="row">
 
@@ -88,29 +111,6 @@
 
       </div>
     </div>
-
-  <div class="row">
-  <div class="col-6 bk-left">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title text-red" style="text-align:center;"><strong>25</strong></h5>
-        <p class="card-title text-white" style="text-align:center;">Usuários em todo o</p>
-        <p class="card-title text-white" style="text-align:center;">Brasil.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-6">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
 
     <!-- footer -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
