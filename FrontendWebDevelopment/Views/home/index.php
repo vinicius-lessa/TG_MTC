@@ -39,7 +39,7 @@
     <?php include SITE_PATH . '/includes/menu.php'; ?>
     
     <!-- Begin page content -->
-    <main class="">
+    <main>
       <div class="container mt-5 mb-5">
         <div class="row">
         <div class="col-6">
@@ -47,7 +47,7 @@
           </div>
 
           <div class="col-6 mt-5">
-            <h6 class="text-white">Negociação Online</h6>
+            <h6 class="text-red">Negociação Online</h6>
             <h1 class="text-white"><strong>Music Trade Center</strong></h1>
             <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
             <button type="button" class="btn btn-danger btn-lg mt-3"><a href="#">NEGOCIE AGORA</a></button>
