@@ -47,10 +47,10 @@
           </div>
 
           <div class="col-6">
-            <h6 class="text-red">Negociação Online</h6>
-            <h1 class="mt-5">Music Trade Center</h1>
-            <p class="lead">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <p><a href="#">NEGOCIA AGORA</a></p>
+            <h6 class="text-red mt-5">Negociação Online</h6>
+            <h1 class="text-white">Music Trade Center</h1>
+            <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
+            <p class="text-white"><a href="#">NEGOCIA AGORA</a></p>
           </div>
         </div>
       </div>
