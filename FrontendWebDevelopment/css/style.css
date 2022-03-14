@@ -11,7 +11,8 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #252424;
+  /* background-color: #252424; */
+  color: #252424;
 }
 
 footer{
