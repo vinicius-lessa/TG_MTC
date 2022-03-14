@@ -64,7 +64,7 @@
   <div class="col-4">
     <div class="card">
       <div class="card-body bk-left">
-        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue; text-align: right;"></i>
+        <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
         <p class="card-title text-white" style="text-align:left;">Entrega</p>
         <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
       </div>
