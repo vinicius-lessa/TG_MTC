@@ -38,7 +38,7 @@ footer{
 }
 
 .color-red-buttom  {
-  background-color: #CD0000;
+  background-color: #CD0000 !important;
 }
 
 /*Fonte color*/
