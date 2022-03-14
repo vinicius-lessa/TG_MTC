@@ -41,11 +41,15 @@ footer{
   background-color: #272829;
 }
 
-.bk-red {
+.btn-danger {
   background-color: #9d0808;
 }
 
 /*Fonte color*/
 .text-white {
   color: #ffffff;
+}
+
+.text-red {
+  color: #9d0808;
 }
