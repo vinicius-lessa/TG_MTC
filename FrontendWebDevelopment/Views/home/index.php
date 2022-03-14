@@ -61,7 +61,7 @@
       <div class="row">
         <div class="col-6 bk-left">
         <h1 class="text-red" style="text-align:center;"><strong>25</strong></h1>
-        <h3 class="text-white" style="text-align:center;">Usuários em todo o Brasil</h3>
+        <h3 class="text-white" style="text-align:center;"><strong>Usuários em todo o Brasil</strong></h3>
         </div>
         <div class="col-6">
         <img src="../../images/icon.png" class="img-fluid" alt="">
