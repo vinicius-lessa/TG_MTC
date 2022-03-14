@@ -1,6 +1,6 @@
-<header class="mb-6">
+<header class="mb-5">
   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto mb-5">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
       <a class="row align-items-start navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
       <img src="images/favicon.ico" class="rounded float-start" alt="Ícone">
