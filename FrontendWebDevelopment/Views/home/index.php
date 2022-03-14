@@ -59,8 +59,12 @@
     <!-- MEIO DA HOME -->
     <div class="container">
       <div class="row row-cols-2">
-        <div class="col-6 bk-escuro">Column</div>
-        <div class="col-6">Column</div>
+        <div class="col bk-escuro">
+        <img src="../../images/icon.png" class="img-fluid" alt="">
+        </div>
+        <div class="col">
+        <img src="../../images/icon.png" class="img-fluid" alt="">
+        </div>
       </div>
     </div>
 
