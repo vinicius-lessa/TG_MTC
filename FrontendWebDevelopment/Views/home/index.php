@@ -33,7 +33,7 @@
     <script src='<?php echo SITE_URL ?>/js/main.js'></script>
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto">
+  <body class="d-flex flex-column h-100">
     
     <!-- menu do site -->
     <?php include SITE_PATH . '/includes/menu.php'; ?>
