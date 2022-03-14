@@ -58,7 +58,7 @@
     </main>
     
     <!-- MEIO DA HOME -->
-
+<div class="container">
 <div class="row">
 
   <div class="col-4">
@@ -92,6 +92,8 @@
   </div>
 
 </div>
+</div>
+
     <div class="container mt-5 mb-5">
       <div class="row">
 
