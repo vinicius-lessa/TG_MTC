@@ -57,6 +57,38 @@
     </main>
     
     <!-- MEIO DA HOME -->
+    <div class="container">
+      <div class="row">
+
+        <div class="col-4 bk-left">
+          <h1 class="text-red" style="text-align:center;"><strong>25</strong></h1>
+          <h5 class="text-white" style="text-align:center;"><strong>Usuários em todo o</strong></h5>
+          <h5 class="text-white" style="text-align:center;"><strong>Brasil</strong></h5>
+        </div>
+      
+      <div class="col-4 bk-left">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      </div>
+
+      <div class="col-4 bk-left">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      </div>
+      
+      </div>
+    </div>
+
   <div class="row row-cols-1 row-cols-md-3 g-4">
 
   <div class="col bk-left">
@@ -100,17 +132,6 @@
   </div>
 
 </div>
-
-    <div class="container">
-      <div class="row">
-
-        <div class="col-4 bk-left">
-        <h1 class="text-red" style="text-align:center;"><strong>25</strong></h1>
-        <h5 class="text-white" style="text-align:center;"><strong>Usuários em todo o</strong></h5>
-        <h5 class="text-white" style="text-align:center;"><strong>Brasil</strong></h5>
-        </div>
-      </div>
-    </div>
 
     <!-- footer -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
