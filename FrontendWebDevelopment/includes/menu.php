@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="../../images/icon.png" style="text-align:center;margin-left:120px;" alt="ícone MTC" width="50" height="50">
+      <img src="../../images/icon.png" style="text-align:center;margin-left:150px;" alt="ícone MTC" width="50" height="50">
       </a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
