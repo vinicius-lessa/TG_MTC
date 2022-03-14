@@ -1,9 +1,9 @@
-<header class="mb-5 p-5">
+<header class="mb-5">
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bk-preto">
     <div class="container-fluid">
-      <a class="row align-items-start navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="images/favicon.ico" class="rounded float-start" alt="Ícone">
+      <a class="navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
+      <img src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24">
       </a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
