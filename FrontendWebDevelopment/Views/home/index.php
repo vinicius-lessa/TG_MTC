@@ -39,8 +39,8 @@
     <?php include SITE_PATH . '/includes/menu.php'; ?>
     
     <!-- Begin page content -->
-    <main class="bk-preto mb-5">
-      <div class="container mt-5">
+    <main class="bk-preto">
+      <div class="container mt-5 mb-5">
         <div class="row">
         <div class="col-6">
           <img src="../../images/icon.png" class="img-fluid" alt="">
