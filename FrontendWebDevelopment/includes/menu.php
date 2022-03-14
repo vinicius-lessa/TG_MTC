@@ -4,7 +4,7 @@
     <div class="container-fluid">
     <div class="col-4">
       <a class="row align-items-start navbar-brand" href="<?php echo SITE_URL ?>/Views/home/index.php">
-      <img src="images/ícone.png" class="img-fluid" alt="...">
+      <img src="images/favicon.ico" class="img-fluid" alt="...">
       </a>
     </div>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@
             <a class="nav-link">Entrar</a>
           </li>
         </div>
-      </div>
+
     </div>
   </nav>
 </header>
