@@ -60,12 +60,12 @@
     <!-- MEIO DA HOME -->
 
 <div class="row">
-  <div class="col-6 bk-left">
+  <div class="col-6">
     <div class="card">
-      <div class="card-body">
-      <i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>
-        <p class="card-title text-white" style="text-align:center;">Usuários em todo o</p>
-        <p class="card-title text-white" style="text-align:center;">Brasil.</p>
+      <div class="card-body bk-left">
+        <i class="bi bi-bag-check" style="text-align:center;"></i>
+        <p class="card-title text-white" style="text-align:center;">Entrega</p>
+        <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
       </div>
     </div>
   </div>
