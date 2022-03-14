@@ -62,7 +62,6 @@
         <div class="col-6 bk-left">
         <h1 class="text-red" style="text-align:center;"><strong>25</strong></h1>
         <h5 class="text-white" style="text-align:center;"><strong>Usuários em todo o</strong></h5>
-        <br></br>
         <h5 class="text-white" style="text-align:center;"><strong>Brasil</strong></h5>
         </div>
         <div class="col-6">
