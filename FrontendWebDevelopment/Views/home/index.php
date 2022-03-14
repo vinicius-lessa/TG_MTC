@@ -59,7 +59,7 @@
     <!-- MEIO DA HOME -->
     <div class="container">
       <div class="row">
-        <div class="col-6 bk-escuro">
+        <div class="col-6 bk-left">
         <h3>25 Usuários em todo o Brasil</h3>
         </div>
         <div class="col-6">
