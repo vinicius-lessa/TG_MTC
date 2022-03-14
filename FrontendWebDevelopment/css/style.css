@@ -34,20 +34,12 @@ footer{
 */
 
 .bk-preto {
-  background-color: #000000;
-}
-
-.color-red-buttom  {
-  background-color: #CD0000;
+  background-color: #40cd28;
 }
 
 /*Fonte color*/
 .text-white {
   color: #ffffff;
-}
-
-.text-red {
-  color: #5500cd;
 }
 
 /*remover sublinhado*/
