@@ -39,7 +39,7 @@
     <?php include SITE_PATH . '/includes/menu.php'; ?>
     
     <!-- Begin page content -->
-    <main>
+    <main class="bk-preto mb-5">
       <div class="container mt-5">
         <div class="row">
         <div class="col-6">

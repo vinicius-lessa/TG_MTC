@@ -37,23 +37,8 @@ footer{
   background-color: #161A1D;
 }
 
-.bk-escuro {
-  background-color: #ce0000;
-}
-
-.bk-total{
-  background-color: #5f5f5f;
-}
-
 /*Fonte color*/
-.ft-laranja {
-  color: #000000;
-}
 .text-white {
-  color: #ffffff;
-}
-
-.ft-branca {
   color: #ffffff;
 }
 
@@ -65,11 +50,6 @@ a.link-none:link {
 /*----------menu-------------*/
 .menu-principal {
   width: 100%;
-}
-
-#icon-logo {
-  height: 100px;
-  padding: 5px;
 }
 
 #lista-menu {
@@ -160,26 +140,6 @@ hr {
 .box-search span {
   width: 11%;
   float: right;
-}
-
-/* estilos do botão lupa*/
-.btn-search {
-  color: #ffffff;
-  border: 1px solid #ff0000;
-  background-color: #ff0000;
-  border-radius: 10%;
-  width: 70px;
-  height: 50px;
-  float: right;
-  margin-top: 38px;
-}
-
-/*opções do carrinho */
-.carrinho {
-  padding: 5px;
-}
-.carrinho img {
-  height: 50px;
 }
 
 /* opções de entrar ou cadastrar */
