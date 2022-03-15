@@ -72,22 +72,24 @@
     </div>
   </div>
 
-  <div class="col-4">
+  <div class="col-4 p-5">
     <div class="card">
-      <div class="card-body bk-left">
-        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue;"></i>
-        <p class="card-title text-white" style="text-align:center;">Entrega</p>
-        <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
+      <div class="card-body bk-red">
+        <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:left;">Entrega</p>
+        <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
+        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
       </div>
     </div>
   </div>
 
-  <div class="col-4">
+  <div class="col-4 p-5">
     <div class="card">
       <div class="card-body bk-left">
-        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue;"></i>
-        <p class="card-title text-white" style="text-align:center;">Entrega</p>
-        <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
+        <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:left;">Entrega</p>
+        <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
+        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
       </div>
     </div>
   </div>
