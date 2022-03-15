@@ -61,7 +61,7 @@
 <div class="container">
 <div class="row">
 
-  <div class="col-4">
+  <div class="col-4 p-5">
     <div class="card">
       <div class="card-body bk-left">
         <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
