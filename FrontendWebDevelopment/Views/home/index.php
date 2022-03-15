@@ -68,7 +68,10 @@
         <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
       </div>
       <div>
-
+      <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:left;">Entrega</p>
+        <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
+        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
       </div>
     </div>
   </div>
