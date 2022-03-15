@@ -58,25 +58,15 @@
     </main>
     
     <!-- MEIO DA HOME -->
-    <div class="grid" style="--bs-columns: 2;">
-  <div class="bk-left">
+    <div class="grid" style="--bs-columns: 3;">
+  <div>
+    First auto-column
     <div class="grid">
-      <div class="g-col-6">
-      <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
-        <p class="card-title text-white" style="text-align:left;">Entrega</p>
-        <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
-        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
-      </div>
-
-      <div class="g-col-6">
-      <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
-        <p class="card-title text-white" style="text-align:left;">Entrega</p>
-        <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
-        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
-      </div>
+      <div>Auto-column</div>
+      <div>Auto-column</div>
     </div>
-
-    <div>
+  </div>
+  <div>
     Second auto-column
     <div class="grid" style="--bs-columns: 12;">
       <div class="g-col-6">6 of 12</div>
@@ -84,9 +74,8 @@
       <div class="g-col-2">2 of 12</div>
     </div>
   </div>
-  
-  </div>
-  <div>
+  <div>Third auto-column</div>
+</div>
 
 <div class="container">
 <div class="row">
