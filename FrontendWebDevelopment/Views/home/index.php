@@ -104,25 +104,25 @@
           <h5 class="text-white" style="text-align:center;"><strong>Brasil</strong></h5>
         </div>
       
-      <div class="col-4 bk-red center">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+        <div class="col-4">
+    <div class="card">
+      <div class="card-body bk-left">
+        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:center;">Entrega</p>
+        <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
       </div>
-      </div>
+    </div>
+  </div>
 
-      <div class="col-4 bk-left">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body bk-left">
+        <i class="bi bi-bag-check" style="font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:center;">Entrega</p>
+        <p class="card-title text-white" style="text-align:center;">As entregas são protegidas pelo vendedor.</p>
       </div>
-      </div>
+    </div>
+  </div>
 
       </div>
     </div>
