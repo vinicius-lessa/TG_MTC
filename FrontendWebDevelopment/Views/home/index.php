@@ -115,7 +115,7 @@
       </div>
       </div>
 
-      <div class="col-4 bk-left center">
+      <div class="col-4 bk-left align-center">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">Special title treatment</h5>
