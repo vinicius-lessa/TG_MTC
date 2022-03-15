@@ -58,6 +58,21 @@
     </main>
     
     <!-- MEIO DA HOME -->
+    <div class="grid" style="--bs-columns: 3;">
+  <div class="bk-left">
+    <div class="grid">
+      <div>
+      <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
+        <p class="card-title text-white" style="text-align:left;">Entrega</p>
+        <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
+        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
+      </div>
+      <div>
+
+      </div>
+    </div>
+  </div>
+  <div>
 
 <div class="container">
 <div class="row">
@@ -115,7 +130,7 @@
       </div>
       </div>
 
-      <div class="col-4 bk-left align-center">
+      <div class="col-4 bk-left">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">Special title treatment</h5>
