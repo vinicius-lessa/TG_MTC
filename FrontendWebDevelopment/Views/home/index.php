@@ -61,7 +61,7 @@
     <div class="grid" style="--bs-columns: 3;">
   <div>
     First auto-column
-    <div class="grid">
+    <div class="grid bk-left">
       <div>Auto-column</div>
       <div>Auto-column</div>
     </div>
