@@ -58,7 +58,7 @@
     </main>
     
     <!-- MEIO DA HOME -->
-    <div class="grid" style="--bs-columns: 3;">
+    <div class="grid" style="--bs-columns: 2;">
   <div class="bk-left">
     <div class="grid">
       <div class="g-col-6">
@@ -75,6 +75,16 @@
         <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
       </div>
     </div>
+
+    <div>
+    Second auto-column
+    <div class="grid" style="--bs-columns: 12;">
+      <div class="g-col-6">6 of 12</div>
+      <div class="g-col-4">4 of 12</div>
+      <div class="g-col-2">2 of 12</div>
+    </div>
+  </div>
+  
   </div>
   <div>
 
