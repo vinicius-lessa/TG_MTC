@@ -61,13 +61,14 @@
     <div class="grid" style="--bs-columns: 3;">
   <div class="bk-left">
     <div class="grid">
-      <div>
+      <div class="g-col-6">
       <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
         <p class="card-title text-white" style="text-align:left;">Entrega</p>
         <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
         <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
       </div>
-      <div>
+
+      <div class="g-col-6">
       <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: cornflowerblue;"></i>
         <p class="card-title text-white" style="text-align:left;">Entrega</p>
         <p class="card-title text-white" style="text-align:left;">As entregas são protegidas pelo vendedor.</p>
