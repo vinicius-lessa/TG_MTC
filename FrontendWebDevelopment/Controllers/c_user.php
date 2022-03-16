@@ -18,12 +18,14 @@
             }
         }
 
-        if (userCreation($data)) {
-            header("location:" . SITE_URL . "/Views/Users/returnSuccess.php");
-        } else {
-            $msgErro = "Ocorreu um erro para cadastrar o usuario no banco, tente novamente";
-            header("location:" . SITE_URL . "/Views/home/PaginaErro.php?erro=$msgErro");
-        }
+        echo "<pre>" . var_dump($data['email']) . "</pre>";
+
+        // if (userCreation($data)) {
+        //     header("location:" . SITE_URL . "/Views/Users/returnSuccess.php");
+        // } else {
+        //     $msgErro = "Ocorreu um erro para cadastrar o usuario no banco, tente novamente";
+        //     header("location:" . SITE_URL . "/Views/home/PaginaErro.php?erro=$msgErro");
+        // }
     }
 
     // *****************************************************************************************************

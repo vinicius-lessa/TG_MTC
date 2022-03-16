@@ -1,6 +1,20 @@
 <?php    
-// CRUD TABELA DE USERS
-   
+/**
+ * File DOC
+ * 
+ * @Description Here the USERS table is manipulated
+ * @ChangeLog 
+ *  - Vinícius Lessa - 16/03/2022: Mudanças importantes para requisições utilizando o método GET. Agora, o servidor irá tratar parâmetros na URL.
+ * 
+ * @ Tips & Tricks: 
+ *      - Use this to check the method type: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+ * 
+ *  GET Method notes:
+ *      - Url request example: .../users.php/?token={$token}&key={$key}&value={$value}
+ *      Code lines for testing:
+ *          - echo json_encode( ['Parametros' => $_GET] );
+ */
+ 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Content-type: application/json; charset=UTF-8');
@@ -18,41 +32,99 @@ CrudDB::setConexao($pdo);
 // Parâmetro passado pela URL
 $uri = basename($_SERVER['REQUEST_URI']);
 
+// Default Functions
+function ShowReturnError($httpCode, $errorMsg) {
+    http_response_code($httpCode);
+    echo json_encode(['mensagem' => $errorMsg]);
+    exit;
+}
+
 #############################################################################################
     
 // ### GET (Consulta)
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
-    
-    // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+
+    // Token Validation
+    if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
+        echo json_encode( ['Error' => 'Token is not Valid!'] );
+        http_response_code(401); // Unauthorized
+        exit;
+    endif;
 
     if ( !Empty($uri) && $uri <> 'index.php' ):
-        // All Users
-        if ($uri == 'alldata'):                
-            $dados = CrudDB::select('SELECT * FROM users ORDER BY user_id DESC LIMIT 10',[],TRUE);
+
+        // Variables
+        $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : ""        ;
+        $valueSearch    = (isset($_GET["value"])) ? $_GET["value"] : ""    ;
         
-        // Especific User
+        $httpCode       = 0;
+        $errorMsg       = "";
+
+        if (Empty($keySearch) || Empty($valueSearch)):
+            $httpCode = 404; // Not Found
+            $errorMsg = "Informe todos os parâmetros!";
+            ShowReturnError($httpCode, $errorMsg);
         else:
-            if (is_numeric($uri)): //User ID
-                $dados = CrudDB::select('SELECT * FROM users WHERE user_id =:USER_ID'
-                    ,['USER_ID' => $uri]
-                    ,TRUE);                
+            // All Users
+            if ($keySearch == 'allUsers' && $valueSearch == 'true'):
+                // For example:  .../users.php/?token=...&key=allUsers&value=true
+                $dados = CrudDB::select('SELECT * FROM users ORDER BY user_id DESC LIMIT 2',[],TRUE);
+            
+            // Search by ID
+            elseif ($keySearch == 'id'):
+                // For example: .../users.php/?token=...&key=id&value=7
+
+                $userId = $valueSearch;
+
+                if (is_numeric($userId)):
+                    $dados = CrudDB::select('SELECT * FROM users WHERE user_id =:USER_ID'
+                        ,['USER_ID' => $userId]
+                        ,TRUE);                
+                else:
+                    $httpCode = 406; // Not Acceptable
+                    $errorMsg = "Parâmetro ID não é numérico!";
+                    ShowReturnError($httpCode, $errorMsg);
+                endif;
+    
+            // Search by E-mail
+            elseif ($_GET['key'] == 'email'):
+                // For example: .../users.php/?token=...&key=email&value=andre@test.com
+
+                $userEmail = $valueSearch;
+
+                if (!is_numeric($userEmail)):
+                    $dados = CrudDB::select('SELECT email FROM users WHERE email =:USER_EMAIL AND active_status = 1'
+                        ,['USER_EMAIL' => $userEmail]
+                        ,TRUE);
+                else:
+                    $httpCode = 406; // Not Acceptable
+                    $errorMsg = "Parâmetro E-mail inválido!";
+                    ShowReturnError($httpCode, $errorMsg);
+                endif;    
+            
+            // Unknown Key
             else:
-                echo json_encode(['mensagem' => 'Parâmetro inválido!']);
-            endif;
+                $httpCode = 406; // Not Acceptable
+                $errorMsg = "Informe uma Chave (key) correta!";
+                ShowReturnError($httpCode, $errorMsg);
+            endif;          
+        endif;
+
+        // Final DATA
+        if (!Empty($dados)):
+            http_response_code(200);
+            echo json_encode($dados);
+            return;           
+        else:
+            $httpCode = 404; // Not Found
+            $errorMsg = "Pesquisa nao encontrada!";
+            ShowReturnError($httpCode, $errorMsg);
         endif;
         
-        if (!Empty($dados)):  
-            echo json_encode($dados);
-            http_response_code(200);
-        else:
-            echo json_encode(['mensagem' => 'Pesquisa nao encontrada!']);
-            // http_response_code(406);
-            exit;
-        endif;
     else:
-        http_response_code(406);
-        echo json_encode(['mensagem' => 'Parâmetro não preenchido na consulta!']);
-        exit;
+        $httpCode = 406; // Not Acceptable
+        $errorMsg = "Parâmetro não preenchido na consulta!";
+        ShowReturnError($httpCode, $errorMsg);
     endif;
 endif;
 

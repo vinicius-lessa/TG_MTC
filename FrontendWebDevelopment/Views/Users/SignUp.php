@@ -44,7 +44,7 @@
         <div class="form-cadastro rounded">
           <form action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
             <div class="form-floating mb-2">
-              <input type="text" class="form-control" placeholder="Nome" id="floatingInput" name="nomeUsuario" required>
+              <input type="text" class="form-control" placeholder="Nome" id="floatingInput" name="username" required>
               <label for="floatingInput">Nome</label>
             </div>
 
@@ -73,7 +73,7 @@
             </div>
 
             <div class="form-floating mb-2">
-              <input list="tipoPessoa" class="form-control" placeholder="F" id="floatingInput" name="tipoPessoa" required>
+              <input list="tipoPessoa" class="form-control" placeholder="F" id="floatingInput" name="persontype" required>
               <label for="floatingInput">Tipo Pessoa</label>
               <datalist id="tipoPessoa">
                 <option value="Física">
