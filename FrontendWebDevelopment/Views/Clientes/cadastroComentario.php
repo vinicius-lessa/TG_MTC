@@ -33,7 +33,7 @@ $titlePage = "Adicionar Comentario";
 
 <body>
 
-<?php include SITE_PATH . '/includes/menu.php'; ?>
+<?php include SITE_PATH . '/includes/header.php'; ?>
 
 <main class="min-h-50 pb-5">
   <div class="container col-8 mt-5 pt-5 pb-5 ">

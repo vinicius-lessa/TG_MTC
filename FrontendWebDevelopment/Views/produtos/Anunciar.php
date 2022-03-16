@@ -35,7 +35,7 @@
 
 <body>
     <!-- Nav -->
-    <?php include SITE_PATH . '/includes/menu.php'; ?>
+    <?php include SITE_PATH . '/includes/header.php'; ?>
 
   <div class="container mt-5">
     <div class="row justify-content-md-center text-center">

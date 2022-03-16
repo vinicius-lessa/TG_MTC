@@ -27,8 +27,8 @@ $titlePage = "Excluído!";
 </head>
 
 <body>
-  <!-- menu do site -->
-  <?php include SITE_PATH .'/includes/menu.php';?>
+  <!-- Header Include -->
+  <?php include SITE_PATH .'/includes/header.php';?>
 <body>
   <div class="container mt-5 ">
     <div class="row justify-content-md-center mt-5 mb-5 ">

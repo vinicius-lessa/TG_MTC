@@ -27,8 +27,8 @@ $titlePage = "Alterado!";
 </head>
 
 <body>
-  <!-- menu do site -->
-  <?php include SITE_PATH .'/includes/menu.php';?>
+  <!-- Header Include -->
+  <?php include SITE_PATH .'/includes/header.php';?>
 <body>
   <div class="container">
     <div class="row justify-content-md-center">

@@ -15,7 +15,7 @@
   $titlePage      = 'Clientes Cadastrados';
   $listarClientes = [];
 
-  require SITE_PATH . '/Controllers/c_cliente.php';
+  require SITE_PATH . '/Controllers/c_user.php';
 
 ?>
 <!DOCTYPE html>

@@ -26,7 +26,7 @@ session_destroy();
 </head>
 
 <body>
-  <!-- menu do site -->
+  <!-- Header Include -->
   <?php include SITE_PATH.'/includes/menu-adm.php'; ?>
   <!--conteudo da pagina -->
 

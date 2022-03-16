@@ -36,8 +36,8 @@
 
   <body class="d-flex flex-column h-100 bk-preto">
     
-    <!-- menu do site -->
-    <?php include SITE_PATH . '/includes/menu.php'; ?>
+    <!-- Header Include -->
+    <?php include SITE_PATH . '/includes/header.php'; ?>
     
     <!-- Begin page content -->
     <main>
@@ -129,7 +129,7 @@
       </div>
     </div>
 
-    <!-- footer -->
+    <!-- Footer Include -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <script src="<?php echo SITE_URL ?>/bootstrap/js/bootstrap.bundle.min.js"></script>

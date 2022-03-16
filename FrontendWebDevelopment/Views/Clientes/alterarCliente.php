@@ -35,8 +35,8 @@ $titlePage = "Alterar Cadastro";
 </head>
 
 <body>
-  <!-- menu do site -->
-  <?php include SITE_PATH .'/includes/menu.php';?>
+  <!-- Header Include -->
+  <?php include SITE_PATH .'/includes/header.php';?>
   <!--conteudo da pagina -->
 <main>
 <!--conteudo da pagina -->

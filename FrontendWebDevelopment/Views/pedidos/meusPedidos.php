@@ -39,8 +39,8 @@ require SITE_PATH . '/Controllers/c_pedido.php';
 </head>
 
 <body>
-<!-- menu do site -->
-<?php include SITE_PATH . '/includes/menu.php'; ?>
+<!-- Header Include -->
+<?php include SITE_PATH . '/includes/header.php'; ?>
 
 <!--conteudo da pagina -->
 <main class="min-h-60 mt-4 ">

@@ -36,7 +36,7 @@
 
   <body>
     <!-- Nav -->
-    <?php include SITE_PATH . '/includes/menu.php'; ?>
+    <?php include SITE_PATH . '/includes/header.php'; ?>
     
     <!-- Conteudo da pagina -->
     <main>
