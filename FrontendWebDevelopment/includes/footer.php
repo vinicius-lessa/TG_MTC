@@ -1,6 +1,6 @@
-<footer class="footer mt-auto py-3 bk-preto">
-  <div class="container">
-    <span class="text-muted">&copy; Music Trade Center / 2018 – 2022</span>
+<footer class="footer mt-5 py-3 bk-preto">
+  <div class="container text-center">
+    <span class="text-muted">&copy; Music Trade Center (MTC) – 2022</span>
   </div>
   
   <!-- <div class="container-fluid">

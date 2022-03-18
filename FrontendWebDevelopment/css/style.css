@@ -2,6 +2,7 @@
 * @descrption CSS File for the entire project - 2022/03 
 * @ChangeLog
 *   2022/03/04 - Vinícius Lessa - Primeiras mudanças, e criação das próprias classes.
+*   2022/03/15 - Vinícius Lessa - Ajustes referentes ao Formulário defaut.
 */
 
 /* ################################ Default Elements
@@ -20,7 +21,7 @@ footer{
 }
 
 .btn-default {
-  background-color: #c71c1c;
+  background-color: #df3535;
   color: #ffffff;
   border-radius: 10px;
   width: 50%;
@@ -31,11 +32,15 @@ footer{
 /* ################################ Forms
 */
 
-.form-cadastro {
+.form-default {
   width: 100%;
   max-width: 330px;
   padding: 15px;
   margin: auto;
+}
+
+.form-default div {
+  margin: 10px 0 20px 0;
 }
 
 /* ################################ Colors
@@ -56,18 +61,29 @@ footer{
   background-color: #af0b0b;
 }
 
-/*Fonte color*/
+/* #userEmail {
+  padding: 40px ;
+} */
+
+/* ################################ Fonts
+*/
+
+.font-main  {
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Font Color */
+
 .text-white {
   color: #ffffff;
 }
 
 .text-red {
-  color: #af0b0b;
+  color: #c31919;
 }
 
-.font-main  {
-  /* font-style: italic; */
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.text-lightred {
+  color: #f64141;
 }
 
 /*remover sublinhado*/

@@ -3,9 +3,9 @@
         include_once '../config.php';
     }
 
-    include SITE_PATH . '/Models/m_cliente.php';
+    include SITE_PATH . '/Models/m_user.php';
 
-    /* Recebe POST do FORM */
+    // SingUp
     if (isset($_POST['signUp'])) {
         $data = [];
         foreach ($_POST as $key => $value) {
@@ -18,10 +18,12 @@
             }
         }
 
-        echo "<pre>" . var_dump($data['email']) . "</pre>";
-
+        // Check recived values
+        $string=implode(",",$data);
+        echo $string;
+        
         // if (userCreation($data)) {
-        //     header("location:" . SITE_URL . "/Views/Users/returnSuccess.php");
+        //     header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
         // } else {
         //     $msgErro = "Ocorreu um erro para cadastrar o usuario no banco, tente novamente";
         //     header("location:" . SITE_URL . "/Views/home/PaginaErro.php?erro=$msgErro");

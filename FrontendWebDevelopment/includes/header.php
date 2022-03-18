@@ -22,10 +22,10 @@
 
       <ul class="nav justify-content-end">
         <li class="nav-item">
-            <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/Users/SignUp.php">Cadastrar</a>
+            <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/SignUp.php">Cadastrar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/Users/SignIn.php">Entrar</a>
+          <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/SignIn.php">Entrar</a>
         </li>
       </ul>
 

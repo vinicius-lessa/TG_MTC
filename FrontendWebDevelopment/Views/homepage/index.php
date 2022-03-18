@@ -16,16 +16,27 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
   <head>
-    <meta charset='utf-8'>
+  <meta charset='utf-8'>    
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>    
-        
-    <link href="<?php echo SITE_URL ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+
+    <!-- Page Data -->
+    <meta name="author" content="Vinícius Lessa / Iuri Ferreira">
+    <meta name="description" content="Página de criação de cadastro por parte do usuário do sistema.">
+    <title> <?php echo $titlePage; ?> </title>
+    
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png"> 
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/main.js"></script>    
 
     <title> 
       <?php echo $titlePage; ?>
@@ -34,7 +45,7 @@
     <script src='<?php echo SITE_URL ?>/js/main.js'></script>
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto">
+  <body class="d-flex flex-column h-100 bk-preto font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>

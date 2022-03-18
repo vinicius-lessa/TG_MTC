@@ -3,96 +3,106 @@
       include_once '../../config.php';
     }
 
-    $titlePage = "Cadastro";
+    $titlePage = "MTC | Cadastro";
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br" class="h-100">
   <head>
-    <meta charset='utf-8'>
+    <meta charset='utf-8'>    
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <meta name="description" content="">
-    <meta name="author" content="">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 
-    <link href="<?php echo SITE_URL ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Page Data -->
+    <meta name="author" content="Vinícius Lessa / Iuri Ferreira">
+    <meta name="description" content="Página de criação de cadastro por parte do usuário do sistema.">
+    <title> <?php echo $titlePage; ?> </title>
+    
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png"> 
 
-    <title> 
-      <?php echo $titlePage; ?>
-    </title>
-
-    <script src='<?php echo SITE_URL ?>/js/main.js'></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto">
+  <body class="d-flex flex-column h-100 bk-preto font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH .'/includes/header.php';?>
     
     <!-- Begin page content -->
     <main>
-      <div class="container text-center">
+      <div class="container">
         
         <!-- Title -->
-        <div>
+        <div class="text-center">
           <h2 class="text-white">Criar Conta</h2>
         </div>
         
         <!-- Form -->
-        <div class="form-cadastro rounded">
-          <form action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
-            <div class="form-floating mb-2">
-              <input type="text" class="form-control" placeholder="Nome" id="floatingInput" name="username" required>
-              <label for="floatingInput">Nome</label>
+        <div class="form-default ">
+          <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
+            <div class="form-floating">
+              <input type="text" class="form-control" placeholder="Nome" id="userName" name="username">
+              <label for="userName">Nome</label>
             </div>
 
-            <div class="form-floating mb-2">
-              <input type="email" class="form-control" placeholder="name@example.com" id="floatingInput" name="email" required>
-              <label for="floatingInput">Endereço de E-mail</label>
+            <div class="form-floating">
+              <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
+              <label for="userEmail">E-mail</label>
             </div>
 
-            <div class="form-floating mb-2">
-              <input type="password" class="form-control" placeholder="Senha" id="floatingInput" name="password" required>
-              <label for="floatingInput">Senha</label>
+            <div>
+              <small class="text-lightred" id='emailAlert'></small>
             </div>
 
-            <div class="text-white mt-5 mb-3">
+            <div class="form-floating">
+              <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
+              <label for="userPassword">Senha</label>
+            </div>
+
+            <div class="text-center text-white mt-5 mb-3">
               <h3>Outras Informações</h3>
             </div>              
 
-            <div class="form-floating mb-2">
-              <input type="date" class="form-control" placeholder="01/10/2000" id="floatingInput" name="birthday" required>
-              <label for="floatingInput">Data Nascimento</label>
+            <div class="form-floating">
+              <input type="date" class="form-control" placeholder="01/10/2000" id="userBirthday" name="birthday">
+              <label for="userBirthday">Data Nascimento</label>
             </div>
 
-            <div class="form-floating mb-2">
-              <input type="tel" class="form-control" placeholder="(11)XXXX-XXXX" id="floatingInput" name="phone">
-              <label for="floatingInput">Telefone/Celular</label>
+            <div class="form-floating">
+              <input type="tel" class="form-control" placeholder="(11)XXXX-XXXX" id="userPhone" name="phone">
+              <label for="userPhone">Telefone/Celular</label>
             </div>
 
-            <div class="form-floating mb-2">
-              <input list="tipoPessoa" class="form-control" placeholder="F" id="floatingInput" name="persontype" required>
-              <label for="floatingInput">Tipo Pessoa</label>
-              <datalist id="tipoPessoa">
-                <option value="Física">
-                <option value="Jurídica">
-              </datalist>
+            <!-- Tornar REQUERIDO via JS -->
+            <div class="form-floating">
+              <select class="form-select pt-3 pb-3" name="persontype" id="userType">
+                <option selected>Tipo Pessoa</option>
+                <option value="F">Física</option>
+                <option value="J">Jurídica</option>
+              </select>
             </div>
 
-            <div class="form-floating mb-2">
-              <input type="text" class="form-control" placeholder="18100-000" id="floatingInput" name="cep">
-              <label for="floatingInput">CEP</label>
+            <div class="form-floating">
+              <input type="text" class="form-control" placeholder="18100-000" id="userZipCode" name="cep">
+              <label for="userZipCode">CEP</label>
             </div>
 
-            <input class="btn-default btn mt-5 mb-5" type="submit" value="Confirmar" name="signUp" id="criar">
+            <div class="text-center">
+              <input class="submit-btn btn-default btn" type="submit" value="Criar!" name="signUp" id="signUp">
+            </div>
 
-            <div class="text-white mb-3 mt-3 text-center px-md-3">
-              <p>Já possui conta?
-                <a href="<?php echo SITE_URL ?>/Views/Users/SignIn.php">Entrar</a>
-              </p>
-            </div>            
+            <div class="mt-5 text-white text-center">
+              <span>Já possui conta?
+                <a href="<?php echo SITE_URL ?>/Views/users/SignIn.php">Entrar</a>
+              </span>
+            </div>
           </form>
         </div>
       </div>
@@ -101,4 +111,7 @@
     <!-- footer site -->
     <?php include SITE_PATH .'/includes/footer.php';?>
   </body>
+    
+  <!-- Scripts -->
+  <script src="<?php echo SITE_URL ?>/js/main.js"></script>
 </html>

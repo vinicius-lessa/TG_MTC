@@ -8,19 +8,30 @@
         $token  = "16663056-351e723be15750d1cc90b4fcd";
         $key    = "email";
         $value  = $dados['email'];
-                
+
         $url = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token={$token}&key={$key}&value={$value}";
         
-        $result = file_get_contents($url);
-
-        // Failed
-        if ($result == false || $result == 0):
-            
-        // Success
+        // file_get_contents
+        $opts = array('http' =>
+        [
+            'method'  => 'GET',
+            'ignore_errors' => true,
+        ]);
+        $context  = stream_context_create($opts);
+        $response = file_get_contents($url, false, $context);
+        
+        // Tranforms Json in Array
+        $resultArray = json_decode($response);
+    
+        // Requisition Failed
+        if (count($resultArray) == 0 || $response == false):
+            $resultArray = array("Error" => "A requisição ao Servidor falhou, verifique a URL!");
+            return $resultArray;
+        // Requisition Succed
         else:
-            if (Empty($result)) {                
-                $resultJson = json_decode($result);            
-            
+            // User Not Found (by e-mail)
+
+            if ($resultArray[0]->email <> $value) {
                 /* 
                 CRIA USUÁRIO
                 
@@ -35,10 +46,15 @@
                 // foreach($aResult as &$Value){
                 //     echo "Nome: " . $Value["username"];
                 // }
-    
+
+                $resultArray = array("Return" => $resultArray[0]->email . " - " . $value);
+                return $resultArray;
+            
+            // User already exists
             } else {
-                // RETORNA FALSO + ERRO (usuário já existe)
-            }            
+                $resultArray = array("Return" => "Usuário já existe!");
+                return $resultArray;
+            }
         endif;
     }
 
