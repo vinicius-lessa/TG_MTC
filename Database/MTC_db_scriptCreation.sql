@@ -2,29 +2,41 @@
 * @description  SCRIP Oficial da criação do Banco de dados do projeto MTC (Musci Trade Center) e suas propriedades.
 * @changeLog
 *   2022/03/03 - Vinícius Lessa: Inserção das primeiras instruções.
+*   2022/03/22 - Vinícius Lessa: Ajustes e melhorias na tabela `users`
+*   2022/03/23 - Vinícius Lessa: Inserção do Script para a criação e estruturação das tabelas `TradePosts`, `ProductConditions`, `Category`, `Models` , `Colors`
+*
 */
 
--- ## 1º - Criar Banco de Dados
-CREATE DATABASE 'dbtg2022' CHARSET='utf8_general_ci'
+-- #######################
 
--- ## 2º - Criar tabel de USUÁRIOS do sistema
-CREATE TABLE `users`
+
+-- ## 1º - Criar Banco de Dados
+CREATE DATABASE dbtg2022
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
+
+
+-- ## 2º - Criar tabela 'users', referente aos usuários do sistema
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users`
 (
-    `user_id`       int(11) NOT NULL auto_increment ,
-    `username`      varchar(150) NOT NULL ,
-    `birthday`      date NOT NULL , -- 'YYYY-MM-DD'
-    `phone`         varchar(15) DEFAULT NULL ,
-    `tipo_pessoa`   char NOT NULL ,
-    `email`         varchar(150) NOT NULL ,
-    `cpf_cnpj`      varchar(14) DEFAULT NULL ,
-    `cep`           varchar(8) DEFAULT NULL ,
-    `city`          varchar(50) DEFAULT NULL ,
-    `district`      varchar(50) DEFAULT NULL ,
-    `bio`           varchar(255) DEFAULT NULL ,
-    `active_status` boolean NOT NULL , -- 0 is false, 1 is true
-    `password`      varchar(255) NOT NULL ,
-    CONSTRAINT users_pk PRIMARY KEY (user_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    `user_id`         int(11) NOT NULL auto_increment       ,
+    `user_name`       varchar(50) NOT NULL                  ,
+    `birthday`        date NOT NULL                         , -- 'YYYY-MM-DD'
+    `phone`           varchar(15) DEFAULT NULL              ,
+    `tipo_pessoa`     enum( 'F','J' ) NOT NULL DEFAULT 'F'  ,
+    `email`           varchar(50) NOT NULL UNIQUE           ,
+    `cpf_cnpj`        varchar(14) DEFAULT NULL UNIQUE       ,
+    `cep`             varchar(8) DEFAULT NULL               ,
+    -- `city`            varchar(50) DEFAULT NULL ,
+    -- `district`        varchar(50) DEFAULT NULL ,
+    `bio`             text(250) DEFAULT NULL                ,
+    `activity_status` boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
+    `password`        varchar(255) NOT NULL                 ,
+    `created_on`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `modified_on`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT PK_users PRIMARY KEY (user_id);
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
 -- ## 3º - Show info about USERS Table
@@ -33,33 +45,20 @@ DESCRIBE `users`;
 
 -- ## 4º Inserting Data into the USERS Table
 INSERT INTO `users`
-(
-	`username`,
-	`birthday`,
-	`phone`,
-	`tipo_pessoa`,
-	`email`,
-	`cpf_cnpj`,
-	`cep`,
-	`city`,
-	`district`,
-	`bio`,
-	`active_status`,
-	`password`
+(	
+  `user_name`, `birthday`, `phone`, `tipo_pessoa`, `email`, `cpf_cnpj`, `cep`, `bio`, `activity_status`, `password` 
 ) 
 VALUES
 (
-    'Vinícius Lessa',
-    '1998-10-17',
-    '+55011950769587',
-    'F', 
-    'vinicius.lessa33@gmail.com',
-    '46269889898',
-    '18147000',
-    'Araçariguama',
-    'Jardim Bela Vista',
-    'Músico a 10 anos, toco guitarra, violão, contrabaixo, teclado e bateria. Possui um Home Studio onde realizo minhas gravações e demos.',
-    true, 
+  'Vinícius Lessa',
+  '1998-10-17',
+  '+55011950769587',
+  'F', 
+  'vinicius.lessa33@gmail.com',
+  '46269889898',
+  '18147000',
+  'Músico a 10 anos, toco guitarra, violão, contrabaixo, teclado e bateria. Possui um Home Studio onde realizo minhas gravações e demos.',
+  true, 
 	'$2y$10$dPxmh5OM5vULhzJ9ukd3r.DJ9275YEng7u.iQrHRYd.WY0eCkBoRu'
 ),
 (
@@ -68,25 +67,212 @@ VALUES
     '+55011950769587',
     'F',
     'renata.carrillo@gmail.com',
-    '46269889898',
+    '46269889899',
     '18147000',
-    'São Roque',
-    'Jardim Meny',
-    'Tentei tocar um pouco de vioção, mas FRACASSEI duas vezes',
+    'Tentei tocar um pouco de violão, mas FRACASSEI duas vezes',
     true,
 	'$2y$10$dPxmh5OM5vULhzJ9ukd3r.DJ9275YEng7u.iQrHRYd.WY0eCkBoRu'
 );
 
--- #######################################################################################################################
+-- ## 5º - Criar tabela `product_categorys`, referente a CATEGORIA de produtos
+DROP TABLE IF EXISTS `product_categorys`;
+CREATE TABLE IF NOT EXISTS `product_categorys`
+(
+  `category_id`           int(11)       NOT NULL auto_increment ,
+  `description`           varchar(50)   NOT NULL UNIQUE         ,
+  `activity_status`       boolean NOT NULL DEFAULT 1 			      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,  
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_product_categorys PRIMARY KEY (category_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
-/**
-* ## ANALISAR
-*/
+-- ## 6º - Insere Dados na tabela `product_categorys`
+INSERT INTO `product_categorys` 
+( `description`, `activity_status` )
+VALUES
+( 'Guitarras'           , true	) ,
+( 'Violões'             , true	) ,
+( 'Contrabaixos'        , true	) ,
+( 'Baterias'            , true  ) ,
+( 'Amplificadores'      , true  ) ,
+( 'Mesas de Som'        , true  ) ,
+( 'Microfones'          , true  ) ,
+( 'Cabos e Adaptadores' , true  ) ,
+( 'Baixolões'           , true  ) ,
+( 'Capas e Cases'       , true  ) ,
+( 'Interfaces de Som'   , true  ) ,
+( 'Pedaleiras'          , true  ) ;
+
+
+-- ## 7º - Criar tabela `product_brands`, referente as MARCAS de produtos
+DROP TABLE IF EXISTS `product_brands`;
+CREATE TABLE IF NOT EXISTS `product_brands`
+(
+  `brand_id`              int(11)       NOT NULL auto_increment ,
+  `description`           varchar(50)   NOT NULL                ,
+  `category_id`           int(11)       NOT NULL                ,
+  `activity_status`       boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_product_brands PRIMARY KEY (brand_id),
+  CONSTRAINT FK_categorys_brands FOREIGN KEY (category_id) REFERENCES product_categorys(category_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+
+-- ## 8º - Insere Dados na tabela `product_brands`
+INSERT INTO `product_brands`
+( `description` , `category_id`, `activity_status` )
+VALUES
+( 'Ibanez'    , '1', true	) ,
+( 'Ibanez'    , '2', true	) ,
+( 'Michael'   , '1', true	) ,
+( 'Michael'   , '2', true	) ,
+( 'Michael'   , '1', true	) ,
+( 'Dean'      , '2', true	) ,
+( 'Tagima'    , '1', true ) ,
+( 'Tagima'    , '2', true ) ,
+( 'Strinberg' , '1', true ) ,
+( 'Strinberg' , '2', true ) ,
+( 'Pearl'     , '4', true ) ,
+( 'Ludwig'    , '4', true ) ,
+( 'Mapex'     , '4', true ) ,
+( 'Shelter'   , '13', true ) ,
+( 'Woodwinds' , '13', true ) ,
+( 'SML'       , '13', true ) ,
+( 'Shure'     , '7', true ) ,
+( 'Sennheiser', '7', true ) ,
+( 'Lyco'      , '7', true ) ,
+( 'Behringer' , '7', true ) ,
+( 'Behringer' , '11', true ) ;
+
+
+-- ## 9º - Criar tabela `product_models`, referente ao Modelo de produtos
+DROP TABLE IF EXISTS `product_models`;
+CREATE TABLE IF NOT EXISTS `product_models`
+(
+  `model_id`              int(11)       NOT NULL auto_increment ,
+  `description`           varchar(50)   NOT NULL UNIQUE         ,
+  `brand_id`              int(11)       NOT NULL                ,
+  `activity_status`       boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_product_models PRIMARY KEY (model_id) ,
+  CONSTRAINT FK_brand_model FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 10º - Insere Dados na tabela `product_brands`
+INSERT INTO `product_models`
+( `description`, `brand_id`, `activity_status` )
+VALUES
+( 'Aad170ce'              , '1', true	) ,
+( 'Tube Screamer Ts9'     , '1', true	) ,
+( 'Rg470mbafm'            , '1', true	) ,
+( 'Ts808 Dx'              , '1', true  ) ,
+( 'Es 3 Echo Shifter'     , '1', true  ) ,
+( 'Rg420hpfm'             , '1', true  ) ,
+( 'Mahogany Series'       , '7', true  ) ,
+( 'Legacy Maple Series'   , '7', true  ) ,
+( 'Vistalite Series'      , '7', true  ) ,
+( 'NeuSonic Series'       , '7', true  ) ,
+( 'Classic Maple Series'  , '7', true  ) ;
+
+
+-- ## 11º - Criar tabela `product_conditions`, referente as Condições do Produtos no anúncio
+DROP TABLE IF EXISTS `product_conditions`;
+CREATE TABLE IF NOT EXISTS `product_conditions`
+(
+  `condition_id`          int(11)       NOT NULL auto_increment ,
+  `description`           varchar(50)   NOT NULL UNIQUE         ,
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_product_conditions PRIMARY KEY (condition_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 12º - Insere Dados na tabela `product_conditions`
+INSERT INTO `product_conditions`
+( `description`, `activity_status` )
+VALUES
+( 'Produto Novo'                      , true	) ,
+( 'Usado, estado de Novo'             , true	) ,
+( 'Usado, com detalhes'               , true	) ,
+( 'Pare restauração/reaproveitamento' , true  ) ;
+
+
+-- ## 13º - Criar tabela `colors`, referente as cores utilizadas no sistema em geral
+DROP TABLE IF EXISTS `colors`;
+CREATE TABLE IF NOT EXISTS `colors`
+(
+  `color_id`              int(11)       NOT NULL auto_increment ,
+  `description`           varchar(50)   NOT NULL UNIQUE         ,
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_colors PRIMARY KEY (color_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 14º - Insere Dados na tabela `colors`
+INSERT INTO `colors`
+( `description`, `activity_status` )
+VALUES
+( 'Vermelho'  , true	) ,
+( 'Azul'      , true	) ,
+( 'Preto'     , true	) ,
+( 'Cinza'     , true  ) ,
+( 'Roxo'      , true  ) ,
+( 'Amarelo'   , true  ) ,
+( 'Laranja'   , true  ) ,
+( 'Outras'    , true  ) ;
+
+
+-- ## 15º - Criar tabela `trade_posts`, referente aos ANÚNCIOS de produtos
+DROP TABLE IF EXISTS `trade_posts`;
+CREATE TABLE IF NOT EXISTS `trade_posts`
+(
+  `post_id`               int(11)       NOT NULL auto_increment ,
+  `title`                 varchar(50)   NOT NULL                ,
+  `description`           text(500)     DEFAULT NULL            ,
+  `category_id`           int(11)       NOT NULL                ,
+  -- `category_description`  varchar(50)   NOT NULL                ,
+  `brand_id` 	            int(11)	      NOT NULL                ,
+  -- `brand_description`	    varchar(50)	  DEFAULT NULL            ,
+  `model_id`              int(11)       NOT NULL                ,
+  -- `model_description`     varchar(50)   DEFAULT NULL            ,
+  `color_id`              int(11)       NOT NULL                ,
+  -- `color_description`     varchar(50)   DEFAULT NULL            ,
+  `condition_id`          int(11)       NOT NULL                ,
+  -- `condition_description` varchar(50)   DEFAULT NULL            ,
+  `user_id`               int(11)       NOT NULL                ,
+  -- `user_name`             varchar(50)   NOT NULL                ,  
+  `price`                 decimal(7,2)  UNSIGNED NOT NULL       , 
+  `eletronic_invoice`     boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true  
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_trade_posts     PRIMARY KEY (post_id) ,
+  CONSTRAINT FK_categorys_posts FOREIGN KEY (category_id) REFERENCES product_categorys(category_id) ,
+  CONSTRAINT FK_brands_posts    FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id) ,  
+  CONSTRAINT FK_models_posts    FOREIGN KEY (model_id) REFERENCES product_models(model_id) ,
+  CONSTRAINT FK_colors_posts    FOREIGN KEY (color_id) REFERENCES colors(color_id) ,
+  CONSTRAINT FK_conditions_post FOREIGN KEY (condition_id) REFERENCES product_conditions(condition_id) ,
+  CONSTRAINT FK_users_posts     FOREIGN KEY (user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 15º - Insere Dados na tabela `trade_posts`
+INSERT INTO `trade_posts`
+( `title`, `description`, `category_id`, `brand_id`, `model_id`, `color_id`, `condition_id`, `user_id`, `price`, `eletronic_invoice`, `activity_status` )
+VALUES
+( 'Guitarra Ibanez', 'Vendo minha guitarra Ibanez usada, tenho ela há 8 anos aproxiamadamente.', '2', '2', '2', '2', '2', '1', '1500.50', true, DEFAULT ) ;
+
+
+
+-- ####################################################################################################################### ANALISAR
+
 --
 -- Estrutura da tabela `comentario`
 --
 
-CREATE TABLE `comentario` (
+CREATE TABLE IF NOT EXISTS `comentario` (
   `cod_comentario` int(11) NOT NULL,
   `cod_cliente` int(11) DEFAULT NULL,
   `cod_anuncio` int(11) DEFAULT NULL,
@@ -131,219 +317,10 @@ CREATE TABLE `favorito` (
 INSERT INTO `favorito` (`cod_favorito`, `cod_anuncio`, `cod_cliente`, `data_inclusao`) VALUES
 (1, 6, 2, '2020-06-20');
 
--- --------------------------------------------------------
-
---
--- TABELA MARCA
---
-
--- ESTRUTURA
-
-CREATE TABLE `marca` (
-  `cod_marca` int(11) NOT NULL,
-  `descricao_marca` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- ÍNDICES - CHAVES ESTRANGEIRAS
-
-ALTER TABLE `marca`
-  ADD PRIMARY KEY (`cod_marca`);
-
-ALTER TABLE `marca`
-  MODIFY `cod_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
-
--- INSERÇÃO DE DADOS
-
-INSERT INTO `marca` (`cod_marca`, `descricao_marca`) VALUES
-(1, 'Ibanez'),
-(2, 'Gibson'),
-(3, 'Fender'),
-(4, 'Epiphone');
-
-
---
--- TABELA MODELO
---
-
-CREATE TABLE `modelo` (
-  `cod_modelo` int(11) NOT NULL,
-  `descricao_modelo` varchar(50) NOT NULL,
-  `cod_categoria` int(11) NOT NULL,
-  `nome_categoria` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- ÍNDICES - CHAVES ESTRANGEIRAS
-
-ALTER TABLE `modelo`
-  ADD PRIMARY KEY (`cod_modelo`);
-
-ALTER TABLE `modelo`
-  MODIFY `cod_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
-ALTER TABLE `modelo`
-  ADD KEY `FK_modelo_categoria` (`cod_categoria`);
- 
-ALTER TABLE `modelo`
-  ADD CONSTRAINT `FK_modelo_categoria` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`);
-
-
--- INSERÇÃO DE DADOS
-
-INSERT INTO `modelo` 
-  (
-    `cod_modelo`, 
-    `descricao_modelo`,
-    `cod_categoria`, 
-    `nome_categoria`
-  ) VALUES
-  (1, 'Super Strato',1,'Guitarras'),
-  (2, 'Les Paul',1,'Guitarras'),
-  (3, 'Stratocaster',1,'Guitarras'),
-  (4, 'Telecaster',1,'Guitarras'),
-  (5, 'Flying V',1,'Guitarras'),
-  (6, 'SG',1,'Guitarras');
-
---
--- TABELA CATEGORIA
---
-
--- ESTRUTURA
-
-CREATE TABLE `categoria` (
-  `cod_categoria` int(11) NOT NULL,
-  `nome_categoria` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- INSERÇÃO DE DADOS
-
-INSERT INTO `categoria` (`cod_categoria`, `nome_categoria`) VALUES
-(1, 'Guitarras'),
-(2, 'Violões'),
-(3, 'ContraBaixos'),
-(4, 'Baterias'),
-(5, 'Amplificadores'),
-(6, 'Mesas de Som'),
-(7, 'Microfones'),
-(8, 'Cabos e Adaptadores'),
-(9, 'Baixolões'),
-(10, 'Capas e Cases'),
-(11, 'Interfaces de Som');
-
-
--- ÍNDICES - CHAVES ESTRANGEIRAS
-
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`cod_categoria`);
-
-ALTER TABLE `categoria`
-  MODIFY `cod_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- TABELA ANUNCIOS
---
-
--- ESTRUTURA
-
-CREATE TABLE `anuncios` (
-  `cod_anuncio` int(11) NOT NULL,
-  `titulo_anuncio` varchar(50) NOT NULL,
-  `descricao_anuncio` varchar(250) DEFAULT NULL,
-  `valor_un` decimal(6,2) NOT NULL,
-  `cover_img` varchar(250) DEFAULT NULL,
-  `banner_img` varchar(250) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 1,
-  `cod_categoria` int(11) NOT NULL,
-  `descricao_categoria` varchar(50) NOT NULL,
-  `cod_marca` int(11) NOT NULL,
-  `descricao_marca` varchar(50) NOT null,
-  `cod_modelo` int(11) NOT NULL,
-  `descricao_modelo` varchar(50) NOT NULL,
-  `cod_usuario` int(11) NOT NULL,
-  `nome_usuario` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
--- ÍNDICES - CHAVES ESTRANGEIRAS
-
-ALTER TABLE `anuncios`
-  ADD PRIMARY KEY (`cod_anuncio`),
-  ADD KEY `FK_anuncio_categoria` (`cod_categoria`),
-  ADD KEY `FK_anuncio_marca` (`cod_marca`),
-  ADD KEY `FK_anuncio_modelo` (`cod_modelo`),
-  ADD KEY `FK_anuncio_usuario` (`cod_usuario`);
-
-ALTER TABLE `anuncios`
-  ADD CONSTRAINT `FK_anuncio_categoria` FOREIGN KEY (`cod_categoria`) REFERENCES `categoria` (`cod_categoria`);
-
-ALTER TABLE `anuncios`
-  ADD CONSTRAINT `FK_anuncio_marca` FOREIGN KEY (`cod_marca`) REFERENCES `marca` (`cod_marca`);
-
-ALTER TABLE `anuncios`
-  ADD CONSTRAINT `FK_anuncio_modelo` FOREIGN KEY (`cod_modelo`) REFERENCES `modelo` (`cod_modelo`);
- 
-ALTER TABLE `anuncios`
-  ADD CONSTRAINT `FK_anuncio_usuario` FOREIGN KEY (`cod_usuario`) REFERENCES `usuario` (`cod_usuario`);
-
-
--- INSERÇÃO DE DADOS
-
-INSERT INTO `anuncios` 
-  (
-    `cod_anuncio`,
-    `titulo_anuncio`,
-    `descricao_anuncio`,
-    `valor_un`,
-    `cover_img`,
-    `banner_img`,
-    `status`,
-    `cod_categoria`,
-    `descricao_categoria`,
-    `cod_marca`,
-    `descricao_marca`,
-    `cod_modelo`,
-    `descricao_modelo`,
-    `cod_usuario`,
-    `nome_usuario`    
-  ) VALUES
-  (
-    1, 
-    'Guitarra Ibanez Preta', 
-    'Guitarra Profissional Ibanez preta ano 2014', 
-    '1300.00', 
-    'imagem-200620200332134861.jpg', 
-    'imagem-200620200332137057.jpg',
-    1,
-    1, 
-    'Guitarras', 
-    1, 
-    'Ibanez', 
-    1, 
-    'Super Strato',
-    1, 
-    'Vinícius Lessa'   
-  );
-
 
 
 /************************************************************************************************/
 
---
--- Índices para tabela `cliente`
---
-ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`cod_cliente`);
-
---
--- Índices para tabela `comentario`
---
-ALTER TABLE `comentario`
-  ADD PRIMARY KEY (`cod_comentario`),
-  ADD KEY `FK_comentario_cliente` (`cod_cliente`),
-  ADD KEY `FK_comentario_anuncio` (`cod_anuncio`);
 
 --
 -- Índices para tabela `favorito`
@@ -353,35 +330,7 @@ ALTER TABLE `favorito`
   ADD KEY `FK_favoritoo_cliente` (`cod_cliente`),
   ADD KEY `FK_favoritoo_anuncio` (`cod_anuncio`);
 
---
--- Índices para tabela `pedido`
---
-ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`cod_pedido`),
-  ADD KEY `FK_pedido_cliente` (`cod_cliente`);
 
---
--- Índices para tabela `pedido_item`
---
-ALTER TABLE `pedido_item`
-  ADD KEY `FK_pedidoitem_pedido` (`cod_pedido`),
-  ADD KEY `FK_pedidoitem_anuncio` (`cod_anuncio`);
-
---
--- AUTO_INCREMENT de tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `cliente`
---
-ALTER TABLE `cliente`
-  MODIFY `cod_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de tabela `comentario`
---
-ALTER TABLE `comentario`
-  MODIFY `cod_comentario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `favorito`
@@ -389,53 +338,10 @@ ALTER TABLE `comentario`
 ALTER TABLE `favorito`
   MODIFY `cod_favorito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT de tabela `pedido`
---
-ALTER TABLE `pedido`
-  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
---
--- AUTO_INCREMENT de tabela `anuncios`
---
-ALTER TABLE `anuncios`
-  MODIFY `cod_anuncio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
---
--- AUTO_INCREMENT de tabela `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `comentario`
---
-ALTER TABLE `comentario`
-  ADD CONSTRAINT `FK_comentario_cliente` FOREIGN KEY (`cod_cliente`) REFERENCES `cliente` (`cod_cliente`),
-  ADD CONSTRAINT `FK_comentario_anuncio` FOREIGN KEY (`cod_anuncio`) REFERENCES `anuncios` (`cod_anuncio`);
-
---
 -- Limitadores para a tabela `favorito`
 --
 ALTER TABLE `favorito`
   ADD CONSTRAINT `FK_favoritoo_cliente` FOREIGN KEY (`cod_cliente`) REFERENCES `cliente` (`cod_cliente`),
   ADD CONSTRAINT `FK_favoritoo_anuncio` FOREIGN KEY (`cod_anuncio`) REFERENCES `anuncios` (`cod_anuncio`);
-
---
--- Limitadores para a tabela `pedido`
---
-ALTER TABLE `pedido`
-  ADD CONSTRAINT `FK_pedido_cliente` FOREIGN KEY (`cod_cliente`) REFERENCES `cliente` (`cod_cliente`);
-
---
--- Limitadores para a tabela `pedido_item`
---
-ALTER TABLE `pedido_item`
-  ADD CONSTRAINT `FK_pedidoitem_pedido` FOREIGN KEY (`cod_pedido`) REFERENCES `pedido` (`cod_pedido`),
-  ADD CONSTRAINT `FK_pedidoitem_anuncio` FOREIGN KEY (`cod_anuncio`) REFERENCES `anuncios` (`cod_anuncio`);
-COMMIT;
-

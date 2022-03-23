@@ -52,6 +52,10 @@
               <label for="userName">Nome</label>
             </div>
 
+            <div>
+              <small class="text-lightred" id='nameAlert'></small>
+            </div>
+
             <div class="form-floating">
               <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
               <label for="userEmail">E-mail</label>

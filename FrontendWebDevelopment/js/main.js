@@ -5,7 +5,8 @@ $(document).ready(function(){
         
         // Variables
         
-        var email = $("#userEmail").val();        
+        var name = $("#userName").val();
+        var email = $("#userEmail").val();
 
         // Value Validations
 
@@ -17,8 +18,16 @@ $(document).ready(function(){
             $("#userEmail").css({'margin-bottom': '-10px','border': '1px solid #f64141'});
 
             return false;
-        } else {
+        } 
+        
+        if (email == null || email == "") {
+            $("#nameAlert").text('*campo obrigatório');
+            
+            // Style
+            $("#nameAlert").css('padding-left', '5px');
+            $("#userName").css({'margin-bottom': '-10px','border': '1px solid #f64141'});
 
+            return false;
         }
 
         // Check if E-mail already exists within DB
