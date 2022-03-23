@@ -2,17 +2,17 @@
 
 // LOCALHOST Version
 
-define('HOST'       , 'localhost:3306'  );
-define('DBNAME'     , 'dbtg2022'        );
-define('USER'       , 'root'            );
-define('PASSWORD'   , 'root'            );
+// define('HOST'       , 'localhost:3306'  );
+// define('DBNAME'     , 'dbtg2022'        );
+// define('USER'       , 'root'            );
+// define('PASSWORD'   , 'root'            );
 
-// WEB Version
+// WEB Version (HEROKU)
 
-// define('HOST'       , 'us-cdbr-east-04.cleardb.com' );
-// define('DBNAME'     , 'heroku_f8611d16df426e6'      );
-// define('USER'       , 'bc5758a825e4d6'              );
-// define('PASSWORD'   , 'aa7c67cc'                    );
+define('HOST'       , 'us-cdbr-east-05.cleardb.net' );
+define('DBNAME'     , 'heroku_916450fc20755ea'      );
+define('USER'       , 'b158a4653ac7fe'              );
+define('PASSWORD'   , '1b408bbf'                    );
  
 class ConexaoDB
 {
