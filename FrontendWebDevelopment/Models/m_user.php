@@ -1,88 +1,105 @@
 <?php
-    // INSERT / POST
-    function userCreation($dados)
-    {
-        // Checks if the e-mail given already exists
 
-        // Variables
-        $token  = "16663056-351e723be15750d1cc90b4fcd";
-        $key    = "email";
-        $value  = $dados['email'];
+// QUERY / GET
+function userValidation($user, $pass)
+{
+    // RECEBER DADOS
+    // MANDAR CONSULTA PARA BACK
+    // CASO RESULTADO FOR MAIOR QUE 0
+        // VERIFICA SENHA
+            // PERMITE LOGIN
+    // ELSE
+        // RETORNA MENSAGEM DE USUÁRIO INEXISTENTE
 
-        $url = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token={$token}&key={$key}&value={$value}";
         
-        // file_get_contents
-        $opts = array('http' =>
-        [
-            'method'  => 'GET',
+    // $sql = 'SELECT cod_cliente, nome_cliente, telefone, cpf, email, senha, cep  from cliente where email = ? ';
+    // $stmt = $conn->prepare($sql) ;
+    // $stmt->bind_param("s", $user);
+    // $stmt->execute();
+
+    // $result = $stmt->get_result()->fetch_assoc();
+
+    // $stmt->close();
+
+    // return password_verify($pass, $result['senha']) ?  $result : false;
+}
+
+// INSERT / POST
+function userCreation($data)
+{
+    // Variables
+    $token      = "16663056-351e723be15750d1cc90b4fcd";
+    $username   = $data['username'];
+    $email      = $data['email'];
+    $password   = $data['password'];
+    $persontype = $data['persontype'];
+    
+    $birthday   = $data['birthday'];
+    $phone      = $data['phone'];
+    $cep        = $data['cep'];
+
+    $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/';
+    
+    $postdata = http_build_query(
+        array(
+            'token'         => $token,
+            'user_name'     => $username,
+            'email'         => $email,
+            'password'      => $password,
+            'tipo_pessoa'   => $persontype,
+            'birthday'      => $birthday,
+            'phone'         => $phone,
+            'cep'           => $cep
+        )
+    );        
+    
+    $opts = array('http' =>
+        array(
+            'method'        => 'POST',
+            'header'        => 'Content-Type: application/x-www-form-urlencoded',
             'ignore_errors' => true,
-        ]);
-        $context  = stream_context_create($opts);
-        $response = file_get_contents($url, false, $context);
-        
-        // Tranforms Json in Array
-        $resultArray = json_decode($response);
+            'content'       => $postdata
+        )
+    );
     
-        // Requisition Failed
-        if (count($resultArray) == 0 || $response == false):
-            $resultArray = array("Error" => "A requisição ao Servidor falhou, verifique a URL!");
-            return $resultArray;
-        // Requisition Succed
-        else:
-            // User Not Found (by e-mail)
+    $context  = stream_context_create($opts);
+    
+    // file_get_contents
+    $returnJson = file_get_contents($url, false, $context);
+    
+    // Tranforms Json in Array
+    $aResult = json_decode($returnJson, true); // Trasnforma em Array
 
-            if ($resultArray[0]->email <> $value) {
-                /* 
-                CRIA USUÁRIO
-                
-                SE DEU CERTO {
-                    RETORNA VERDADEIRO
-                } SE NÃO {
-                    RETORNA FALSO + ERRO
-                } */
-    
-                // $aResult = json_decode(json_encode($returnJson), true)   ; // Trasnforma em Array
-    
-                // foreach($aResult as &$Value){
-                //     echo "Nome: " . $Value["username"];
-                // }
+    // Servers Problems
+    if (count($aResult) == 0 || $aResult == false):
+        $aResult = array("mensagem" => "A requisição ao Servidor falhou! Tente Novamente." , 'retorno' => false );
+    endif;
 
-                $resultArray = array("Return" => $resultArray[0]->email . " - " . $value);
-                return $resultArray;
-            
-            // User already exists
-            } else {
-                $resultArray = array("Return" => "Usuário já existe!");
-                return $resultArray;
-            }
-        endif;
+    // Query/DB Problems
+    $status_line = $http_response_header[0];
+    preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+    $status = $match[1];
+
+    if ($status !== "201") {
+        $aResult = array("mensagem" => $aResult['mensagem'], 'retorno' => false );
     }
 
-    function validarUsuario($user, $pass, $conn)
-    {
-        $sql = 'SELECT cod_cliente, nome_cliente, telefone, cpf, email, senha, cep  from cliente where email = ? ';
-        $stmt = $conn->prepare($sql) ;
-        $stmt->bind_param("s", $user);
-        $stmt->execute();
+    return $aResult;
+}
 
-        $result = $stmt->get_result()->fetch_assoc();
+// ################################################# ANALISAR
 
-        $stmt->close();
+/* FUNÇÃO PARA LISTAR CLIENTES (usuários) */
+function listarClientes($conn)
+{
+$sql = 'SELECT cod_cliente, nome_cliente, email FROM cliente';
+$stmt = $conn->prepare($sql);
+$stmt->execute();
 
-        return password_verify($pass, $result['senha']) ?  $result : false;
-    }
-
-    /* FUNÇÃO PARA LISTAR CLIENTES */
-    function listarClientes($conn)
-    {
-    $sql = 'SELECT cod_cliente, nome_cliente, email FROM cliente';
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return $result;
-    // print_r($result);
-    }
+$result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+return $result;
+// print_r($result);
+}
 
 ?>

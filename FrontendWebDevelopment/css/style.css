@@ -82,6 +82,14 @@ footer{
   color: #f64141;
 }
 
+.text-blue-link {
+  color: #1cb7e6;
+}
+
+.text-lightgray {
+  color: #d3d1d1;
+}
+
 /*remover sublinhado*/
 a.link-none:link {
   text-decoration: none;
@@ -91,7 +99,7 @@ a.link-none:link {
 /* ################################ JavaScript
 */
 
-#nameAlert, #emailAlert, #passwordAlert {
+#nameAlert, #emailAlert, #passwordAlert, #personTypeAlert {
   display: none;
   margin-left: 5px;
 }

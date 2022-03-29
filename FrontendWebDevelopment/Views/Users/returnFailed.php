@@ -17,7 +17,7 @@
 
     <!-- Page Data -->
     <meta name="author" content="Vinícius Lessa / Iuri Ferreira">
-    <meta name="description" content="Página exibida após a criação de conta pelo usuário caso o processo FUNCIONE CORRETAMENTE">
+    <meta name="description" content="Página exibida após a criação de conta pelo usuário caso o processo FALHE">
     <title> <?php echo $titlePage; ?> </title>
     
     <!-- StyleSheet -->
@@ -39,11 +39,15 @@
                         
             <div class="text-center">
                 <div class="row">
-                    <h3 class="text-white">Conta criada com sucesso!</h3>
+                    <h2 class="text-white">Puxa, tivemos um problema na criação de seu Usuário :(</h2>
+                </div>
+
+                <div class="row mt-3">
+                    <p class="text-lightgray">Erro: <? echo $_GET["error"]?> <p>
                 </div>
                         
                 <div class="row mt-5">
-                    <h6 class="text-white">Clique <a class='text-blue-link' href='<?php echo SITE_URL ?>/Views/users/SignIn.php'><strong>aqui</strong></a> para realizar o Login</h6>
+                    <h6 class="text-white">Clique <a class='text-blue-link' href='<?php echo SITE_URL ?>/Views/users/SignUp.php'><strong>aqui</strong></a> para tentar novamente</h6>
                 </div>
             </div>
         </div>

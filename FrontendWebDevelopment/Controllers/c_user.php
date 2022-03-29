@@ -5,7 +5,8 @@
 
     include SITE_PATH . '/Models/m_user.php';
 
-    // SingUp
+
+    // ###### SingUp
     if (isset($_POST['signUp'])) {
         $data = [];
         foreach ($_POST as $key => $value) {
@@ -18,29 +19,31 @@
             }
         }
 
-        // Check recived values
-        $string=implode(",",$data);
-        echo $string;
+        /*
+        // Check recived values        
         
-        // if (userCreation($data)) {
-        //     header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
-        // } else {
-        //     $msgErro = "Ocorreu um erro para cadastrar o usuario no banco, tente novamente";
-        //     header("location:" . SITE_URL . "/Views/home/PaginaErro.php?erro=$msgErro");
-        // }
+            $string=implode(",",$data);
+            echo $string;
+            var_dump($data);
+
+            echo "<br><hr><br>";
+            
+            var_dump(userCreation($data));
+        */        
+
+        $aResponse = userCreation($data);        
+
+        if ($aResponse['retorno']) {
+            header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
+        } else {
+            $msgErro = $aResponse['mensagem'];
+            header("location:" . SITE_URL . "/Views/users/returnFailed.php?error=$msgErro");
+        }
     }
 
-    // *****************************************************************************************************
-
-
-    /* LISTAR CLIENTES */
-    if (isset($listarClientes)) {
-        $listarClientes = listarClientes($conn);
-    }
-
-    /* Verificar se o usuario existe no banco para poder acessar o sistema */
-    if (isset($_POST['acessar'])) {
-        $usuario = validarUsuario($_POST['email'], $_POST['senha'], $conn);
+    // ###### SingIn
+    if (isset($_POST['signIn'])) {
+        $usuario = userValidation($_POST['email'], $_POST['senha']);
         // var_dump($usuario);
         if ($usuario) {
             session_start();
@@ -49,7 +52,7 @@
             $_SESSION['cod_cliente'] = $usuario['cod_cliente'];
             header("location:" . SITE_URL . "/Views/home/index.php");
         } else {
-            header("location:" . SITE_URL . "/Views/Clientes/loginCliente.php");
+            header("location:" . SITE_URL . "/Views/users/SignIn.php");
         }
     }
 
@@ -59,6 +62,12 @@
         header("location:" . SITE_URL . "/Views/home/index.php");
     }
 
-    // $conn->close();
+    // *****************************************************************************************************
+
+
+    /* LISTAR CLIENTES */
+    if (isset($listarClientes)) {
+        $listarClientes = listarClientes($conn);
+    }   
 
 ?>

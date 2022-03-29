@@ -8,7 +8,7 @@ include_once '../../config.php';
 session_start();
 
 if (!isset($_SESSION['cod_cliente'])) {
-  header("location:" . SITE_URL . "/Views/Clientes/loginCliente.php");
+  header("location:" . SITE_URL . "/Views/users/SignIn.php");
 }
 
 $cod_prod = $_GET['produto'];

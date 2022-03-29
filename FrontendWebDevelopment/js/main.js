@@ -1,16 +1,52 @@
 $(document).ready(function(){  
     
     // SignUp / Criar Conta
-    $('#signUp-btn').on('click', function(){ validForm(); });
+    $('#signUp-btn').on('click', function(){ v_FormSignUp(); });
+    
+    // SignIn / Entrar
+    $('#signIn-btn').on('click', function(){ v_FormSignIn(); });
 
 });
 
-function validForm() {
-    // Variables
+function v_FormSignIn() {
     
-    var nameInput = $("#userName");
-    var emailInput = $("#userEmail");
-    var passwordInput = $("#userPassword");
+    // Variables    
+    var emailInput      = $("#userEmail");
+    var passwordInput   = $("#userPassword");
+    
+    var submitForm = true;
+
+    // Form Validations
+    if (emailInput.val() == null || emailInput.val() == "") {
+        $("#emailAlert").css('display', 'inline');
+
+        $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+
+        submitForm = false;
+    } else {
+        $("#emailAlert").css('display', 'none');
+        $(emailInput).removeAttr("style")
+    }
+
+    if (passwordInput.val() == null || passwordInput.val() == ""){
+        $("#passwordAlert").css('display', 'inline');
+
+        $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+
+        submitForm = false;
+    } else {
+        $("#passwordAlert").css('display', 'none');
+        $(passwordInput).removeAttr("style")
+    }    
+}
+
+function v_FormSignUp() {
+    
+    // Variables    
+    var nameInput       = $("#userName");
+    var emailInput      = $("#userEmail");
+    var passwordInput   = $("#userPassword");
+    var personTypeInput = $("#userType");
     
     var submitForm = true;
 
@@ -47,6 +83,18 @@ function validForm() {
         $("#passwordAlert").css('display', 'none');
         $(passwordInput).removeAttr("style")
     }
+
+    if (personTypeInput.val() == null || personTypeInput.val() == "" || personTypeInput.val() == "Tipo Pessoa"){
+        $("#personTypeAlert").css('display', 'inline');
+
+        $(personTypeInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+
+        submitForm = false;
+    } else {
+        $("#personTypeAlert").css('display', 'none');
+        $(personTypeInput).removeAttr("style")
+    }
+    
 
 
     if (submitForm) 

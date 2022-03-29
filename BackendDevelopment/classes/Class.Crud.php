@@ -68,7 +68,7 @@ class CrudDB {
     public static function insert($arrayDados){
         try{
             $sql = self::montaSQLInsert($arrayDados);
-        
+                    
             $stm = self::$conexao->prepare($sql);
 
             foreach($arrayDados as $key => $value):

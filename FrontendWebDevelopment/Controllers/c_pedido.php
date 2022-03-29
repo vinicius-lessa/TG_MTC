@@ -65,7 +65,7 @@ if (isset($_GET['finalizar'])) {
       echo "ERRO: Ocorreu um erro para finalizar o Pedido";
     }
   } else {
-    header("location:" . SITE_URL . "/Views/Clientes/loginCliente.php");
+    header("location:" . SITE_URL . "/Views/users/SignIn.php");
     exit;
   }
 }

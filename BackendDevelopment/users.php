@@ -5,14 +5,14 @@
  * @Description Here the USERS table is manipulated
  * @ChangeLog 
  *  - Vinícius Lessa - 16/03/2022: Mudanças importantes para requisições utilizando o método GET. Agora, o servidor irá tratar parâmetros na URL.
+ *  - Vinícius Lessa - 28/03/2022: Impletementação e testes na inserção de usuários via POST.
  * 
  * @ Tips & Tricks: 
  *      - Use this to check the method type: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
  * 
  *  GET Method notes:
  *      - Url request example: .../users.php/?token={$token}&key={$key}&value={$value}
- *      Code lines for testing:
- *          - echo json_encode( ['Parametros' => $_GET] );
+ * 
  */
  
 header('Access-Control-Allow-Origin: *');
@@ -32,22 +32,44 @@ CrudDB::setConexao($pdo);
 // Parâmetro passado pela URL
 $uri = basename($_SERVER['REQUEST_URI']);
 
-// Default Functions
-function ShowReturnError($httpCode, $errorMsg) {
-    http_response_code($httpCode);
-    echo json_encode(['mensagem' => $errorMsg]);
-    exit;
+
+#############################################################################################
+// FUNCTIONS
+
+function ServerResponse($httpCode, $returnData) {
+    
+    // Errors
+    if (gettype($returnData) == "string"):
+                
+        http_response_code($httpCode);
+        echo json_encode(['mensagem' => $returnData]);
+
+    // Success data requested
+    elseif (gettype($returnData) == "array"):
+        
+        if ($httpCode == 201): // Successful Insert
+            http_response_code($httpCode);
+            echo json_encode(['mensagem' => $returnData['mensagem'] , 'retorno' => $returnData['retorno'] ]);
+            exit;
+        endif;
+
+        http_response_code($httpCode);
+        echo json_encode($returnData);
+
+    endif;    
 }
 
 #############################################################################################
+// HTTP METHODS
     
 // ### GET (Consulta)
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
+    // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+
     // Token Validation
     if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):
-        echo json_encode( ['Error' => 'Token is not Valid!'] );
-        http_response_code(401); // Unauthorized
+        ServerResponse(401, "Token is not Valid!"); // Unauthorized
         exit;
     endif;
 
@@ -56,14 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         // Variables
         $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : ""        ;
         $valueSearch    = (isset($_GET["value"])) ? $_GET["value"] : ""    ;
-        
-        $httpCode       = 0;
-        $errorMsg       = "";
 
         if (Empty($keySearch) || Empty($valueSearch)):
-            $httpCode = 404; // Not Found
-            $errorMsg = "Informe todos os parâmetros!";
-            ShowReturnError($httpCode, $errorMsg);
+            ServerResponse(404, "Informe todos os parâmetros!"); // Not Found
         else:
             // All Users
             if ($keySearch == 'allUsers' && $valueSearch == 'true'):
@@ -81,9 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ,['USER_ID' => $userId]
                         ,TRUE);                
                 else:
-                    $httpCode = 406; // Not Acceptable
-                    $errorMsg = "Parâmetro ID não é numérico!";
-                    ShowReturnError($httpCode, $errorMsg);
+                    ServerResponse(406, "Parâmetro ID não é numérico!"); // Not Acceptable
                 endif;
     
             // Search by E-mail
@@ -93,38 +108,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $userEmail = $valueSearch;
 
                 if (!is_numeric($userEmail)):
-                    $dados = CrudDB::select('SELECT email FROM users WHERE email =:USER_EMAIL AND activity_status = 1'
+                    $dados = CrudDB::select('SELECT email, password FROM users WHERE email =:USER_EMAIL AND activity_status = 1'
                         ,['USER_EMAIL' => $userEmail]
                         ,TRUE);
                 else:
-                    $httpCode = 406; // Not Acceptable
-                    $errorMsg = "Parâmetro E-mail inválido!";
-                    ShowReturnError($httpCode, $errorMsg);
+                    ServerResponse(406, "Parâmetro E-mail inválido!"); // Not Acceptable
                 endif;    
             
             // Unknown Key
-            else:
-                $httpCode = 406; // Not Acceptable
-                $errorMsg = "Informe uma Chave (key) correta!";
-                ShowReturnError($httpCode, $errorMsg);
+            else:                
+                ServerResponse(406, "Informe uma Chave (key) correta!"); // Not Acceptable
             endif;          
         endif;
 
         // Final DATA
         if (!Empty($dados)):
-            http_response_code(200);
-            echo json_encode($dados);
-            return;           
+            ServerResponse(200, $dados); // Success
+            return;
         else:
-            $httpCode = 404; // Not Found
-            $errorMsg = "Pesquisa nao encontrada!";
-            ShowReturnError($httpCode, $errorMsg);
+            ServerResponse(404, "Pesquisa nao encontrada!"); // Not Found
         endif;
         
-    else:
-        $httpCode = 406; // Not Acceptable
-        $errorMsg = "Parâmetro não preenchido na consulta!";
-        ShowReturnError($httpCode, $errorMsg);
+    else:        
+        ServerResponse(406, "Parâmetro não preenchido na consulta!"); // Not Acceptable
     endif;
 endif;
 
@@ -136,33 +142,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
+    // Token Validation
+    if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):
+        ServerResponse(401, 'Token is not Valid!'); // Unauthorized
+        exit;
+    endif;
+
     // Variables
-    $username       = (isset($_POST['username'])) ? $_POST['username'] : ''         ;
-    $birthday       = (isset($_POST['birthday'])) ? $_POST['birthday'] : ''         ;
-    $phone          = (isset($_POST['phone'])) ? $_POST['phone'] : ''               ;
-    $tipo_pessoa    = (isset($_POST['tipo_pessoa'])) ? $_POST['tipo_pessoa'] : ''   ;
-    $email          = (isset($_POST['email'])) ? $_POST['email'] : ''               ;
-    $cpf_cnpj       = (isset($_POST['cpf_cnpj'])) ? $_POST['cpf_cnpj'] : ''         ;
-    $cep            = (isset($_POST['cep'])) ? $_POST['cep'] : ''                   ;
-    $city           = (isset($_POST['city'])) ? $_POST['city'] : ''                 ;
-    $district       = (isset($_POST['district'])) ? $_POST['district'] : ''         ;
-    $bio            = (isset($_POST['bio'])) ? $_POST['bio'] : ''                   ;
-    $activity_status  = 1                                                             ;
-    $password       = (isset($_POST['password'])) ? $_POST['password'] : ''         ;
+    $username           = (isset($_POST['user_name'])) ? $_POST['user_name'] : ''       ;
+    $birthday           = (isset($_POST['birthday'])) ? $_POST['birthday'] : ''         ;
+    $phone              = (isset($_POST['phone'])) ? $_POST['phone'] : ''               ;
+    $tipo_pessoa        = (isset($_POST['tipo_pessoa'])) ? $_POST['tipo_pessoa'] : ''   ;
+    $email              = (isset($_POST['email'])) ? $_POST['email'] : ''               ;
+    $cpf_cnpj           = (isset($_POST['cpf_cnpj'])) ? $_POST['cpf_cnpj'] : ''         ;
+    $cep                = (isset($_POST['cep'])) ? $_POST['cep'] : ''                   ;
+    $bio                = (isset($_POST['bio'])) ? $_POST['bio'] : ''                   ;
+    $activity_status    = 1                                                             ;
+    $password           = (isset($_POST['password'])) ? $_POST['password'] : ''         ;
     
-    if (
-        empty($username) or 
-        empty($birthday) or 
+    if (empty($username) or
         empty($tipo_pessoa) or 
         empty($email) or
         empty($password)
         ):
-        echo json_encode(['mensagem' => 'Informe Todos os Parâmetros!']);
-        http_response_code(406);
+        ServerResponse(406, 'Informe Todos os Parâmetros!');
         exit;
     endif;
 
-// # Verifica se USER já existe
+    // # Verifica se USER já existe
     $dados = CrudDB::select(
         "SELECT email FROM users WHERE email LIKE(:EMAIL) and activity_status = 1",
         ['EMAIL' => $email],
@@ -170,34 +177,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     );
 
     if (!Empty($dados)):
-        echo json_encode(['mensagem' => 'Usuário já existe!']);
-        http_response_code(406);
+        ServerResponse(406, 'Usuário já existe!');
         exit;
-    else:
+    else:        
         CrudDB::setTabela('users');
 
         $retorno = CrudDB::insert
         ([
-            'username'      => "'" . $username . "'"    , 
-            'birthday'      => "'" . $birthday . "'"    ,
-            'phone'         => "'" . $phone . "'"       ,
-            'tipo_pessoa'   => "'" . $tipo_pessoa. "'"  , 
-            'email'         => "'" . $email . "'"       ,
-            'cpf_cnpj'      => "'" . $cpf_cnpj . "'"    ,
-            'cep'           => "'" . $cep . "'"         ,
-            'city'          => "'" . $city . "'"        ,
-            'district'      => "'" . $district . "'"    ,
-            'bio'           => "'" . $bio . "'"         ,
-            'activity_status' => $activity_status           ,
-            'password'      => "'" . $password . "'"
+            'user_name'         => "'" . $username . "'"    ,
+            'email'             => "'" . $email . "'"       ,
+            'password'          => "'" . $password . "'"    ,
+            'tipo_pessoa'       => "'" . $tipo_pessoa. "'"  ,
+            'birthday'          => "'" . $birthday . "'"    ,
+            'phone'             => "'" . $phone . "'"       ,
+            'cep'               => "'" . $cep . "'"         ,
+            'cpf_cnpj'          => "'" . $cpf_cnpj . "'"    ,
+            'bio'               => "'" . $bio . "'"
         ]);
 
         if ($retorno):
-            http_response_code(201);
-            echo json_encode(['mensagem' => 'Usuário inserido com Sucesso!']);
+            ServerResponse(201, array('mensagem' => 'Usuário inserido com Sucesso!', 'retorno' => true)); // Success
         else:           
-            http_response_code(500);
-            echo json_encode(['mensagem' => 'Erro ao inserir novo Usuário!']);
+            ServerResponse(500, 'Erro ao inserir novo Usuário!'); // Error
         endif;
     endif;
 endif;

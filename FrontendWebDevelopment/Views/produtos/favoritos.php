@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['cod_cliente'])) {
-  header("location:" . SITE_URL . "/Views/Clientes/loginCliente.php");
+  header("location:" . SITE_URL . "/Views/users/SignIn.php");
   exit;
 }
 

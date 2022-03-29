@@ -1,9 +1,20 @@
 <?php
-    if (!defined('SITE_URL')) {
-      include_once '../../config.php';
-    }
+/**
+ * File DOC
+ * 
+ * @Description SingUp Page to new users
+ * @ChangeLog 
+ *  - Vinícius Lessa - 28/03/2022: Creation of the header documentation. Last functional changes.
+ * 
+ * @ Notes: 
+ * 
+ */
 
-    $titlePage = "MTC | Cadastro";
+  if (!defined('SITE_URL')) {
+    include_once '../../config.php';
+  }
+
+  $titlePage = "MTC | Cadastro";
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +59,7 @@
         <div class="form-default ">
           <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
             <div class="form-floating">
-              <input type="text" class="form-control" placeholder="Nome" id="userName" name="username">
+              <input type="text" class="form-control" placeholder="Nome" id="userName" name="username" autofocus>
               <label for="userName">Nome</label>
             </div>
 
@@ -74,6 +85,18 @@
               <small class="text-lightred" id='passwordAlert'>*campo obrigatório</small>
             </div>
 
+            <div class="form-floating">
+              <select class="form-select pt-3 pb-3" name="persontype" id="userType">
+                <option selected>Tipo Pessoa</option>
+                <option value="F">Física</option>
+                <option value="J">Jurídica</option>
+              </select>
+            </div>
+
+            <div>
+              <small class="text-lightred" id='personTypeAlert'>*selecione um valor válido</small>
+            </div>
+
             <div class="text-center text-white mt-5 mb-3">
               <h3>Outras Informações</h3>
             </div>              
@@ -86,15 +109,6 @@
             <div class="form-floating">
               <input type="tel" class="form-control" placeholder="(11)XXXX-XXXX" id="userPhone" name="phone">
               <label for="userPhone">Telefone/Celular</label>
-            </div>            
-
-            <!-- Tornar REQUIRED via JS -->
-            <div class="form-floating">
-              <select class="form-select pt-3 pb-3" name="persontype" id="userType">
-                <option selected>Tipo Pessoa</option>
-                <option value="F">Física</option>
-                <option value="J">Jurídica</option>
-              </select>
             </div>
 
             <div class="form-floating">
@@ -102,8 +116,8 @@
               <label for="userZipCode">CEP</label>
             </div>
 
-            <div class="text-center">
-              <input class="btn-default btn" value="Criar!" name="signUp" id="signUp-btn">
+            <div class="text-center mt-5">
+              <input class="btn-default btn" type="button" value="Criar!" name="signUp" id="signUp-btn">
             </div>
 
             <div class="mt-5 text-white text-center">
