@@ -45,7 +45,7 @@ function ShowReturnError($httpCode, $errorMsg) {
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
     // Token Validation
-    if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
+    if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):
         echo json_encode( ['Error' => 'Token is not Valid!'] );
         http_response_code(401); // Unauthorized
         exit;
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $userEmail = $valueSearch;
 
                 if (!is_numeric($userEmail)):
-                    $dados = CrudDB::select('SELECT email FROM users WHERE email =:USER_EMAIL AND active_status = 1'
+                    $dados = CrudDB::select('SELECT email FROM users WHERE email =:USER_EMAIL AND activity_status = 1'
                         ,['USER_EMAIL' => $userEmail]
                         ,TRUE);
                 else:
@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     $city           = (isset($_POST['city'])) ? $_POST['city'] : ''                 ;
     $district       = (isset($_POST['district'])) ? $_POST['district'] : ''         ;
     $bio            = (isset($_POST['bio'])) ? $_POST['bio'] : ''                   ;
-    $active_status  = 1                                                             ;
+    $activity_status  = 1                                                             ;
     $password       = (isset($_POST['password'])) ? $_POST['password'] : ''         ;
     
     if (
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
 
 // # Verifica se USER já existe
     $dados = CrudDB::select(
-        "SELECT email FROM users WHERE email LIKE(:EMAIL) and active_status = 1",
+        "SELECT email FROM users WHERE email LIKE(:EMAIL) and activity_status = 1",
         ['EMAIL' => $email],
         TRUE
     );
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             'city'          => "'" . $city . "'"        ,
             'district'      => "'" . $district . "'"    ,
             'bio'           => "'" . $bio . "'"         ,
-            'active_status' => $active_status           ,
+            'activity_status' => $activity_status           ,
             'password'      => "'" . $password . "'"
         ]);
 
@@ -225,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
     $city           = (isset($_PUT['city'])) ? $_PUT['city'] : ''                   ;
     $district       = (isset($_PUT['district'])) ? $_PUT['district'] : ''           ;
     $bio            = (isset($_PUT['bio'])) ? $_PUT['bio'] : ''                     ;
-    $active_status  = (isset($_PUT['active_status'])) ? $_PUT['active_status'] : 1  ;
+    $activity_status  = (isset($_PUT['activity_status'])) ? $_PUT['activity_status'] : 1  ;
     $password       = (isset($_PUT['password'])) ? $_PUT['password'] : ''           ;
 
     //  Verifies recieved parameters
@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
             'city'          => "'" . $city . "'"        ,
             'district'      => "'" . $district . "'"    ,
             'bio'           => "'" . $bio . "'"         ,
-            'active_status' => $active_status           ,
+            'activity_status' => $activity_status           ,
             'password'      => "'" . $password . "'"
         ],
         [

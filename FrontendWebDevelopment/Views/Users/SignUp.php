@@ -53,7 +53,7 @@
             </div>
 
             <div>
-              <small class="text-lightred" id='nameAlert'></small>
+              <small class="text-lightred" id='nameAlert'>*campo obrigatório</small>
             </div>
 
             <div class="form-floating">
@@ -62,12 +62,16 @@
             </div>
 
             <div>
-              <small class="text-lightred" id='emailAlert'></small>
+              <small class="text-lightred" id='emailAlert'>*campo obrigatório</small>
             </div>
 
             <div class="form-floating">
               <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
               <label for="userPassword">Senha</label>
+            </div>
+
+            <div>
+              <small class="text-lightred" id='passwordAlert'>*campo obrigatório</small>
             </div>
 
             <div class="text-center text-white mt-5 mb-3">
@@ -82,9 +86,9 @@
             <div class="form-floating">
               <input type="tel" class="form-control" placeholder="(11)XXXX-XXXX" id="userPhone" name="phone">
               <label for="userPhone">Telefone/Celular</label>
-            </div>
+            </div>            
 
-            <!-- Tornar REQUERIDO via JS -->
+            <!-- Tornar REQUIRED via JS -->
             <div class="form-floating">
               <select class="form-select pt-3 pb-3" name="persontype" id="userType">
                 <option selected>Tipo Pessoa</option>
@@ -99,7 +103,7 @@
             </div>
 
             <div class="text-center">
-              <input class="submit-btn btn-default btn" type="submit" value="Criar!" name="signUp" id="signUp">
+              <input class="btn-default btn" value="Criar!" name="signUp" id="signUp-btn">
             </div>
 
             <div class="mt-5 text-white text-center">
