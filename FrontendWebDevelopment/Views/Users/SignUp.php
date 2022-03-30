@@ -35,10 +35,6 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png"> 
-
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
   </head>
 
   <body class="d-flex flex-column h-100 bk-preto font-main">
@@ -132,8 +128,11 @@
 
     <!-- footer site -->
     <?php include SITE_PATH .'/includes/footer.php';?>
-  </body>
     
-  <!-- Scripts -->
-  <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+  </body>
+
 </html>

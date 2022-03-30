@@ -7,7 +7,7 @@
       </a>
       <ul class="nav justify-content-center">
         <li class="nav-item">
-            <a class="nav-link text-white" aria-current="page" href="<?php echo SITE_URL ?>/Views/index.php">Home</a>
+            <a class="nav-link text-white" aria-current="page" href="<?php echo SITE_URL ?>/Views/homepage/index.php">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" aria-current="page" href="#">Anúncios</a>
