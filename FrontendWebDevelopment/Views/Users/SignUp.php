@@ -113,7 +113,7 @@
             </div>
 
             <div class="text-center mt-5">
-              <input class="btn-default btn" type="button" value="Criar!" name="signUp" id="signUp-btn">
+              <input class="btn-default btn" type="submit" value="Criar!" name="signUp" id="signUp-btn">
             </div>
 
             <div class="mt-5 text-white text-center">

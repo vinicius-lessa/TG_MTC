@@ -5,7 +5,7 @@
         <nav id="lista-footer" class="bk-preto">
           <ul>
             <li>
-              <a class="border-button ft-escuro font-weight-bold mt-3" href="<?php echo SITE_URL ?>/Views/home/index.php">
+              <a class="border-button ft-escuro font-weight-bold mt-3" href="<?php echo SITE_URL ?>/Views/homepage/index.php">
                 <span><img class="ml-3" src="<?php echo SITE_URL ?>/images/logo.png"></span><strong>Tmc.com</strong>
               </a>
             </li>
@@ -13,7 +13,7 @@
         </nav>
       </div>
       <div class="col-md-6 text-right">
-        <a href="<?php echo SITE_URL ?>/Views/home/index.php">
+        <a href="<?php echo SITE_URL ?>/Views/homepage/index.php">
           <img id="logo-footer" src="<?php echo SITE_URL   ?>/images/logo.png" alt="Logo"></a>
       </div>
     </div>

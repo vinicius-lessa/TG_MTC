@@ -31,7 +31,7 @@
       </div>
 
       <div class="col-md-4 text-right">
-        <a href="<?php echo SITE_URL ?>/Views/home/index.php">
+        <a href="<?php echo SITE_URL ?>/Views/homepage/index.php">
           <img id="logo-footer" src="<?php echo SITE_URL ?>/images/logo.png" alt="Logo">
         </a>
       </div>

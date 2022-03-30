@@ -40,7 +40,7 @@
     <section>
       <div class="d-flex justify-content-center">
         <div class="card-pedido font-weight-bold mt-md-2 px-5 py-2 rounded shadow align-items-center">
-          <a href="<?php echo SITE_URL ?>/Views/home/index.php"> <img class="mx-auto d-block" src="<?php echo SITE_URL ?>/images/logo.png" alt="Logo Loja"><a>
+          <a href="<?php echo SITE_URL ?>/Views/homepage/index.php"> <img class="mx-auto d-block" src="<?php echo SITE_URL ?>/images/logo.png" alt="Logo Loja"><a>
           <h1 class="text-center font-weight-bold mb-4 py-4">Pedido nº <?php echo $PedidoCriado['cod_pedido'] ?>
           </h1>
           <p>Obrigado <span class="letra-ver"><?php echo $PedidoCriado['nome_cliente'] ?></span>,
@@ -54,7 +54,7 @@
                 echo $dataEntrega;
               ?>
             </span></p>
-          <h5 class="text-right "><small><a href="<?php echo SITE_URL ?>/Views/home/index.php">Clique Aqui para Voltar ao Site</a></small></h5>
+          <h5 class="text-right "><small><a href="<?php echo SITE_URL ?>/Views/homepage/index.php">Clique Aqui para Voltar ao Site</a></small></h5>
 
         </div>
       </div>

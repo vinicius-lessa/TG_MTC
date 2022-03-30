@@ -1,27 +1,56 @@
 <?php
 
 // QUERY / GET
-function userValidation($user, $pass)
+function userValidation($email, $password)
 {
-    // RECEBER DADOS
-    // MANDAR CONSULTA PARA BACK
-    // CASO RESULTADO FOR MAIOR QUE 0
-        // VERIFICA SENHA
-            // PERMITE LOGIN
-    // ELSE
-        // RETORNA MENSAGEM DE USUÁRIO INEXISTENTE
+    $token  = "16663056-351e723be15750d1cc90b4fcd";
+    $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=email&value=" . $email;
 
-        
-    // $sql = 'SELECT cod_cliente, nome_cliente, telefone, cpf, email, senha, cep  from cliente where email = ? ';
-    // $stmt = $conn->prepare($sql) ;
-    // $stmt->bind_param("s", $user);
-    // $stmt->execute();
+    $opts = array('http' =>
+        array(
+            'method'        =>"GET",
+            'header'        => 'Content-Type: application/x-www-form-urlencoded',
+            'ignore_errors' => true
+        )
+    );    
+      
+    $context = stream_context_create($opts);    
 
-    // $result = $stmt->get_result()->fetch_assoc();
+    // file_get_contents
+    $returnJson = file_get_contents($url, false, $context);
+    
+    // Tranforms Json in Array
+    $aResult = json_decode($returnJson, true); // Trasnforma em Array    
 
-    // $stmt->close();
+    // Servers Problems // ***************** VERIFICAR STATUS DO SERVER NO INÍCIO DE CADA PÁGINA **********************
+    // if (count($aResult) == 0 || $aResult == false):
+    //     $aResult = array("erro" => true , "msg" => "A requisição ao Servidor falhou! Tente Novamente" );
+    // endif;
 
-    // return password_verify($pass, $result['senha']) ?  $result : false;
+    if (count($aResult) == 0 || $aResult == false):
+        $aResult = array("erro" => true , "msg" => "*Usuário ou Senha Inválidos" );
+    else:
+    
+        $passDb     = '$2y$10$SzQjA6vcaoQBnhxOCswmG.Rvhob4njWFfgfNmFk\/sz7MiRn36iCMW';        
+
+        // if (password_verify($password, $aResult['password'])):
+        if (password_verify($password, $passDb)):
+            $aResult = array("erro" => false , "msg" => "Login realizado com sucesso" );
+        else:
+            $aResult = array("erro" => true , "msg" => "*Usuário ou Senha Inválidos" );
+        endif;
+    endif;    
+
+    // // Query/DB Problems
+    // $status_line = $http_response_header[0];
+    // preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+    // $status = $match[1];
+
+    // if ($status !== "200") {
+    //     $aResult = array("mensagem" => $aResult['mensagem'], 'retorno' => false );
+    // }
+    
+    return $aResult;    
 }
 
 // INSERT / POST
@@ -70,10 +99,10 @@ function userCreation($data)
     // Tranforms Json in Array
     $aResult = json_decode($returnJson, true); // Trasnforma em Array
 
-    // Servers Problems
-    if (count($aResult) == 0 || $aResult == false):
-        $aResult = array("mensagem" => "A requisição ao Servidor falhou! Tente Novamente." , 'retorno' => false );
-    endif;
+    // Servers Problems // ***************** VERIFICAR STATUS DO SERVER NO INÍCIO DE CADA PÁGINA **********************
+    // if (count($aResult) == 0 || $aResult == false):
+    //     $aResult = array("erro" => true , "msg" => "A requisição ao Servidor falhou! Tente Novamente" );
+    // endif;
 
     // Query/DB Problems
     $status_line = $http_response_header[0];

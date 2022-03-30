@@ -13,7 +13,7 @@
 -- ## 1º - Criar Banco de Dados
 CREATE DATABASE dbtg2022
 DEFAULT CHARACTER SET utf8
-DEFAULT COLLATE utf8_general_ci;
+DEFAULT COLLATE utf8mb4_unicode_ci;
 
 
 -- ## 2º - Criar tabela 'users', referente aos usuários do sistema

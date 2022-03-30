@@ -6,4 +6,4 @@ Since: 2020/06/19
 */
 $conf = include $_SERVER['DOCUMENT_ROOT'] . '/Tmc.com/config.php';
 
-header("location:$conf[url]/Views/home/index.php");
+header("location:$conf[url]/Views/homepage/index.php");

@@ -18,7 +18,7 @@ if (isset($DetalheProduto)) {
         $Comentarios = carregarComentarios($conn, $DetalheProduto);
         $notaMedia = calculaNotaMedia($Comentarios);
     } else {
-        header("location:" . SITE_URL . "/Views/home/index.php");
+        header("location:" . SITE_URL . "/Views/homepage/index.php");
     }
 }
 

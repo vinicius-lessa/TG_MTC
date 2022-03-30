@@ -9,7 +9,7 @@
  * @ Notes: 
  * 
  */
-  
+
   if (!defined('SITE_URL')) {
     include_once '../../config.php';
   }
@@ -56,7 +56,7 @@
         <!-- Form -->
         <div class="form-default ">
           <!-- <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post"> -->
-          <form id="singUp-form" action='#' method="post">
+          <form id="singIn-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
 
             <div class="form-floating">
               <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
@@ -77,7 +77,7 @@
             </div>             
 
             <div class="text-center mt-5">
-              <input class="btn-default btn" type="button" value="Ir!" name="signIn" id="signIn-btn">
+              <input class="btn-default btn" type="submit" value="Ir!" name="signIn" id="signIn-btn">
             </div>
 
             <div class="mt-5 text-white text-center">

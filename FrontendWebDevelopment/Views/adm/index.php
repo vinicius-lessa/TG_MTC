@@ -44,7 +44,7 @@ session_destroy();
         <div class="mb-3 mt-3 px-md-6">
           <a class="btn btn-light btn-adm3 mr-4 ml-4 link-adm" href="<?php echo SITE_URL ?>/Views/adm/create.php">Criar
             Usuário</a>
-          <a class="btn btn-light btn-adm3 ml-3 link-adm" href="<?php echo SITE_URL ?>/Views/home/index.php">Sair do ADM</a>
+          <a class="btn btn-light btn-adm3 ml-3 link-adm" href="<?php echo SITE_URL ?>/Views/homepage/index.php">Sair do ADM</a>
         </div>
       </div>
     </div>

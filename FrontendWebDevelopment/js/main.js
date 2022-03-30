@@ -1,46 +1,25 @@
 $(document).ready(function(){  
-    
+        
+    // const singUpForm = $('#singUp-form');
+    // const singInForm = $('#singIn-form');
+    const singUpForm = document.getElementById("singUp-form");
+    const singInForm = document.getElementById("singIn-form");
+
     // SignUp / Criar Conta
-    $('#signUp-btn').on('click', function(){ v_FormSignUp(); });
+    $(singUpForm).submit(function( event ){ 
+        v_FormSignUp();
+        event.preventDefault();
+    });
     
     // SignIn / Entrar
-    $('#signIn-btn').on('click', function(){ v_FormSignIn(); });
+    $(singInForm).submit(function( event ){ 
+        v_FormSignIn(singInForm);
+        event.preventDefault();
+    });
 
 });
 
-function v_FormSignIn() {
-    
-    // Variables    
-    var emailInput      = $("#userEmail");
-    var passwordInput   = $("#userPassword");
-    
-    var submitForm = true;
-
-    // Form Validations
-    if (emailInput.val() == null || emailInput.val() == "") {
-        $("#emailAlert").css('display', 'inline');
-
-        $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#emailAlert").css('display', 'none');
-        $(emailInput).removeAttr("style")
-    }
-
-    if (passwordInput.val() == null || passwordInput.val() == ""){
-        $("#passwordAlert").css('display', 'inline');
-
-        $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#passwordAlert").css('display', 'none');
-        $(passwordInput).removeAttr("style")
-    }    
-}
-
-function v_FormSignUp() {
+async function v_FormSignUp() {
     
     // Variables    
     var nameInput       = $("#userName");
@@ -51,7 +30,7 @@ function v_FormSignUp() {
     var submitForm = true;
 
     // Form Validations
-    if (nameInput.val() == null || nameInput.val() == "") {
+    if (nameInput.val() === null || nameInput.val() === "") {
         $("#nameAlert").css('display', 'inline');
 
         $(nameInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
@@ -59,10 +38,10 @@ function v_FormSignUp() {
         submitForm = false;
     } else {
         $("#nameAlert").css('display', 'none');
-        $(nameInput).removeAttr("style")
+        $(nameInput).removeAttr("style");
     }
 
-    if (emailInput.val() == null || emailInput.val() == ""){
+    if (emailInput.val() === null || emailInput.val() === ""){
         $("#emailAlert").css('display', 'inline');
 
         $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
@@ -70,10 +49,10 @@ function v_FormSignUp() {
         submitForm = false;
     } else {
         $("#emailAlert").css('display', 'none');
-        $(emailInput).removeAttr("style")
+        $(emailInput).removeAttr("style");
     }
 
-    if (passwordInput.val() == null || passwordInput.val() == ""){
+    if (passwordInput.val() === null || passwordInput.val() === ""){
         $("#passwordAlert").css('display', 'inline');
 
         $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
@@ -81,10 +60,10 @@ function v_FormSignUp() {
         submitForm = false;
     } else {
         $("#passwordAlert").css('display', 'none');
-        $(passwordInput).removeAttr("style")
+        $(passwordInput).removeAttr("style");
     }
 
-    if (personTypeInput.val() == null || personTypeInput.val() == "" || personTypeInput.val() == "Tipo Pessoa"){
+    if (personTypeInput.val() === null || personTypeInput.val() === "" || personTypeInput.val() === "Tipo Pessoa"){
         $("#personTypeAlert").css('display', 'inline');
 
         $(personTypeInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
@@ -92,29 +71,44 @@ function v_FormSignUp() {
         submitForm = false;
     } else {
         $("#personTypeAlert").css('display', 'none');
-        $(personTypeInput).removeAttr("style")
+        $(personTypeInput).removeAttr("style");
     }
     
 
-
-    if (submitForm) 
-    {        
+    // all inputs are acceptables
+    if (submitForm) {        
         // Check if E-mail already exists within DB
         var token         = "16663056-351e723be15750d1cc90b4fcd";
         var key           = "email";
         var value         = emailInput.val();
 
         var urlString     = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" + token + "&key=" + key + "&value=" + value;
+        
+        var approveEmail;
 
-        var approveEmail  = doAjax(urlString, 'GET');
+        $.ajax({
+            url: urlString,
+            method: 'GET', // 'method' or 'type' could be used
+        }).done(function(response){
+            console.log(response);
+            if (response.lenght > 0 || response != null) {
+                approveEmail = false;                                
+            }
+        }).fail(function(jqXHR, textStatus, msg){
+            if (msg == "Not Found") {                
+                approveEmail = true;
+            }
+        });        
 
-        if (approveEmail){
-            $('#singUp-form').submit();
-        } else {
-            $("#emailAlert").text('E-mail já cadastrado');
-            $("#emailAlert").css('display', 'inline');
-            $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-        }
+        // if (approveEmail){
+        //     // $('#singUp-form').submit();
+        //     console.log("OK");
+        // } else {
+        //     $("#emailAlert").text('E-mail já cadastrado');
+        //     $("#emailAlert").css('display', 'inline');
+        //     $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+        //     console.log("porcaria");
+        // }
     } 
     else 
     {
@@ -122,25 +116,62 @@ function v_FormSignUp() {
     }
 }
 
-function doAjax(urlString, type) {    
+async function v_FormSignIn(singInForm) {
+    
+    // Variables    
+    var emailInput      = $("#userEmail");
+    var passwordInput   = $("#userPassword");
+    
+    var submitForm = true;
 
-    var result = false;
+    // Form Validations
+    if (emailInput.val() === null || emailInput.val() === "") {
+        $("#emailAlert").css('display', 'inline');
 
-    if (type == 'GET') {        
-        $.ajax({
-            url: urlString,
-            method: type, // method/type could be used
-            async: false
-        }).done(function(response){
-            if (response.lenght > 0 || response != null) {
-                result = false;                                
-            }
-        }).fail(function(jqXHR, textStatus, msg){
-            if (msg == "Not Found") {                
-                result = true;
-            }
-        });
+        $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+
+        submitForm = false;
+    } else {
+        $("#emailAlert").css('display', 'none');
+        $(emailInput).removeAttr("style");
     }
 
-    return result;
+    if (passwordInput.val() === null || passwordInput.val() === ""){
+        $("#passwordAlert").css('display', 'inline');
+
+        $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+
+        submitForm = false;
+    } else {
+        $("#passwordAlert").css('display', 'none');
+        $(passwordInput).removeAttr("style");
+    }
+
+
+    // all inputs are acceptables
+    if(submitForm) {
+        const formData = new FormData(singInForm);
+
+        formData.append("action", "signIn");
+
+        const data = await fetch("../../Controllers/c_user.php", {
+            method: "POST",
+            body: formData
+        });
+
+        const resposta = await data.json();
+        
+        console.log(resposta);
+        
+        if (resposta["erro"]){
+            $("#passwordAlert").css('display', 'inline');
+            $("#emailAlert").css('display', 'inline');
+            
+            $("#passwordAlert").text(resposta["msg"])
+            $("#emailAlert").text(resposta["msg"])
+    
+            $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+            $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+        }
+    }
 }
