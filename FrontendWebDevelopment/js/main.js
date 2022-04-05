@@ -1,14 +1,22 @@
 $(document).ready(function(){  
         
-    // const singUpForm = $('#singUp-form');
+    const singUpForm = $('#singUp-form');
     // const singInForm = $('#singIn-form');
-    const singUpForm = document.getElementById("singUp-form");
+    // const singUpForm = document.getElementById("singUp-form");
     const singInForm = document.getElementById("singIn-form");
 
     // SignUp / Criar Conta
-    $(singUpForm).submit(function( event ){ 
-        v_FormSignUp();
+    $(singUpForm).submit(function( event ){
         event.preventDefault();
+
+        v_FormSignUp(singUpForm);
+        //     setTimeout(
+        //         function() 
+        //         {
+        //             singUpForm.submit();
+        //             console.log("Ok")
+        //         }, 2000);
+        // }
     });
     
     // SignIn / Entrar
@@ -19,7 +27,7 @@ $(document).ready(function(){
 
 });
 
-async function v_FormSignUp() {
+async function v_FormSignUp(singUpForm) {
     
     // Variables    
     var nameInput       = $("#userName");
@@ -86,29 +94,23 @@ async function v_FormSignUp() {
         
         var approveEmail;
 
-        $.ajax({
+        await $.ajax({
             url: urlString,
-            method: 'GET', // 'method' or 'type' could be used
-        }).done(function(response){
-            console.log(response);
-            if (response.lenght > 0 || response != null) {
-                approveEmail = false;                                
-            }
-        }).fail(function(jqXHR, textStatus, msg){
-            if (msg == "Not Found") {                
-                approveEmail = true;
-            }
-        });        
+            method: 'GET', // 'type' could be used too
+        }).done(function(response){            
 
-        // if (approveEmail){
-        //     // $('#singUp-form').submit();
-        //     console.log("OK");
-        // } else {
-        //     $("#emailAlert").text('E-mail já cadastrado');
-        //     $("#emailAlert").css('display', 'inline');
-        //     $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-        //     console.log("porcaria");
-        // }
+            if (response.length > 0) {
+                $("#emailAlert").text('E-mail já cadastrado');
+                $("#emailAlert").css('display', 'inline');
+                $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
+            } else if (response.length == 0 && response != null) {                
+                singUpForm.submit();
+            }
+        }).fail(function(jqXHR, msg){
+            approveEmail = false;
+            console.log(jqXHR.status + ": " +  msg);            
+        });
+
     } 
     else 
     {

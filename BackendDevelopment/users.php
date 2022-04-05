@@ -54,7 +54,7 @@ function ServerResponse($httpCode, $returnData) {
         endif;
 
         http_response_code($httpCode);
-        echo json_encode($returnData);
+        echo json_encode($returnData);        
 
     endif;    
 }
@@ -122,12 +122,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         endif;
 
         // Final DATA
-        if (!Empty($dados)):
+        // if (!Empty($dados)):
             ServerResponse(200, $dados); // Success
             return;
-        else:
-            ServerResponse(404, "Pesquisa nao encontrada!"); // Not Found
-        endif;
+        // else:
+        //     ServerResponse(404, "Problemas na pesquisa ao Servidor"); // Not Found
+        // endif;
         
     else:        
         ServerResponse(406, "Parâmetro não preenchido na consulta!"); // Not Acceptable

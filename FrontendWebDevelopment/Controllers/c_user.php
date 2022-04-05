@@ -24,7 +24,7 @@ $postData = filter_input_array(INPUT_POST, FILTER_DEFAULT);
     SIGNUP Submit
 ****/
 
-if ($postData['action'] == 'signUp') {
+if (isset($_POST['signUp'])) {
     
     $data = [];
     
@@ -37,7 +37,8 @@ if ($postData['action'] == 'signUp') {
             }
         }
     }
-
+    
+    var_dump($data);
     /*
     // Check recived values        
     
@@ -50,14 +51,14 @@ if ($postData['action'] == 'signUp') {
         var_dump(userCreation($data));
     */        
 
-    $aResponse = userCreation($data);        
+    // $aResponse = userCreation($data);        
 
-    if ($aResponse['retorno']) {
-        header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
-    } else {
-        $msgErro = $aResponse['mensagem'];
-        header("location:" . SITE_URL . "/Views/users/returnFailed.php?error=$msgErro");
-    }
+    // if ($aResponse['retorno']) {
+    //     header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
+    // } else {
+    //     $msgErro = $aResponse['mensagem'];
+    //     header("location:" . SITE_URL . "/Views/users/returnFailed.php?error=$msgErro");
+    // }    
 }
 
 

@@ -90,18 +90,19 @@ CREATE TABLE IF NOT EXISTS `product_categorys`
 INSERT INTO `product_categorys` 
 ( `description`, `activity_status` )
 VALUES
-( 'Guitarras'           , true	) ,
-( 'Violões'             , true	) ,
-( 'Contrabaixos'        , true	) ,
-( 'Baterias'            , true  ) ,
-( 'Amplificadores'      , true  ) ,
-( 'Mesas de Som'        , true  ) ,
-( 'Microfones'          , true  ) ,
-( 'Cabos e Adaptadores' , true  ) ,
-( 'Baixolões'           , true  ) ,
-( 'Capas e Cases'       , true  ) ,
-( 'Interfaces de Som'   , true  ) ,
-( 'Pedaleiras'          , true  ) ;
+( 'Guitarras'             , true	) ,
+( 'Violões'               , true	) ,
+( 'Contrabaixos'          , true	) ,
+( 'Baterias'              , true  ) ,
+( 'Amplificadores'        , true  ) ,
+( 'Mesas de Som'          , true  ) ,
+( 'Microfones'            , true  ) ,
+( 'Cabos e Adaptadores'   , true  ) ,
+( 'Baixolões'             , true  ) ,
+( 'Capas e Cases'         , true  ) ,
+( 'Interfaces de Som'     , true  ) ,
+( 'Pedaleiras'            , true  ) ,
+( 'Instrumentos de Sopro' , true  ) ;
 
 
 -- ## 7º - Criar tabela `product_brands`, referente as MARCAS de produtos
@@ -109,44 +110,77 @@ DROP TABLE IF EXISTS `product_brands`;
 CREATE TABLE IF NOT EXISTS `product_brands`
 (
   `brand_id`              int(11)       NOT NULL auto_increment ,
-  `description`           varchar(50)   NOT NULL                ,
-  `category_id`           int(11)       NOT NULL                ,
+  `description`           varchar(50)   NOT NULL UNIQUE         ,  
   `activity_status`       boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
   `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT PK_product_brands PRIMARY KEY (brand_id),
-  CONSTRAINT FK_categorys_brands FOREIGN KEY (category_id) REFERENCES product_categorys(category_id)
+  CONSTRAINT PK_product_brands PRIMARY KEY (brand_id)  
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
 -- ## 8º - Insere Dados na tabela `product_brands`
 INSERT INTO `product_brands`
-( `description` , `category_id`, `activity_status` )
+( `description` , `activity_status` )
 VALUES
-( 'Ibanez'    , '1', true	) ,
-( 'Ibanez'    , '2', true	) ,
-( 'Michael'   , '1', true	) ,
-( 'Michael'   , '2', true	) ,
-( 'Michael'   , '1', true	) ,
-( 'Dean'      , '2', true	) ,
-( 'Tagima'    , '1', true ) ,
-( 'Tagima'    , '2', true ) ,
-( 'Strinberg' , '1', true ) ,
-( 'Strinberg' , '2', true ) ,
-( 'Pearl'     , '4', true ) ,
-( 'Ludwig'    , '4', true ) ,
-( 'Mapex'     , '4', true ) ,
-( 'Shelter'   , '13', true ) ,
-( 'Woodwinds' , '13', true ) ,
-( 'SML'       , '13', true ) ,
-( 'Shure'     , '7', true ) ,
-( 'Sennheiser', '7', true ) ,
-( 'Lyco'      , '7', true ) ,
-( 'Behringer' , '7', true ) ,
-( 'Behringer' , '11', true ) ;
+( 'Ibanez'    , true ) ,
+( 'Michael'   , true ) ,
+( 'Dean'      , true ) ,
+( 'Tagima'    , true ) ,
+( 'Strinberg' , true ) ,
+( 'Pearl'     , true ) ,
+( 'Ludwig'    , true ) ,
+( 'Mapex'     , true ) ,
+( 'Shelter'   , true ) ,
+( 'Woodwinds' , true ) ,
+( 'SML'       , true ) ,
+( 'Shure'     , true ) ,
+( 'Sennheiser', true ) ,
+( 'Lyco'      , true ) ,
+( 'Behringer' , true ) ;
 
 
--- ## 9º - Criar tabela `product_models`, referente ao Modelo de produtos
+-- ## 9º - Criar tabela `categorys_x_brands`, referente a relação de N para N de Categoria de Produtos e Marcas
+DROP TABLE IF EXISTS `categorys_x_brands`;
+CREATE TABLE IF NOT EXISTS `categorys_x_brands`
+(
+  `relation_id`           int(11)       NOT NULL auto_increment ,
+  `category_id`           int(11)       NOT NULL                ,
+  `brand_id`              int(11)       NOT NULL                ,  
+  `description`           varchar(50)   NOT NULL                ,
+  `activity_status`       boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_categorys_x_brands PRIMARY KEY (relation_id),
+  CONSTRAINT FK_product_categorys FOREIGN KEY (category_id) REFERENCES product_categorys(category_id),
+  CONSTRAINT FK_product_brands FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id),
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+
+-- ## 10º - Insere Dados na tabela `categorys_x_brands`
+INSERT INTO `categorys_x_brands`
+( `category_id`, `brand_id`, `description`, `activity_status` )
+VALUES
+( '1' , '1', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '1'), true ) ,
+( '1' , '2', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '2'), true ) ,
+( '1' , '3', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '3'), true ) ,
+( '1' , '4', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '4'), true ) ,
+( '1' , '5', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '5'), true ) ,
+( '4' , '6', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '4' and pb.brand_id = '6'), true ) ,
+( '4' , '7', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '4' and pb.brand_id = '7'), true ) ,
+( '4' , '8', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '4' and pb.brand_id = '8'), true ) ,
+( '13' , '9', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '13' and pb.brand_id = '9'), true ) ,
+( '13' , '10', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '13' and pb.brand_id = '10'), true ) ,
+( '13' , '11', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '13' and pb.brand_id = '11'), true ) ,
+( '7' , '12', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '12'), true ) ,
+( '7' , '13', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '13'), true ) ,
+( '7' , '14', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '14'), true ) ,
+( '7' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '15'), true ) ,
+( '11' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '11' and pb.brand_id = '15'), true ) ,
+( '1' , '16', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '16'), true ) ,
+( '1' , '17', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '17'), true ) ;
+
+
+-- ## 11º - Criar tabela `product_models`, referente ao Modelo de produtos
 DROP TABLE IF EXISTS `product_models`;
 CREATE TABLE IF NOT EXISTS `product_models`
 (
@@ -160,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `product_models`
   CONSTRAINT FK_brand_model FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
--- ## 10º - Insere Dados na tabela `product_brands`
+-- ## 12º - Insere Dados na tabela `product_models`
 INSERT INTO `product_models`
 ( `description`, `brand_id`, `activity_status` )
 VALUES
@@ -177,7 +211,7 @@ VALUES
 ( 'Classic Maple Series'  , '7', true  ) ;
 
 
--- ## 11º - Criar tabela `product_conditions`, referente as Condições do Produtos no anúncio
+-- ## 13º - Criar tabela `product_conditions`, referente as Condições do Produtos no anúncio
 DROP TABLE IF EXISTS `product_conditions`;
 CREATE TABLE IF NOT EXISTS `product_conditions`
 (
@@ -189,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `product_conditions`
   CONSTRAINT PK_product_conditions PRIMARY KEY (condition_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
--- ## 12º - Insere Dados na tabela `product_conditions`
+-- ## 14º - Insere Dados na tabela `product_conditions`
 INSERT INTO `product_conditions`
 ( `description`, `activity_status` )
 VALUES
@@ -199,7 +233,7 @@ VALUES
 ( 'Pare restauração/reaproveitamento' , true  ) ;
 
 
--- ## 13º - Criar tabela `colors`, referente as cores utilizadas no sistema em geral
+-- ## 15º - Criar tabela `colors`, referente as cores utilizadas no sistema em geral
 DROP TABLE IF EXISTS `colors`;
 CREATE TABLE IF NOT EXISTS `colors`
 (
@@ -211,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `colors`
   CONSTRAINT PK_colors PRIMARY KEY (color_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
--- ## 14º - Insere Dados na tabela `colors`
+-- ## 16º - Insere Dados na tabela `colors`
 INSERT INTO `colors`
 ( `description`, `activity_status` )
 VALUES
@@ -225,7 +259,7 @@ VALUES
 ( 'Outras'    , true  ) ;
 
 
--- ## 15º - Criar tabela `trade_posts`, referente aos ANÚNCIOS de produtos
+-- ## 17º - Criar tabela `trade_posts`, referente aos ANÚNCIOS de produtos
 DROP TABLE IF EXISTS `trade_posts`;
 CREATE TABLE IF NOT EXISTS `trade_posts`
 (
@@ -258,7 +292,7 @@ CREATE TABLE IF NOT EXISTS `trade_posts`
   CONSTRAINT FK_users_posts     FOREIGN KEY (user_id) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
--- ## 15º - Insere Dados na tabela `trade_posts`
+-- ## 18º - Insere Dados na tabela `trade_posts`
 INSERT INTO `trade_posts`
 ( `title`, `description`, `category_id`, `brand_id`, `model_id`, `color_id`, `condition_id`, `user_id`, `price`, `eletronic_invoice`, `activity_status` )
 VALUES

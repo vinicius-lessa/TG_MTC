@@ -55,7 +55,7 @@
         <div class="form-default ">
           <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
             <div class="form-floating">
-              <input type="text" class="form-control" placeholder="Nome" id="userName" name="username" autofocus>
+              <input type="text" class="form-control" placeholder="Nome" id="userName" name="username">
               <label for="userName">Nome</label>
             </div>
 
