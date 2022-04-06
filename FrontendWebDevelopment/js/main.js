@@ -1,179 +1,71 @@
-$(document).ready(function(){  
-        
-    const singUpForm = $('#singUp-form');
-    // const singInForm = $('#singIn-form');
-    // const singUpForm = document.getElementById("singUp-form");
-    const singInForm = document.getElementById("singIn-form");
+// $(document).ready(function(){
+// });
 
-    // SignUp / Criar Conta
-    $(singUpForm).submit(function( event ){
-        event.preventDefault();
+const loginForm         = $("#singIn-form");
+const msgAlertErroLogin = $("#msgAlertErroLogin");
 
-        v_FormSignUp(singUpForm);
-        //     setTimeout(
-        //         function() 
-        //         {
-        //             singUpForm.submit();
-        //             console.log("Ok")
-        //         }, 2000);
-        // }
-    });
+var userEmail           = $("#userEmail");
+var userPassword        = $("#userPassword");
+var submitForm          = true;
+
+let spinnerWrapper = document.querySelector('.spinner-wrapper');
+
+// SignIn / Entrar
+loginForm.submit(async function( event ){
+    event.preventDefault();
+
+    if (userEmail.val() === "") {
+        msgAlertErroLogin.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>");        
+        $(userEmail).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+        return false;
+    } else {
+        msgAlertErroLogin.html("");
+        $(userEmail).removeAttr("style");
+    }
+
+    if (userPassword.val() === "") {
+        msgAlertErroLogin.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo senha!</div>");
+        $(userPassword).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+        return false;
+    } else {
+        msgAlertErroLogin.html("");
+        $(userPassword).removeAttr("style");
+    }
+
+    // Loading Icon
+    spinnerWrapper.style.display = 'flex';    
     
-    // SignIn / Entrar
-    $(singInForm).submit(function( event ){ 
-        v_FormSignIn(singInForm);
-        event.preventDefault();
+    const dadosForm = new FormData();
+
+    dadosForm.append("action", "SignIn");
+    dadosForm.append("userEmail", userEmail.val());
+    dadosForm.append("userPassword", userPassword.val());    
+
+    
+
+    const dados = await fetch("../../Controllers/c_user.php", {
+        method: "POST",
+        body: dadosForm
     });
 
+    const resposta = await dados.json();
+
+    console.log(resposta);
+
+    if(resposta['erro']){
+        msgAlertErroLogin.html(resposta['msg']);
+    // }else{
+    //     document.getElementById("dados-usuario").innerHTML = "Bem vindo " + resposta['dados'].nome + "<br><a href='sair.php'>Sair</a><br>";
+    //     loginForm.reset();
+    //     loginModal.hide();
+    } else {        
+        setTimeout(function () {
+            spinnerWrapper.style.display = 'none';
+            // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+            document.location.reload();
+        }, 2000);
+    }
 });
 
-async function v_FormSignUp(singUpForm) {
-    
-    // Variables    
-    var nameInput       = $("#userName");
-    var emailInput      = $("#userEmail");
-    var passwordInput   = $("#userPassword");
-    var personTypeInput = $("#userType");
-    
-    var submitForm = true;
-
-    // Form Validations
-    if (nameInput.val() === null || nameInput.val() === "") {
-        $("#nameAlert").css('display', 'inline');
-
-        $(nameInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#nameAlert").css('display', 'none');
-        $(nameInput).removeAttr("style");
-    }
-
-    if (emailInput.val() === null || emailInput.val() === ""){
-        $("#emailAlert").css('display', 'inline');
-
-        $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#emailAlert").css('display', 'none');
-        $(emailInput).removeAttr("style");
-    }
-
-    if (passwordInput.val() === null || passwordInput.val() === ""){
-        $("#passwordAlert").css('display', 'inline');
-
-        $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#passwordAlert").css('display', 'none');
-        $(passwordInput).removeAttr("style");
-    }
-
-    if (personTypeInput.val() === null || personTypeInput.val() === "" || personTypeInput.val() === "Tipo Pessoa"){
-        $("#personTypeAlert").css('display', 'inline');
-
-        $(personTypeInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#personTypeAlert").css('display', 'none');
-        $(personTypeInput).removeAttr("style");
-    }
-    
-
-    // all inputs are acceptables
-    if (submitForm) {        
-        // Check if E-mail already exists within DB
-        var token         = "16663056-351e723be15750d1cc90b4fcd";
-        var key           = "email";
-        var value         = emailInput.val();
-
-        var urlString     = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" + token + "&key=" + key + "&value=" + value;
-        
-        var approveEmail;
-
-        await $.ajax({
-            url: urlString,
-            method: 'GET', // 'type' could be used too
-        }).done(function(response){            
-
-            if (response.length > 0) {
-                $("#emailAlert").text('E-mail já cadastrado');
-                $("#emailAlert").css('display', 'inline');
-                $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-            } else if (response.length == 0 && response != null) {                
-                singUpForm.submit();
-            }
-        }).fail(function(jqXHR, msg){
-            approveEmail = false;
-            console.log(jqXHR.status + ": " +  msg);            
-        });
-
-    } 
-    else 
-    {
-        return submitForm;
-    }
-}
-
-async function v_FormSignIn(singInForm) {
-    
-    // Variables    
-    var emailInput      = $("#userEmail");
-    var passwordInput   = $("#userPassword");
-    
-    var submitForm = true;
-
-    // Form Validations
-    if (emailInput.val() === null || emailInput.val() === "") {
-        $("#emailAlert").css('display', 'inline');
-
-        $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#emailAlert").css('display', 'none');
-        $(emailInput).removeAttr("style");
-    }
-
-    if (passwordInput.val() === null || passwordInput.val() === ""){
-        $("#passwordAlert").css('display', 'inline');
-
-        $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-
-        submitForm = false;
-    } else {
-        $("#passwordAlert").css('display', 'none');
-        $(passwordInput).removeAttr("style");
-    }
-
-
-    // all inputs are acceptables
-    if(submitForm) {
-        const formData = new FormData(singInForm);
-
-        formData.append("action", "signIn");
-
-        const data = await fetch("../../Controllers/c_user.php", {
-            method: "POST",
-            body: formData
-        });
-
-        const resposta = await data.json();
-        
-        console.log(resposta);
-        
-        if (resposta["erro"]){
-            $("#passwordAlert").css('display', 'inline');
-            $("#emailAlert").css('display', 'inline');
-            
-            $("#passwordAlert").text(resposta["msg"])
-            $("#emailAlert").text(resposta["msg"])
-    
-            $(emailInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-            $(passwordInput).css({'margin-bottom': '-15px','border': '1px solid #f64141'});
-        }
-    }
-}

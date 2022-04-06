@@ -91,19 +91,16 @@ function userValidation($email, $password)
     //     $aResult = array("erro" => true , "msg" => "A requisição ao Servidor falhou! Tente Novamente" );
     // endif;
 
-    if (count($aResult) == 0 || $aResult == false):
-        $aResult = array("erro" => true , "msg" => "*Usuário ou Senha Inválidos" );
+    if (count($aResult) == 0 || $aResult == false):        
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Usuário ou a senha inválida!</div>"];
     else:
-    
-        $passDb     = '$2y$10$SzQjA6vcaoQBnhxOCswmG.Rvhob4njWFfgfNmFk\/sz7MiRn36iCMW';        
-
-        // if (password_verify($password, $aResult['password'])):
-        if (password_verify($password, $passDb)):
-            $aResult = array("erro" => false , "msg" => "Login realizado com sucesso" );
+        if (password_verify($password, $aResult[0]["password"])):                    
+            // $retorna = ['erro'=> false, 'msg' => "<div class='alert alert-danger' role='alert'>Login realizado com sucesso!</div>"];
+            $retorna = ['erro'=> false, 'dados' => $aResult[0]];
         else:
-            $aResult = array("erro" => true , "msg" => "*Usuário ou Senha Inválidos" );
+            $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Usuário ou a senha inválida!</div>"];
         endif;
-    endif;    
+    endif;
 
     // // Query/DB Problems
     // $status_line = $http_response_header[0];
@@ -112,9 +109,9 @@ function userValidation($email, $password)
 
     // if ($status !== "200") {
     //     $aResult = array("mensagem" => $aResult['mensagem'], 'retorno' => false );
-    // }
+    // }    
     
-    return $aResult;    
+    return $retorna;
 }
 
 // ################################################# ANALISAR

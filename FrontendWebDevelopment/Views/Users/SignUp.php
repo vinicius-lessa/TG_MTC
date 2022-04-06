@@ -53,7 +53,7 @@
         
         <!-- Form -->
         <div class="form-default ">
-          <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' method="post">
+          <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' onsubmit="return v_FormSignUp()" method="post">
             <div class="form-floating">
               <input type="text" class="form-control" placeholder="Nome" id="userName" name="username">
               <label for="userName">Nome</label>
