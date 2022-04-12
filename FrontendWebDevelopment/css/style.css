@@ -7,6 +7,10 @@
 
 /* ################################ Default Elements
 */
+/* Tablet em retrato a paisagem e desktop */
+/* @media (min-width: 1200px) { */
+/* @media (min-width: 576px) { */
+  /*RESPONSIVIDADES DESKTOP/MOBILE 11-04-22*/
 
 html, body {
   margin: 0;
@@ -28,6 +32,9 @@ footer{
   padding: 10px 0px 10px 0px;
 }
 
+.fundohome  {
+  background-color: #70707010;
+}
 
 /* ################################ Forms
 */
@@ -51,7 +58,7 @@ footer{
 }
 
 .bk-left {
-  background-color: #272829;
+  background-color: #1C2124;
 }
 
 .bk-red {
@@ -67,7 +74,9 @@ footer{
 .font-main  {
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
+.tam-16 {
+  font-size:16px;
+}
 /* Font Color */
 
 .text-white {
@@ -103,8 +112,6 @@ a.link-none:link {
   display: none;
   margin-left: 5px;
 }
-
-
 
 /* ############################ ANALISAR ############################*/
 
@@ -272,8 +279,8 @@ hr {
 #lista-footer li a {
   display: inline-block;
   text-decoration: none;
-  font-size: 18px;
-  width: 250px;
+  font-size: 15px;
+  width: 140px;
 }
 
 #lista-footer ul {
@@ -741,4 +748,19 @@ h5.titulo-comentario {
 #listaMeusPedidos li img {
   width: 40px;
   margin-right: 2px;
+}
+/* } */
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
 }

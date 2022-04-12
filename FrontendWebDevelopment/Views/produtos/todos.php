@@ -24,7 +24,7 @@ $offset = (isset($_GET['page'])) ? ($_GET['page'] * $limit) : 0;
 
 require SITE_PATH . '/Controllers/c_produto.php';
 
-$titlePage = "Todos os Produto";
+$titlePage = "Anúncios";
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

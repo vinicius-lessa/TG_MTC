@@ -1,45 +1,31 @@
-<footer class="footer mt-5 py-3 bk-preto">
-  <div class="container text-center">
-    <span class="text-muted">&copy; Music Trade Center 2021 – 2022</span>
+<footer>
+  <div class="container mt-5">
+    <div class="d-flex justify-content-center py-3">
+      <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
+        <!-- <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li> -->
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/produtos/QuemSomos.php" class="nav-link border-button text-white">Quem Somos</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/produtos/FeedMusical.php" class="nav-link border-button text-white">Feed Musical</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/produtos/MusicTradeCenter.php" class="nav-link border-button text-white">Music Trade Center</a></li>
+      </ul>
+    </div>
+    <hr class="my-3">
   </div>
-  
-  <!-- <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4">
-        <nav id="lista-footer" class="bk-preto">
-          <ul>
-            <li>
-              <a class="border-button ft-escuro font-weight-bold text-center mt-5" href="<?php echo SITE_URL ?>/Views/home/sobreNos.php">Fale Conosco</a>
-            </li>
-            <li>
-            <a class="border-button ft-escuro font-weight-bold text-center mt-3" href="<?php echo SITE_URL ?>/Views/pedidos/meusPedidos.php">Meus Pedidos</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <div class="col-md-4">
-        <nav id="lista-footer" class="bk-preto">
-          <ul>
-            <li>
-              <a class="border-button ft-escuro font-weight-bold text-center mt-5" href="<?php echo SITE_URL ?>/Views/home/sobreNos.php">Sobre</a>
-            </li>
-            <li>
-              <a class="border-button ft-escuro font-weight-bold text-center mb-5 mt-3" href="<?php echo SITE_URL ?>/Views/adm/index.php">Área Administrativa</a>
-            </li>
-          </ul>
-        </nav>
+
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="index.php" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"><img src="../../images/icon.png" class="img-fluid" alt="" width="45px" height="45px"></a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="https://www.facebook.com/" class="nav-link px-4 link-secondary"><img src="../../images/IMAGENS/ÍCONES/facebook-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
+        <li><a href="https://www.instagram.com/" class="nav-link px-4 link-secondary"><img src="../../images/IMAGENS/ÍCONES/instagram-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
+        <li><a href="https://twitter.com/" class="nav-link px-4 link-secondary"><img src="../../images/IMAGENS/ÍCONES/twitter-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
+      </ul>
+
+      <div class="col-md-4 text-end">
+        © 2020 - 2022 Copyright
+        <a class="text-white" href="index.php">Music Trade Center</a>
       </div>
 
-      <div class="col-md-4 text-right">
-        <a href="<?php echo SITE_URL ?>/Views/homepage/index.php">
-          <img id="logo-footer" src="<?php echo SITE_URL ?>/images/logo.png" alt="Logo">
-        </a>
-      </div>
     </div>
-    <div class="row">
-      <div class="col text-center ft-escuro">
-        <p><small>2020 - TMC - Trade Music Center - Vinicius Lessa da Silva</small></p>
-      </div>
-    </div>
-  </div> -->
+  </div>
 </footer>

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
@@ -43,157 +44,175 @@
     <main>
       <div class="container mt-5 mb-5">
         <div class="row">
-        <div class="col-6">
-          <img src="../../images/icon.png" class="img-fluid" alt="">
+        <div class="col-12 col-sm-6">
+          <img src="../../images/icon.png" class="img-fluid" alt="" width="400">
           </div>
 
-          <div class="col-6 mt-5 font-main">
-            <h6 class="text-red">Negociação Online</h6>
+          <div class="col-12 col-sm-6 mt-5 font-main">
+            <h6 class="text-red"><strong>Negociação Online</strong></h6>
             <h1 class="text-white"><strong>Music Trade Center</strong></h1>
-            <p class="text-white" style="font-size:14px;">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <button type="button" class="btn btn-danger btn-lg border-0 mt-3"><a class="text-white" href="#">NEGOCIE AGORA</a></button>
+            <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
+            <a class="text-white" href="#"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
           </div>
         </div>
       </div>
     </main>
-    
-    <!-- MEIO DA HOME -->
-<div class="container">
-<div class="row">
 
-  <div class="col-4 p-5">
-      <div class="card-body bk-left">
-        <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: white;"></i>
-        <p class="card-title text-white" style="text-align:left;">Variedade</p>
-        <p class="card-title text-white" style="text-align:left;">Diversas opções de instrumentos e acessórios com preço de desapego para você.</p>
-        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
-      </div>
-  </div>
+<!-- bk -->
+<!-- <nav class="navbar navbar-light bk-left mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
+  <a class="navbar-brand" style="height:800px;" href="#"></a>
+</nav> -->
 
-  <div class="col-4 p-5">
-      <div class="card-body bk-red">
-        <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: white;"></i>
-        <p class="card-title text-white" style="text-align:left;">Segurança</p>
-        <p class="card-title text-white" style="text-align:left;">Aconselhamos que toda a negociação seja feita 100% na plataforma.</p>
-        <a class="text-white" href="#"><strong>Saiba Mais</strong></a>
-      </div>
-  </div>
-
-  <div class="col-4 p-5">
-      <div class="card-body bk-left">
-        <i class="bi bi-bag-check" style="text-align:right;font-size: 2rem; color: white;"></i>
-        <p class="card-title text-white" style="text-align:left;">Entrega</p>
-        <p class="card-title text-white" style="text-align:left;">As entregas são negociadas diretamente com o Anunciante do Instrumento.</p>
-        <a class="text-red" href="#"><strong>Saiba Mais</strong></a>
-      </div>
-  </div>
-
-</div>
-</div>
-
-  <div class="container mt-5 mb-2">
+  <!-- MEIO DA HOME -->
+  <div class="container mt-5">
     <div class="row">
-      <div class="col-4 bk-left center">
-        <h1 class="text-red mt-5" style="text-align:center;"><strong>+500</strong></h1>
-        <h5 class="text-white" style="text-align:center;"><strong>Anúncios em todo o</strong></h5>
-        <h5 class="text-white" style="text-align:center;"><strong>Brasil</strong></h5>
-       </div>
       
-    <div class="col-4">
-      <div class="card bk-left" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title text-white">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted text-white">Card subtitle</h6>
-          <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link text-white">Card link</a>
-          <a href="#" class="card-link text-white">Another link</a>
+      <div class="col-12 col-sm-4 bk-left center">
+        <h1 class="text-red mt-5" style="text-align:center;font-size:42px;"><strong>+3000</strong></h1>
+        <h5 class="text-white" style="text-align:center;"><strong>Anúncios em todo o</strong></h5>
+        <h5 class="text-white" style="text-align:center;"><strong>estado de São Paulo</strong></h5>
+        <h6 class="text-white" style="text-align:center;font-size:12px;margin-top:30px;">em breve em todos os estados</h6>
+       </div>  
+        
+        <div class="col-12 col-sm-4 text-white">
+          <a href="../produtos/anuncios.php">
+            <img class="card-img" style="opacity:90%;" src="../../images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
+          </a>
         </div>
-      </div>
-    </div>
 
-    <div class="col-4">
-      <div class="card bk-left" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title text-white">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted text-white">Card subtitle</h6>
-          <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link text-white">Card link</a>
-          <a href="#" class="card-link text-white">Another link</a>
+        <div class="col-12 col-sm-4 text-white">
+          <a href="../produtos/anuncios.php">
+            <img class="card-img" style="opacity:90%;" src="../../images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
+          </a>
         </div>
-      </div>
-    </div>
+
     </div>
   </div>
 
   
-  <div class="container mb-5">
+  <div class="container mb-5 mt-2">
     <div class="row">
       <div class="col-4 center"></div>
-      
-      <div class="col-4">
-      <div class="card bk-left" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title text-white">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted text-white">Card subtitle</h6>
-          <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link text-white">Card link</a>
-          <a href="#" class="card-link text-white">Another link</a>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-4">
-      <div class="card bk-left" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title text-white">Card title</h5>
-          <h6 class="card-subtitle mb-2 text-muted text-white">Card subtitle</h6>
-          <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link text-white">Card link</a>
-          <a href="#" class="card-link text-white">Another link</a>
+        <div class="col-12 col-sm-4 text-white">
+          <a href="../produtos/anuncios.php">
+            <img class="card-img" style="opacity:90%;" src="../../images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
+          </a>
         </div>
+
+        <div class="col-12 col-sm-4 text-white">
+          <a href="../produtos/anuncios.php">
+            <img class="card-img" style="opacity:90%;" src="../../images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
+          </a>
+        </div>
+
       </div>
-    </div>
     </div>
   </div>
 
-<!-- FINAL DA HOME -->
-<div class="container mt-5 mb-5">
-<div class="row">
-  <h5 class="text-white"><strong>D E S T A Q U E S</strong></h5>
-  <div class="col-4 p-5">
-      <div class="card-body bk-left">
-      <img src="../../images/produtos/guitarra.jpg" style="width:200px; margin-left:30px;" alt="">
-      <p class="card-title text-white" style="text-align:left;font-size:20px;"><strong>Guitarra</strong></p>
-        <p class="card-title text-white" style="text-align:left;font-size:14px;">Guitarra Dolphin anos 90 Black piano tipo
-        Fender Kurt Cobain Vandalism.</p>
-        <p class="card-title text-red" style="text-align:left;"><strong>R$780,00</strong></p>
-        <a href="#" class="btn btn-danger border-0">Negociar</a>
+<!-- ANÚNCIOS 01-->
+<div class="container mt-5">
+  <div class="row">
+
+    <div class="col-9">
+      <h4 class="text-white"><strong>D E S T A Q U E S</strong></h4>
+    </div>
+
+    <div class="col-3 mb-5">
+      <a class="text-white" style="font-size:16px;" href="../produtos/anuncios.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
+    </div>
+
+    <div class="col-12 col-sm-4 mt-3">
+      <div class="">
+        <a href="../produtos/detalhe-anuncio.php">
+          <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
+        </a>
       </div>
+        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
+        <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
+    </div>
+
+
+    <div class="col-12 col-sm-4 mt-3">
+      <div class="">
+        <a href="../produtos/detalhe-anuncio.php">
+          <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
+        <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
+    </div>
+
+    <div class="col-12 col-sm-4 mt-3">
+      <div class="">
+        <a href="../produtos/detalhe-anuncio.php">
+          <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
+        <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
+    </div>
+
   </div>
-  <div class="col-4 p-5">
-      <div class="card-body bk-left">
-      <img src="../../images/produtos/guitarra.jpg" style="width:200px; margin-left:30px;" alt="">
-      <p class="card-title text-white" style="text-align:left;font-size:20px;"><strong>Guitarra</strong></p>
-        <p class="card-title text-white" style="text-align:left;font-size:14px;">Guitarra Dolphin anos 90 Black piano tipo
-        Fender Kurt Cobain Vandalism.</p>
-        <p class="card-title text-red" style="text-align:left;"><strong>R$780,00</strong></p>
-        <a href="#" class="btn btn-danger border-0">Negociar</a>
-      </div>
-  </div>
-  <div class="col-4 p-5">
-      <div class="card-body bk-left">
-      <img src="../../images/produtos/guitarra.jpg" style="width:200px; margin-left:30px;" alt="">
-      <p class="card-title text-white" style="text-align:left;font-size:20px;"><strong>Guitarra</strong></p>
-        <p class="card-title text-white" style="text-align:left;font-size:14px;">Guitarra Dolphin anos 90 Black piano tipo
-        Fender Kurt Cobain Vandalism.</p>
-        <p class="card-title text-red" style="text-align:left;"><strong>R$780,00</strong></p>
-        <a href="#" class="btn btn-danger border-0">Negociar</a>
-      </div>
+
   </div>
 </div>
+
+
+<!-- ANÚNCIOS 02-->
+<div class="container mb-5 mt-5">
+  <div class="row">
+
+  <div class="col-12 col-sm-4 mt-3">
+    <div class="">
+      <a href="../produtos/detalhe-anuncio.php">
+        <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
+      </a>
+    </div>
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
+      <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
+  </div>
+
+
+  <div class="col-12 col-sm-4 mt-3">
+    <div class="">
+      <a href="../produtos/detalhe-anuncio.php">
+        <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
+      </a>
+    </div>
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
+      <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
+  </div>
+
+  <div class="col-12 col-sm-4 mt-3">
+    <div class="">
+      <a href="../produtos/detalhe-anuncio.php">
+        <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
+      </a>
+    </div>
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
+      <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
+  </div>
+
+  </div>
 </div>
+
+<!-- ENCONTRE ARTISTAS -->
+  <div class="card-group">
+  <div class="col-12 col-sm-2"></div>
+
+  <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+    <div class="row ms-5 mt-3 mb-3 me-5">
+        <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
+        <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
+      <div class="col-12 col-sm-4 mt-1">
+        <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
       </div>
     </div>
+  </div>
+
+  <div class="col-12 col-sm-2"></div>
+</div>
 
     <!-- Footer Include -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
@@ -202,6 +221,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="sidebars.js"></script>
   </body>
 
 </html>

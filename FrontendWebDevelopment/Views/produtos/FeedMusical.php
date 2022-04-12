@@ -1,121 +1,83 @@
 <?php
-/* 
-4 SEMESTRE - SISTEMAS PARA INTERNET
-Author: Vinícius Lessa da Silva / Anderson Nascimento
-Since: 2020/06/19
-*/
-/*REMOVER WARNING*/
-if (!defined('SITE_URL')) {
+  if (!defined('SITE_URL')) {
     include_once '../../config.php';
-}
+  }
 
-if (session_status() === PHP_SESSION_NONE) {
+  if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}
-$listaVioloes = [];
-$codCategoria = 1;
-$limit = 12; /** quantidade de produto por pg */
-$Nextpg = (isset($_GET['page'])) ? ($_GET['page'] + 1) : 1;
-$Prevpg = (isset($_GET['page']) && $Nextpg > 1) ? ($_GET['page'] - 1) : 0;
-$offset = (isset($_GET['page'])) ? ($_GET['page'] * $limit) : 0;
+  }
 
-require SITE_PATH . '/Controllers/c_produto.php';
+  $titlePage = 'HomePage';
+  $data_slide = 0;
 
-$titlePage = "Violões";
-
+  // require SITE_PATH . '/Controllers/c_home.php';
 ?>
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="h-100">
+  <head>
+  <meta charset='utf-8'>    
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap.min.css">
-  <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <!-- Page Data -->
+    <meta name="author" content="Vinícius Lessa / Iuri Ferreira">
+    <meta name="description" content="Página de criação de cadastro por parte do usuário do sistema.">
+    <title> <?php echo $titlePage; ?> </title>
+    
+    <!-- StyleSheet -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
+  </head>
 
-  <title>
-    Tmc.com | <?php echo $titlePage; ?>
-  </title>
-</head>
+  <body class="d-flex flex-column h-100 bk-preto font-main">
+    
+    <!-- Header Include -->
+    <?php include SITE_PATH . '/includes/header.php'; ?>
+    
+    <!-- Begin page content -->
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-sm-12">
+          <img src="../../images/IMAGENS/PÚBLICO01.jpg" class="img-fluid" alt="">
+          </div>
+          <hr></hr>
+        </div>
+      </div>
+    </main>
 
-<body>
-  <!-- Header Include -->
-  <?php include SITE_PATH . '/includes/header.php';?>
-  <!--conteudo da pagina -->
+<!-- ENCONTRE ARTISTAS -->
+<div class="card-group">
+  <div class="col-12 col-sm-2"></div>
 
-  <!-- header da pagina -->
-  <header>
-    <div class="">
-      <div class="caixa-violoes">
-        <h1 class="">Feed Musical</h1>
-        <h4 class="">EM CRIAÇÃO</h4>
+  <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+    <div class="row ms-5 mt-3 mb-3 me-5">
+        <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
+        <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
+      <div class="col-12 col-sm-4 mt-1">
+        <a class="text-white" style="font-size:14px;" href="<?php echo SITE_URL ?>/Views/produtos/MusicTradeCenter.php""><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
       </div>
     </div>
-  </header>
-  <main>
-    <!-- section com o FEED MUSICAL  -->
-    <section>
-      <div class="container mt-5">
-      <?php
-if ($listaVioloes) {?>
-        <div class="row">
-          <?php foreach ($listaVioloes as $produto) {?>
-          <div class="col-sm-3 mb-3">
-            <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe.php?produto=<?php echo $produto['cod_produto'] ?>"
-              class="linkCardsVioloes">
-              <div class="card text-center border-0 card-produto">
-                <div class="card-header border-0 bg-transparent">
-                  <h5 class="card-title text-uppercase">
-                    <?php echo $produto['nome_prod'] ?>
-                  </h5>
-                  <p class="text-muted mt-n3"><?php echo $produto['nome_categoria'] ?>
-                  </p>
-                </div>
-                <img class="card-img-top px-5 img-cover"
-                  src="<?php echo SITE_URL ?>/images/produtos/<?php echo $produto['cover_img'] ?>"
-                  alt="Cover: <?php echo $produto['nome_prod'] ?>">
-                <div class="card-body">
-                  <p class="card-text mt-n3"><small class="text-muted">Por Apenas</small></p>
-                  <p class="card-text h2 font-weight-bold"><small>R$
-                    </small><?php echo number_format($produto['valor_un'], 2, ',', '.') ?>
-                  </p>
-                </div>
-                <div class="card-footer border-0 bg-transparent">
-                  <a href="<?php echo SITE_URL ?>/Controllers/c_pedido.php?addProduto=<?php echo $produto['cod_produto'] ?>&valor=<?php echo $produto['valor_un'] ?>"
-                    class="btn btn-dark btn-block btn-comprar">Comprar</a>
-                </div>
-              </div>
-            </a>
-          </div>
-          <?php }?>
-        </div>
-        <?php } else {
-    /*Carregar erro quando não tiver produto cadastrado */
-    include SITE_PATH . '/includes/erroCarregarProduto.php';
-}?>
-      </div>
-    </section>
-    <!-- menu de navegação das paginas -->
-    <nav aria-label="Navegação de página exemplo">
-      <ul class="pagination justify-content-center ">
-        <li class="page-item <?php if ($Nextpg == 1) {
-    echo 'disabled';
-}?>">
-          <a class="page-link bk-escuro ft-branca" href="./violao.php?page=<?php echo $Prevpg ?>">Anterior</a>
-        </li>
-        <li class="page-item <?php if (count($listaVioloes) < $limit) {
-    echo 'disabled';
-}?>">
-          <a class="page-link bk-escuro ft-branca" href="./violao.php?page=<?php echo $Nextpg ?>">Próximo</a>
-        </li>
-      </ul>
-    </nav>
-  </main>
+  </div>
 
-  <!-- footer site -->
-  <?php include SITE_PATH . '/includes/footer.php';?>
-</body>
+  <div class="col-12 col-sm-2"></div>
+</div>
+
+    <!-- Footer Include -->
+    <?php include SITE_PATH . '/includes/footer.php'; ?>    
+  
+    <!-- Scripts -->    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="sidebars.js"></script>
+  </body>
 
 </html>
