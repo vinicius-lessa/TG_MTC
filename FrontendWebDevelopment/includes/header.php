@@ -1,4 +1,23 @@
+<<<<<<< HEAD
 <!-- <header class="col-12 col-sm-12 mb-5"> -->
+=======
+<?php
+/**
+ * File DOC
+ * 
+ * @Description Header Include Page
+ * @ChangeLog 
+ *  - Vinícius Lessa - 06/04/2022: ...
+ * 
+ * @ Notes: 
+ * 
+ */
+session_start();
+
+?>
+
+<header class="mb-5">
+>>>>>>> de30ab7db48952031d43e61a0c3ea42a2f5c6f6d
   <!-- Fixed navbar -->
   <!-- <nav class="navbar navbar-expand-md bk-preto">
     <div class="container">
@@ -21,6 +40,7 @@
         </li>
       </ul>
 
+<<<<<<< HEAD
       <ul class="nav">
         <li class="nav-item">
             <a class="border-button nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/SignUp.php">Cadastrar</a>
@@ -29,6 +49,28 @@
           <a class="border-button nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/SignIn.php">Entrar</a>
         </li>
       </ul>
+=======
+      <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+              <form action="<?php echo SITE_URL ?>/Controllers/c_user.php" method="get">
+                <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true">Sair</a>
+              </form>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/MyProfile.php">Meu Perfil</a>
+          </li>
+        </ul>      
+      <?php else:  ?>      
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+              <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/SignUp.php">Cadastrar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="<?php echo SITE_URL ?>/Views/users/SignIn.php">Entrar</a>
+          </li>
+        </ul>
+      <?php endif;  ?>
+>>>>>>> de30ab7db48952031d43e61a0c3ea42a2f5c6f6d
 
     </div>
   </nav> -->

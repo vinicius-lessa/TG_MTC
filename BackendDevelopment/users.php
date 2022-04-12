@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $userEmail = $valueSearch;
 
                 if (!is_numeric($userEmail)):
-                    $dados = CrudDB::select('SELECT email, password FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
+                    $dados = CrudDB::select('SELECT user_id, user_name, email, password FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
                         ,['USER_EMAIL' => $userEmail]
                         ,TRUE);
                 else:

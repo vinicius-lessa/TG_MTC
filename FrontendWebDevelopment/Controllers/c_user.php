@@ -1,5 +1,4 @@
 <?php
-
 /**
  * File DOC
  * 
@@ -10,6 +9,7 @@
  * @ Notes: As requisições nesta página vem através de JavaScript, pela função FETCH, enviando requisições POST.
  * 
  */
+session_start();
 
 if (!defined('SITE_URL')) {
     include_once '../config.php';
@@ -17,14 +17,13 @@ if (!defined('SITE_URL')) {
 
 include SITE_PATH . '/Models/m_user.php';
 
-// Receive POST Data
-$postData = filter_input_array(INPUT_POST, FILTER_DEFAULT);    
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
 /****
     SIGNUP Submit
 ****/
 
-if (isset($_POST['signUp'])) {
+if (isset($_POST['signUp'])):
     
     $data = [];
     
@@ -37,56 +36,50 @@ if (isset($_POST['signUp'])) {
             }
         }
     }
-    
-    var_dump($data);
-    /*
-    // Check recived values        
-    
-        $string=implode(",",$data);
-        echo $string;
-        var_dump($data);
-
-        echo "<br><hr><br>";
         
-        var_dump(userCreation($data));
-    */        
+    //*** Check recived values    
+    
+    // $string = implode(",",$data);
+    // echo $string;
+    // var_dump($data);        
+    // var_dump(userCreation($data));    
 
-    // $aResponse = userCreation($data);        
+    $aResponse = userCreation($data);        
 
-    // if ($aResponse['retorno']) {
-    //     header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
-    // } else {
-    //     $msgErro = $aResponse['mensagem'];
-    //     header("location:" . SITE_URL . "/Views/users/returnFailed.php?error=$msgErro");
-    // }    
-}
+    if ($aResponse['retorno']) :
+        header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
+    else:
+        $msgErro = $aResponse['mensagem'];
+        header("location:" . SITE_URL . "/Views/users/returnFailed.php?error=$msgErro");
+    endif;
+endif;
 
 
 /****
     SIGNIN Submit
 ****/
 
-if ($postData['action'] == 'signIn'):
+// if (isset($_POST['signIn'])):
+if ($dados['action'] === "SignIn"): 
     
-    $email      = $postData['email'];
-    $password   = $postData['password'];
+    $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>"];     
 
-    if (empty($postData['email']) or empty($postData['password'])):
-        $aResponse = ['erro' => true , 'msg' => 'Preencha todos os Campos!'];
-    else:        
-        $aResponse = userValidation($email, $password);
+    if(empty($dados["userEmail"])){
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>"];
+    }elseif(empty($dados["userPassword"])){
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo senha!</div>"];
+    }else{
         
-        // $responseReturn = ['erro' => $aResponse['erro'] , 'msg' => $aResponse['msg']];
+        $retorna = userValidation($dados["userEmail"], $dados["userPassword"]);
+        
+        if(!$retorna["erro"]):            
+            $_SESSION['user_id']    =  $retorna["dados"]["user_id"];
+            $_SESSION['user_name']  =  $retorna["dados"]["user_name"];
+            $_SESSION['user_email'] = $retorna["dados"]["email"];        
+        endif;
+    }
 
-            // session_start();
-            // $_SESSION['email'] = $usuario['email'];
-            // $_SESSION['nome_cliente'] = $usuario['nome_cliente'];
-            // $_SESSION['cod_cliente'] = $usuario['cod_cliente'];
-            // header("location:" . SITE_URL . "/Views/homepage/index.php");        
-    endif;
-
-    echo json_encode($aResponse);
-
+    echo json_encode($retorna);
 endif;
 
 
@@ -94,9 +87,9 @@ endif;
     LOGOUT Submit
 ****/
 
-if (isset($_GET['sair'])) {
-    session_start();
-    session_destroy();
+if (isset($_GET['signOut'])) {    
+    // session_destroy();
+    unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email']);
     header("location:" . SITE_URL . "/Views/homepage/index.php");
 }
 
