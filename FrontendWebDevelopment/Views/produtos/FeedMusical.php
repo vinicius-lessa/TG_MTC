@@ -5,6 +5,7 @@
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
+ *  - Renata Carrillo - 13/04/2022: Finalização do Front da Página;
  * 
  * @ Notes: 
  * 
@@ -55,11 +56,25 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 col-sm-12">
-        <img src="../../images/IMAGENS/PÚBLICO01.jpg" class="img-fluid" alt="">
+        <img src="../../images/IMAGENS/PÚBLICO01.png" class="img-fluid" alt="">
       </div>
         <hr></hr>
     </div>
   </div>
+
+  <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../../images/IMAGENS/PÚBLICO01.PNG" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+    <img src="../../images/IMAGENS/PÚBLICO01.PNG" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+    <img src="../../images/IMAGENS/PÚBLICO01.PNG" class="d-block w-100" alt="...">
+    </div>
+  </div>
+</div> -->
 
 <!-- SUGESTÕES DE PLAYLIST -->
   <div class="container mb-5">
@@ -67,7 +82,7 @@
       <div class="col-12 col-sm-6 mt-5">
         <h3 class="text-white"><strong>Sugestões de Playlist</strong></h3>
       </div>
-        <hr></hr>
+        <!-- <hr></hr> -->
   </div>
 
 <div class="container">
@@ -119,51 +134,22 @@
   </div>
 </div>
 
-<!-- ARTISTAS EM DESTAQUE -->
+<!-- DISCOGRAFIAS -->
 <div class="container mb-1 mt-3">
   <div class="row">
     <div class="col-12 col-sm-6 mt-5">
-      <h3 class="text-white"><strong>Artistas em Destaque</strong></h3>
+      <h3 class="text-white"><strong>Discografias</strong></h3>
     </div>
-    <hr></hr>
+          <!-- <hr></hr> -->
   </div>
 </div>
 
-<!-- SUGESTÕES DE PLAYLIST-->
-<div class="container col-sm-10 mt-3">
+<div class="container col-6 col-sm-10">
 <div class="row">
+  <!-- <div class="col-12 col-sm-8">
+  <div class="row"> -->
       
-    <div class="col-6 col-sm-2 mt-3">
-      <div class="">
-        <!-- <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
-        </a> -->
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
-        </a>
-      </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
-    </div>
-
-    <div class="col-6 col-sm-2 mt-3">
-      <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/CBJ.jpg" class="rounded-circle" alt="" width="150" height="150">
-        </a>
-      </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>CBJ</strong></p>
-    </div>
-
-    <div class="col-6 col-sm-2 mt-3">
-      <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
-        </a>
-      </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Alice in Chains</strong></p>
-    </div>
-
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
           <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
@@ -172,22 +158,49 @@
         <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/CBJ.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/PANTERA.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>CBJ</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:25px;"><strong>Metal Magic</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/ACDC.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Back in Black</strong></p>
+    </div>
+
+    <div class="col-12 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:52px;"><strong>Pulse</strong></p>
+    </div>
+
+    <div class="col-12 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/MJ.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:25px;"><strong>Off the Wall</strong></p>
+    </div>
+
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
           <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Alice in Chains</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:45px;"><strong>Facelift</strong></p>
     </div>
 
   </div>
@@ -195,58 +208,58 @@
   <!-- <div class="col-12 col-sm-8">
   <div class="row"> -->
       
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3 mb-5">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/SOUNDGARDEN.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:27px;"><strong>King Animal</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/CBJ.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/PARAMORE.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>CBJ</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:27px;"><strong>Singles Club</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/EWF.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Alice in Chains</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:15px;"><strong>Electric Universe</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/TOMJOBIM.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>Wave</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/CBJ.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/DANIELCAESAR.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>CBJ</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:40px;"><strong>Freudian</strong></p>
     </div>
 
-    <div class="col-6 col-sm-2 mt-3">
+    <div class="col-12 col-sm-2 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-          <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
+          <img src="../../images/IMAGENS/ALBUM/TEARSFORFEARS.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
-        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Alice in Chains</strong></p>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Cape Fear</strong></p>
     </div>
 
   </div>
@@ -256,23 +269,152 @@
 </div>
 
 
-<!-- MÚSICAS-->
-<div class="container">
+<!-- ARTISTAS EM DESTAQUE -->
+<div class="container mb-1 mt-3">
+  <div class="row">
+    <div class="col-12 col-sm-6 mt-5">
+      <h3 class="text-white"><strong>Artistas em Destaque</strong></h3>
+    </div>
+          <!-- <hr></hr> -->
+  </div>
+</div>
+
+<div class="container mt-2 mb-5">
 <div class="row">
 
-<div class="col-12 col-sm-12 mt-5">
+<div class="col-6 col-sm-4">
   <div class="">
-  <h3 class="text-white"><strong>Músicas</strong></h3>
-  <hr></hr>
     <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-      <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
+      <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
     </a>
   </div>
     <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
 </div>
+
+<div class="col-6 col-sm-4">
+  <div class="">
+    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <img src="../../images/IMAGENS/ALBUM/LUTHER.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/LUTHER.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
+      <img src="../../images/IMAGENS/ALBUM/LUTHER.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
+    </a>
+  </div>
+    <p class="card-title text-white mt-2" style="text-align:left;margin-left:25px;"><strong>Luther Vandross</strong></p>
 </div>
 
+<div class="col-6 col-sm-4">
+  <div class="">
+    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <img src="../../images/IMAGENS/ALBUM/DANIEL.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/DANIEL.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
+      <img src="../../images/IMAGENS/ALBUM/DANIEL.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
+    </a>
+  </div>
+    <p class="card-title text-white mt-2" style="text-align:left;margin-left:25px;"><strong>Daniel Caesar</strong></p>
+</div>
 
+<div class="col-6 col-sm-4">
+  <div class="">
+    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <img src="../../images/IMAGENS/ALBUM/DIMEBAG.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/DIMEBAG.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
+      <img src="../../images/IMAGENS/ALBUM/DIMEBAG.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
+    </a>
+  </div>
+    <p class="card-title text-white mt-2" style="text-align:left;margin-left:25px;"><strong>Dimebag Darrell</strong></p>
+</div>
+
+<div class="col-6 col-sm-4">
+  <div class="">
+    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <img src="../../images/IMAGENS/ALBUM/LAYNE.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/LAYNE.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
+      <img src="../../images/IMAGENS/ALBUM/LAYNE.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
+    </a>
+  </div>
+    <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Layne Staley</strong></p>
+</div>
+
+<div class="col-6 col-sm-4">
+  <div class="">
+    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <img src="../../images/IMAGENS/ALBUM/EDDIEVANHALEN.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
+      <img src="../../images/IMAGENS/ALBUM/EDDIEVANHALEN.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
+      <img src="../../images/IMAGENS/ALBUM/EDDIEVANHALEN.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
+    </a>
+  </div>
+    <p class="card-title text-white mt-2" style="text-align:left;margin-left:25px;"><strong>Eddie Van Halen</strong></p>
+</div>
+
+</div>
+</div>
+
+<!-- MÚSICAS -->
+<div class="container mb-1 mt-3">
+  <div class="row">
+    <div class="col-12 col-sm-6 mt-5">
+      <h3 class="text-white"><strong>Músicas</strong></h3>
+    </div>
+          <!-- <hr></hr> -->
+  </div>
+</div>
+
+<div class="container mb-5">
+  <div class="row">
+
+  <div class="col-6 col-sm-2 mt-3">
+      <img src="../../images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
+    </div>
+    <div class="col-6 col-sm-3 mt-3 bk-left">
+      <div class="card-body text-white">
+        <h5 class="card-title">Shine On You Crazy Diamong</h5>
+        <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-1 mt-3"></div>
+
+  <div class="col-6 col-sm-2 mt-3">
+      <img src="../../images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
+    </div>
+    <div class="col-6 col-sm-3 mt-3 bk-left">
+      <div class="card-body text-white">
+        <h5 class="card-title">Shine On You Crazy Diamong</h5>
+        <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
+    </div>
+  </div>
+
+  <div class="col-6 col-sm-2 mt-3">
+      <img src="../../images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
+    </div>
+    <div class="col-6 col-sm-3 mt-3 bk-left">
+      <div class="card-body text-white">
+        <h5 class="card-title">Shine On You Crazy Diamong</h5>
+        <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-1 mt-3"></div>
+
+  <div class="col-6 col-sm-2 mt-3">
+      <img src="../../images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
+    </div>
+    <div class="col-6 col-sm-3 mt-3 bk-left">
+      <div class="card-body text-white">
+        <h5 class="card-title">Shine On You Crazy Diamong</h5>
+        <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+  </div>
+
+  </div>
+</div>
 
 </main>
 
