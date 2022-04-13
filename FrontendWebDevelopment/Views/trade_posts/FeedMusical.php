@@ -90,7 +90,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/DISCOS 80s.jpg" class="img-fluid rounded" alt="">
         </a>
       </div>
@@ -101,7 +101,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/ROCKCAPA.jpg" class="img-fluid rounded" alt="">
         </a>
       </div>
@@ -111,7 +111,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/RAPCAPA.jpg" class="rounded img-fluid" alt="">
         </a>
       </div>
@@ -121,7 +121,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
           <img src="../../images/IMAGENS/PRODUTOS/MISCELANIA.jpg" class="rounded img-fluid" alt="">
         </a>
       </div>
@@ -151,7 +151,7 @@
       
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
           <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -196,7 +196,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
           <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>

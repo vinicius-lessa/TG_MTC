@@ -17,7 +17,7 @@
     session_start();
   }
 
-  $titlePage = 'Detalhe Anúncio';
+  $titlePage = 'Music Trade Center';
   $data_slide = 0;
 
   // require SITE_PATH . '/Controllers/c_home.php';
@@ -52,118 +52,80 @@
     
     <!-- Begin page content -->
     <main>
-      <div class="container">
+      <div class="container mb-5">
         <div class="row">
           <div class="col-12 col-sm-6 mt-5">
-            <h1 class="text-white"><strong><?php echo $infoProduto['nome_prod']?>GUITARRA XXX YYY</strong></h1>
+            <h1 class="text-white"><strong>MUSIC TRADE CENTER</strong></h1>
           </div>
           <hr></hr>
         </div>
+
+        <div class="input-group">
+          <div class="form-outline col-10 col-sm-6">
+            <input id="search-input" type="search" id="form1" class="form-control" />
+          </div>
+            <button id="search-button" type="button" class="btn btn-danger">
+              <i class="bi bi-search"></i>
+          </button>
+        </div>
+
       </div>
     </main>
 
-<!-- DETALHE ANÚNCIO-->
-<div class="container mt-1">
-  <div class="row">
-
-    <div class="col-8 col-sm-8 mt-3">
-      <div class="">
-        <a href="#">
-          <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
-        </a>
-        <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>Descrição:</strong></h5>
-        <p class="card-title text-white" style="text-align:left;">Guitarra Gibson em perfeito estado, usada poucas vezes, apenas em casa, acompanha 2 palhetas novas.</p>
-          
-        <div class="row mt-4">
-        <ul class="col-12 col-sm-6 list-group list-group-flush">
-          <li class="list-group-item bk-preto text-white"><strong>Categoria:</strong></li>
-          <li class="list-group-item bk-preto text-white"><strong>Modelo:</strong></li>
-          <li class="list-group-item bk-preto text-white"><strong>Marca:</strong></li>
-          <li class="list-group-item bk-preto text-white"><strong>Estado:</strong></li>
-        </ul>
-          
-        <ul class="col-12 col-sm-6 list-group list-group-flush">
-          <li class="list-group-item bk-preto text-white"><strong>Cidade:</strong></li>
-          <li class="list-group-item bk-preto text-white"><strong>Bairro:</strong></li>
-          <li class="list-group-item bk-preto text-white"><strong>Anunciante:</strong></li>
-          <li class="list-group-item bk-preto text-white"><strong>Telefone:</strong></li>
-        </ul>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="col-4 col-sm-4 mt-3">
-      <div class="">
-          <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
-          <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid mt-3" alt="">
-        <div class="mt-5">
-          <h5 class="text-red"><strong>R$ 1.170,00</strong></h5>
-          <a class="text-white" href="<?php echo SITE_URL ?>/Views/produtos/chat.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>CHAT</strong></button></a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  </div>
-</div>
+<!-- bk -->
+<!-- <nav class="navbar navbar-light bk-left mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
+  <a class="navbar-brand" style="height:800px;" href="#"></a>
+</nav> -->
 
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-12 col-sm-6 mt-5">
-      <h1 class="text-white"><strong>OUTROS &nbsp;A N Ú N C I O S</strong></h1>
-    </div>
-      <hr></hr>
-  </div>
-</div>
-
-<!-- OUTROS ANÚNCIOS-->
+<!-- ANÚNCIOS 01-->
 <div class="container">
   <div class="row">
 
-  <div class="col-12 col-sm-4 mt-3">
-    <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-        <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
-      </a>
+    <div class="col-12 col-sm-4 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+          <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
+        <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
     </div>
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-      <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
-  </div>
 
 
-  <div class="col-12 col-sm-4 mt-3">
-    <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-        <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
-      </a>
+    <div class="col-12 col-sm-4 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+          <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
+        <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
     </div>
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-      <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
-  </div>
 
-  <div class="col-12 col-sm-4 mt-3">
-    <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
-        <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
-      </a>
+    <div class="col-12 col-sm-4 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+          <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
+        <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
     </div>
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-      <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
+
   </div>
 
   </div>
 </div>
 
-<!-- OUTROS ANÚNCIOS-->
+
+<!-- ANÚNCIOS 02-->
 <div class="container mb-5">
   <div class="row">
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
         <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -174,7 +136,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
         <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -184,7 +146,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
         <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -196,7 +158,7 @@
 </div>
 
 <!-- ENCONTRE ARTISTAS -->
-<div class="card-group">
+  <div class="card-group">
   <div class="col-12 col-sm-2"></div>
 
   <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
@@ -204,7 +166,7 @@
         <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
         <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
       <div class="col-12 col-sm-4 mt-1">
-        <a class="text-white" style="font-size:14px;" href="<?php echo SITE_URL ?>/Views/produtos/MusicTradeCenter.php""><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+        <a class="text-white" style="font-size:14px;" href="<?php echo SITE_URL ?>/Views/produtos/MusicTradeCenter.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
       </div>
     </div>
   </div>

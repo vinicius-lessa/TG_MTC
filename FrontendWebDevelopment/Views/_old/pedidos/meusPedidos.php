@@ -1,5 +1,11 @@
 <?php
-/*REMOVER WARNING*/
+
+/* 
+4 SEMESTRE - SISTEMAS PARA INTERNET
+Author: Vinícius Lessa da Silva / Anderson Nascimento
+Since: 2020/06/19
+*/
+
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }

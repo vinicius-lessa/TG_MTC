@@ -4,23 +4,23 @@
  * 
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
- *  - Vinícius Lessa - 12/04/2022: Inclusão da documentação do arquivo;
+ *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage.
+ *  - Vinícius Lessa - 13/04/2022: Renomeação da página de 'Anúncios.php' para 'TradePosts.php'
  * 
  * @ Notes: 
  * 
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
-
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-$titlePage = 'HomePage';
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-// $data_slide = 0;
+$titlePage = 'Anúncios';
+$data_slide = 0;
 
 // require SITE_PATH . '/Controllers/c_home.php';
 
@@ -55,19 +55,23 @@ $titlePage = 'HomePage';
     
     <!-- Begin page content -->
     <main>
-      <div class="container mt-5 mb-5">
+      <div class="container mb-5">
         <div class="row">
-        <div class="col-12 col-sm-6">
-          <img src="../../images/icon.png" class="img-fluid" alt="" width="400">
+          <div class="col-12 col-sm-6 mt-5">
+            <h1 class="text-white"><strong>A N Ú N C I O S</strong></h1>
           </div>
-
-          <div class="col-12 col-sm-6 mt-5 font-main">
-            <h6 class="text-red"><strong>Negociação Online</strong></h6>
-            <h1 class="text-white"><strong>Music Trade Center</strong></h1>
-            <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <a class="text-white" href="../trade_posts/TradePosts.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
-          </div>
+          <hr></hr>
         </div>
+
+        <div class="input-group">
+          <div class="form-outline col-10 col-sm-6">
+            <input id="search-input" type="search" id="form1" class="form-control" />
+          </div>
+            <button id="search-button" type="button" class="btn btn-danger">
+              <i class="bi bi-search"></i>
+          </button>
+        </div>
+
       </div>
     </main>
 
@@ -76,68 +80,14 @@ $titlePage = 'HomePage';
       <a class="navbar-brand" style="height:800px;" href="#"></a>
     </nav> -->
 
-    <!-- MEIO DA HOME -->
-    <div class="container mt-5">
-      <div class="row">
-        
-        <div class="col-12 col-sm-4 bk-left center">
-          <h1 class="text-red mt-5" style="text-align:center;font-size:42px;"><strong>+3000</strong></h1>
-          <h5 class="text-white" style="text-align:center;"><strong>Anúncios em todo o</strong></h5>
-          <h5 class="text-white" style="text-align:center;"><strong>estado de São Paulo</strong></h5>
-          <h6 class="text-white" style="text-align:center;font-size:12px;margin-top:30px;">em breve em todos os estados</h6>
-        </div>  
-          
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
-            </a>
-          </div>
-
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
-            </a>
-          </div>
-
-      </div>
-    </div>
-
-    
-    <div class="container mb-5 mt-2">
-      <div class="row">
-        <div class="col-4 center"></div>
-
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
-            </a>
-          </div>
-
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
     <!-- ANÚNCIOS 01-->
-    <div class="container mt-5">
+    <div class="container">
       <div class="row">
-
-        <div class="col-9">
-          <h4 class="text-white"><strong>D E S T A Q U E S</strong></h4>
-        </div>
-
-        <div class="col-3 mb-5">
-          <a class="text-white" style="font-size:16px;" href="../trade_posts/TradePosts.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
-        </div>
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="../trade_posts/TradePostView.php">
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
               <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -148,7 +98,7 @@ $titlePage = 'HomePage';
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="../trade_posts/TradePostView.php">
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
               <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -158,7 +108,7 @@ $titlePage = 'HomePage';
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="../trade_posts/TradePostView.php">
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
               <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -173,12 +123,12 @@ $titlePage = 'HomePage';
 
 
     <!-- ANÚNCIOS 02-->
-    <div class="container mb-5 mt-5">
+    <div class="container mb-5">
       <div class="row">
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="../trade_posts/TradePostView.php">
+          <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
             <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -189,7 +139,7 @@ $titlePage = 'HomePage';
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="../trade_posts/TradePostView.php">
+          <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
             <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -199,7 +149,7 @@ $titlePage = 'HomePage';
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="../trade_posts/TradePostView.php">
+          <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
             <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -219,7 +169,7 @@ $titlePage = 'HomePage';
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+            <a class="text-white" style="font-size:14px;" href="<?php echo SITE_URL ?>/Views/produtos/MusicTradeCenter.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>
       </div>

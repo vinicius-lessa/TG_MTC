@@ -230,7 +230,7 @@ VALUES
 ( 'Produto Novo'                      , true	) ,
 ( 'Usado, estado de Novo'             , true	) ,
 ( 'Usado, com detalhes'               , true	) ,
-( 'Pare restauração/reaproveitamento' , true  ) ;
+( 'Para restauração/reaproveitamento' , true  ) ;
 
 
 -- ## 15º - Criar tabela `colors`, referente as cores utilizadas no sistema em geral
@@ -297,6 +297,20 @@ INSERT INTO `trade_posts`
 ( `title`, `description`, `category_id`, `brand_id`, `model_id`, `color_id`, `condition_id`, `user_id`, `price`, `eletronic_invoice`, `activity_status` )
 VALUES
 ( 'Guitarra Ibanez', 'Vendo minha guitarra Ibanez usada, tenho ela há 8 anos aproxiamadamente.', '2', '2', '2', '2', '2', '1', '1500.50', true, DEFAULT ) ;
+
+
+-- ## 19º - Criar tabela `images`, referente as IMAGENS utilizadas no site
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE IF NOT EXISTS `images`
+(
+  `image_id`              int(11)       NOT NULL auto_increment ,
+  `name`                  varchar(255)  NOT NULL                ,
+  `img_directory`         varchar(255)  NOT NULL                ,
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_images PRIMARY KEY (image_id)
+  -- CONSTRAINT FK_categorys_posts FOREIGN KEY (category_id) REFERENCES product_categorys(category_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
 

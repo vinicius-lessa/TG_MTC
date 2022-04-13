@@ -10,6 +10,10 @@
  * 
  */
 
+  if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  } 
+
   if (!defined('SITE_URL')) {
     include_once '../../config.php';
   }
@@ -52,7 +56,7 @@
       <div class="container">     
 
       <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
-        <div class="text-center">
+        <div class="text-center mt-5">
           <div class="row">
               <h3 class="text-white">Conta criada com sucesso. Bem Vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3>
           </div>
@@ -63,13 +67,12 @@
         </div>        
       <?php else:  ?>
           <!-- Title -->
-        <div class="text-center">
+        <div class="text-center mt-4">
           <h2 class="text-white">Criar Conta</h2>
         </div>
         
         <!-- Form -->
-        <div class="form-default ">
-          <!-- <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' onsubmit="return v_FormSignUp()" method="post"> -->
+        <div class="form-default">          
           <form id="singUp-form">
             <span id="msgAlertErroLogin"></span>
             <div class="form-floating">

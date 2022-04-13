@@ -2,20 +2,23 @@
 /**
  * File DOC
  * 
- * @Description SingIn Page to users do their login
+ * @Description SingIn Page to users login
  * @ChangeLog 
  *  - Vinícius Lessa - 28/03/2022: Creation of the header documentation. Beggining the creation of this page both FrontEnd and BackEnd.
  * 
  * @ Notes: 
  * 
  */
-session_start();
 
-if (!defined('SITE_URL')) {
-  include_once '../../config.php';
-}
+  if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  }
 
-$titlePage = "MTC | Cadastro";
+  if (!defined('SITE_URL')) {
+    include_once '../../config.php';
+  }
+
+  $titlePage = "MTC | Cadastro";
 
 ?>
 
@@ -61,9 +64,9 @@ $titlePage = "MTC | Cadastro";
       <div class="container">
         
       <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
-        <div class="text-center">
+        <div class="text-center mt-5">
           <div class="row">
-              <h3 class="text-white">Bem vindo <?php echo $_SESSION['user_name'] ?></h3>
+              <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3>
           </div>
                   
           <div class="row mt-5">
@@ -72,12 +75,12 @@ $titlePage = "MTC | Cadastro";
         </div>
       <?php else:  ?>
         <!-- Title -->
-        <div class="text-center">
+        <div class="text-center mt-4">
           <h2 class="text-white">Faça seu Login</h2>
         </div>
 
         <!-- Form -->
-        <div class="form-default ">            
+        <div class="form-default">            
           <form id="singIn-form">
             <span id="msgAlertErroLogin"></span>
             <div class="form-floating">
@@ -85,18 +88,10 @@ $titlePage = "MTC | Cadastro";
               <label for="userEmail">E-mail</label>
             </div>
 
-            <div>
-              <small class="text-lightred" id='emailAlert'>*campo obrigatório</small>
-            </div>
-
             <div class="form-floating">
               <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
               <label for="userPassword">Senha</label>
             </div>
-
-            <div>
-              <small class="text-lightred" id='passwordAlert'>*campo obrigatório</small>
-            </div>             
 
             <div class="text-center mt-5">
               <input class="btn-default btn" type="submit" value="Ir!" name="signIn" id="signIn-btn">
