@@ -19,50 +19,55 @@ include SITE_PATH . '/Models/m_user.php';
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-/****
-    SIGNUP Submit
-****/
 
-if (isset($_POST['signUp'])):
-    
-    $data = [];
-    
-    foreach ($_POST as $key => $value) {
-        if ($key != "signUp") {
-            if ($key == "password") {
-                $data[$key] = password_hash($value, PASSWORD_DEFAULT);
-            } else {
-                $data[$key] = $value;
-            }
-        }
-    }
-        
-    //*** Check recived values    
-    
-    // $string = implode(",",$data);
-    // echo $string;
-    // var_dump($data);        
-    // var_dump(userCreation($data));    
+// SignUp / Cadastrar
 
-    $aResponse = userCreation($data);        
+// if (isset($_POST['signUp'])):
+if ($dados['action'] === "SignUp"):
+    
+    $encripted_password = (isset($dados["userPassword"]))  ? password_hash($dados["userPassword"], PASSWORD_DEFAULT) : '';
 
-    if ($aResponse['retorno']) :
-        header("location:" . SITE_URL . "/Views/users/returnSuccess.php");
+    $data = [
+        "userName"      => (isset($dados["userName"]))      ? $dados["userName"] : ''       ,
+        "userEmail"     => (isset($dados["userEmail"]))     ? $dados["userEmail"] : ''      ,
+        "userPassword"  => $encripted_password                                              ,
+        "userType"      => (isset($dados["userType"]))      ? $dados["userType"] : ''       ,
+        "userBirthday"  => (isset($dados["userBirthday"]))  ? $dados["userBirthday"] : ''   ,
+        "userPhone"     => (isset($dados["userPhone"]))     ? $dados["userPhone"] : ''      ,
+        "userZipCode"   => (isset($dados["userZipCode"]))   ? $dados["userZipCode"] : ''    ,
+    ];
+    
+    if(empty($data["userName"])):
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome do Usuário!</div>"];
+    
+    elseif(empty($data["userEmail"])):
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o E-mail!</div>"];
+    
+    elseif(empty($data["userPassword"])):
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>"];
+    
+    elseif(empty($data["userType"])):
+        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Tipo de Pessoa!</div>"];
+
     else:
-        $msgErro = $aResponse['mensagem'];
-        header("location:" . SITE_URL . "/Views/users/returnFailed.php?error=$msgErro");
+        
+        $retorna = userCreation($data);
+
+        if(!$retorna["erro"]):
+            $_SESSION['user_id']    =  $retorna["dados"]["user_id"];
+            $_SESSION['user_name']  =  $retorna["dados"]["user_name"];
+            $_SESSION['user_email'] = $retorna["dados"]["email"];
+        endif;
     endif;
+
+    echo json_encode($retorna);
+    
 endif;
 
 
-/****
-    SIGNIN Submit
-****/
+// SignIn / Logar
 
-// if (isset($_POST['signIn'])):
-if ($dados['action'] === "SignIn"): 
-    
-    $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>"];     
+if ($dados['action'] === "SignIn"):    
 
     if(empty($dados["userEmail"])){
         $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>"];

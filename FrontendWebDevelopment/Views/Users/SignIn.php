@@ -51,9 +51,11 @@ $titlePage = "MTC | Cadastro";
     <!-- Header Include -->
     <?php include SITE_PATH .'/includes/header.php';?>
 
+    <!-- Loading Icon -->
     <div class='spinner-wrapper'>
       <div class="spinner"></div>
     </div>
+
     <!-- Begin page content -->
     <main>
       <div class="container">
@@ -76,39 +78,38 @@ $titlePage = "MTC | Cadastro";
 
         <!-- Form -->
         <div class="form-default ">            
-            <form id="singIn-form">
-              <span id="msgAlertErroLogin"></span>  
-              <div class="form-floating">
-                <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
-                <label for="userEmail">E-mail</label>
-              </div>
+          <form id="singIn-form">
+            <span id="msgAlertErroLogin"></span>
+            <div class="form-floating">
+              <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
+              <label for="userEmail">E-mail</label>
+            </div>
 
-              <div>
-                <small class="text-lightred" id='emailAlert'>*campo obrigatório</small>
-              </div>
+            <div>
+              <small class="text-lightred" id='emailAlert'>*campo obrigatório</small>
+            </div>
 
-              <div class="form-floating">
-                <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
-                <label for="userPassword">Senha</label>
-              </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
+              <label for="userPassword">Senha</label>
+            </div>
 
-              <div>
-                <small class="text-lightred" id='passwordAlert'>*campo obrigatório</small>
-              </div>             
+            <div>
+              <small class="text-lightred" id='passwordAlert'>*campo obrigatório</small>
+            </div>             
 
-              <div class="text-center mt-5">
-                <input class="btn-default btn" type="submit" value="Ir!" name="signIn" id="signIn-btn">
-              </div>
+            <div class="text-center mt-5">
+              <input class="btn-default btn" type="submit" value="Ir!" name="signIn" id="signIn-btn">
+            </div>
 
-              <div class="mt-5 text-white text-center">
-                <span>Não possui conta?
-                  <a href="<?php echo SITE_URL ?>/Views/users/SignUp.php">Cadastre-se aqui</a>
-                </span>
-              </div>
-            </form>
-
-          <?php endif; ?>
+            <div class="mt-5 text-white text-center">
+              <span>Não possui conta?
+                <a href="<?php echo SITE_URL ?>/Views/users/SignUp.php">Cadastre-se aqui</a>
+              </span>
+            </div>
+          </form>
         </div>
+      <?php endif; ?>
       </div>
     </main>
 

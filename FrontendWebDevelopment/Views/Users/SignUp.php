@@ -42,25 +42,39 @@
     <!-- Header Include -->
     <?php include SITE_PATH .'/includes/header.php';?>
     
+    <!-- Loading Icon -->
+    <div class='spinner-wrapper'>
+      <div class="spinner"></div>
+    </div>
+
     <!-- Begin page content -->
     <main>
-      <div class="container">
-        
-        <!-- Title -->
+      <div class="container">     
+
+      <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
+        <div class="text-center">
+          <div class="row">
+              <h3 class="text-white">Conta criada com sucesso. Bem Vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3>
+          </div>
+                  
+          <div class="row mt-5">
+              <h6 class="text-white">Clique <a class='text-blue-link' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><strong>aqui</strong></a> para começar!</h6>
+          </div>
+        </div>        
+      <?php else:  ?>
+          <!-- Title -->
         <div class="text-center">
           <h2 class="text-white">Criar Conta</h2>
         </div>
         
         <!-- Form -->
         <div class="form-default ">
-          <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' onsubmit="return v_FormSignUp()" method="post">
+          <!-- <form id="singUp-form" action='<?php echo SITE_URL ?>/Controllers/c_user.php' onsubmit="return v_FormSignUp()" method="post"> -->
+          <form id="singUp-form">
+            <span id="msgAlertErroLogin"></span>
             <div class="form-floating">
               <input type="text" class="form-control" placeholder="Nome" id="userName" name="username">
               <label for="userName">Nome</label>
-            </div>
-
-            <div>
-              <small class="text-lightred" id='nameAlert'>*campo obrigatório</small>
             </div>
 
             <div class="form-floating">
@@ -68,17 +82,9 @@
               <label for="userEmail">E-mail</label>
             </div>
 
-            <div>
-              <small class="text-lightred" id='emailAlert'>*campo obrigatório</small>
-            </div>
-
             <div class="form-floating">
               <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
               <label for="userPassword">Senha</label>
-            </div>
-
-            <div>
-              <small class="text-lightred" id='passwordAlert'>*campo obrigatório</small>
             </div>
 
             <div class="form-floating">
@@ -87,10 +93,6 @@
                 <option value="F">Física</option>
                 <option value="J">Jurídica</option>
               </select>
-            </div>
-
-            <div>
-              <small class="text-lightred" id='personTypeAlert'>*selecione um valor válido</small>
             </div>
 
             <div class="text-center text-white mt-5 mb-3">
@@ -123,6 +125,7 @@
             </div>
           </form>
         </div>
+      <?php endif; ?>
       </div>
     </main>
 
