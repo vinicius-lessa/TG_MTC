@@ -7,7 +7,7 @@
     session_start();
   }
 
-  $titlePage = 'HomePage';
+  $titlePage = 'DetalheAnuncio';
   $data_slide = 0;
 
   // require SITE_PATH . '/Controllers/c_home.php';

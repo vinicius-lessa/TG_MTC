@@ -40,17 +40,222 @@
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
     
-    <!-- Begin page content -->
-    <main>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12 col-sm-12">
-          <img src="../../images/IMAGENS/PÚBLICO01.jpg" class="img-fluid" alt="">
-          </div>
-          <hr></hr>
-        </div>
+<!-- Begin page content -->
+<main>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <img src="../../images/IMAGENS/PÚBLICO01.jpg" class="img-fluid" alt="">
       </div>
-    </main>
+        <hr></hr>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <div class="row">
+      <div class="col-12 col-sm-6 mt-5">
+        <h3 class="text-white"><strong>Sugestões de Playlist</strong></h3>
+      </div>
+        <hr></hr>
+  </div>
+
+<!-- SUGESTÕES DE PLAYLIST-->
+<div class="container">
+  <div class="row">
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/CAPAS PLAYLIST/DISCOS 80s.jpg" class="img-fluid rounded" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>Best 80s songs</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>156 músicas</strong></p>
+    </div>
+
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/CAPAS PLAYLIST/ROCKCAPA.jpg" class="img-fluid rounded" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>Rock Alternativo</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>367 músicas</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/CAPAS PLAYLIST/RAPCAPA.jpg" class="rounded img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>R.A.P Nacional 90s</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>93 músicas</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/PRODUTOS/MISCELANIA.jpg" class="rounded img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>Pop 90s</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>211 músicas</strong></p>
+    </div>
+
+  </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/CAPAS PLAYLIST/DISCOS 80s.jpg" class="img-fluid rounded" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>Best 80s songs</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>156 músicas</strong></p>
+    </div>
+
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/CAPAS PLAYLIST/ROCKCAPA.jpg" class="img-fluid rounded" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>Rock Alternativo</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>367 músicas</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/CAPAS PLAYLIST/RAPCAPA.jpg" class="rounded img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>R.A.P Nacional 90s</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>93 músicas</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-3 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/PRODUTOS/MISCELANIA.jpg" class="rounded img-fluid" alt="">
+        </a>
+      </div>
+        <p class="card-title text-red mt-2" style="text-align:left;"><strong>Pop 90s</strong></p>
+        <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>211 músicas</strong></p>
+    </div>
+
+  </div>
+
+  </div>
+</div>
+
+<!-- ARTISTAS EM DESTAQUE -->
+<div class="container mb-1 mt-3">
+  <div class="row">
+    <div class="col-12 col-sm-6 mt-5">
+      <h3 class="text-white"><strong>Artistas em Destaque</strong></h3>
+    </div>
+          <!-- <hr></hr> -->
+  </div>
+</div>
+
+<!-- SUGESTÕES DE PLAYLIST-->
+<div class="container col-6 col-sm-10">
+<div class="row">
+  <!-- <div class="col-12 col-sm-8">
+  <div class="row"> -->
+      
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/CBJ.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>CBJ</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Alice in Chains</strong></p>
+    </div>
+
+  </div>
+  <div class="row">
+  <!-- <div class="col-12 col-sm-8">
+  <div class="row"> -->
+      
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/CBJ.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:55px;"><strong>CBJ</strong></p>
+    </div>
+
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:20px;"><strong>Alice in Chains</strong></p>
+    </div>
+
+  </div>
+  </div>
+  
+</div>
+</div>
+
+
+<div class="container col-12 col-sm-2">
+  <!-- <div class="col-12 col-sm-8">
+  <div class="row"> -->
+      
+    <div class="col-6 col-sm-2 mt-3">
+      <div class="">
+        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+          <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
+        </a>
+      </div>
+        <p class="card-title text-white mt-2" style="text-align:left;margin-left:35px;"><strong>Sabotage</strong></p>
+    </div>
+  
+</div>
+
+</main>
 
 <!-- ENCONTRE ARTISTAS -->
 <div class="card-group">
