@@ -5,7 +5,7 @@
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
- *  - Renata Carrillo - 13/04/2022: Finalização do Front da Página;
+ *  - Renata Carrillo - 13/04/2022: Finalização do Front da Página e linkagem com links externos;
  * 
  * @ Notes: 
  * 
@@ -90,9 +90,9 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/DISCOS 80s.jpg" class="img-fluid rounded" alt="">
-        </a>
+        <!-- </a> -->
       </div>
         <p class="card-title text-red mt-2" style="text-align:left;"><strong>Best 80s songs</strong></p>
         <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>156 músicas</strong></p>
@@ -101,9 +101,9 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/ROCKCAPA.jpg" class="img-fluid rounded" alt="">
-        </a>
+        <!-- </a> -->
       </div>
         <p class="card-title text-red mt-2" style="text-align:left;"><strong>Rock Alternativo</strong></p>
         <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>367 músicas</strong></p>
@@ -111,9 +111,9 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/RAPCAPA.jpg" class="rounded img-fluid" alt="">
-        </a>
+        <!-- </a> -->
       </div>
         <p class="card-title text-red mt-2" style="text-align:left;"><strong>R.A.P Nacional 90s</strong></p>
         <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>93 músicas</strong></p>
@@ -121,9 +121,9 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
           <img src="../../images/IMAGENS/PRODUTOS/MISCELANIA.jpg" class="rounded img-fluid" alt="">
-        </a>
+        <!-- </a> -->
       </div>
         <p class="card-title text-red mt-2" style="text-align:left;"><strong>Pop 90s</strong></p>
         <p class="card-title text-white" style="text-align:left;opacity:30%;"><strong>211 músicas</strong></p>
@@ -151,7 +151,7 @@
       
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <a href="https://open.spotify.com/album/78FGMj1ZqjV8J8AgKcej93" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -160,7 +160,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/artist/14pVkFUHDL207LzLHtSA18" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/PANTERA.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -169,7 +169,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/6mUdeDZCsExyJLMdAfDuwh?highlight=spotify:track:08mG3Y1vljYA6bvDt4Wqkj" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/ACDC.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -178,7 +178,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/1uSpngQgBBgwRFYS5sOdqI" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -187,7 +187,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/2ZytN2cY4Zjrr9ukb2rqTP" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/MJ.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -196,7 +196,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <a href="https://open.spotify.com/album/5LbHbwejgZXRZAgzVAjkhj" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/ALICEINCHAINS.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -210,7 +210,7 @@
       
     <div class="col-12 col-sm-2 mt-3 mb-5">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/65XXZG2pFzK99xeOuVLHP2" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/SOUNDGARDEN.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -219,7 +219,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/3qMoGzDfT88nl6TY7YqQs1" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/PARAMORE.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -228,7 +228,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/2KW8LEWDofKSztOfd0zdQl" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/EWF.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -237,7 +237,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/5SSyex1jdJe9h3lbqESv1T" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/TOMJOBIM.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -246,7 +246,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/album/3xybjP7r2VsWzwvDQipdM0" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/DANIELCAESAR.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -255,7 +255,7 @@
 
     <div class="col-12 col-sm-2 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+        <a href="https://open.spotify.com/artist/4bthk9UfsYUYdcFyqxmSUU" target="_blank">
           <img src="../../images/IMAGENS/ALBUM/TEARSFORFEARS.jpg" class="rounded-circle" alt="" width="150" height="150">
         </a>
       </div>
@@ -284,7 +284,7 @@
 
 <div class="col-6 col-sm-4">
   <div class="">
-    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <a href="https://open.spotify.com/artist/5deK5HnwbEKvge2svL0i0B" target="_blank">
       <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
       <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
       <img src="../../images/IMAGENS/ALBUM/SABOTAGE.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
@@ -295,7 +295,7 @@
 
 <div class="col-6 col-sm-4">
   <div class="">
-    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <a href="https://open.spotify.com/artist/19y5MFBH7gohEdGwKM7QsP" target="_blank">
     <img src="../../images/IMAGENS/ALBUM/LUTHER.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
       <img src="../../images/IMAGENS/ALBUM/LUTHER.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
       <img src="../../images/IMAGENS/ALBUM/LUTHER.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
@@ -306,7 +306,7 @@
 
 <div class="col-6 col-sm-4">
   <div class="">
-    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <a href="https://open.spotify.com/artist/20wkVLutqVOYrc0kxFs7rA" target="_blank">
     <img src="../../images/IMAGENS/ALBUM/DANIEL.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
       <img src="../../images/IMAGENS/ALBUM/DANIEL.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
       <img src="../../images/IMAGENS/ALBUM/DANIEL.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
@@ -317,7 +317,7 @@
 
 <div class="col-6 col-sm-4">
   <div class="">
-    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <a href="https://open.spotify.com/artist/7ozkOJRZcDU9B3DlmZKS9s" target="_blank">
     <img src="../../images/IMAGENS/ALBUM/DIMEBAG.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
       <img src="../../images/IMAGENS/ALBUM/DIMEBAG.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
       <img src="../../images/IMAGENS/ALBUM/DIMEBAG.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
@@ -328,7 +328,7 @@
 
 <div class="col-6 col-sm-4">
   <div class="">
-    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <a href="https://open.spotify.com/artist/4j1D2HVigkZ77JDPO2EPha" target="_blank">
     <img src="../../images/IMAGENS/ALBUM/LAYNE.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
       <img src="../../images/IMAGENS/ALBUM/LAYNE.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
       <img src="../../images/IMAGENS/ALBUM/LAYNE.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
@@ -339,7 +339,7 @@
 
 <div class="col-6 col-sm-4">
   <div class="">
-    <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe-anuncio.php">
+    <a href="https://open.spotify.com/artist/4eg6G4HaUe2ILWXKd1eaDa" target="_blank">
     <img src="../../images/IMAGENS/ALBUM/EDDIEVANHALEN.jpg" class="rounded-circle mt-3" alt="" width="150" height="150">
       <img src="../../images/IMAGENS/ALBUM/EDDIEVANHALEN.jpg" class="rounded-circle mt-3" alt="" width="80" height="80">
       <img src="../../images/IMAGENS/ALBUM/EDDIEVANHALEN.jpg" class="rounded-circle mt-3" alt="" width="50" height="50">
