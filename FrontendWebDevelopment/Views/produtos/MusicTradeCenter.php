@@ -1,4 +1,14 @@
 <?php
+/**
+ * File DOC
+ * 
+ * @Description Página de criação de cadastro por parte do usuário do sistema.
+ * @ChangeLog 
+ *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
+ * 
+ * @ Notes: 
+ * 
+ */
   if (!defined('SITE_URL')) {
     include_once '../../config.php';
   }
@@ -7,7 +17,7 @@
     session_start();
   }
 
-  $titlePage = 'HomePage';
+  $titlePage = 'Music Trade Center';
   $data_slide = 0;
 
   // require SITE_PATH . '/Controllers/c_home.php';

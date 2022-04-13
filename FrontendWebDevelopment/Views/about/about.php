@@ -5,6 +5,7 @@
  * @Description Página informativa sobre os idealizadores e criadores do site.
  * @ChangeLog 
  *  - Vinícius Lessa - 12/04/2022: Criação do arquivo da página, estruturação mínima;
+ *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
  *
  * @ Notes: 
  *

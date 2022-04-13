@@ -1,4 +1,14 @@
 <?php
+/**
+ * File DOC
+ * 
+ * @Description SingIn Page to users do their login
+ * @ChangeLog 
+ *  - Renata Carrillo - 12/04/2022: Padronização do <head>.
+ * 
+ * @ Notes: 
+ * 
+ */
     if (!defined('SITE_URL')) {
       include_once '../../config.php';      
     }
