@@ -4,11 +4,12 @@
  * 
  * @Description Header Include Page
  * @ChangeLog 
- *  - Vinícius Lessa - 12/04/2022: Mudanças Renata, e ajuste para SESSION do usuário
+ *  - Vinícius Lessa - 12/04/2022: Mudanças Renata, e ajuste para SESSION do usuário;
  * 
  * @ Notes: 
  * 
  */
+
 session_start();
 
 ?>

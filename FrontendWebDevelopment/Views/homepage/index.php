@@ -1,4 +1,15 @@
 <?php
+/**
+ * File DOC
+ * 
+ * @Description Página de criação de cadastro por parte do usuário do sistema.
+ * @ChangeLog 
+ *  - Vinícius Lessa - 12/04/2022: Inclusão da documentação do arquivo;
+ * 
+ * @ Notes: 
+ * 
+ */
+
   if (!defined('SITE_URL')) {
     include_once '../../config.php';
   }
@@ -21,7 +32,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 
     <!-- Page Data -->
-    <meta name="author" content="Vinícius Lessa / Iuri Ferreira">
+    <meta name="author" content="Vinícius Lessa / Renata Carrillo">
     <meta name="description" content="Página de criação de cadastro por parte do usuário do sistema.">
     <title> <?php echo $titlePage; ?> </title>
     

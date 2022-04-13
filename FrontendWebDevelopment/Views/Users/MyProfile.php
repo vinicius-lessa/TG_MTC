@@ -16,7 +16,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 
     <!-- Page Data -->
-    <meta name="author" content="Vinícius Lessa / Iuri Ferreira">
+    <meta name="author" content="Vinícius Lessa / Renata Carrillo">
     <meta name="description" content="Página exibida após a criação de conta pelo usuário caso o processo FUNCIONE CORRETAMENTE">
     <title> <?php echo $titlePage; ?> </title>
     
@@ -34,14 +34,13 @@
     <?php include SITE_PATH .'/includes/header.php';?>
 
     <main>
-        <div class="container">
-                        
-            <div class="text-center">
-                <div class="row">
-                    <h3 class="text-white">Meu Pefil...</h3>
-                </div>
+      <div class="container">
+        <div class="text-center">
+            <div class="row">
+                <h3 class="text-white">Meu Pefil...</h3>
             </div>
         </div>
+      </div>
     </main>
     
     <!-- footer site -->

@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-center py-3">
       <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
         <!-- <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li> -->
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/produtos/QuemSomos.php" class="nav-link border-button text-white">Quem Somos</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/about/about.php" class="nav-link border-button text-white">Quem Somos</a></li>
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/produtos/FeedMusical.php" class="nav-link border-button text-white">Feed Musical</a></li>
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/produtos/MusicTradeCenter.php" class="nav-link border-button text-white">Music Trade Center</a></li>
       </ul>
