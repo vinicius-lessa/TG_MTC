@@ -10,8 +10,6 @@
  * 
  */
 
-session_start();
-
 ?>
 
 <header class="mb-5">
