@@ -5,17 +5,21 @@
  * @Description SingIn Page to users do their login
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head>.
- * 
+ *  - Vinícius Lessa - 13/04/2022: Correções mínimas de session.
  * @ Notes: 
  * 
  */
-    if (!defined('SITE_URL')) {
-      include_once '../../config.php';      
-    }
 
-    // header("location:". SITE_URL .  "/Views/users/SignIn.php");
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-    $titlePage = "MTC | Sucesso";
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';      
+}
+
+$titlePage = "MTC | Meu Perfil";
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +31,7 @@
 
     <!-- Page Data -->
     <meta name="author" content="Vinícius Lessa / Renata Carrillo">
-    <meta name="description" content="Página exibida após a criação de conta pelo usuário caso o processo FUNCIONE CORRETAMENTE">
+    <meta name="description" content="Página que exibirá (somente quando logado) o perfil do usuário">
     <title> <?php echo $titlePage; ?> </title>
     
     <!-- StyleSheet -->

@@ -4,25 +4,29 @@
  * 
  * @Description Controller dos usuários, por aqui passam os processos de SIGNIN, SIGNUP, LOGOUT
  * @ChangeLog 
- *  - Vinícius Lessa - 29/03/2022: Início da documentação do arquivo. Mudanças gerais nas Controllers de SIGN IN e SIGN UP
+ *  - Vinícius Lessa - 29/03/2022: Início da documentação do arquivo. Mudanças gerais nas Controllers de SIGN IN e SIGN UP.
+ *  - Vinícius Lessa - 13/04/2022: Correção simples do botão sair + identação.
  * 
  * @ Notes: As requisições nesta página vem através de JavaScript, pela função FETCH, enviando requisições POST.
  * 
  */
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!defined('SITE_URL')) {
     include_once '../config.php';
 }
 
+// External Functions
 include SITE_PATH . '/Models/m_user.php';
 
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+// Vars
+$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT); // Recieve Post values into $dados
 
 
 // SignUp / Cadastrar
-
-// if (isset($_POST['signUp'])):
 if ($dados['action'] === "SignUp"):
     
     $encripted_password = (isset($dados["userPassword"]))  ? password_hash($dados["userPassword"], PASSWORD_DEFAULT) : '';
@@ -66,7 +70,6 @@ endif;
 
 
 // SignIn / Logar
-
 if ($dados['action'] === "SignIn"):    
 
     if(empty($dados["userEmail"])){
@@ -88,17 +91,15 @@ if ($dados['action'] === "SignIn"):
 endif;
 
 
-/****
-    LOGOUT Submit
-****/
-
+// LogOut / Sair
 if (isset($_GET['signOut'])) {    
     // session_destroy();
     unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email']);
-    header("location:" . SITE_URL . "/Views/homepage/index.php");
+    header("location:" . SITE_URL . "/Views/users/SignIn.php");
 }
 
-// *****************************************************************************************************
+
+// ANALISAR *****************************************************************************************************
 
 
 /* LISTAR CLIENTES */

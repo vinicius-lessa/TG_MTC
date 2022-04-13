@@ -1,6 +1,22 @@
-// $(document).ready(function(){
-// });
+$(document).ready(function(){    
+    // Input Masks
+    $('.money').mask('000.000.000.000.000,00', {reverse: true});
 
+});
+
+// Functions
+function readURL(imgInput) {
+    if (imgInput.files && imgInput.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#imagePreview1')
+          .attr('src', e.target.result)
+          .width(150)
+          .height(200);
+      };
+      reader.readAsDataURL(imgInput.files[0]);
+    }
+}
 
 
 // SignUp Page vars
@@ -17,12 +33,24 @@ var userZipCode         = $("#userZipCode");
 const loginForm         = $("#singIn-form");
 const msgAlertErroLogin = $("#msgAlertErroLogin");
 
-// Both Vars
+// Generic Vars
 var userEmail           = $("#userEmail");
 var userPassword        = $("#userPassword");
+let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
 
-// Loading Icon
-let spinnerWrapper = document.querySelector('.spinner-wrapper');
+// New TradePost Page vars
+const insertTPForm      = $("#insertTP-form");
+const msgAlertErroTPF   = $("#msgAlertErroTPF"); // TPF = Trade Post Form
+
+var title               = $("#title");
+var category            = $("#category");
+var brand               = $("#brand");
+var model               = $("#model");
+var color               = $("#color");
+var price               = $("#price");
+var description         = $("#description");
+var productCondition    = $('input[name=productCondition]:checked', insertTPForm);
+var possuiNF            = $('input[name=possuiNF]:checked', insertTPForm);
 
 
 // Submit SignUp
@@ -162,17 +190,22 @@ loginForm.submit(async function( event ){
 
     console.log(resposta);
 
-    if(resposta['erro']){
-        msgAlertErroLogin.html(resposta['msg']);
-    // }else{
-    //     document.getElementById("dados-usuario").innerHTML = "Bem vindo " + resposta['dados'].nome + "<br><a href='sair.php'>Sair</a><br>";
-    //     loginForm.reset();
-    //     loginModal.hide();
-    } else {        
-        setTimeout(function () {
-            spinnerWrapper.style.display = 'none';
-            // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+    setTimeout(function () {
+
+        if(resposta['erro']){
+            msgAlertErroLogin.html(resposta['msg']);
+        } else {
+            // Recarrega PHP
             document.location.reload();
-        }, 2000);
-    }
+            
+            // Review at "examples":
+            // document.getElementById("dados-usuario").innerHTML = "Bem vindo " + resposta['dados'].nome + "<br><a href='sair.php'>Sair</a><br>";
+            // loginForm.reset();
+            // loginModal.hide();
+        }
+
+        // Desabilita Loading
+        spinnerWrapper.style.display = 'none';
+        // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+    }, 2000);    
 });
