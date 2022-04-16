@@ -5,6 +5,7 @@
  * @Description Página para inserção de anúncios por parte do usuário. Os dados aqui preenchidos dever ser inseridos na tabela `trade_posts`
  * @ChangeLog 
  *  - Vinícius Lessa - 13/04/2022: Inclusão da documentação de cabeçalho do arquivo. Mudanças inicias baseadas no antigo arquivo "Anunciar.php";
+ *  - Vinícius Lessa - 16/04/2022: Mudanças importantes na implementação do envio do formulário;
  * 
  * @ Notes: 
  * 
@@ -56,10 +57,16 @@ $selectColor    = [];
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
 
+    <!-- Loading Icon -->
+    <div class='spinner-wrapper'>
+      <div class="spinner"></div>
+    </div>
+
     <main>
       <div class="container">
         
-      <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>        
+      <!-- Somente se estiver Logado -->
+      <?php if ( isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
         
         <div class="text-center mt-4">
           <h2 class="text-white">Informações do Anúncio</h2>
@@ -149,16 +156,16 @@ $selectColor    = [];
                 <div class="row m-0 p-0">
                   <div class="col-sm m-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="productCondition" id="productCondition1" value="1" checked>
-                      <label class="form-check-label" for="productCondition1">
+                      <input class="form-check-input" type="radio" name="p_condition" id="p_condition1" value="1" checked>
+                      <label class="form-check-label" for="p_condition1">
                         Produto Novo
                       </label>
                     </div>
                   </div>
                   <div class="col-sm m-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="productCondition" id="productCondition2" value="2">
-                      <label class="form-check-label" for="productCondition2">
+                      <input class="form-check-input" type="radio" name="p_condition" id="p_condition2" value="2">
+                      <label class="form-check-label" for="p_condition2">
                         Usado, estado de Novo
                       </label>
                     </div>
@@ -167,16 +174,16 @@ $selectColor    = [];
                 <div class="row m-0 p-0">
                   <div class="col-sm m-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="productCondition" id="productCondition3" value="3">
-                      <label class="form-check-label" for="productCondition3">
+                      <input class="form-check-input" type="radio" name="p_condition" id="p_condition3" value="3">
+                      <label class="form-check-label" for="p_condition3">
                         Usado, com detalhes
                       </label>
                     </div>
                   </div>                  
                   <div class="col-sm m-0">
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="productCondition" id="productCondition4" value="4">
-                        <label class="form-check-label" for="productCondition4">
+                        <input class="form-check-input" type="radio" name="p_condition" id="p_condition4" value="4">
+                        <label class="form-check-label" for="p_condition4">
                           Para Restauração/Reuso
                         </label>
                       </div>
@@ -230,7 +237,7 @@ $selectColor    = [];
       
       <?php else:
         // Login necessário para acessar essa página
-        header("location:" . SITE_URL . "/Views/users/SignIn.php");
+        header("location:" . SITE_URL . "/Views/users/sign_in.php");
         
       endif;  
       ?>

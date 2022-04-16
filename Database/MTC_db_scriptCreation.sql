@@ -4,6 +4,7 @@
 *   2022/03/03 - Vinícius Lessa: Inserção das primeiras instruções.
 *   2022/03/22 - Vinícius Lessa: Ajustes e melhorias na tabela `users`
 *   2022/03/23 - Vinícius Lessa: Inserção do Script para a criação e estruturação das tabelas `TradePosts`, `ProductConditions`, `Category`, `Models` , `Colors`
+*   2022/04/16 - Vinícius Lessa: Inserção da tabela 'images_trade_posts', suas colunas, constraits e Insert
 *
 */
 
@@ -267,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `trade_posts`
   `title`                 varchar(50)   NOT NULL                ,
   `description`           text(500)     DEFAULT NULL            ,
   `category_id`           int(11)       NOT NULL                ,
-  -- `category_description`  varchar(50)   NOT NULL                ,
+  -- `category_description`  varchar(50)   NOT NULL                 ,
   `brand_id` 	            int(11)	      NOT NULL                ,
   -- `brand_description`	    varchar(50)	  DEFAULT NULL            ,
   `model_id`              int(11)       NOT NULL                ,
@@ -277,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `trade_posts`
   `condition_id`          int(11)       NOT NULL                ,
   -- `condition_description` varchar(50)   DEFAULT NULL            ,
   `user_id`               int(11)       NOT NULL                ,
-  -- `user_name`             varchar(50)   NOT NULL                ,  
+  -- `user_name`             varchar(50)   NOT NULL                ,    
   `price`                 decimal(7,2)  UNSIGNED NOT NULL       , 
   `eletronic_invoice`     boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true  
   `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
@@ -296,25 +297,32 @@ CREATE TABLE IF NOT EXISTS `trade_posts`
 INSERT INTO `trade_posts`
 ( `title`, `description`, `category_id`, `brand_id`, `model_id`, `color_id`, `condition_id`, `user_id`, `price`, `eletronic_invoice`, `activity_status` )
 VALUES
-( 'Guitarra Ibanez', 'Vendo minha guitarra Ibanez usada, tenho ela há 8 anos aproxiamadamente.', '2', '2', '2', '2', '2', '1', '1500.50', true, DEFAULT ) ;
+( 'Guitarra Ibanez', 'Vendo minha guitarra Ibanez usada, tenho ela há 8 anos aproxiamadamente.', '2', '2', '2', '2', '2', '4', '1500.50', true, DEFAULT ) ;
 
 
--- ## 19º - Criar tabela `images`, referente as IMAGENS utilizadas no site
-DROP TABLE IF EXISTS `images`;
-CREATE TABLE IF NOT EXISTS `images`
+-- ## 19º - Criar tabela `images_trade_posts`, referente as IMAGENS utilizadas nos anúncios do sistema
+DROP TABLE IF EXISTS `images_trade_posts`;
+CREATE TABLE IF NOT EXISTS `images_trade_posts`
 (
   `image_id`              int(11)       NOT NULL auto_increment ,
-  `name`                  varchar(255)  NOT NULL                ,
-  `img_directory`         varchar(255)  NOT NULL                ,
+  `image_name`            varchar(255)  NOT NULL                ,
+  `trade_post_id`         int(11)       NOT NULL                ,  
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
   `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT PK_images PRIMARY KEY (image_id)
-  -- CONSTRAINT FK_categorys_posts FOREIGN KEY (category_id) REFERENCES product_categorys(category_id)
+  CONSTRAINT PK_images PRIMARY KEY (image_id) ,
+  CONSTRAINT FK_posts_images FOREIGN KEY (trade_post_id) REFERENCES trade_posts(post_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
+-- ## 20º - Insere Dados na tabela `images_trade_posts`
+INSERT INTO `images_trade_posts`
+( `image_name`, `trade_post_id`, `activity_status`)
+VALUES
+( 'g2.jpg', '1', DEFAULT ) ;
 
 
--- ####################################################################################################################### ANALISAR
+
+-- ############################################################### ANALISAR ###############################################################
 
 --
 -- Estrutura da tabela `comentario`

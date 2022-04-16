@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 if (is_numeric($userId)):
                     $dados = CrudDB::select('SELECT * FROM users WHERE user_id =:USER_ID'
                         ,['USER_ID' => $userId]
-                        ,TRUE);                
+                        ,TRUE);         
                 else:                    
                     http_response_code(406); // Not Acceptable
                     echo json_encode(['msg' => 'Parâmetro ID não é numérico!']);
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         endif;
 
         // Final DATA
-        // if (!Empty($dados)):            
+        // if (!Empty($dados)):
             http_response_code(200);
             echo json_encode($dados);
             return;

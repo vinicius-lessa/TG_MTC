@@ -29,10 +29,10 @@
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/MusicTradeCenter.php" class="border-button nav-link text-white">Music Trade Center</a></li>
         <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
           <li class="nav-item"><a href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true" class="border-button nav-link text-white">Sair</a></li>
-          <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/MyProfile.php" class="border-button nav-link text-white">Meu Perfil</a></li>
+          <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/user_profile.php" class="border-button nav-link text-white">Meu Perfil</a></li>
         <?php else:  ?>
-          <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/SignUp.php" class="border-button nav-link text-white">Cadastrar</a></li>
-          <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/SignIn.php" class="border-button nav-link text-white">Entrar</a></li>          
+          <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/sign_up.php" class="border-button nav-link text-white">Cadastrar</a></li>
+          <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/sign_in.php" class="border-button nav-link text-white">Entrar</a></li>          
         <?php endif;  ?>        
       </ul>
 

@@ -1,11 +1,21 @@
 <?php
+/**
+ * File DOC
+ * 
+ * @Description Controller que faz a relação das Views TradePosts (Anúncios) com o Model (m_tradePosts.php)
+ * @ChangeLog 
+ *  - Vinícius Lessa - 16/04/2022: Inclusão da documentação de cabeçalho do arquivo + alguns ajustes;
+ * 
+ * @ Notes: 
+ * 
+ */
 
 if (!defined('SITE_URL')) {
   include_once '../config.php';
 }
 
 // FUNÇÕES PRODUTOS
-// include SITE_PATH . '/Models/m_produto.php';
+include SITE_PATH . '/Models/m_tradePosts.php';
 // include SITE_PATH . '/Models/m_comentario.php';
 
 // Insert New TradePost / Inserir novo Anúncio
@@ -34,6 +44,9 @@ if (isset($_POST['newTradePost'])) {
   //   exit;
 }
 
+
+// ******************************** ANALISAR
+
 /* ALTERAR PRODUTO NO BANCO  */
 if (isset($_GET['produto'])) {
   $cod_produto = $_GET['produto'];
@@ -60,9 +73,6 @@ if (isset($_POST['alterar-produto'])) {
   }
   exit;
 }
-
-
-// ************************** ANALISAR
 
 /*Verificar se foi selecionado o produto para mostrar*/
 if (isset($DetalheProduto)) {

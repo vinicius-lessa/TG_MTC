@@ -99,7 +99,7 @@
 
             <div class="mt-5 text-white text-center">
               <span>Não possui conta?
-                <a href="<?php echo SITE_URL ?>/Views/users/SignUp.php">Cadastre-se aqui</a>
+                <a href="<?php echo SITE_URL ?>/Views/users/sign_up.php">Cadastre-se aqui</a>
               </span>
             </div>
           </form>

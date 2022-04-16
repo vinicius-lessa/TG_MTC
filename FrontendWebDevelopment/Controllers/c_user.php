@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 29/03/2022: Início da documentação do arquivo. Mudanças gerais nas Controllers de SIGN IN e SIGN UP.
  *  - Vinícius Lessa - 13/04/2022: Correção simples do botão sair + identação.
+ *  - Vinícius Lessa - 2022/04/16: Implementação da função de retorno das informações do usuário
  * 
  * @ Notes: As requisições nesta página vem através de JavaScript, pela função FETCH, enviando requisições POST.
  * 
@@ -65,7 +66,7 @@ if ($dados['action'] === "SignUp"):
     endif;
 
     echo json_encode($retorna);
-    
+    exit;
 endif;
 
 
@@ -88,6 +89,7 @@ if ($dados['action'] === "SignIn"):
     }
 
     echo json_encode($retorna);
+    exit;
 endif;
 
 
@@ -95,9 +97,45 @@ endif;
 if (isset($_GET['signOut'])) {    
     // session_destroy();
     unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email']);
-    header("location:" . SITE_URL . "/Views/users/SignIn.php");
+    header("location:" . SITE_URL . "/Views/users/sign_in.php");
+    exit;
 }
 
+// GET REQUESTS (from FrontEnd)
+if ($_SERVER['REQUEST_METHOD'] == 'GET'):
+
+    // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
+    
+    // Parâmetro passado pela URL
+    $uri = basename($_SERVER['REQUEST_URI']);
+
+    if ( !Empty($uri) && $uri <> 'index.php' ):
+
+        // Variables
+        $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : ""        ;        
+
+        if (Empty($keySearch)):
+            http_response_code(404); // Not Found
+            echo json_encode(['msg' => 'Informe todos os parâmetros!']);
+
+        elseif ($keySearch == "user_info"):
+            
+            if ( isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ):
+                http_response_code(200); // Success
+                echo json_encode([
+                    'user_id'       => $_SESSION['user_id'] ,
+                    'user_name'     => $_SESSION['user_name'] ,
+                    'user_email'    => $_SESSION['user_email'] ,
+                ]);
+            else:
+                http_response_code(406); // Not Acceptable
+                echo json_encode(['data' => 'Informe todos os parâmetros!']);
+            endif;
+        endif;
+    endif;
+
+endif;
 
 // ANALISAR *****************************************************************************************************
 

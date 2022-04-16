@@ -64,7 +64,7 @@
           <div class="row mt-5">
               <h6 class="text-white">Clique <a class='text-blue-link' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><strong>aqui</strong></a> para começar!</h6>
           </div>
-        </div>        
+        </div>
       <?php else:  ?>
           <!-- Title -->
         <div class="text-center mt-4">
@@ -123,7 +123,7 @@
 
             <div class="mt-5 text-white text-center">
               <span>Já possui conta?
-                <a href="<?php echo SITE_URL ?>/Views/users/SignIn.php">Entrar</a>
+                <a href="<?php echo SITE_URL ?>/Views/users/sign_in.php">Entrar</a>
               </span>
             </div>
           </form>

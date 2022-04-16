@@ -1,9 +1,46 @@
 <?php
-/* 
-4 SEMESTRE - SISTEMAS PARA INTERNET
-Author: Vinícius Lessa da Silva / Anderson Nascimento
-Since: 2020/06/19
-*/
+/**
+ * File DOC
+ * 
+ * @Description Model chamado e utilizado pelo Controler de TradePosts (Anúncios).
+ * @ChangeLog 
+ *  - Vinícius Lessa - 16/04/2022: Inclusão da documentação de cabeçalho do arquivo + alguns ajustes;
+ * 
+ * @ Notes: 
+ * 
+ */
+
+
+// FUNCTIONS
+
+// Upload Imagem ao Servidor
+function publicarImagem($arquivo)
+{
+  $data = new DateTime();
+  $arquivotemp = $arquivo['tmp_name'];
+  $nomeoriginal = $arquivo['name'];
+  $nomeproduto = "imagem-" . $data->format('dmY') . $data->format('His') . rand(1, 9999) . strrchr($nomeoriginal, ".");
+
+  if (move_uploaded_file($arquivotemp, SITE_PATH . "/images/produtos/" . $nomeproduto)) {
+    return $nomeproduto;
+  } else {
+    return false;
+  }
+}
+
+// Cadastra Produtos
+function cadastarproduto($dados, $conn)
+{
+  $valores = $dados;
+  $sql = 'INSERT INTO produto (nome_prod, descricao_prod, valor_un, cover_img, banner_img, estoque, cod_categoria, destaque, tipo_prod, modelo_prod, localizacao_prod) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ssdssiiisss", $valores['nome_prod'], $valores['descricao_prod'], $valores['valor_un'], $valores['cover_img'], $valores['banner_img'], $valores['estoque'], $valores['cod_categoria'], $valores['destaque'], $valores['tipo_prod'], $valores['modelo_prod'], $valores['localizacao_prod']);
+  // $stmt->execute();
+  $result = $stmt->execute() ? true : false;
+  $stmt->close();
+
+  return $result;
+}
 
 /**FUNÇÃO PARA CARREGAR OS DETALHES DO PRODUTO */
 function listarProduto($produto, $conn)
@@ -105,40 +142,6 @@ function selectcategoria($conn)
 }
 
 /* ================================================================================ */
-
-/* FUNÇÃO PARA CADASTRAR PRODUTOS */
-function cadastarproduto($dados, $conn)
-{
-  $valores = $dados;
-  $sql = 'INSERT INTO produto (nome_prod, descricao_prod, valor_un, cover_img, banner_img, estoque, cod_categoria, destaque, tipo_prod, modelo_prod, localizacao_prod) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssdssiiisss", $valores['nome_prod'], $valores['descricao_prod'], $valores['valor_un'], $valores['cover_img'], $valores['banner_img'], $valores['estoque'], $valores['cod_categoria'], $valores['destaque'], $valores['tipo_prod'], $valores['modelo_prod'], $valores['localizacao_prod']);
-  // $stmt->execute();
-  $result = $stmt->execute() ? true : false;
-  $stmt->close();
-
-  return $result;
-}
-
-/* FUNÇÃO PARA CARREGAR OS DADOS DAS IMAGENS */
-function publicarImagem($arquivo)
-{
-  $data = new DateTime();
-  $arquivotemp = $arquivo['tmp_name'];
-  $nomeoriginal = $arquivo['name'];
-  $nomeproduto = "imagem-" . $data->format('dmY') . $data->format('His') . rand(1, 9999) . pegarExtensão($nomeoriginal);
-
-  if (move_uploaded_file($arquivotemp, SITE_PATH . "/images/produtos/" . $nomeproduto)) {
-    return $nomeproduto;
-  } else {
-    return false;
-  }
-}
-
-function pegarExtensão($nome)
-{
-  return strrchr($nome, ".");
-}
 
 /* FUNÇÃO PARA CARREGAR OS DADOS DAS IMAGENS PARA ALTERAÇÃO */
 function alterImagem($arquivo)
