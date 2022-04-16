@@ -9,16 +9,16 @@ if (!defined('SITE_URL')) {
 // include SITE_PATH . '/Models/m_comentario.php';
 
 // Insert New TradePost / Inserir novo Anúncio
-if (isset($_POST['insertTradePost'])) {
+if (isset($_POST['newTradePost'])) {
   $dados = [];
   
   foreach ($_POST as $key => $value) {
-    if ($key != "insertTradePost") {
+    if ($key != "newTradePost") {
       $dados[$key] = ($value);
     }
   }
 
-  var_dump($dados);
+  // var_dump($dados);
 
   // $nomecover = publicarImagem($_FILES['cover_img']);
   // $nomebanner = publicarImagem($_FILES['banner_img']);

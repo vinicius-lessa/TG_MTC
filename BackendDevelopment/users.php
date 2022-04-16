@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 16/03/2022: Mudanças importantes para requisições utilizando o método GET. Agora, o servidor irá tratar parâmetros na URL.
  *  - Vinícius Lessa - 28/03/2022: Impletementação e testes na inserção de usuários via POST.
+ *  - Vinícius Lessa - 14/04/2022: Diversos ajustes nos últimos dias, referentes a Consulta e Inclusão de usuários. Função 'ServerRespose()' removida.
  * 
  * @ Tips & Tricks: 
  *      - Use this to check the method type: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -32,20 +33,6 @@ CrudDB::setConexao($pdo);
 // Parâmetro passado pela URL
 $uri = basename($_SERVER['REQUEST_URI']);
 
-
-#############################################################################################
-// FUNCTIONS
-
-function ServerResponse($httpCode, $returnData) {
-    
-    // Errors
-    if (gettype($returnData) == "string"):
-
-    // Success data requested
-    elseif (gettype($returnData) == "array"):
-
-    endif;    
-}
 
 #############################################################################################
 // HTTP METHODS
@@ -119,12 +106,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             http_response_code(200);
             echo json_encode($dados);
             return;
-        // else:
-        //     ServerResponse(404, "Problemas na pesquisa ao Servidor"); // Not Found
+        // else:        
+            // http_response_code(404); // Not Found
+            // echo json_encode(['msg' => 'Problemas na pesquisa ao Servidor']);
+            // return;
         // endif;
         
-    else:        
-        ServerResponse(406, "Parâmetro não preenchido na consulta!"); // Not Acceptable
+    else:                
+        http_response_code(406); // Not Acceptable
+        echo json_encode(['msg' => 'Parâmetro não preenchido na consulta!']);
     endif;
 endif;
 

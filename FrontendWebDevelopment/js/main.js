@@ -5,18 +5,20 @@ $(document).ready(function(){
 });
 
 // Functions
-function readURL(imgInput) {
-    if (imgInput.files && imgInput.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        $('#imagePreview1')
-          .attr('src', e.target.result)
-          .width(150)
-          .height(200);
-      };
-      reader.readAsDataURL(imgInput.files[0]);
-    }
-}
+
+// NewTradePost Image Preview
+// function readURL(imgInput) {
+//     if (imgInput.files && imgInput.files[0]) {
+//       var reader = new FileReader();
+//       reader.onload = function (e) {
+//         $('#imagePreview1')
+//           .attr('src', e.target.result)
+//           .width(150)
+//           .height(200);
+//       };
+//       reader.readAsDataURL(imgInput.files[0]);
+//     }
+// }
 
 
 // SignUp Page vars
@@ -39,8 +41,8 @@ var userPassword        = $("#userPassword");
 let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
 
 // New TradePost Page vars
-const insertTPForm      = $("#insertTP-form");
-const msgAlertErroTPF   = $("#msgAlertErroTPF"); // TPF = Trade Post Form
+const newTradePostForm  = $("#newTradePost-form");
+const msgAlertErroPost  = $("#msgAlertErroPost"); // TPF = Trade Post Form
 
 var title               = $("#title");
 var category            = $("#category");
@@ -49,8 +51,8 @@ var model               = $("#model");
 var color               = $("#color");
 var price               = $("#price");
 var description         = $("#description");
-var productCondition    = $('input[name=productCondition]:checked', insertTPForm);
-var possuiNF            = $('input[name=possuiNF]:checked', insertTPForm);
+var productCondition    = $('input[name=productCondition]:checked', newTradePostForm);
+var possuiNF            = $('input[name=possuiNF]:checked', newTradePostForm);
 
 
 // Submit SignUp
@@ -148,6 +150,7 @@ signUpForm.submit(async function( event ){
     }, 2000);
 });
 
+
 // Submit SignIn
 loginForm.submit(async function( event ){
     event.preventDefault();
@@ -208,4 +211,129 @@ loginForm.submit(async function( event ){
         spinnerWrapper.style.display = 'none';
         // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
     }, 2000);    
+});
+
+// Submit SignUp
+newTradePostForm.submit(async function( event ){
+    event.preventDefault();    
+
+    // if ( title.val() === "" || title.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
+    //     $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(title).removeAttr("style");
+    // }
+
+    // if ( category.val() === "" || category.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
+    //     $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(category).removeAttr("style");
+    // }
+
+    // if ( brand.val() === "" || brand.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
+    //     $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(brand).removeAttr("style");
+    // }    
+
+    // if ( model.val() === "" || model.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
+    //     $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(model).removeAttr("style");
+    // }
+
+    // if ( productCondition.val() === "" || productCondition.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
+    //     $(productCondition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(productCondition).removeAttr("style");
+    // }
+
+    // if ( price.val() === "" || price.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
+    //     $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(price).removeAttr("style");
+    // }
+
+    // if ( possuiNF.val() === "" || possuiNF.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
+    //     $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(possuiNF).removeAttr("style");
+    // }
+    
+    const formData = new FormData(event.target); // All Form Values
+
+    // const formProps = Object.fromEntries(formData);        
+    // formProps.price = parseFloat(price.val().replace(',', '.'));
+
+    formData.set("price", parseFloat(price.val().replace(',', '.')));
+
+    var files = $('#image-upload')[0].files;
+
+    if(files.length > 0 ){
+        formData.append('file', files[0]);
+        
+        // Read FormData
+        // for (var p of formData) {
+        //     let name = p[0];
+        //     let value = p[1];
+        
+        //     console.log(name, value);
+        // }
+
+        // Send Post via POST to PHP
+        // const dados = await fetch("../../Controllers/c_user.php", {
+        //     method: "POST",
+        //     body: dadosForm
+        // });
+
+        // const resposta = await dados.json();
+
+        // console.log(resposta);
+
+        $.ajax({
+            url: 'http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/upload.php',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function(response){
+               if(response != ""){
+                  console.log(response);
+               }else{
+                  alert('Erro na requisição ao Servidor.');
+               }
+            },
+         });
+    }
+
+    return true;
+
 });
