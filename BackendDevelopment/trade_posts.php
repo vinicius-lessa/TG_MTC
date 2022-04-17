@@ -4,7 +4,8 @@
  * 
  * @Description Página de entrada para requisições do tipo GET, PUT, POST e DELETE de 'TradePosts' (Anúncios)
  * @ChangeLog 
- *  - Vinícius Lessa - 14/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST
+ *  - Vinícius Lessa - 14/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST,
+ *  - Vinícius Lessa - 16/04/2022: Implementação da tratativa POST para inclusão de anúncios com imagens.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -19,6 +20,10 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Content-type: application/json; charset=UTF-8');
 
 require_once 'classes/Class.Crud.php';
+
+if (!defined('SITE_URL')) {
+    include_once 'config.php';
+}
 
 # Estabelece Conexão com o BANCO DE DADOS
 
@@ -50,8 +55,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         exit;
     endif;
 
-    // Fazer Depois - Responder informações da Imagem vindas do banco, tratar a imagem como URL:
-    // echo json_encode( ['image' => "http://localhost/TG_MTC/BackendDevelopment/uploads/IMG_20200421_174118.jpg"] );
+    if ( !Empty($uri) && $uri <> 'index.php' ):
+        
+        // Variables
+        $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : "" ;
+
+        if (Empty($keySearch)):
+            http_response_code(404); // Not Found
+            echo json_encode([
+                'error' => true ,
+                'msg' => 'Informe todos os parâmetros!'
+            ]);
+            exit;
+        else:
+            // All Users
+            if ($keySearch == 'trade_posts'):
+                
+                $dados = CrudDB::select(
+                    'SELECT tp.post_id, tp.title, tp.category_id, pc.description , tp.price, itp.image_name as image_name FROM trade_posts tp 
+                    LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
+                    LEFT JOIN product_categorys pc ON tp.category_id  = pc.category_id
+                    where tp.activity_status = 1
+                    ORDER BY tp.created_on DESC LIMIT 12', [], TRUE);
+
+                // $dados[0]->image_name = SITE_URL . "/uploads/" . $dados[0]->image_name;
+                if (!empty($dados)):
+                    foreach ($dados as $tradePost) {
+                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;                        
+                    }
+
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => false ,
+                        'data' => $dados
+                    ]);
+                    exit;                    
+                else:
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => true ,
+                        'msg' => 'Nenhum anúncio Encontrado!'            
+                    ]);
+                    exit;
+                endif;
+                
+    
+                // Fazer Depois - Responder informações da Imagem vindas do banco, tratar a imagem como URL:
+                // echo json_encode( ['image' => "http://localhost/TG_MTC/BackendDevelopment/uploads/IMG_20200421_174118.jpg"] );
+            endif;
+        endif;            
+    endif;
 
 endif;
 
@@ -131,18 +184,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         // Check recieved values
         // echo var_dump($_FILES); // Doesn't work with JS
         // echo json_encode( ['Arquivos' => $_FILES] );
-    
-        // Getting file name
-        $fileName = $_FILES['file']['name'];
-     
-        // Location
-        $location       = "uploads/".$fileName;
-        $fileSize       = $_FILES['file']['size'];
-        $maxsize        = 4194304; //bytes (4mb)
-        
-        $imageFileType  = pathinfo($location,PATHINFO_EXTENSION);
+
+        // Extension
+        $imageFileType  = strrchr($_FILES['file']['name'], ".");
         $imageFileType  = strtolower($imageFileType);
+
+        // Getting and Defining file name
+        $data = new DateTime();
+        $fileName = "imagem-" . $data->format('Y-m-d') . "_" . rand(1, 9999) . $imageFileType;
      
+        // Locations
+        $tmpLocation       = $_FILES['file']['tmp_name'];
+        $newLocation       = "uploads/".$fileName;
+   
+
+        // File Sizes
+        $fileSize       = $_FILES['file']['size'];
+        $maxsize        = 4194304; //bytes (4mb)        
+
         // Acceptable Extensions
         $valid_extensions = array("jpg","jpeg","png");                      
         
@@ -157,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         endif;
 
         // File Size Validation
-        if (!in_array(strtolower($imageFileType), $valid_extensions)):
+        if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):
             http_response_code(406); // Not Acceptable
             echo json_encode([
                 'error' => true ,
@@ -188,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     if ($dbReturn):
         // Upload file
         if ($imageUpload):
-            if (move_uploaded_file($_FILES['file']['tmp_name'],$location)):
+            if (move_uploaded_file($tmpLocation, $newLocation)):
                 
                 // TradePost ID
                 $dados = CrudDB::select('SELECT post_id FROM trade_posts WHERE user_id =:USER_ID  ORDER BY created_on DESC LIMIT 1'

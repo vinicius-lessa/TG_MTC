@@ -71,7 +71,7 @@ $titlePage = "Adicionar Comentario";
             <input class="btn btn-dark btn-block btn-adm mx-2 col-3" type="submit" value="Avaliar"
                    name="AddComentario" id="AddComentario">
             <a class="btn btn-dark btn-block btn-adm mx-2 col-3"
-               href="<?php echo SITE_URL ?>/Views/produtos/detalhe.php?produto=<?php echo $cod_prod ?>">Cancelar</a>
+               href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php?produto=<?php echo $cod_prod ?>">Cancelar</a>
           </div>
           <input type="hidden" name="cod_cliente" value="<?php echo $_SESSION['cod_cliente'] ?>">
           <input type="hidden" name="data_comentario" value="<?php echo date("Y-m-d") ?>">

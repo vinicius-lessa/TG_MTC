@@ -22,7 +22,8 @@ if (session_status() === PHP_SESSION_NONE) {
 $titlePage = 'Anúncios';
 $data_slide = 0;
 
-// require SITE_PATH . '/Controllers/c_home.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
+// http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=trade_posts
 
 ?>
 
@@ -60,7 +61,7 @@ $data_slide = 0;
           <div class="col-12 col-sm-6 mt-5">
             <h1 class="text-white"><strong>A N Ú N C I O S</strong></h1>
           </div>
-          <hr></hr>
+          <hr>
         </div>
 
         <div class="input-group">
@@ -80,14 +81,95 @@ $data_slide = 0;
       <a class="navbar-brand" style="height:800px;" href="#"></a>
     </nav> -->
 
+    <!-- Anúncios Banco de Dados -->
+    <section>
+      <?php 
+        $a_tpList = [
+          0 => [
+            "post_id" => "244",
+            "title" => "Violão Tagima Mahogany",
+            "category_id" => "2",
+            "description" => "Violões",
+            "price" => "550.11",
+            "image_name" => "http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-04-17_3743.jpg"
+          ] ,
+          1 => [
+            "post_id" => "244",
+            "title" => "Violão Tagima Mahogany",
+            "category_id" => "2",
+            "description" => "Violões",
+            "price" => "550.11",
+            "image_name" => "http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-04-17_6821.jpg"
+          ] ,
+          2 => [
+            "post_id" => "244",
+            "title" => "Violão Tagima Mahogany",
+            "category_id" => "2",
+            "description" => "Violões",
+            "price" => "550.11",
+            "image_name" => "http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-04-17_3743.jpg"
+          ] ,
+          3 => [
+            "post_id" => "244",
+            "title" => "Violão Tagima Mahogany",
+            "category_id" => "2",
+            "description" => "Violões",
+            "price" => "550.11",
+            "image_name" => "http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-04-17_3011.jpg"
+          ] ,
+          4 => [
+            "post_id" => "244",
+            "title" => "Violão Tagima Mahogany",
+            "category_id" => "2",
+            "description" => "Violões",
+            "price" => "550.11",
+            "image_name" => "http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-04-17_3743.jpg"
+          ] ,
+          5 => [
+            "post_id" => "244",
+            "title" => "Violão Tagima Mahogany",
+            "category_id" => "2",
+            "description" => "Violões",
+            "price" => "550.11",
+            "image_name" => "http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-04-17_9188.jpg"          
+          ]    
+        ];
+
+        if (isset($a_tpList)) { 
+      ?>
+        <div class="container">      
+          <div class="row">            
+            <?php foreach ($a_tpList as $a_tpItem) { ?>
+              <!--
+                > 990 = 3
+                < 990 = 2
+                > 575 = 1 
+              -->
+              <div class="col-12 col-sm-4 mt-3">
+                <div class="">
+                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="">
+                  </a>
+                </div>
+                  <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
+                  <p class="card-title text-red" style="text-align:left;"><strong><small>R$</small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></p>
+              </div>            
+            <?php } ?>            
+          </div>
+      <?php } else {
+        /*Carregar a pagina de erro quando nÃ£o tiver produto cadastrado*/
+        include SITE_PATH . '/includes/erroCarregarProduto.php';
+      } ?>        
+    </section>
+
 
     <!-- ANÚNCIOS 01-->
-    <div class="container">
+    <!-- <div class="container">
       <div class="row">
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
               <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -98,7 +180,7 @@ $data_slide = 0;
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
               <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -108,7 +190,7 @@ $data_slide = 0;
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
               <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -122,13 +204,13 @@ $data_slide = 0;
     </div>
 
 
-    <!-- ANÚNCIOS 02-->
+    ANÚNCIOS 02
     <div class="container mb-5">
       <div class="row">
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
             <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -139,7 +221,7 @@ $data_slide = 0;
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
             <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -149,7 +231,7 @@ $data_slide = 0;
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
             <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -158,7 +240,7 @@ $data_slide = 0;
       </div>
 
       </div>
-    </div>
+    </div> -->
 
     <!-- ENCONTRE ARTISTAS -->
       <div class="card-group">

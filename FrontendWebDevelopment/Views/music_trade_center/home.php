@@ -20,7 +20,7 @@
   $titlePage = 'Music Trade Center';
   $data_slide = 0;
 
-  // require SITE_PATH . '/Controllers/c_home.php';
+  // require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +84,7 @@
 
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
           <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
         </a>
       </div>
@@ -95,7 +95,7 @@
 
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
           <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
         </a>
       </div>
@@ -105,7 +105,7 @@
 
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
           <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
         </a>
       </div>
@@ -125,7 +125,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -136,7 +136,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -146,7 +146,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
       </a>
     </div>

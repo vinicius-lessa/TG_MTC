@@ -9,18 +9,18 @@
  * @ Notes: 
  * 
  */
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  $titlePage = 'Chat';
-  $data_slide = 0;
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-  // require SITE_PATH . '/Controllers/c_home.php';
+$titlePage = 'Chat';
+
+// require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>

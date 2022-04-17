@@ -6,7 +6,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 29/03/2022: Início da documentação do arquivo. Mudanças gerais nas Controllers de SIGN IN e SIGN UP.
  *  - Vinícius Lessa - 13/04/2022: Correção simples do botão sair + identação.
- *  - Vinícius Lessa - 2022/04/16: Implementação da função de retorno das informações do usuário
+ *  - Vinícius Lessa - 2022/04/16: Implementação da função de retorno das informações do usuário (ID, Email e Nome.
  * 
  * @ Notes: As requisições nesta página vem através de JavaScript, pela função FETCH, enviando requisições POST.
  * 

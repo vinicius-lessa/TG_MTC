@@ -21,7 +21,7 @@
   $titlePage = 'Feed Musical';
   $data_slide = 0;
 
-  // require SITE_PATH . '/Controllers/c_home.php';
+  // require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +90,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php"> -->
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/DISCOS 80s.jpg" class="img-fluid rounded" alt="">
         <!-- </a> -->
       </div>
@@ -101,7 +101,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php"> -->
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/ROCKCAPA.jpg" class="img-fluid rounded" alt="">
         <!-- </a> -->
       </div>
@@ -111,7 +111,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php"> -->
           <img src="../../images/IMAGENS/CAPAS PLAYLIST/RAPCAPA.jpg" class="rounded img-fluid" alt="">
         <!-- </a> -->
       </div>
@@ -121,7 +121,7 @@
 
     <div class="col-6 col-sm-3 mt-3">
       <div class="">
-        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php"> -->
+        <!-- <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php"> -->
           <img src="../../images/IMAGENS/PRODUTOS/MISCELANIA.jpg" class="rounded img-fluid" alt="">
         <!-- </a> -->
       </div>

@@ -11,16 +11,16 @@
  *
  */
 
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-  $titlePage = 'Sobre Nós';
-  $data_slide = 0;  
+$titlePage = 'Sobre Nós';
+
 ?>
 
 <!DOCTYPE html>

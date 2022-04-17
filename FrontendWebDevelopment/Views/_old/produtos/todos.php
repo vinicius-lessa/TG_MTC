@@ -66,7 +66,7 @@ if ($listaTodosProdutos) {?>
         <div class="row">
           <?php foreach ($listaTodosProdutos as $produto) {?>
           <div class="col-sm-3 mb-3">
-            <a href="<?php echo SITE_URL ?>/Views/produtos/detalhe.php?produto=<?php echo $produto['cod_produto'] ?>"
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php?produto=<?php echo $produto['cod_produto'] ?>"
               class="linkCardsVioloes">
               <div class="card text-center border-0 card-produto">
                 <div class="card-header border-0 bg-transparent">

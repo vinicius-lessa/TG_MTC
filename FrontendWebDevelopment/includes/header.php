@@ -23,10 +23,10 @@
 
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="border-button nav-link text-white" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/NewPost.php" class="border-button nav-link text-white" aria-current="page">Anunciar</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePosts.php" class="border-button nav-link text-white">Anúncios</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/FeedMusical.php" class="border-button nav-link text-white">Feed Musical</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/MusicTradeCenter.php" class="border-button nav-link text-white">Music Trade Center</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php" class="border-button nav-link text-white" aria-current="page">Anunciar</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_posts.php" class="border-button nav-link text-white">Anúncios</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/feed_musical/home.php" class="border-button nav-link text-white">Feed Musical</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php" class="border-button nav-link text-white">Music Trade Center</a></li>
         <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
           <li class="nav-item"><a href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true" class="border-button nav-link text-white">Sair</a></li>
           <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/user_profile.php" class="border-button nav-link text-white">Meu Perfil</a></li>

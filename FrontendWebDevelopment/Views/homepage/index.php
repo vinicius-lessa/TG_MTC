@@ -22,7 +22,7 @@ $titlePage = 'HomePage';
 
 // $data_slide = 0;
 
-// require SITE_PATH . '/Controllers/c_home.php';
+// require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 ?>
 
@@ -65,7 +65,7 @@ $titlePage = 'HomePage';
             <h6 class="text-red"><strong>Negociação Online</strong></h6>
             <h1 class="text-white"><strong>Music Trade Center</strong></h1>
             <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <a class="text-white" href="../trade_posts/TradePosts.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
+            <a class="text-white" href="../trade_posts/trade_posts.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
           </div>
         </div>
       </div>
@@ -88,13 +88,13 @@ $titlePage = 'HomePage';
         </div>  
           
           <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
+            <a href="../trade_posts/trade_posts.php">
               <img class="card-img" style="opacity:90%;" src="../../images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
             </a>
           </div>
 
           <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
+            <a href="../trade_posts/trade_posts.php">
               <img class="card-img" style="opacity:90%;" src="../../images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
             </a>
           </div>
@@ -108,13 +108,13 @@ $titlePage = 'HomePage';
         <div class="col-4 center"></div>
 
           <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
+            <a href="../trade_posts/trade_posts.php">
               <img class="card-img" style="opacity:90%;" src="../../images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
             </a>
           </div>
 
           <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/TradePosts.php">
+            <a href="../trade_posts/trade_posts.php">
               <img class="card-img" style="opacity:90%;" src="../../images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
             </a>
           </div>
@@ -132,12 +132,12 @@ $titlePage = 'HomePage';
         </div>
 
         <div class="col-3 mb-5">
-          <a class="text-white" style="font-size:16px;" href="../trade_posts/TradePosts.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
+          <a class="text-white" style="font-size:16px;" href="../trade_posts/trade_posts.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
         </div>
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="../trade_posts/TradePostView.php">
+            <a href="../trade_posts/trade_post_view.php">
               <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -148,7 +148,7 @@ $titlePage = 'HomePage';
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="../trade_posts/TradePostView.php">
+            <a href="../trade_posts/trade_post_view.php">
               <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -158,7 +158,7 @@ $titlePage = 'HomePage';
 
         <div class="col-12 col-sm-4 mt-3">
           <div class="">
-            <a href="../trade_posts/TradePostView.php">
+            <a href="../trade_posts/trade_post_view.php">
               <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
             </a>
           </div>
@@ -178,7 +178,7 @@ $titlePage = 'HomePage';
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="../trade_posts/TradePostView.php">
+          <a href="../trade_posts/trade_post_view.php">
             <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -189,7 +189,7 @@ $titlePage = 'HomePage';
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="../trade_posts/TradePostView.php">
+          <a href="../trade_posts/trade_post_view.php">
             <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
           </a>
         </div>
@@ -199,7 +199,7 @@ $titlePage = 'HomePage';
 
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
-          <a href="../trade_posts/TradePostView.php">
+          <a href="../trade_posts/trade_post_view.php">
             <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
           </a>
         </div>

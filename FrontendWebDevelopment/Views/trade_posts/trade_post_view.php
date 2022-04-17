@@ -20,7 +20,7 @@
   $titlePage = 'Detalhe Anúncio';
   $data_slide = 0;
 
-  // require SITE_PATH . '/Controllers/c_home.php';
+  // require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +99,7 @@
           <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid mt-3" alt="">
         <div class="mt-5">
           <h5 class="text-red"><strong>R$ 1.170,00</strong></h5>
-          <a class="text-white" href="<?php echo SITE_URL ?>/Views/trade_posts/chat.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>CHAT</strong></button></a>
+          <a class="text-white" href="<?php echo SITE_URL ?>/Views/users/chat.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>CHAT</strong></button></a>
         </div>
       </div>
     </div>
@@ -125,7 +125,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -136,7 +136,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -146,7 +146,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -163,7 +163,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -174,7 +174,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
       </a>
     </div>
@@ -184,7 +184,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/TradePostView.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
         <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
       </a>
     </div>

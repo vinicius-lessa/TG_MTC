@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         if (Empty($keySearch) || Empty($valueSearch)):            
             http_response_code(404); // Not Found
             echo json_encode(['msg' => 'Informe todos os parâmetros!']);
+            exit;
         else:
             // All Users
             if ($keySearch == 'allUsers' && $valueSearch == 'true'):
