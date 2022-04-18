@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage.
  *  - Vinícius Lessa - 13/04/2022: Renomeação da página de 'Anúncios.php' para 'TradePosts.php'
+ *  - Renata Carrillo - 18/04/2022: Adicionando o seguinte CSS no img dos anúncios para padronização de tamanho: style="max-width:100%;width:395px;height:295px;object-fit:cover;" 
  * 
  * @ Notes: 
  * 
@@ -80,7 +81,6 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <!-- <nav class="navbar navbar-light bk-left mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
       <a class="navbar-brand" style="height:800px;" href="#"></a>
     </nav> -->
-
     <!-- Anúncios Banco de Dados -->
     <section>
       <?php 
@@ -137,7 +137,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
         if (isset($a_tpList)) { 
       ?>
-        <div class="container">      
+        <div class="container mb-5">      
           <div class="row">            
             <?php foreach ($a_tpList as $a_tpItem) { ?>
               <!--
@@ -146,9 +146,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                 > 575 (sm)= 1 
               -->
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                <div class="">
+                <div>
                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
-                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="">
+                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
                   </a>
                 </div>
                   <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
