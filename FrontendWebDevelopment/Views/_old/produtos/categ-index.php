@@ -14,7 +14,7 @@ if (!defined('SITE_URL')) {
 $categorias = [];
 
 
-require SITE_PATH . '/Controllers/c_produto.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
 // $linha = [];
 ?>
 <!DOCTYPE html>

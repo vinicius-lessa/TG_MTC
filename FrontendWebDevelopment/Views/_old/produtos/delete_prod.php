@@ -15,7 +15,7 @@
   $selectcategoria = [];
   
 
-  require SITE_PATH . '/Controllers/c_produto.php';
+  require SITE_PATH . '/Controllers/c_trade_posts.php';
   $cod_produto = $_GET['produto'];
   if (isset($_GET['produto'])) {
     $selectproduto = selectalterarproduto($conn, $cod_produto);
@@ -43,7 +43,7 @@
       </div>
       <div class="row justify-content-md-center mt-3" style="margin-bottom: 140px;">
         <div class="col-md-6">      
-          <form enctype="multipart/form-data" action='<?php echo SITE_URL ?>/Controllers/c_produto.php?produto=<?php echo $cod_produto; ?>' method="post">
+          <form enctype="multipart/form-data" action='<?php echo SITE_URL ?>/Controllers/c_trade_posts.php?produto=<?php echo $cod_produto; ?>' method="post">
             <div class="input-group d-flex justify-content-center m-4">
               <h5>Deseja realmente excluir o produto <b><?php echo $selectproduto["descricao_prod"]; ?></b> ?</h5>  
             </div> 

@@ -39,7 +39,7 @@ $categorias = [];
     </div>
     <div class="row justify-content-md-center mt-3">
       <div class="col-md-6">
-        <form class="" action='<?php echo SITE_URL ?>/Controllers/c_produto.php' method="post">
+        <form class="" action='<?php echo SITE_URL ?>/Controllers/c_trade_posts.php' method="post">
           <div class="form-group mb-3">
             <label class="sr-only" for="nome_categoria">Categoria:</label>
             <input class="form-control" type="text" name="nome_categoria" value="<?php echo $nome_categoria; ?>">

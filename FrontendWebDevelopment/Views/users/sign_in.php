@@ -18,6 +18,8 @@
     include_once '../../config.php';
   }
 
+  $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? $_SESSION['cod_cliente'] : false;
+
   $titlePage = "MTC | Cadastro";
 
 ?>
@@ -63,7 +65,7 @@
     <main>
       <div class="container">
         
-      <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
+      <?php if ( $isLoggedUser ): ?>
         <div class="text-center mt-5">
           <div class="row">
               <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3>

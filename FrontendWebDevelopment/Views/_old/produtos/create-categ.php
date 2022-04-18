@@ -34,7 +34,7 @@ if (!defined('SITE_URL')) {
       </div>
       <div class="row justify-content-md-center mt-4">
         <div class="col-md-6">
-          <form class="" action='<?php echo SITE_URL ?>/Controllers/c_produto.php' method="post">
+          <form class="" action='<?php echo SITE_URL ?>/Controllers/c_trade_posts.php' method="post">
             <div class="form-group mb-3">
               <label class="sr-only" for="nome_categoria">Categoria:</label>
               <input class="form-control input-adm" type="text" name="nome_categoria" placeholder="Categoria">

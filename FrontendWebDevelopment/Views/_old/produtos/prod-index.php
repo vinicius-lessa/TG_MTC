@@ -17,7 +17,7 @@ if (!defined('SITE_URL')) {
 $titlePage = 'Cadastrar Produtos';
 $itensProdHome = [];
 
-require SITE_PATH . '/Controllers/c_produto.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 ?>
 <!DOCTYPE html>

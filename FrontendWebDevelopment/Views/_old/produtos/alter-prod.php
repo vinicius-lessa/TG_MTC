@@ -16,7 +16,7 @@ $titlePage = "Alterar Produto";
 $selectcategoria = [];
 
 
-require SITE_PATH . '/Controllers/c_produto.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
 $cod_produto = $_GET['produto'];
 if (isset($_GET['produto'])) {
   $selectproduto = selectalterarproduto($conn, $cod_produto);
@@ -46,7 +46,7 @@ $destaque0 = 0;
     </div>
     <div class="row justify-content-md-center mt-3">
       <div class="col-md-6">
-        <form class="" enctype="multipart/form-data" action='<?php echo SITE_URL ?>/Controllers/c_produto.php' method="post">
+        <form class="" enctype="multipart/form-data" action='<?php echo SITE_URL ?>/Controllers/c_trade_posts.php' method="post">
           <input class="form-control input-adm" type="hidden" name="cod_produto" value="<?php echo $cod_produto; ?>">
           <div class=" form-group mb-3">
             <input class="form-control input-adm" type="hidden" value="<?php echo $cod_produto; ?>">

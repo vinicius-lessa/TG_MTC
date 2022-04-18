@@ -16,7 +16,7 @@
   $DetalheProduto = $_GET['produto'];
   $clienteLogado = isset($_SESSION['cod_cliente']) ? $_SESSION['cod_cliente'] : false;
 
-  require SITE_PATH . '/Controllers/c_produto.php';
+  require SITE_PATH . '/Controllers/c_trade_posts.php';
 
   // Titulo da pagina mudar de acordo com a pagina acessada
   $titlePage = "Produto " . $infoProduto['nome_prod'];

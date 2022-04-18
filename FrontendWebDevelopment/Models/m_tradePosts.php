@@ -4,14 +4,83 @@
  * 
  * @Description Model chamado e utilizado pelo Controler de TradePosts (Anúncios).
  * @ChangeLog 
- *  - Vinícius Lessa - 16/04/2022: Inclusão da documentação de cabeçalho do arquivo + alguns ajustes;
+ *  - Vinícius Lessa - 16/04/2022: Inclusão da documentação de cabeçalho do arquivo + alguns ajustes.
+ *  - Vinícius Lessa - 18/04/2022: Inclusão da função para consumo REST API dos anúncios a serem exibidos ("loadTradePosts()"). 
+ *                                 Implementação da função para consulta dos detalhes do Anúncio ("loadTradePostDetails()")
  * 
- * @ Notes: 
+ * @ Notes: Arquivo anteriormente chamado de m_produtos.php
  * 
  */
 
 
 // FUNCTIONS
+
+function loadTradePosts(){
+
+    // $url = "http://localhost/FATEC/_GitFinal/TG_TMC_BACKEND/SERVIDOR/anuncios.php/anuncios/";
+    // $ch = curl_init($url);
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+
+    // $response = json_decode(curl_exec($ch));
+
+    $token  = "16663056-351e723be15750d1cc90b4fcd";
+    $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=home";
+
+    $opts = array('http' =>
+        array(
+            'method'        =>"GET",
+            'header'        => 'Content-Type: application/x-www-form-urlencoded',
+            'ignore_errors' => true
+        )
+    );
+      
+    $context = stream_context_create($opts);
+
+    // file_get_contents
+    $returnJson = file_get_contents($url, false, $context);
+    
+    // Tranforms Json in Array
+    $aData = json_decode($returnJson, true); // Trasnforma em Array
+
+    if (count($aData) == 0 || $aData == false):
+      $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Porblemas na requisição ao Servidor!</div>"];
+    endif;
+    
+    return $aData;
+}
+
+
+function loadTradePostDetails($tradePostID){
+  $token  = "16663056-351e723be15750d1cc90b4fcd";
+  $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=". $tradePostID;
+
+  $opts = array('http' =>
+      array(
+          'method'        =>"GET",
+          'header'        => 'Content-Type: application/x-www-form-urlencoded',
+          'ignore_errors' => true
+      )
+  );
+    
+  $context = stream_context_create($opts);
+
+  // file_get_contents
+  $returnJson = file_get_contents($url, false, $context);
+  
+  // Tranforms Json in Array
+  $aData = json_decode($returnJson, true); // Trasnforma em Array
+
+  if (count($aData) == 0 || $aData == false):
+    $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Porblemas na requisição ao Servidor!</div>"];
+  endif;
+  
+  return $aData;
+}
+
+
+// ********************************************** ANALISAR ********************************************** //
 
 // Upload Imagem ao Servidor
 function publicarImagem($arquivo)
@@ -39,21 +108,6 @@ function cadastarproduto($dados, $conn)
   $result = $stmt->execute() ? true : false;
   $stmt->close();
 
-  return $result;
-}
-
-/**FUNÇÃO PARA CARREGAR OS DETALHES DO PRODUTO */
-function listarProduto($produto, $conn)
-{
-  $sql = "SELECT  p.cod_produto, p.nome_prod, p.descricao_prod, p.cover_img,p.banner_img, p.valor_un,  
-  p.estoque, p.tipo_prod, p.modelo_prod, p.localizacao_prod, c.nome_categoria FROM produto p INNER JOIN categoria c ON p.cod_categoria = c.cod_categoria
-  WHERE p.cod_produto = ?";
-
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $produto);
-  $stmt->execute();
-  $result = $stmt->get_result()->fetch_assoc();
-  $stmt->close();
   return $result;
 }
 

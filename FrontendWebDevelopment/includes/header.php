@@ -18,13 +18,13 @@
     <header class="d-flex flex-wrap justify-content-center py-3">
       
       <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
-        <img src="../../images/icon.png" alt="ícone MTC" width="50" height="50">
+        <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="50" height="50">
       </a>
 
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="border-button nav-link text-white" aria-current="page">Home</a></li>
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php" class="border-button nav-link text-white" aria-current="page">Anunciar</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_posts.php" class="border-button nav-link text-white">Anúncios</a></li>
+        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/home.php" class="border-button nav-link text-white">Anúncios</a></li>
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/feed_musical/home.php" class="border-button nav-link text-white">Feed Musical</a></li>
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php" class="border-button nav-link text-white">Music Trade Center</a></li>
         <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>

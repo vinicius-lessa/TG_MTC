@@ -84,7 +84,7 @@
 
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
           <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
         </a>
       </div>
@@ -95,7 +95,7 @@
 
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
           <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
         </a>
       </div>
@@ -105,7 +105,7 @@
 
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
           <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
         </a>
       </div>
@@ -125,7 +125,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
         <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
@@ -136,7 +136,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
         <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
@@ -146,7 +146,7 @@
 
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
+      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
         <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
@@ -181,7 +181,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="sidebars.js"></script>
   </body>
 

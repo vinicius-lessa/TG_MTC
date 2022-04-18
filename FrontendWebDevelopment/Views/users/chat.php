@@ -273,7 +273,7 @@ $titlePage = 'Chat';
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script src="sidebars.js"></script>
   </body>
 

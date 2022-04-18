@@ -50,15 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         http_response_code(401); // Unauthorized
         echo json_encode([
             'error' => true ,
-            'msg' => 'Token is not Valid!'            
+            'msg' => 'Erro: Token is not Valid!'            
         ]);
         exit;
     endif;
 
     if ( !Empty($uri) && $uri <> 'index.php' ):
-        
+
         // Variables
-        $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : "" ;
+        $keySearch  = (isset($_GET["key"])) ? $_GET["key"] : "" ;        
 
         if (Empty($keySearch)):
             http_response_code(404); // Not Found
@@ -68,8 +68,65 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             ]);
             exit;
         else:
-            // All Users
-            if ($keySearch == 'trade_posts'):
+            // Unique Trade Post
+            if (is_numeric($keySearch)):
+                $dados = CrudDB::select(
+                    'SELECT 
+                        tp.post_id 					,
+                        tp.title					,
+                        tp.description as tp_desc 	,
+                        tp.category_id				,
+                        pc.description as pc_desc 	,
+                        tp.brand_id					,
+                        pb.description as pb_desc  	,
+                        tp.model_id					,
+                        pm.description as pm_desc  	,
+                        tp.color_id					,
+                        c.description as c_desc  	,
+                        tp.condition_id				,
+                        pc2.description as pc2_desc ,
+                        tp.user_id					,
+                        u.user_name 				,
+                        u.phone 					,
+                        tp.price					,
+                        tp.eletronic_invoice 		,
+                        tp.created_on				,
+                        itp.image_name as image_name
+                    FROM trade_posts tp 
+                    INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
+                    INNER JOIN product_brands pb ON tp.brand_id = pb.brand_id
+                    INNER JOIN product_models pm ON tp.model_id = pm.model_id 
+                    INNER JOIN colors c ON tp.color_id  = c.color_id
+                    INNER JOIN product_conditions pc2 ON tp.condition_id = pc2.condition_id 
+                    INNER JOIN users u ON tp.user_id = u.user_id
+                    INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
+                    WHERE 
+                        tp.post_id          = '. $keySearch .' AND
+                        tp.activity_status  = 1
+                    ORDER BY tp.created_on DESC LIMIT 1;', [], TRUE);
+                
+                if (!empty($dados)):                    
+                    foreach ($dados as $tradePost) {
+                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
+                    }
+
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => false ,
+                        'data' => $dados
+                    ]);
+                    exit;
+                else:
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => true ,
+                        'msg' => 'Erro: O Anúncio solicitado não foi encontrado!'
+                    ]);
+                    exit;
+                endif;
+
+            // All Trade Posts
+            elseif ($keySearch == 'home'):
                 
                 $dados = CrudDB::select(
                     'SELECT tp.post_id, tp.title, tp.category_id, pc.description , tp.price, itp.image_name as image_name FROM trade_posts tp 
@@ -77,11 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     LEFT JOIN product_categorys pc ON tp.category_id  = pc.category_id
                     where tp.activity_status = 1
                     ORDER BY tp.created_on DESC LIMIT 12', [], TRUE);
-
-                // $dados[0]->image_name = SITE_URL . "/uploads/" . $dados[0]->image_name;
+                
                 if (!empty($dados)):
                     foreach ($dados as $tradePost) {
-                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;                        
+                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
                     }
 
                     http_response_code(200); // Success
@@ -94,16 +150,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     http_response_code(200); // Success
                     echo json_encode([
                         'error' => true ,
-                        'msg' => 'Nenhum anúncio Encontrado!'            
+                        'msg' => 'Erro: Nenhum anúncio Encontrado!'            
                     ]);
                     exit;
                 endif;
-                
-    
-                // Fazer Depois - Responder informações da Imagem vindas do banco, tratar a imagem como URL:
-                // echo json_encode( ['image' => "http://localhost/TG_MTC/BackendDevelopment/uploads/IMG_20200421_174118.jpg"] );
             endif;
         endif;            
+    else:                
+        http_response_code(406); // Not Acceptable
+        echo json_encode(['msg' => 'Parâmetro não preenchido na consulta!']);
     endif;
 
 endif;
@@ -122,7 +177,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         http_response_code(401); // Unauthorized
         echo json_encode([
             'error' => true ,
-            'msg' => 'Token is not Valid!'            
+            'msg' => 'Erro: Token is not Valid!'            
         ]);
         exit;
     endif;
@@ -173,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         http_response_code(406);
         echo json_encode([
             'error' => true ,
-            'msg' => 'Informe Todos os Parâmetros!'
+            'msg' => 'Erro: Informe Todos os Parâmetros!'
         ]);
         exit;
     endif;
@@ -210,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             http_response_code(406); // Not Acceptable
             echo json_encode([
                 'error' => true ,
-                'msg'   => 'O tamanho do arquivo deve ser de no máximo 4mb!'
+                'msg'   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
             ]);
             exit;
         endif;
@@ -220,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             http_response_code(406); // Not Acceptable
             echo json_encode([
                 'error' => true ,
-                'msg'   => 'Somente os formatos jpg, jpeg e png são permitidos!'
+                'msg'   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos!'
             ]);
             exit;
         endif;

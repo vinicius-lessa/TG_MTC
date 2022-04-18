@@ -24,7 +24,7 @@ $Nextpg = (isset($_GET['page'])) ? ($_GET['page'] + 1) : 1;
 $Prevpg = (isset($_GET['page']) && $Nextpg > 1) ? ($_GET['page'] - 1) : 0;
 $offset = (isset($_GET['page'])) ? ($_GET['page'] * $limit) : 0;
 
-require SITE_PATH . '/Controllers/c_produto.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 $titlePage = "Anúncios";
 ?>
@@ -66,7 +66,7 @@ if ($listaTodosProdutos) {?>
         <div class="row">
           <?php foreach ($listaTodosProdutos as $produto) {?>
           <div class="col-sm-3 mb-3">
-            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php?produto=<?php echo $produto['cod_produto'] ?>"
+            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php?produto=<?php echo $produto['cod_produto'] ?>"
               class="linkCardsVioloes">
               <div class="card text-center border-0 card-produto">
                 <div class="card-header border-0 bg-transparent">

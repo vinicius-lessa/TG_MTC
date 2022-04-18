@@ -75,7 +75,7 @@ require SITE_PATH . '/Controllers/c_pedido.php';
                   </td>
                   <td class="align-middle">
                     <a
-                      href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php?produto=<?php echo $itemCarrinho['cod_produto'] ?>">
+                      href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php?produto=<?php echo $itemCarrinho['cod_produto'] ?>">
                       <?php echo $itemCarrinho['nome_prod']; ?>
                     </a>
                   </td>

@@ -79,7 +79,7 @@ function userValidation($email, $password)
     $returnJson = file_get_contents($url, false, $context);
     
     // Tranforms Json in Array
-    $aData = json_decode($returnJson, true); // Trasnforma em Array    
+    $aData = json_decode($returnJson, true); // Trasnforma em Array
 
     // Servers Problems // ***************** VERIFICAR STATUS DO SERVER NO INÍCIO DE CADA PÁGINA **********************
     // if (count($aData) == 0 || $aData == false):

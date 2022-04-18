@@ -76,7 +76,7 @@ require SITE_PATH . '/Controllers/c_favorito.php';
                   </div>
                 </div>
                 <a class="linkCardsGames"
-                   href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php?jogo=<?php echo $itemFavorito['cod_produto'] ?>">
+                   href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php?jogo=<?php echo $itemFavorito['cod_produto'] ?>">
                   <img class=" img-favorito mx-auto"
                        src="<?php echo SITE_URL ?>/images/produtos/<?php echo $itemFavorito['cover_img'] ?>"
                        alt="Cover: ">

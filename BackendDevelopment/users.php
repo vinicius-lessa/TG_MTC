@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     // Token Validation
     if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):       
         http_response_code(401); // Unauthorized
-        echo json_encode(['msg' => 'Token is not Valid!']);
+        echo json_encode(['msg' => 'Erro: Token is not Valid!']);
         exit;
     endif;
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
         if (Empty($keySearch) || Empty($valueSearch)):            
             http_response_code(404); // Not Found
-            echo json_encode(['msg' => 'Informe todos os parâmetros!']);
+            echo json_encode(['msg' => 'Erro: Informe todos os parâmetros!']);
             exit;
         else:
             // All Users
@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ,TRUE);         
                 else:                    
                     http_response_code(406); // Not Acceptable
-                    echo json_encode(['msg' => 'Parâmetro ID não é numérico!']);
+                    echo json_encode(['msg' => 'Erro: Parâmetro ID não é numérico!']);
                 endif;
     
             // Search by E-mail

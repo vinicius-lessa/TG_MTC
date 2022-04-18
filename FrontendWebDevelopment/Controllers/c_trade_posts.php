@@ -5,8 +5,9 @@
  * @Description Controller que faz a relação das Views TradePosts (Anúncios) com o Model (m_tradePosts.php)
  * @ChangeLog 
  *  - Vinícius Lessa - 16/04/2022: Inclusão da documentação de cabeçalho do arquivo + alguns ajustes;
+ *  - Vinícius Lessa - 18/04/2022: Criação da condição para requisitar ao MODEL os dados dos anúncios a serem exibidos na home de Anúncios.
  * 
- * @ Notes: 
+ * @ Notes: Arquivo anteriormente chamado de c_produtos.php
  * 
  */
 
@@ -14,9 +15,33 @@ if (!defined('SITE_URL')) {
   include_once '../config.php';
 }
 
-// FUNÇÕES PRODUTOS
 include SITE_PATH . '/Models/m_tradePosts.php';
 // include SITE_PATH . '/Models/m_comentario.php';
+
+
+// trade_posts/home.php
+if (isset($a_tpList)) {  
+  $a_tpList = loadTradePosts();
+  // $itensCarrosel = carregarDestaques($conn);
+}
+
+
+// trade_posts/trade_post_detailed.php
+if (isset($tradePostID)) :
+
+  if (is_numeric($tradePostID)) {    
+    $tpDetails = loadTradePostDetails($tradePostID);
+
+    // $Comentarios = carregarComentarios($conn, $DetalheProduto);
+    // $notaMedia = calculaNotaMedia($Comentarios);
+  } else {
+    header("location:" . SITE_URL . "/Views/homepage/index.php");
+  }
+
+endif;
+
+
+// ********************************************** ANALISAR ********************************************** //
 
 // Insert New TradePost / Inserir novo Anúncio
 if (isset($_POST['newTradePost'])) {
@@ -72,17 +97,6 @@ if (isset($_POST['alterar-produto'])) {
     echo 'Erro ao alterar o cadastro no banco';
   }
   exit;
-}
-
-/*Verificar se foi selecionado o produto para mostrar*/
-if (isset($DetalheProduto)) {
-    if ($DetalheProduto) {
-        $infoProduto = listarProduto($DetalheProduto, $conn);
-        $Comentarios = carregarComentarios($conn, $DetalheProduto);
-        $notaMedia = calculaNotaMedia($Comentarios);
-    } else {
-        header("location:" . SITE_URL . "/Views/homepage/index.php");
-    }
 }
 
 /*verificar se esta na pagina todos e se teve pesquisa*/

@@ -10,15 +10,18 @@
  * 
  */
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  } 
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+} 
 
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  $titlePage = "MTC | Cadastro";
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? $_SESSION['cod_cliente'] : false;
+
+$titlePage = "MTC | Cadastro";
+
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +58,7 @@
     <main>
       <div class="container">     
 
-      <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
+      <?php if ( $isLoggedUser ): ?>
         <div class="text-center mt-5">
           <div class="row">
               <h3 class="text-white">Conta criada com sucesso. Bem Vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3>

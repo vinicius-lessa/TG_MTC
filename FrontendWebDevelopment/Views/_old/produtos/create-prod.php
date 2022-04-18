@@ -13,7 +13,7 @@
   $selectgenero = [];
   $selectcategoria = [];
 
-  require SITE_PATH . '/Controllers/c_produto.php';
+  require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
     </div>
     <div class="row justify-content-md-center mt-3">
       <div class="col-md-6">
-        <form class="" enctype="multipart/form-data" action='<?php echo SITE_URL ?>/Controllers/c_produto.php' method="post">
+        <form class="" enctype="multipart/form-data" action='<?php echo SITE_URL ?>/Controllers/c_trade_posts.php' method="post">
           <div class="form-group mb-3">
             <label for="nome_prod">Nome Produto:</label>
             <input class="form-control input-adm" type="text" name="nome_prod" placeholder="Nome Produto">
