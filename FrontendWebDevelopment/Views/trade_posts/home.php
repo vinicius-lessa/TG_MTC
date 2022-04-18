@@ -21,7 +21,7 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-$titlePage  = 'Anúncios';
+$titlePage  = 'MTC | Anúncios';
 $a_tpList   = [];
 
 require SITE_PATH . '/Controllers/c_trade_posts.php';

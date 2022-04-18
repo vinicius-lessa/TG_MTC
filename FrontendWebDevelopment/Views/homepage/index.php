@@ -5,7 +5,6 @@
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
  *  - Vinícius Lessa - 12/04/2022: Inclusão da documentação do arquivo;
- *  - Renata Carrillo - 18/04/22: Inclusão dos Anúncios do BDO;
  * 
  * @ Notes: 
  * 
@@ -15,14 +14,12 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-$titlePage  = 'Anúncios';
-$a_tpList   = [];
-
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-$titlePage = 'HomePage';
+$titlePage = 'MTC | Início';
+$a_tpList   = [];
 
 require SITE_PATH . '/Controllers/c_trade_posts.php';
 
@@ -67,78 +64,75 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <h6 class="text-red"><strong>Negociação Online</strong></h6>
             <h1 class="text-white"><strong>Music Trade Center</strong></h1>
             <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <a class="text-white" href="../trade_posts/home.ph"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
+            <a class="text-white" href="../trade_posts/home.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- bk -->
-    <!-- <nav class="navbar navbar-light bk-left mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
-      <a class="navbar-brand" style="height:800px;" href="#"></a>
-    </nav> -->
-
     <!-- MEIO DA HOME -->
-    <div class="container mt-5">
-      <div class="row">
-        
-        <div class="col-12 col-sm-4 bk-left center">
-          <h1 class="text-red mt-5" style="text-align:center;font-size:42px;"><strong>+3000</strong></h1>
-          <h5 class="text-white" style="text-align:center;"><strong>Anúncios em todo o</strong></h5>
-          <h5 class="text-white" style="text-align:center;"><strong>estado de São Paulo</strong></h5>
-          <h6 class="text-white" style="text-align:center;font-size:12px;margin-top:30px;">em breve em todos os estados</h6>
-        </div>  
+    <section>
+      <div class="container mt-5">
+        <div class="row">
           
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/home.ph">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
-            </a>
-          </div>
+          <div class="col-12 col-sm-4 bk-left center">
+            <h1 class="text-red mt-5" style="text-align:center;font-size:42px;"><strong>+3000</strong></h1>
+            <h5 class="text-white" style="text-align:center;"><strong>Anúncios em todo o</strong></h5>
+            <h5 class="text-white" style="text-align:center;"><strong>estado de São Paulo</strong></h5>
+            <h6 class="text-white" style="text-align:center;font-size:12px;margin-top:30px;">em breve em todos os estados</h6>
+          </div>  
+            
+            <div class="col-12 col-sm-4 text-white">
+              <a href="../trade_posts/home.php">
+                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
+              </a>
+            </div>
 
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/home.ph">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
-            </a>
-          </div>
+            <div class="col-12 col-sm-4 text-white">
+              <a href="../trade_posts/home.php">
+                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
+              </a>
+            </div>
 
+        </div>
       </div>
-    </div>
-
     
-    <div class="container mb-5 mt-2">
-      <div class="row">
-        <div class="col-4 center"></div>
+      <div class="container mb-5 mt-2">
+        <div class="row">
+          <div class="col-4 center"></div>
 
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/home.ph">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
-            </a>
+            <div class="col-12 col-sm-4 text-white">
+              <a href="../trade_posts/home.php">
+                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
+              </a>
+            </div>
+
+            <div class="col-12 col-sm-4 text-white">
+              <a href="../trade_posts/home.php">
+                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
+              </a>
+            </div>
+
           </div>
-
-          <div class="col-12 col-sm-4 text-white">
-            <a href="../trade_posts/home.ph">
-              <img class="card-img" style="opacity:90%;" src="../../images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
-            </a>
-          </div>
-
         </div>
       </div>
-    </div>
-
-    <!-- ANÚNCIOS 01-->
-    <div class="container mt-5">
-      <div class="row">
-
-        <div class="col-9">
-          <h4 class="text-white"><strong>D E S T A Q U E S</strong></h4>
-        </div>
-
-        <div class="col-3 mb-5">
-          <a class="text-white" style="font-size:16px;" href="../trade_posts/home.ph"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
-        </div>
+    </section>
 
     <!-- Trade Posts (Anúncios) vindos do Banco de Dados -->
     <section>
+      <div class="container mt-5">
+        <div class="row">
+
+          <div class="col-9">
+            <h4 class="text-white"><strong>D E S T A Q U E S</strong></h4>
+          </div>
+
+          <div class="col-3 mb-5">
+            <a class="text-white" style="font-size:16px;" href="../trade_posts/home.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
+          </div>
+        </div>
+      </div>
+
       <?php 
         if (isset($a_tpList) && !$a_tpList["error"]) {
       ?>
@@ -146,9 +140,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <div class="row">          
             <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
               <!--
-                > 990 (lg)= 3 
+                > 990 (lg)= 3
                 < 990 (md)= 2
-                > 575 (sm)= 1 
+                > 575 (sm)= 1
               -->
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div>
@@ -173,42 +167,6 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
         </div>
       <?php } ?>
     </section>
-
-        <!-- <div class="col-12 col-sm-4 mt-3">
-          <div class="">
-            <a href="../trade_posts/trade_post_detailed.php">
-              <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
-            </a>
-          </div>
-            <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-            <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
-        </div>
-
-
-        <div class="col-12 col-sm-4 mt-3">
-          <div class="">
-            <a href="../trade_posts/trade_post_detailed.php">
-              <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
-            </a>
-          </div>
-            <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-            <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
-        </div>
-
-        <div class="col-12 col-sm-4 mt-3">
-          <div class="">
-            <a href="../trade_posts/trade_post_detailed.php">
-              <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
-            </a>
-          </div>
-            <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-            <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
-        </div>
-
-      </div>
-
-      </div>
-    </div> -->
 
     <!-- ENCONTRE ARTISTAS -->
       <div class="card-group">

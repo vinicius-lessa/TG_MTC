@@ -27,12 +27,12 @@
 
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
-      <a href="<?php echo SITE_URL ?>/Views/about/home.php" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"><img src="../../images/icon.png" class="img-fluid" alt="" width="45px" height="45px"></a>      
+      <a href="<?php echo SITE_URL ?>/Views/about/home.php" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"><img src="<?php echo SITE_URL ?>/images/icon.png" class="img-fluid" alt="" width="45px" height="45px"></a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="https://www.facebook.com/" class="nav-link px-4 link-secondary"><img src="../../images/IMAGENS/ÍCONES/facebook-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
-        <li><a href="https://www.instagram.com/" class="nav-link px-4 link-secondary"><img src="../../images/IMAGENS/ÍCONES/instagram-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
-        <li><a href="https://twitter.com/" class="nav-link px-4 link-secondary"><img src="../../images/IMAGENS/ÍCONES/twitter-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
+        <li><a href="https://www.facebook.com/" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/facebook-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
+        <li><a href="https://www.instagram.com/" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/instagram-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
+        <li><a href="https://twitter.com/" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/twitter-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
       </ul>
 
       <div class="col-md-4 text-end">
