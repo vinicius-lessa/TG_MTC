@@ -18,7 +18,7 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? $_SESSION['cod_cliente'] : false;
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
 
 $titlePage = "MTC | Cadastro";
 
