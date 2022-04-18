@@ -5,6 +5,7 @@
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
  *  - Vinícius Lessa - 12/04/2022: Inclusão da documentação do arquivo;
+ *  - Renata Carrillo - 18/04/22: Inclusão dos Anúncios do BDO;
  * 
  * @ Notes: 
  * 
@@ -14,15 +15,16 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
+$titlePage  = 'Anúncios';
+$a_tpList   = [];
+
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
 $titlePage = 'HomePage';
 
-// $data_slide = 0;
-
-// require SITE_PATH . '/Controllers/c_trade_posts.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 ?>
 
@@ -135,7 +137,44 @@ $titlePage = 'HomePage';
           <a class="text-white" style="font-size:16px;" href="../trade_posts/home.ph"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
         </div>
 
-        <div class="col-12 col-sm-4 mt-3">
+    <!-- Trade Posts (Anúncios) vindos do Banco de Dados -->
+    <section>
+      <?php 
+        if (isset($a_tpList) && !$a_tpList["error"]) {
+      ?>
+        <div class="container mb-5">
+          <div class="row">          
+            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+              <!--
+                > 990 (lg)= 3 
+                < 990 (md)= 2
+                > 575 (sm)= 1 
+              -->
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
+                <div>
+                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+                  </a>
+                </div>
+                  <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
+                  <p class="card-title text-red" style="text-align:left;"><strong><small>R$</small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></p>
+              </div>            
+            <?php } ?>
+          </div>
+        </div>
+      <?php } else {  ?>
+        <div class="container mt-5 mb-5">
+          <div class="row text-center mb-4">
+            <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
+          </div>
+          <div class="row text-center mb-4">
+            <p class="text-white"><?php echo $a_tpList['msg'] ?></p>
+          </div>
+        </div>
+      <?php } ?>
+    </section>
+
+        <!-- <div class="col-12 col-sm-4 mt-3">
           <div class="">
             <a href="../trade_posts/trade_post_detailed.php">
               <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
@@ -169,46 +208,7 @@ $titlePage = 'HomePage';
       </div>
 
       </div>
-    </div>
-
-
-    <!-- ANÚNCIOS 02-->
-    <div class="container mb-5 mt-5">
-      <div class="row">
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="../trade_posts/trade_post_detailed.php">
-            <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
-      </div>
-
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="../trade_posts/trade_post_detailed.php">
-            <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
-      </div>
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="../trade_posts/trade_post_detailed.php">
-            <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
-      </div>
-
-      </div>
-    </div>
+    </div> -->
 
     <!-- ENCONTRE ARTISTAS -->
       <div class="card-group">

@@ -4,22 +4,24 @@
  * 
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
- *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
+ *  - Renata Carrillo - 12/04/2022: Padronização do <head> e titlePage;
  *  - Vinícius Lessa - 18/04/2022: Mudanças do nome do arquivo de "trade_post_view.php" para "trade_post_detailed.php".
  *                                 Mudanças nas estruturas html do anúncio. Implementação do consumo de informações do Banco de dados (de acordo com o anúncio clicado).
+ *  - Renata Carrillo - 18/04/22: Inclusão dos "outros anúncios"
  * 
  * @ Notes: 
  * 
  */
 
-if (!defined('SITE_URL')) {
-  include_once '../../config.php';
-}
-
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
+$a_tpList   = [];
+
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 // $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
 
 $tradePostID = $_GET['trade_post'];
@@ -73,13 +75,13 @@ $titlePage = $tpDetails['data'][0]['title'];
           <div class="row">
             <div class="col-8 col-sm-8">
               <a href="#">
-                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="">
+                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="" style="max-width:100%;width:695px;height:595px;object-fit:cover;">
               </a>
             </div>
             
             <div class="col-4 col-sm-4">
-                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="">
-                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid mt-3" alt="">
+                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
+                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid mt-3" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
             </div>
           </div>
                     
@@ -122,15 +124,13 @@ $titlePage = $tpDetails['data'][0]['title'];
           <div class="row text-center mb-4">
             <p class="text-white"><?php echo $tpDetails['msg'] ?></p>
           </div>            
-        <?php } ?>      
+        <?php } ?>
       </div>
     </main>
 
-
-
     <div class="container mt-5">
       <div class="row">
-        <div class="col-12 col-sm-6 mt-5">
+        <div class="col-12 col-sm-12 mt-5">
           <h1 class="text-white"><strong>OUTROS &nbsp;A N Ú N C I O S</strong></h1>
         </div>
           <hr></hr>
@@ -138,80 +138,42 @@ $titlePage = $tpDetails['data'][0]['title'];
     </div>
 
     <!-- OUTROS ANÚNCIOS-->
-    <div class="container">
-      <div class="row">
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-            <img src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
+    <!-- Trade Posts (Anúncios) vindos do Banco de Dados -->
+    <section>
+      <?php 
+        if (isset($a_tpList) && !$a_tpList["error"]) {
+      ?>
+        <div class="container mb-5">
+          <div class="row">          
+            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+              <!--
+                > 990 (lg)= 3 
+                < 990 (md)= 2
+                > 575 (sm)= 1 
+              -->
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
+                <div>
+                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+                  </a>
+                </div>
+                  <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
+                  <p class="card-title text-red" style="text-align:left;"><strong><small>R$</small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></p>
+              </div>            
+            <?php } ?>
+          </div>
         </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
-      </div>
-
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-            <img src="<?php echo SITE_URL ?>/images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
+      <?php } else {  ?>
+        <div class="container mt-5 mb-5">
+          <div class="row text-center mb-4">
+            <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
+          </div>
+          <div class="row text-center mb-4">
+            <p class="text-white"><?php echo $a_tpList['msg'] ?></p>
+          </div>
         </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
-      </div>
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-            <img src="<?php echo SITE_URL ?>/images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
-      </div>
-
-      </div>
-    </div>
-
-    <!-- OUTROS ANÚNCIOS-->
-    <div class="container mb-5">
-      <div class="row">
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-            <img src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
-      </div>
-
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-            <img src="<?php echo SITE_URL ?>/images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
-      </div>
-
-      <div class="col-12 col-sm-4 mt-3">
-        <div class="">
-          <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-            <img src="<?php echo SITE_URL ?>/images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-          </a>
-        </div>
-          <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-          <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
-      </div>
-
-      </div>
-    </div>
+      <?php } ?>
+    </section>
 
     <!-- ENCONTRE ARTISTAS -->
     <div class="card-group">
@@ -235,8 +197,10 @@ $titlePage = $tpDetails['data'][0]['title'];
   
     <!-- Scripts -->    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    
+    <script src="sidebars.js"></script>
   </body>
 
 </html>
