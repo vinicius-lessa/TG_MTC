@@ -141,11 +141,11 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <div class="row">            
             <?php foreach ($a_tpList as $a_tpItem) { ?>
               <!--
-                > 990 = 3
-                < 990 = 2
-                > 575 = 1 
+                > 990 (lg)= 3 
+                < 990 (md)= 2
+                > 575 (sm)= 1 
               -->
-              <div class="col-12 col-sm-4 mt-3">
+              <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="">
                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_view.php">
                     <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="">
