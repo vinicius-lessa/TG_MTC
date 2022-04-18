@@ -18,6 +18,10 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';      
 }
 
+$profileID = $_GET['user_id'];
+
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+
 $titlePage = "MTC | Meu Perfil";
 
 ?>
@@ -49,11 +53,35 @@ $titlePage = "MTC | Meu Perfil";
 
     <main>
       <div class="container">
-        <div class="text-center">
-            <div class="row">
-                <h3 class="text-white">Meu Pefil...</h3>
-            </div>
-        </div>
+        <?php
+          if ( $isLoggedUser && (!isset($profileID)) ):
+        ?>
+          <div class="text-center">
+              <div class="row">
+                  <h3 class="text-white"><?php echo $_SESSION['user_name'] ?></h3>
+              </div>
+              <div class="row">
+                  <h5 class="text-white">Meu Pefil</h5>
+              </div>
+          </div>
+        <?php 
+          else:
+            if (!isset($profileID)):
+              header("location:" . SITE_URL . "/Views/user/sign_in.php");
+            else:
+        ?>
+          <div class="text-center">
+          <div class="row">
+                  <h3 class="text-white">Usuário #<?php echo $profileID ?></h3>
+              </div>
+              <div class="row">
+                  <h5 class="text-white">Pefil Público</h5>
+              </div>
+          </div>          
+        <?php 
+            endif;
+          endif;
+        ?>
       </div>
     </main>
     

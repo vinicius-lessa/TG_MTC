@@ -67,6 +67,9 @@ $titlePage = $tpDetails['data'][0]['title'];
             <div class="col-12 col-sm-6 mt-5">
               <h1 class="text-white"><strong><?php echo $tpDetails['data'][0]['title']?></strong></h1>
             </div>
+            <div>
+              <span>Anúncio #<?php echo $tpDetails['data'][0]['post_id']?></span>
+            </div>
             <hr>
           </div>        
           <!-- Trade Post Details -->
@@ -83,13 +86,29 @@ $titlePage = $tpDetails['data'][0]['title'];
             </div>
           </div>
                     
+          <!-- Principais Informações -->
           <div class="row mt-4">
-            <div class="col-12">
-              <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>Descrição:</strong></h5>
-              <p class="card-title text-white" style="text-align:left;"><?php echo $tpDetails["data"][0]["tp_desc"] ?></p>
+            <div class="col-12 col-sm-8">
+              <div>  
+                <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>SOBRE</strong></h5>
+              </div>
+              <div class="mt-4">
+                <p class="card-title text-white" style="text-align:left;"><?php echo $tpDetails["data"][0]["tp_desc"] ?></p>
+              </div>
+            </div>
+            <div class="col-12 col-sm-4 mt-3 mt-4">
+              <div class="row">
+                <div class="col-12 col-sm-8">
+                  <span class="text-white">Valor:</span><h4 class="text-red"><strong>R$ <?php echo $tpDetails["data"][0]["price"] ?></strong></h4>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <a class="text-white" href="<?php echo SITE_URL ?>/Views/users/chat.php"><button type="button" class="btn btn-danger btn-lg border-0"><strong>CHAT</strong></button></a>
+                </div>
+              </div>
             </div>
           </div>
 
+          <!-- Outras Informações sobre o Anúncio -->
           <div class="row mt-3">
             <div class="col-12 col-sm-4">
               <ul class="list-group list-group-flush">
@@ -103,26 +122,41 @@ $titlePage = $tpDetails['data'][0]['title'];
             <div class="col-12 col-sm-4">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item bk-preto text-white">Cidade: <strong>São Roque</strong></li>
-                <li class="list-group-item bk-preto text-white">Bairro: <strong></strong></li>
-                <li class="list-group-item bk-preto text-white">Anunciante: <strong><?php echo $tpDetails["data"][0]["user_name"] ?></strong></li>
+                <li class="list-group-item bk-preto text-white">Bairro: <strong></strong></li>                
                 <li class="list-group-item bk-preto text-white">Telefone: <strong><?php echo $tpDetails["data"][0]["phone"] ?></strong></li>
               </ul>
             </div>
 
-            <div class="col-12 col-sm-4">
-              <h5 class="text-red"><strong>R$ <?php echo $tpDetails["data"][0]["price"] ?></strong></h5>
-              <a class="text-white" href="<?php echo SITE_URL ?>/Views/users/chat.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>CHAT</strong></button></a>
+            <!-- Autor do Anúncio -->
+            <div class="col-12 col-sm-4 text-white">
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <h5>Anunciante</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="100px" height="100px"></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                  <h5><a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" class="text-decoration-none text-white"><strong><?php echo $tpDetails["data"][0]["user_name"] ?></strong></a></h5>
+                </div>
+              </div>
             </div>
+          
           </div>
 
-        <?php } else {  ?>            
+        <?php } else {  ?>   
+          <!-- Problemas ao Solicitar informações ao Server -->
           <div class="row text-center mb-4">
             <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
           </div>
           <div class="row text-center mb-4">
             <p class="text-white"><?php echo $tpDetails['msg'] ?></p>
-          </div>            
-        <?php } ?>      
+          </div>
+        <?php } ?>
       </div>
     </main>
 

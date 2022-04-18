@@ -219,7 +219,7 @@ $selectColor    = [];
 
               <!-- Image Upload -->
               <div class="form-group">
-                <label class="mb-2" for="image-upload">Imagem do Produto</label>
+                <label class="mb-2" for="image-upload">Imagem do Item</label>
                 <input class="form-control" type="file" name="image-upload" id="image-upload">
                 <!-- <input class="form-control" type="file" name="image-upload" id="image-upload" onchange="readURL(this);"> -->
                 
