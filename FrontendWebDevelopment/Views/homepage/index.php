@@ -179,7 +179,7 @@ $titlePage = 'HomePage';
       <div class="col-12 col-sm-4 mt-3">
         <div class="">
           <a href="../trade_posts/trade_post_view.php">
-            <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="">
+            <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
           </a>
         </div>
           <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
