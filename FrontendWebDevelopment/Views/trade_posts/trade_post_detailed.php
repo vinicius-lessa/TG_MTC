@@ -157,11 +157,7 @@ $titlePage = $tpDetails['data'][0]['title'];
           </div>
           <div class="row text-center mb-4">
             <p class="text-white"><?php echo $tpDetails['msg'] ?></p>
-<<<<<<< HEAD
           </div>            
-=======
-          </div>
->>>>>>> bab0739fe69febe680b6f89f50e7ffd1815749a2
         <?php } ?>
       </div>
     </main>
