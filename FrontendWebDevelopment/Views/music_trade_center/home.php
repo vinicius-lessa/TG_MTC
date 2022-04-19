@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+    
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
@@ -85,7 +85,7 @@
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-          <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+          <img src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
         </a>
       </div>
         <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
@@ -96,7 +96,7 @@
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-          <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+          <img src="<?php echo SITE_URL ?>/images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
         </a>
       </div>
         <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
@@ -106,7 +106,7 @@
     <div class="col-12 col-sm-4 mt-3">
       <div class="">
         <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-          <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+          <img src="<?php echo SITE_URL ?>/images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
         </a>
       </div>
         <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
@@ -126,7 +126,7 @@
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="../../images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+        <img src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
       <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
@@ -137,7 +137,7 @@
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="../../images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+        <img src="<?php echo SITE_URL ?>/images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
       <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
@@ -147,7 +147,7 @@
   <div class="col-12 col-sm-4 mt-3">
     <div class="">
       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="../../images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+        <img src="<?php echo SITE_URL ?>/images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
       <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>

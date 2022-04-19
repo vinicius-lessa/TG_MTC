@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-$titlePage = 'Chat';
+$titlePage = 'MTC | Chat';
 
 // require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
@@ -37,9 +37,8 @@ $titlePage = 'Chat';
     
     <!-- StyleSheet -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->    
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">    
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
@@ -60,217 +59,197 @@ $titlePage = 'Chat';
           <hr></hr>
         </div>
       </div>
-    </main>
 
-<!-- CHAT -->
-<!-- <div class="container mt-1">
-  <div class="row">
+      <div class="container py-5 px-4">
+        <div class="row rounded-lg overflow-hidden shadow">
+          <!-- Users box-->
+          <div class="col-5 px-0">
+            <div class="bg-secondary">
 
-    <div class="col-8 col-sm-8 mt-3">
+              <div class="bg-gray px-4 py-2 bg-light">
+                <p class="h5 mb-0 py-1">Recent</p>
+              </div>
 
-    </div>
-
-  </div>
-</div> -->
-
-<section class="bg-left">
-  <div class="container py-5">
-
-    <div class="row">
-
-      <div class="col-sm-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
-
-        <h5 class="font-weight-bold mb-3 text-center text-white">Recentes</h5>
-
-        <div class="card" style="background-color:#252424;border-color:#FFFF;">
-          <div class="card-body">
-
-            <ul class="list-unstyled mb-0">
-              <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">John Doe</p>
-                      <p class="small text-muted">Hello, Are you there?</p>
+              <div class="messages-box">
+                <div class="list-group rounded-0">
+                  <a class="list-group-item list-group-item-action active text-white rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">25 Dec</small>
+                        </div>
+                        <p class="font-italic mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">Just now</p>
-                    <span class="badge bg-danger float-end">1</span>
-                  </div>
-                </a>
-              </li>
-              <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTA01.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">Danny Smith</p>
-                      <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">5 mins ago</p>
-                  </div>
-                </a>
-              </li>
-              <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">Alex Steward</p>
-                      <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">Yesterday</p>
-                  </div>
-                </a>
-              </li>
-              <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTA01.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">Ashley Olsen</p>
-                      <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">Yesterday</p>
-                  </div>
-                </a>
-              </li>
-              <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">Kate Moss</p>
-                      <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">Yesterday</p>
-                  </div>
-                </a>
-              </li>
-              <li class="p-2 border-bottom">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTA01.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">Lara Croft</p>
-                      <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      </div>
                     </div>
-                  </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">Yesterday</p>
-                  </div>
-                </a>
-              </li>
-              <li class="p-2">
-                <a href="#!" class="d-flex justify-content-between">
-                  <div class="d-flex flex-row">
-                    <img src="../../images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" alt="avatar"
-                      class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60" height="60">
-                    <div class="pt-1">
-                      <p class="fw-bold mb-0">Brad Pitt</p>
-                      <p class="small text-muted">Lorem ipsum dolor sit.</p>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                      </div>
                     </div>
+                  </a>
+
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
+                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                      <div class="media-body ml-4">
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
+                        </div>
+                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                      </div>
+                    </div>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Chat Box-->
+          <div class="col-7 px-0">
+            <div class="px-4 py-5 chat-box bg-white">
+              <!-- Sender Message-->
+              <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                <div class="media-body ml-3">
+                  <div class="bg-light rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
                   </div>
-                  <div class="pt-1">
-                    <p class="small text-muted mb-1">5 mins ago</p>
-                    <span class="text-muted float-end"><i class="fas fa-check" aria-hidden="true"></i></span>
+                  <p class="small text-muted">12:00 PM | Aug 13</p>
+                </div>
+              </div>
+
+              <!-- Reciever Message-->
+              <div class="media w-50 ml-auto mb-3">
+                <div class="media-body">
+                  <div class="bg-primary rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
                   </div>
-                </a>
-              </li>
-            </ul>
+                  <p class="small text-muted">12:00 PM | Aug 13</p>
+                </div>
+              </div>
+
+              <!-- Sender Message-->
+              <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                <div class="media-body ml-3">
+                  <div class="bg-light rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
+                  </div>
+                  <p class="small text-muted">12:00 PM | Aug 13</p>
+                </div>
+              </div>
+
+              <!-- Reciever Message-->
+              <div class="media w-50 ml-auto mb-3">
+                <div class="media-body">
+                  <div class="bg-primary rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
+                  </div>
+                  <p class="small text-muted">12:00 PM | Aug 13</p>
+                </div>
+              </div>
+
+              <!-- Sender Message-->
+              <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                <div class="media-body ml-3">
+                  <div class="bg-light rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
+                  </div>
+                  <p class="small text-muted">12:00 PM | Aug 13</p>
+                </div>
+              </div>
+
+              <!-- Reciever Message-->
+              <div class="media w-50 ml-auto mb-3">
+                <div class="media-body">
+                  <div class="bg-primary rounded py-2 px-3 mb-2">
+                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
+                  </div>
+                  <p class="small text-muted">12:00 PM | Aug 13</p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Typing area -->
+            <form action="#" class="bg-light">
+              <div class="input-group">
+                <input type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+                <div class="input-group-append">
+                  <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+                </div>
+              </div>
+            </form>
 
           </div>
         </div>
-
       </div>
-
-      <div class="col-md-6 col-lg-7 col-xl-8">
-
-        <ul class="list-unstyled">
-          <li class="d-flex justify-content-between mb-4">
-            <img src="../../images/IMAGENS/ARTISTAS/ARTISTA01.jpg" alt="avatar"
-              class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60" height="60">
-            <div class="card text-white" style="background-color:#252424;border-color:#FFFF;">
-              <div class="card-header d-flex justify-content-between p-3" style="background-color:#000000;border-color:#FFFF;">
-                <p class="fw-bold mb-0">Brad Pitt</p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 12 mins ago</p>
-              </div>
-              <div class="card-body">
-                <p class="mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex justify-content-between mb-4">
-            <div class="card w-100 text-white" style="background-color:#252424;border-color:#FFFF;">
-              <div class="card-header d-flex justify-content-between p-3" style="background-color:#000000;border-color:#FFFF;">
-                <p class="fw-bold mb-0">Lara Croft</p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 13 mins ago</p>
-              </div>
-              <div class="card-body">
-                <p class="mb-0">
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                  laudantium.
-                </p>
-              </div>
-            </div>
-            <img src="../../images/IMAGENS/ARTISTAS/ARTISTA01.jpg" alt="avatar"
-              class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong" width="60" height="60">
-          </li>
-          <li class="d-flex justify-content-between mb-4">
-            <img src="../../images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" alt="avatar"
-              class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60" height="60">
-              <div class="card w-100 text-white" style="background-color:#252424;border-color:#FFFF;">
-              <div class="card-header d-flex justify-content-between p-3" style="background-color:#000000;border-color:#FFFF;">
-                <p class="fw-bold mb-0">Brad Pitt</p>
-                <p class="text-muted small mb-0"><i class="far fa-clock"></i> 10 mins ago</p>
-              </div>
-              <div class="card-body">
-                <p class="mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.
-                </p>
-              </div>
-            </div>
-          </li>
-          <li class="bg-white mb-3">
-            <div class="form-outline">
-              <textarea class="form-control" id="textAreaExample2" rows="4" placeholder="Digite aqui sua mensagem" style="background-color:#252424;border-color:#FFFF;"></textarea>
-            </div>
-          </li>
-          <button type="button" class="btn btn-danger btn-rounded float-end">Send</button>
-        </ul>
-
-      </div>
-
-    </div>
-
-  </div>
-</section>
+    </main>
 
     <!-- Footer Include -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
     

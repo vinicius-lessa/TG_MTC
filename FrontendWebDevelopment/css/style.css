@@ -15,7 +15,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100%;  
 }
 
 footer{
@@ -152,7 +152,7 @@ a.link-none:link {
 .spinner:before {
   width: 100%;
   height: 100%;
-  background-image:linear-gradient(90deg, #e12121 0%,#e07676 100% );
+  background-image:linear-gradient(90deg, #e12121 0%,#481919 100% );
   animation: spin .5s infinite linear;
 }
 .spinner:after {
@@ -170,6 +170,13 @@ a.link-none:link {
   }
 
 }
+
+
+/* ################################ Chats
+*/
+
+
+
 
 
 /* ############################ ANALISAR ############################ */

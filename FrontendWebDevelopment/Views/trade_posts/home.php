@@ -44,7 +44,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+    
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">    
@@ -83,7 +83,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
         if (isset($a_tpList) && !$a_tpList["error"]) {
       ?>
         <div class="container mb-5">
-          <div class="row">          
+          <div class="row">
             <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
               <!--
                 > 990 (lg)= 3 
@@ -98,7 +98,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                 </div>
                   <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
                   <p class="card-title text-red" style="text-align:left;"><strong><small>R$</small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></p>
-              </div>            
+              </div>
             <?php } ?>
           </div>
         </div>

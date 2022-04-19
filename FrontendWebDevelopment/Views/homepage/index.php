@@ -41,7 +41,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+    
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
@@ -57,7 +57,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <div class="container mt-5 mb-5">
         <div class="row">
         <div class="col-12 col-sm-6">
-          <img src="../../images/icon.png" class="img-fluid" alt="" width="400">
+          <img src="<?php echo SITE_URL ?>/images/icon.png" class="img-fluid" alt="" width="400">
           </div>
 
           <div class="col-12 col-sm-6 mt-5 font-main">
@@ -84,13 +84,13 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             
             <div class="col-12 col-sm-4 text-white">
               <a href="../trade_posts/home.php">
-                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
+                <img class="card-img" style="opacity:90%;" src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA01.jpg" alt="Instrumentos">
               </a>
             </div>
 
             <div class="col-12 col-sm-4 text-white">
               <a href="../trade_posts/home.php">
-                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
+                <img class="card-img" style="opacity:90%;" src="<?php echo SITE_URL ?>/images/produtos2/EQUIPAMENTO01.jpg" alt="Equipamentos">
               </a>
             </div>
 
@@ -103,13 +103,13 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
             <div class="col-12 col-sm-4 text-white">
               <a href="../trade_posts/home.php">
-                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
+                <img class="card-img" style="opacity:90%;" src="<?php echo SITE_URL ?>/images/produtos2/ACESSORIOS01.jpg" alt="Acessórios">
               </a>
             </div>
 
             <div class="col-12 col-sm-4 text-white">
               <a href="../trade_posts/home.php">
-                <img class="card-img" style="opacity:90%;" src="../../images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
+                <img class="card-img" style="opacity:90%;" src="<?php echo SITE_URL ?>/images/produtos2/MISCELANIA01.jpg" alt="Miscelânias">
               </a>
             </div>
 
