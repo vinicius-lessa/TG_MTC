@@ -50,7 +50,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">    
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -90,14 +90,38 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                 < 990 (md)= 2
                 > 575 (sm)= 1 
               -->
-              <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                <div>
-                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-                  </a>
+              <div class="col-12 col-sm-6 col-lg-4 mt-4 mb-4">
+                <div class="p-3">
+                  <div>
+                    <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+                    </a>
+                  </div>
+                  <div class="mt-3 p-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>
+                        <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>                        
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-6">
+                        <span class="card-title text-white ">Por:
+                          <strong>
+                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $a_tpItem['user_id'] ?>"
+                              class="text-decoration-none text-white">
+                              <?php echo $a_tpItem['user_name'] ?>
+                            </a>
+                          </strong>
+                        </span>
+                      </div>
+                      <div class="col-6 d-flex flex-row-reverse">
+                        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
+                        class="card-title text-white">Detalhes</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                  <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
-                  <p class="card-title text-red" style="text-align:left;"><strong><small>R$</small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></p>
               </div>
             <?php } ?>
           </div>
@@ -118,7 +142,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <div class="card-group">
       <div class="col-12 col-sm-2"></div>
 
-      <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+      <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row ms-5 mt-3 mb-3 me-5">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>

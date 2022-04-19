@@ -46,7 +46,7 @@
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -367,7 +367,7 @@
   <div class="col-6 col-sm-2 mt-3">
       <img src="<?php echo SITE_URL ?>/images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
     </div>
-    <div class="col-6 col-sm-3 mt-3 bk-left">
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white">
         <h5 class="card-title">Shine On You Crazy Diamong</h5>
         <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
@@ -379,7 +379,7 @@
   <div class="col-6 col-sm-2 mt-3">
       <img src="<?php echo SITE_URL ?>/images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
     </div>
-    <div class="col-6 col-sm-3 mt-3 bk-left">
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white">
         <h5 class="card-title">Shine On You Crazy Diamong</h5>
         <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
@@ -389,7 +389,7 @@
   <div class="col-6 col-sm-2 mt-3">
       <img src="<?php echo SITE_URL ?>/images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
     </div>
-    <div class="col-6 col-sm-3 mt-3 bk-left">
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white">
         <h5 class="card-title">Shine On You Crazy Diamong</h5>
         <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
@@ -401,7 +401,7 @@
   <div class="col-6 col-sm-2 mt-3">
       <img src="<?php echo SITE_URL ?>/images/IMAGENS/ALBUM/PINKFLOYD.jpg" class="img-fluid rounded" alt="">
     </div>
-    <div class="col-6 col-sm-3 mt-3 bk-left">
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white">
         <h5 class="card-title">Shine On You Crazy Diamong</h5>
         <p class="card-text"><small class="text-muted">Pink Floyd</small></p>
@@ -422,7 +422,7 @@
 <div class="card-group">
   <div class="col-12 col-sm-2"></div>
 
-  <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+  <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
     <div class="row ms-5 mt-3 mb-3 me-5">
         <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
         <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
@@ -441,9 +441,7 @@
     <!-- Scripts -->    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-    
-    <script src="sidebars.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>    
   </body>
 
 </html>

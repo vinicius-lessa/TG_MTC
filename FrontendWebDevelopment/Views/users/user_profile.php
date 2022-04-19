@@ -6,6 +6,8 @@
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head>.
  *  - Vinícius Lessa - 13/04/2022: Correções mínimas de session.
+ *  - Vinícius Lessa - 19/04/2022: Diversas mudanças e implementações para validar tipo de visualização e buscar dados do usuário do Banco.
+ * 
  * @ Notes: 
  * 
  */
@@ -18,11 +20,36 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';      
 }
 
-$profileID = $_GET['user_id'];
+// Vars
+$userState = null; // 0 = Não Logado - 1 = Perfil Próprio - 2 = Perfil Público
 
-$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+// User State Verify
+if ( !(isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ):
+  $userState = 0; // Não logado
+  $titlePage = "Perfil | Bloqueado";
 
-$titlePage = "MTC | Meu Perfil";
+else:  
+  if ( !(isset($_GET['user_id'])) || $_GET['user_id'] === $_SESSION['user_id'] ):
+    $userState = 1; // Perfil Próprio 
+    $profileID = $_SESSION['user_id'];
+
+  else:
+    $userState = 2; // Perfil Público
+    $profileID = $_GET['user_id'];
+        
+  endif;
+  
+  require SITE_PATH . '/Controllers/c_user.php';
+
+  $titlePage  = "Perfil | " . $profileDetails['data'][0]['user_name'];
+  
+  // Calculates Age
+  $birthday = date_create_from_format('Y-m-d', $profileDetails['data'][0]['birthday']);
+  $now      = date_create_from_format('Y-m-d', date('Y-m-d'));
+  $diff     = (array) date_diff($birthday, $now);
+  $age      = $diff['y'];
+
+endif;
 
 ?>
 
@@ -46,52 +73,68 @@ $titlePage = "MTC | Meu Perfil";
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
 
     <!-- Header Include -->
     <?php include SITE_PATH .'/includes/header.php';?>
 
     <main>
       <div class="container">
+        
+      <!-- Não Logado -->
         <?php
-          if ( $isLoggedUser && (!isset($profileID)) ):
-        ?>          
-          <!-- Page Title -->
+          if ( $userState === 0 ):
+        ?>
+          <div class="text-center">
+              <div class="row">
+                  <h3 class="text-white">Meus Anúncios</h3>
+              </div>
+          </div>
+        
+        <!-- Perfil Próprio -->
+        <?php
+          elseif ( $userState === 1 ):
+        ?>
           <div class="container">
             <div class="row">
               <div class="col-12 col-sm-6 mt-5">
                 <h1 class="text-white"><strong>Seu Perfil</strong></h1>
               </div>
-              <hr></hr>
+              <div class="text-gray">
+                <span>Profile #<?php echo $profileDetails['data'][0]['user_id'] ?></span>
+              </div>
+              <hr>
             </div>
           </div>
 
           <!-- Profile Header -->
-          <div class="container bk-left text-white rounded">
+          <div class="container bk-gray text-white rounded">
             <div class="row">
               <div class="col-2"></div>
-              <div class="col-8 mt-3 mb-3 text-center">
-                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:200px;height:200px;object-fit:cover;">
+              <div class="col-8 mt-3 mb-3 text-center p-2">
+                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
                 <div class="form-group mb-3 mt-2" style="width:90px;">
                   <label class="mb-2" for="image-upload" style="font-size:12px;">Alterar Imagem</label>
                   <input class="form-control" type="file" name="image-upload" id="image-upload" style="font-size:14px;">
-                </div>
-                <h5><strong><?php echo $_SESSION['user_name'] ?></strong></h5>
-                <h6>23 anos</h6>
+                </div>                              
+                <div class="mt-4">
+                  <h5><strong><?php echo $_SESSION['user_name'] ?></strong></h5>
+                  <h6><?php echo $age ?> Anos</h6>
+                </div>                
               </div>
               <div class="col-2"></div>
             </div>
-          </div>
+          </div>        
 
-          <!-- User Info -->
-          <div class="container bk-left mt-3 mb-5 rounded">
+          <!-- Profile Info -->
+          <div class="container bk-gray mt-3 mb-5 rounded">
             <div class="row">
-              <div class="col-12 mt-3 mb-3 text-center">
+              <div class="col-12 mt-4 mb-4 text-center">
                 <h5 class="text-red"><strong>Meus Dados</strong></h5>              
               </div>
             </div>
 
-            <div class="row bk-left" style="margin-left:15px;">
+            <div class="row bk-gray" style="margin-left:15px;">
               <div class="col-6">
                 <h6 class="text-red"><strong>Habilidades</strong></h6>
                 <p class="text-white">Guitarra</p>
@@ -114,18 +157,20 @@ $titlePage = "MTC | Meu Perfil";
 
                 <!-- BIOGRAFIA -->
                 <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
-                <div class="form-group">
-                  <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-                </div>
-                <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent 
-                  eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                  enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                  primis in faucibus orci luctus et ultrices posuere cubilia curae.
-                </p>            
+                <!-- <div class="form-group">
+                  <textarea class="form-control" type="text" name="description" id="description" rows="3">
+                    <?php echo $profileDetails['data'][0]['bio'] ?>
+                  </textarea>
+                </div> -->
+
+                <p class="text-white mt-2" style="font-size:14px;">
+                  <?php echo $profileDetails['data'][0]['bio'] ?>
+                </p>
+
               </div>          
 
               <!-- OUTRAS INFORMAÇÕES -->
-              <div class="col-6 text-white">
+              <div class="col-6 mb-5 text-white">
                 <h6 class="text-red"><strong>Outras Informações</strong></h6>
 
                 <!-- GÊNERO -->
@@ -154,7 +199,7 @@ $titlePage = "MTC | Meu Perfil";
                   <select class="form-select" name="brand" id="brand">
                     <option selected>Escolha...</option>
                     <option value="1">São Paulo</option>
-                    <option value="3">São Roque</option>
+                    <option value="2">São Roque</option>
                     <?php foreach ($selectBrand as $itemBrand) {?>
                       <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
                     <?php };?>
@@ -167,7 +212,7 @@ $titlePage = "MTC | Meu Perfil";
                     <select class="form-select" name="brand" id="brand">
                       <option selected>Escolha...</option>
                       <option value="1">São Paulo</option>
-                      <option value="3">Rio de Janeiro</option>
+                      <option value="2">Rio de Janeiro</option>
                       <?php foreach ($selectBrand as $itemBrand) {?>
                         <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
                       <?php };?>
@@ -177,195 +222,202 @@ $titlePage = "MTC | Meu Perfil";
                 <!-- DATA DE NASCIMENTO -->
                 <div class="form-group mt-3">
                   <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
-                    <select class="form-select" name="brand" id="brand">
+                    <p><?php echo $profileDetails['data'][0]['birthday'] ?></p>
+                    <!-- <select class="form-select" name="brand" id="brand">
                       <option selected>Escolha...</option>
                       <option value="1">São Paulo</option>
                       <option value="3">São Roque</option>
                       <?php foreach ($selectBrand as $itemBrand) {?>
                         <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
                       <?php };?>                  
-                    </select>
+                    </select> -->
                 </div>
 
                 <!-- E-MAIL -->
                 <div class="form-group text-white mt-3">
                   <label for="userEmail"><strong>E-mail:</strong></label>
-                  <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
-                </div>
-
-                <h6 class="text-red mt-5"><strong>Experiência</strong></h6>
-
+                  <input type="email" class="form-control" placeholder="<?php echo $profileDetails['data'][0]['email'] ?>" id="userEmail" name="email">
+                </div>                
+                
                 <!-- BIOGRAFIA -->
-                  <div class="form-group">
-                    <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-                  </div>
-                  <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                    eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                    enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                    primis in faucibus orci luctus et ultrices posuere cubilia curae.
-                  </p>
+                <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
+
+                <!-- <div class="form-group">
+                  <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
+                </div>
+                <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                  eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
+                  enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
+                  primis in faucibus orci luctus et ultrices posuere cubilia curae.
+                </p> -->
               </div>
             </div>
           </div>          
-        <?php 
-          else:
-            if (!isset($profileID)):
-              header("location:" . SITE_URL . "/Views/user/sign_in.php");
-            else:
-        ?>
-        <!-- Page Title -->
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-sm-6 mt-5">
-              <h1 class="text-white"><strong>Seu Perfil</strong></h1>
-            </div>
-            <hr></hr>
-          </div>
-        </div>
         
-        <!-- Profile Header -->
-        <div class="container bk-left text-white rounded">
-          <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8 mt-3 mb-3 text-center">
-              <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:200px;height:200px;object-fit:cover;">
-              <!-- <div class="form-group mb-3 mt-2" style="width:90px;">
-                <label class="mb-2" for="image-upload" style="font-size:12px;">Alterar Imagem</label>
-                <input class="form-control" type="file" name="image-upload" id="image-upload" style="font-size:14px;">
-              </div> -->
-              <h5><strong>Vinicius Lessa</strong></h5>
-              <h6>23 anos</h6>
-            </div>
-            <div class="col-2"></div>
-          </div>
-        </div>
-
-        <!-- User Info -->
-        <div class="container bk-left mt-3 mb-5 rounded">
-          <div class="row">
-            <div class="col-12 mt-3 mb-3 text-center">
-              <h5 class="text-red"><strong>Meus Dados</strong></h5>              
+        <!-- Perfil Público -->        
+        <?php
+          elseif ( $userState === 2 ):
+        ?>        
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-sm-6 mt-5">
+                <h1 class="text-white"><strong>Perfil Público</strong></h1>
+              </div>
+              <div class="text-gray">
+                <span>Profile #<?php echo $profileDetails['data'][0]['user_id'] ?></span>
+              </div>              
+              <hr>
             </div>
           </div>
-
-          <div class="row bk-left" style="margin-left:15px;">
-            <div class="col-6">
-              <h6 class="text-red"><strong>Habilidades</strong></h6>
-              <p class="text-white">Guitarra</p>
-              <p class="text-white">Violão</p>
-              <p class="text-white">Baixo</p>
-              
-              <div class="form-group mb-3">
-                <select class="custom-select" id="inputGroupSelect02">
-                  <option selected>Escolha...</option>
-                  <option value="1">Guitarra</option>
-                  <option value="2">Violão</option>
-                  <option value="3">Baixo</option>
-                  <option value="4">Bateria</option>
-                  <option value="5">Piano</option>
-                </select>
-                <!-- <div class="input-group-append">
-                  <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+          
+          <!-- Profile Header -->
+          <div class="container bk-gray text-white rounded">
+            <div class="row">
+              <div class="col-2"></div>
+              <div class="col-8 mt-3 mb-3 text-center p-2">
+                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
+                <!-- <div class="form-group mb-3 mt-2" style="width:90px;">
+                  <label class="mb-2" for="image-upload" style="font-size:12px;">Alterar Imagem</label>
+                  <input class="form-control" type="file" name="image-upload" id="image-upload" style="font-size:14px;">
                 </div> -->
+                <div class="mt-4">
+                  <h5><strong><?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>
+                  <h6><?php echo $age ?> Anos</h6>
+                </div>
               </div>
+              <div class="col-2"></div>
+            </div>
+          </div>
 
-              <!-- BIOGRAFIA -->
-              <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
-              <!-- <div class="form-group">
-                <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-              </div> -->
-              <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent 
-                eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                primis in faucibus orci luctus et ultrices posuere cubilia curae.
-              </p>            
-            </div>          
-
-            <!-- OUTRAS INFORMAÇÕES -->
-            <div class="col-6 text-white">
-              <h6 class="text-red"><strong>Outras Informações</strong></h6>
-
-              <!-- GÊNERO -->
-              <label><strong>Gênero(s):</strong></label>
-              <p class="text-white">Guitarra</p>
-              <p class="text-white">Violão</p>
-              <p class="text-white">Baixo</p>
-
-              <div class="input-group mb-3">
-                <!-- <select class="custom-select" id="inputGroupSelect02">
-                  <option selected>Escolha...</option>
-                  <option value="1">Guitarra</option>
-                  <option value="2">Violão</option>
-                  <option value="3">Baixo</option>
-                  <option value="4">Bateria</option>
-                  <option value="5">Piano</option>
-                </select> -->
-                <!-- <div class="input-group-append">
-                  <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                </div> -->
+          <!-- User Info -->
+          <div class="container bk-gray mt-3 mb-5 rounded">
+            <div class="row">
+              <div class="col-12 mt-3 mt-4 mb-4 text-center">
+                <h5 class="text-red"><strong>Mais Sobre <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>              
               </div>
+            </div>
 
-              <!-- CIDADE -->
-              <div class="form-group mt-3">
-                <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
-                <!-- <select class="form-select" name="brand" id="brand">
-                  <option selected>Escolha...</option>
-                  <option value="1">São Paulo</option>
-                  <option value="3">São Roque</option>
-                  <?php foreach ($selectBrand as $itemBrand) {?>
-                    <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                  <?php };?>
-                </select> -->
-              </div>
-
-              <!-- ESTADO -->
-              <div class="form-group mt-3">
-                <label class="mb-2" for="brand"><strong>Estado:</strong></label>
-                  <!-- <select class="form-select" name="brand" id="brand">
+            <div class="row bk-gray" style="margin-left:15px;">
+              <div class="col-6">
+                <h6 class="text-red"><strong>Habilidades</strong></h6>
+                <p class="text-white">Guitarra</p>
+                <p class="text-white">Violão</p>
+                <p class="text-white">Baixo</p>
+                
+                <div class="form-group mb-3">
+                  <select class="custom-select" id="inputGroupSelect02">
                     <option selected>Escolha...</option>
-                    <option value="1">São Paulo</option>
-                    <option value="3">Rio de Janeiro</option>
-                    <?php foreach ($selectBrand as $itemBrand) {?>
-                      <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                    <?php };?>
-                  </select> -->
-              </div>
+                    <option value="1">Guitarra</option>
+                    <option value="2">Violão</option>
+                    <option value="3">Baixo</option>
+                    <option value="4">Bateria</option>
+                    <option value="5">Piano</option>
+                  </select>
+                  <!-- <div class="input-group-append">
+                    <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                  </div> -->
+                </div>
 
-              <!-- DATA DE NASCIMENTO -->
-              <div class="form-group mt-3">
-                <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
+                <!-- BIOGRAFIA -->
+                <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
+                <!-- <div class="form-group">
+                  <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
+                </div> -->
+                <p class="text-white mt-2" style="font-size:14px;">
+                  <?php echo $profileDetails['data'][0]['bio'] ?>
+                </p>            
+              </div>          
+
+              <!-- OUTRAS INFORMAÇÕES -->
+              <div class="col-6 text-white mb-4">
+                <h6 class="text-red"><strong>Outras Informações</strong></h6>
+
+                <!-- GÊNERO -->
+                <label><strong>Gênero(s):</strong></label>
+                <p class="text-white">Guitarra</p>
+                <p class="text-white">Violão</p>
+                <p class="text-white">Baixo</p>
+
+                <div class="input-group mb-3">
+                  <!-- <select class="custom-select" id="inputGroupSelect02">
+                    <option selected>Escolha...</option>
+                    <option value="1">Guitarra</option>
+                    <option value="2">Violão</option>
+                    <option value="3">Baixo</option>
+                    <option value="4">Bateria</option>
+                    <option value="5">Piano</option>
+                  </select> -->
+                  <!-- <div class="input-group-append">
+                    <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                  </div> -->
+                </div>
+
+                <!-- CIDADE -->
+                <div class="form-group mt-3">
+                  <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
                   <!-- <select class="form-select" name="brand" id="brand">
                     <option selected>Escolha...</option>
                     <option value="1">São Paulo</option>
                     <option value="3">São Roque</option>
                     <?php foreach ($selectBrand as $itemBrand) {?>
                       <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                    <?php };?>                  
+                    <?php };?>
                   </select> -->
-              </div>
-
-              <!-- E-MAIL -->
-              <div class="form-group text-white mt-3">
-                <label for="userEmail"><strong>E-mail:</strong></label>
-                <!-- <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email"> -->
-              </div>
-
-              <h6 class="text-red mt-5"><strong>Experiência</strong></h6>
-
-              <!-- BIOGRAFIA -->
-                <div class="form-group">
-                  <!-- <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea> -->
                 </div>
-                <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+
+                <!-- ESTADO -->
+                <div class="form-group mt-3">
+                  <label class="mb-2" for="brand"><strong>Estado:</strong></label>
+                    <!-- <select class="form-select" name="brand" id="brand">
+                      <option selected>Escolha...</option>
+                      <option value="1">São Paulo</option>
+                      <option value="3">Rio de Janeiro</option>
+                      <?php foreach ($selectBrand as $itemBrand) {?>
+                        <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                      <?php };?>
+                    </select> -->
+                </div>
+
+                <!-- DATA DE NASCIMENTO -->
+                <div class="form-group mt-3">
+                  <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
+                  <p> <?php echo $profileDetails['data'][0]['birthday'] ?> </p>
+                <!-- <select class="form-select" name="brand" id="brand">
+                      <option selected>Escolha...</option>
+                      <option value="1">São Paulo</option>
+                      <option value="3">São Roque</option>
+                      <?php foreach ($selectBrand as $itemBrand) {?>
+                        <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                      <?php };?>                  
+                    </select> -->
+                </div>
+
+                <!-- E-MAIL -->
+                <div class="form-group text-white mt-3">
+                  <label for="userEmail"><strong>E-mail:</strong></label>
+                  <p><?php echo $profileDetails['data'][0]['email'] ?></p>
+                  <!-- <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email"> -->
+                </div>
+
+                <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
+
+                <!-- BIOGRAFIA -->
+                <!-- <div class="form-group"> -->
+                  <!-- <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea> -->
+                <!-- </div> -->
+                <!-- <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
                   eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
                   enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
                   primis in faucibus orci luctus et ultrices posuere cubilia curae.
-                </p>
+                </p> -->
+              </div>
             </div>
           </div>
-        </div>
+        
+        <!-- Erro Inesperado -->
         <?php 
-            endif;
+          elseif ( $userState == null ):
+            header("location:" . SITE_URL . "/Views/homepage/index.php");
           endif;
         ?>
       </div>

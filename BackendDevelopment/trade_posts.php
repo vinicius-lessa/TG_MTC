@@ -129,9 +129,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             elseif ($keySearch == 'home'):
                 
                 $dados = CrudDB::select(
-                    'SELECT tp.post_id, tp.title, tp.category_id, pc.description , tp.price, itp.image_name as image_name FROM trade_posts tp 
-                    LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
-                    LEFT JOIN product_categorys pc ON tp.category_id  = pc.category_id
+                    'SELECT 
+                        tp.post_id , 
+                        tp.title ,
+                        tp.user_id , 
+                        u.user_name ,
+                        tp.category_id ,
+                        pc.description , 
+                        tp.price , 
+                        itp.image_name as image_name 
+                    FROM trade_posts tp 
+                    INNER JOIN users u ON tp.user_id = u.user_id
+                    INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
+                    INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id                    
                     where tp.activity_status = 1
                     ORDER BY tp.created_on DESC LIMIT 12', [], TRUE);
                 

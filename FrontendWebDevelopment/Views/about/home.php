@@ -45,7 +45,7 @@ $titlePage = 'Sobre Nós';
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
 
   <!-- Header Include -->
   <?php include SITE_PATH .'/includes/header.php';?>

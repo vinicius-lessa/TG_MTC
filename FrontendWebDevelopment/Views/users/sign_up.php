@@ -43,15 +43,13 @@ $titlePage = "MTC | Cadastro";
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png"> 
   </head>
-
-  <body class="d-flex flex-column h-100 bk-left font-main">
     
     <!-- Loading Icon -->
     <div class='spinner-wrapper'>
       <div class="spinner"></div>
     </div>
 
-<body class="body-login bk-left">
+<body class="body-login bk-gray">
   <div class="container-fluid h-100">
   <div class="row h-100">
     <div class="col-md-6 d-flex justify-content-center align-items-center">

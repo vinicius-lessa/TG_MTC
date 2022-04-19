@@ -1,6 +1,6 @@
 $(document).ready(function(){    
     // Input Masks
-    $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    // $('.money').mask('000.000.000.000.000,00', {reverse: true});
 
 });
 
@@ -300,7 +300,7 @@ newTradePostForm.submit(async function( event ){
         cache: 'default'
     };
 
-    const r_UserData = await fetch("../../Controllers/c_user.php/?key=user_info"  , myInit);
+    const r_UserData = await fetch("../../Controllers/c_user.php/?key=user_info" , myInit);
     
     const j_userData = await r_UserData.json();
     var user_id      = j_userData.user_id;

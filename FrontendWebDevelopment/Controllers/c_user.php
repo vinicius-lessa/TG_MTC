@@ -93,8 +93,21 @@ if ($dados['action'] === "SignIn"):
 endif;
 
 
+// Get USER Info
+if (isset($profileID)) :
+
+    if (is_numeric($profileID)) {        
+        $profileDetails = loadProfileDetails($profileID);    
+  
+    } else {
+      header("location:" . SITE_URL . "/Views/homepage/index.php");
+    }
+  
+  endif;
+
+
 // LogOut / Sair
-if (isset($_GET['signOut'])) {    
+if (isset($_GET['signOut'])) {
     // session_destroy();
     unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email']);
     header("location:" . SITE_URL . "/Views/users/sign_in.php");
@@ -102,7 +115,7 @@ if (isset($_GET['signOut'])) {
 }
 
 // GET REQUESTS (from FrontEnd)
-if ($_SERVER['REQUEST_METHOD'] == 'GET'):
+if (isset($_GET["key"]) && $_SERVER['REQUEST_METHOD'] == 'GET' ):
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
     // exit;
@@ -117,7 +130,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
         if (Empty($keySearch)):
             http_response_code(404); // Not Found
-            echo json_encode(['msg' => 'Informe todos os parâmetros!']);
+            echo json_encode([
+                'error' => true ,
+                'msg' => 'Informe todos os parâmetros!'
+            ]);
 
         elseif ($keySearch == "user_info"):
             

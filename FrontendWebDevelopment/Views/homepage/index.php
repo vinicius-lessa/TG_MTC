@@ -47,7 +47,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -75,7 +75,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <div class="container mt-5">
         <div class="row">
           
-          <div class="col-12 col-sm-4 bk-left center">
+          <div class="col-12 col-sm-4 bk-gray center">
             <h1 class="text-red mt-5" style="text-align:center;font-size:42px;"><strong>+3000</strong></h1>
             <h5 class="text-white" style="text-align:center;"><strong>Anúncios em todo o</strong></h5>
             <h5 class="text-white" style="text-align:center;"><strong>estado de São Paulo</strong></h5>
@@ -172,7 +172,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <div class="card-group">
       <div class="col-12 col-sm-2"></div>
 
-      <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+      <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row ms-5 mt-3 mb-3 me-5">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
@@ -193,7 +193,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
     
-    <script src="sidebars.js"></script>
+    
   </body>
 
 </html>

@@ -49,7 +49,7 @@
       <div class="spinner"></div>
     </div>
 
-<body class="body-login bk-left">
+<body class="body-login bk-gray">
   <div class="container-fluid h-100">
   <div class="row h-100">
     <div class="col-md-6 d-flex justify-content-center align-items-center">

@@ -53,16 +53,22 @@ form div {
 /* ################################ Colors
 */
 
-.bk-preto {
-  background-color: #0d1011;
+.bk-black {
+  /* background-color: #0d1011; */
+  background-image: linear-gradient(#1c1c1d, #0d1011);
+  background-attachment: fixed;
 }
 
-.bk-left {
-  background-color: #1C2124;
+.bk-gray {
+  background-color: #1C2124;  
 }
 
 .bk-red {
   background-color: #af0b0b;
+}
+
+.bk-white {
+  background-color: #edebeb;
 }
 
 .btn-danger {
@@ -73,8 +79,10 @@ form div {
 */
 
 .font-main  {
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+  font-family:'Helvetica', sans-serif;
 }
+
 .tam-16 {
   font-size:16px;
 }
@@ -98,6 +106,10 @@ form div {
 
 .text-lightgray {
   color: #d3d1d1;
+}
+
+.text-gray {
+  color: #868484;
 }
 
 /*remover sublinhado*/
@@ -184,7 +196,6 @@ a.link-none:link {
 
 /* ################################ Chats
 */
-
 
 
 

@@ -108,6 +108,34 @@ function userValidation($email, $password)
     return $retorna;
 }
 
+
+function loadProfileDetails($profileID){
+    $token  = "16663056-351e723be15750d1cc90b4fcd";
+    $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=id&value=". $profileID;
+  
+    $opts = array('http' =>
+        array(
+            'method'        =>"GET",
+            'header'        => 'Content-Type: application/x-www-form-urlencoded',
+            'ignore_errors' => true
+        )
+    );
+      
+    $context = stream_context_create($opts);
+  
+    // file_get_contents
+    $returnJson = file_get_contents($url, false, $context);
+    
+    // Tranforms Json in Array
+    $aData = json_decode($returnJson, true); // Trasnforma em Array
+  
+    if (count($aData) == 0 || $aData == false):
+      $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problemas na requisição ao Servidor!</div>"];
+    endif;
+    
+    return $aData;
+  }
+
 // ################################################# ANALISAR
 
 /* FUNÇÃO PARA LISTAR CLIENTES (usuários) */

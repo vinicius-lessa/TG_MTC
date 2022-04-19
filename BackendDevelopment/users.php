@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             // All Users
             if ($keySearch == 'allUsers' && $valueSearch == 'true'):
                 // For example:  .../users.php/?token=...&key=allUsers&value=true
-                $dados = CrudDB::select('SELECT * FROM users ORDER BY user_id DESC LIMIT 2',[],TRUE);
+                $dados = CrudDB::select('SELECT * FROM users WHERE activity_status = true ORDER BY user_id DESC LIMIT 10',[],TRUE);
             
             // Search by ID
             elseif ($keySearch == 'id'):
@@ -74,10 +74,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 if (is_numeric($userId)):
                     $dados = CrudDB::select('SELECT * FROM users WHERE user_id =:USER_ID'
                         ,['USER_ID' => $userId]
-                        ,TRUE);         
+                        ,TRUE);
+                    
+                    if (!empty($dados)):
+                        http_response_code(200);
+                        echo json_encode([
+                            'error' => false ,
+                            'data'  => $dados
+                        ]);
+                        exit;
+                    else:
+                        http_response_code(200);
+                        echo json_encode([
+                            'error' => true ,
+                            'msg'  => 'Erro: o Perfil solicitado não foi encontrado!'
+                        ]);
+                        exit;
+                    endif;
                 else:                    
                     http_response_code(406); // Not Acceptable
-                    echo json_encode(['msg' => 'Erro: Parâmetro ID não é numérico!']);
+                    echo json_encode([
+                        'error' => true,
+                        'msg' => 'Erro: Parâmetro ID não é numérico!'
+                    ]);
                 endif;
     
             // Search by E-mail
@@ -106,8 +125,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         // if (!Empty($dados)):
             http_response_code(200);
             echo json_encode($dados);
-            return;
-        // else:        
+            exit;
+        // else:    
             // http_response_code(404); // Not Found
             // echo json_encode(['msg' => 'Problemas na pesquisa ao Servidor']);
             // return;
