@@ -107,9 +107,9 @@ $titlePage = "MTC | Meu Perfil";
                     <option value="4">Bateria</option>
                     <option value="5">Piano</option>
                   </select>
-                  <!-- <div class="input-group-append">
+                  <div class="input-group-append">
                     <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                  </div> -->
+                  </div>
                 </div>
 
                 <!-- BIOGRAFIA -->
@@ -143,9 +143,9 @@ $titlePage = "MTC | Meu Perfil";
                     <option value="4">Bateria</option>
                     <option value="5">Piano</option>
                   </select>
-                  <!-- <div class="input-group-append">
+                  <div class="input-group-append">
                     <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                  </div> -->
+                  </div>
                 </div>
 
                 <!-- CIDADE -->
@@ -189,7 +189,7 @@ $titlePage = "MTC | Meu Perfil";
 
                 <!-- E-MAIL -->
                 <div class="form-group text-white mt-3">
-                  <label for="userEmail"><strong>E-mail</strong></label>
+                  <label for="userEmail"><strong>E-mail:</strong></label>
                   <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
                 </div>
 
@@ -229,10 +229,10 @@ $titlePage = "MTC | Meu Perfil";
             <div class="col-2"></div>
             <div class="col-8 mt-3 mb-3 text-center">
               <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:200px;height:200px;object-fit:cover;">
-              <div class="form-group mb-3 mt-2" style="width:90px;">
+              <!-- <div class="form-group mb-3 mt-2" style="width:90px;">
                 <label class="mb-2" for="image-upload" style="font-size:12px;">Alterar Imagem</label>
                 <input class="form-control" type="file" name="image-upload" id="image-upload" style="font-size:14px;">
-              </div>
+              </div> -->
               <h5><strong>Vinicius Lessa</strong></h5>
               <h6>23 anos</h6>
             </div>
@@ -271,9 +271,9 @@ $titlePage = "MTC | Meu Perfil";
 
               <!-- BIOGRAFIA -->
               <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-              </div>
+              </div> -->
               <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent 
                 eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
                 enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
@@ -292,14 +292,14 @@ $titlePage = "MTC | Meu Perfil";
               <p class="text-white">Baixo</p>
 
               <div class="input-group mb-3">
-                <select class="custom-select" id="inputGroupSelect02">
+                <!-- <select class="custom-select" id="inputGroupSelect02">
                   <option selected>Escolha...</option>
                   <option value="1">Guitarra</option>
                   <option value="2">Violão</option>
                   <option value="3">Baixo</option>
                   <option value="4">Bateria</option>
                   <option value="5">Piano</option>
-                </select>
+                </select> -->
                 <!-- <div class="input-group-append">
                   <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
                 </div> -->
@@ -308,53 +308,53 @@ $titlePage = "MTC | Meu Perfil";
               <!-- CIDADE -->
               <div class="form-group mt-3">
                 <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
-                <select class="form-select" name="brand" id="brand">
+                <!-- <select class="form-select" name="brand" id="brand">
                   <option selected>Escolha...</option>
                   <option value="1">São Paulo</option>
                   <option value="3">São Roque</option>
                   <?php foreach ($selectBrand as $itemBrand) {?>
                     <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
                   <?php };?>
-                </select>
+                </select> -->
               </div>
 
               <!-- ESTADO -->
               <div class="form-group mt-3">
                 <label class="mb-2" for="brand"><strong>Estado:</strong></label>
-                  <select class="form-select" name="brand" id="brand">
+                  <!-- <select class="form-select" name="brand" id="brand">
                     <option selected>Escolha...</option>
                     <option value="1">São Paulo</option>
                     <option value="3">Rio de Janeiro</option>
                     <?php foreach ($selectBrand as $itemBrand) {?>
                       <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
                     <?php };?>
-                  </select>
+                  </select> -->
               </div>
 
               <!-- DATA DE NASCIMENTO -->
               <div class="form-group mt-3">
                 <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
-                  <select class="form-select" name="brand" id="brand">
+                  <!-- <select class="form-select" name="brand" id="brand">
                     <option selected>Escolha...</option>
                     <option value="1">São Paulo</option>
                     <option value="3">São Roque</option>
                     <?php foreach ($selectBrand as $itemBrand) {?>
                       <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
                     <?php };?>                  
-                  </select>
+                  </select> -->
               </div>
 
               <!-- E-MAIL -->
               <div class="form-group text-white mt-3">
-                <label for="userEmail"><strong>E-mail</strong></label>
-                <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
+                <label for="userEmail"><strong>E-mail:</strong></label>
+                <!-- <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email"> -->
               </div>
 
               <h6 class="text-red mt-5"><strong>Experiência</strong></h6>
 
               <!-- BIOGRAFIA -->
                 <div class="form-group">
-                  <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
+                  <!-- <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea> -->
                 </div>
                 <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
                   eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
