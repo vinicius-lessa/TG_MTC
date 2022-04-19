@@ -45,7 +45,7 @@ function loadTradePosts(){
     $aData = json_decode($returnJson, true); // Trasnforma em Array
 
     if (count($aData) == 0 || $aData == false):
-      $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Porblemas na requisição ao Servidor!</div>"];
+      $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problemas na requisição ao Servidor!</div>"];
     endif;
     
     return $aData;
@@ -73,7 +73,7 @@ function loadTradePostDetails($tradePostID){
   $aData = json_decode($returnJson, true); // Trasnforma em Array
 
   if (count($aData) == 0 || $aData == false):
-    $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Porblemas na requisição ao Servidor!</div>"];
+    $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problemas na requisição ao Servidor!</div>"];
   endif;
   
   return $aData;
