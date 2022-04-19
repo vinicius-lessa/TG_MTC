@@ -42,81 +42,81 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">    
-
   </head>
-  
-  <!-- <body>
-    <div class="loader-wrapper">
-      <span class="loader"><span class="loader-inner"></span></span>
-    </div>
-  <body> -->
-  
-  <body class="d-flex flex-column h-100 bk-preto font-main">
-    
-    <!-- Header Include -->
-    <?php include SITE_PATH .'/includes/header.php';?>
 
     <!-- Loading Icon -->
     <div class='spinner-wrapper'>
       <div class="spinner"></div>
     </div>
 
-    <!-- Begin page content -->
-    <main>
-      <div class="container">
-        
-      <?php if ( $isLoggedUser ): ?>
-        <div class="text-center mt-5">
-          <div class="row">
-              <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3>
-          </div>
-                  
-          <div class="row mt-5">
-              <h6 class="text-white">Clique <a class='text-blue-link' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><strong>aqui</strong></a> para começar!</h6>
-          </div>
+<body class="body-login bk-left">
+  <div class="container-fluid h-100">
+  <div class="row h-100">
+    <div class="col-md-6 d-flex justify-content-center align-items-center">
+
+<!-- ATENÇÃO -->
+    <?php if ( $isLoggedUser ): ?>
+      <div class="text-center mt-5">
+        <div class="row">
+          <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
+          <a class='' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
         </div>
-      <?php else:  ?>
-        <!-- Title -->
-        <div class="text-center mt-4">
-          <h2 class="text-white">Faça seu Login</h2>
-        </div>
-
-        <!-- Form -->
-        <div class="form-default">            
-          <form id="singIn-form">
-            <span id="msgAlertErroLogin"></span>
-            <div class="form-floating">
-              <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
-              <label for="userEmail">E-mail</label>
-            </div>
-
-            <div class="form-floating">
-              <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
-              <label for="userPassword">Senha</label>
-            </div>
-
-            <div class="text-center mt-5">
-              <input class="btn-default btn" type="submit" value="Ir!" name="signIn" id="signIn-btn">
-            </div>
-
-            <div class="mt-5 text-white text-center">
-              <span>Não possui conta?
-                <a href="<?php echo SITE_URL ?>/Views/users/sign_up.php">Cadastre-se aqui</a>
-              </span>
-            </div>
-          </form>
-        </div>
-      <?php endif; ?>
       </div>
-    </main>
+    </div>
+    <?php else:  ?>
+<!-- ATENÇÃO -->
 
-    <!-- footer site -->
-    <?php include SITE_PATH.'/includes/footer.php'; ?>
+    <!-- Form -->
+    <div class="form-default">            
+      <form id="singIn-form">
+        <span id="msgAlertErroLogin"></span>
+        
+          <!-- ICON -->
+          <div class="text-center">
+          <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
+          </a>
+          </div>
+
+          <h3 class="text-white"><strong>Faça seu Login</strong></h3>
+          <p class="text-white" style="font-size:14px;">Edite seu perfill, publique seus produtos e negocie!</p>
+          <div class="form-floating">
+            <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
+            <label for="userEmail">E-mail</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
+            <label for="userPassword">Senha</label>
+          </div>
+
+          <div class="text-center mt-5">
+            <input class="btn-default btn btn-danger border-0" type="submit" value="ENTRAR" name="signIn" id="signIn-btn">
+          </div>
+
+          <div class="mt-5 text-white text-center">
+            <span>Não possui conta?
+              <a href="<?php echo SITE_URL ?>/Views/users/sign_up.php">Cadastre-se aqui</a>
+            </span>
+          </div>
+      </form>
+    </div>
+
+    </div>
+      <?php endif; ?>
+
+      <!-- IMAGEM RIGHT -->
+      <div class="col-md-6 d-none d-sm-flex justify-content-center align-items-center banner-login">
+        <div></div>
+      </div>
+
+  <!-- </div> -->
+  </div>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-  </body>
+</body>
 
 </html>
