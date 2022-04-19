@@ -19,6 +19,8 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+
 $titlePage = 'Anunciar';
 
 $selectCategory = [];
@@ -46,13 +48,12 @@ $selectColor    = [];
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    
-    
+        
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -66,7 +67,7 @@ $selectColor    = [];
       <div class="container">
         
       <!-- Somente se estiver Logado -->
-      <?php if ( isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
+      <?php if ( $isLoggedUser ): ?>
         
         <div class="text-center mt-4">
           <h2 class="text-white">Informações do Anúncio</h2>
@@ -253,6 +254,12 @@ $selectColor    = [];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+
+    <script type="text/javascript">
+      // Input Masks
+      $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    </script>
+
   </body>
 
 </html>

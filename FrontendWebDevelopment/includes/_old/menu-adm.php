@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg bk-preto">
+<nav class="navbar navbar-expand-lg bk-black">
   <a href="<?php echo SITE_URL ?>/Views/homepage/index.php"><img id="icon-logo" src="<?php echo SITE_URL ?>./images/logo.png" alt="Logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#itensNav" aria-controls="itensNav" aria-expanded="false" aria-label="Alterna navegação">
     <span class="navbar-toggler-icon"></span>

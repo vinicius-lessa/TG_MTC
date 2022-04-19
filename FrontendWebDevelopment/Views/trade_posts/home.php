@@ -50,7 +50,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">    
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -118,7 +118,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <div class="card-group">
       <div class="col-12 col-sm-2"></div>
 
-      <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+      <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row ms-5 mt-3 mb-3 me-5">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>

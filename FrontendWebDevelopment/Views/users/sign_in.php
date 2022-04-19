@@ -51,7 +51,7 @@
     </div>
   <body> -->
   
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH .'/includes/header.php';?>

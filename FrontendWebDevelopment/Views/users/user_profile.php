@@ -46,7 +46,7 @@ $titlePage = "MTC | Meu Perfil";
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
 
     <!-- Header Include -->
     <?php include SITE_PATH .'/includes/header.php';?>
@@ -67,7 +67,7 @@ $titlePage = "MTC | Meu Perfil";
           </div>
 
           <!-- Profile Header -->
-          <div class="container bk-left text-white rounded">
+          <div class="container bk-gray text-white rounded">
             <div class="row">
               <div class="col-2"></div>
               <div class="col-8 mt-3 mb-3 text-center">
@@ -84,14 +84,14 @@ $titlePage = "MTC | Meu Perfil";
           </div>
 
           <!-- User Info -->
-          <div class="container bk-left mt-3 mb-5 rounded">
+          <div class="container bk-gray mt-3 mb-5 rounded">
             <div class="row">
               <div class="col-12 mt-3 mb-3 text-center">
                 <h5 class="text-red"><strong>Meus Dados</strong></h5>              
               </div>
             </div>
 
-            <div class="row bk-left" style="margin-left:15px;">
+            <div class="row bk-gray" style="margin-left:15px;">
               <div class="col-6">
                 <h6 class="text-red"><strong>Habilidades</strong></h6>
                 <p class="text-white">Guitarra</p>
@@ -217,14 +217,14 @@ $titlePage = "MTC | Meu Perfil";
         <div class="container">
           <div class="row">
             <div class="col-12 col-sm-6 mt-5">
-              <h1 class="text-white"><strong>Seu Perfil</strong></h1>
+              <h1 class="text-white"><strong>Perfil Público</strong></h1>
             </div>
             <hr></hr>
           </div>
         </div>
         
         <!-- Profile Header -->
-        <div class="container bk-left text-white rounded">
+        <div class="container bk-gray text-white rounded">
           <div class="row">
             <div class="col-2"></div>
             <div class="col-8 mt-3 mb-3 text-center">
@@ -241,14 +241,14 @@ $titlePage = "MTC | Meu Perfil";
         </div>
 
         <!-- User Info -->
-        <div class="container bk-left mt-3 mb-5 rounded">
+        <div class="container bk-gray mt-3 mb-5 rounded">
           <div class="row">
             <div class="col-12 mt-3 mb-3 text-center">
               <h5 class="text-red"><strong>Meus Dados</strong></h5>              
             </div>
           </div>
 
-          <div class="row bk-left" style="margin-left:15px;">
+          <div class="row bk-gray" style="margin-left:15px;">
             <div class="col-6">
               <h6 class="text-red"><strong>Habilidades</strong></h6>
               <p class="text-white">Guitarra</p>

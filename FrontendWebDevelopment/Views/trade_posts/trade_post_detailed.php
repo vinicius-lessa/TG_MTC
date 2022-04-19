@@ -54,7 +54,7 @@ $titlePage = $tpDetails['data'][0]['title'];
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -104,7 +104,7 @@ $titlePage = $tpDetails['data'][0]['title'];
                   <span class="text-white">Valor:</span><h4 class="text-red"><strong>R$ <?php echo $tpDetails["data"][0]["price"] ?></strong></h4>
                 </div>
                 <div class="col-12 col-sm-4">
-                  <a class="text-white" href="<?php echo SITE_URL ?>/Views/users/chat.php"><button type="button" class="btn btn-danger btn-lg border-0"><strong>CHAT</strong></button></a>
+                  <a class="text-white" href="<?php echo SITE_URL ?>/Views/users/chat.php/?user=<?php echo $tpDetails["data"][0]["user_id"]?>&post_id=<?php echo $tpDetails["data"][0]["post_id"]?>"><button type="button" class="btn btn-danger btn-lg border-0"><strong>CHAT</strong></button></a>
                 </div>
               </div>
             </div>
@@ -114,18 +114,18 @@ $titlePage = $tpDetails['data'][0]['title'];
           <div class="row mt-3">
             <div class="col-12 col-sm-4">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item bk-preto text-white">Categoria: <strong><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></li>
-                <li class="list-group-item bk-preto text-white">Marca: <strong><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></li>
-                <li class="list-group-item bk-preto text-white">Modelo: <strong><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></li>
-                <li class="list-group-item bk-preto text-white">Estado: <strong>São Paulo</strong></li>
+                <li class="list-group-item bk-black text-white">Categoria: <strong><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></li>
+                <li class="list-group-item bk-black text-white">Marca: <strong><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></li>
+                <li class="list-group-item bk-black text-white">Modelo: <strong><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></li>
+                <li class="list-group-item bk-black text-white">Estado: <strong>São Paulo</strong></li>
               </ul>
             </div>
               
             <div class="col-12 col-sm-4">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item bk-preto text-white">Cidade: <strong>São Roque</strong></li>
-                <li class="list-group-item bk-preto text-white">Bairro: <strong></strong></li>                
-                <li class="list-group-item bk-preto text-white">Telefone: <strong><?php echo $tpDetails["data"][0]["phone"] ?></strong></li>
+                <li class="list-group-item bk-black text-white">Cidade: <strong>São Roque</strong></li>
+                <li class="list-group-item bk-black text-white">Bairro: <strong></strong></li>                
+                <li class="list-group-item bk-black text-white">Telefone: <strong><?php echo $tpDetails["data"][0]["phone"] ?></strong></li>
               </ul>
             </div>
 
@@ -213,7 +213,7 @@ $titlePage = $tpDetails['data'][0]['title'];
     <div class="card-group">
       <div class="col-12 col-sm-2"></div>
 
-      <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+      <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row ms-5 mt-3 mb-3 me-5">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
@@ -234,7 +234,7 @@ $titlePage = $tpDetails['data'][0]['title'];
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
     
-    <script src="sidebars.js"></script>
+    
   </body>
 
 </html>

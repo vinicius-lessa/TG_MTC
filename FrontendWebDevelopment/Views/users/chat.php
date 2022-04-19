@@ -5,6 +5,7 @@
  * @Description Página de criação de cadastro por parte do usuário do sistema.
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
+ *  - Vinícius Lessa - 19/04/2022: Início dos trabalhos para tornar o chat funcional.
  * 
  * @ Notes: 
  * 
@@ -18,9 +19,18 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
+// require SITE_PATH . '/Controllers/c_trade_posts.php';
+
 $titlePage = 'MTC | Chat';
 
-// require SITE_PATH . '/Controllers/c_trade_posts.php';
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+
+if ( $isLoggedUser ):
+  $userLogged   = $_SESSION['user_id'];
+  $userCreator  = $_GET['user'];
+  $post_id      = $_GET['post_id'];
+endif;
+
 ?>
 
 <!DOCTYPE html>
@@ -42,9 +52,32 @@ $titlePage = 'MTC | Chat';
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
+
+    <script type="text/javascript">      
+      var url = '';
+
+      // Refresh Chat
+      function ajax(){
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function()
+        {
+            if (req.readyState == 4 && req.status == 200) {
+              document.getElementById('chat').innerHTML = req.responseText;
+            }
+        }
+        url = 'http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userCreator=<?php echo $userCreator ?>&post_id=<?php echo $post_id ?>';        
+        
+        req.open('GET', url, true);
+        req.send();
+      }
+      
+      // Repeat - 1 min
+      // setInterval(function(){ajax();}, 100000);
+    </script>
+
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main" onload="ajax();">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -52,196 +85,51 @@ $titlePage = 'MTC | Chat';
     <!-- Begin page content -->
     <main>
       <div class="container">
+        <!-- Somente se estiver Logado -->
+        <?php if ( $isLoggedUser ): ?>
+
         <div class="row">
           <div class="col-12 col-sm-6 mt-5">
             <h1 class="text-white"><strong>CHAT</strong></h1>
           </div>
           <hr></hr>
         </div>
-      </div>
 
-      <div class="container py-5 px-4">
-        <div class="row rounded-lg overflow-hidden shadow">
-          <!-- Users box-->
-          <div class="col-5 px-0">
-            <div class="bg-secondary">
-
-              <div class="bg-gray px-4 py-2 bg-light">
-                <p class="h5 mb-0 py-1">Recent</p>
-              </div>
-
-              <div class="messages-box">
-                <div class="list-group rounded-0">
-                  <a class="list-group-item list-group-item-action active text-white rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">25 Dec</small>
-                        </div>
-                        <p class="font-italic mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
-                  <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                    <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                      <div class="media-body ml-4">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                          <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
-                        </div>
-                        <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                      </div>
-                    </div>
-                  </a>
-
+        <!-- Chat Boxes -->
+        <div class="container text-white">
+          <div class="row">
+            <!-- Chat -->                      
+            <div class="col-12 col-sm-8 shadow bg-secondary">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <h6>Histórico de Conversa</h6>
+                  <hr>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div id="chat"> </div>
+                </div>
+              </div>              
+            </div>
+            
+            <!-- Other Talks -->
+            <div class="col-12 col-sm-4 shadow bg-primary">
+              <div class="row">
+                <h3>Nome Usuário</h3>
+                <p>Convesa teste</p>
               </div>
             </div>
-          </div>
-          
-          <!-- Chat Box-->
-          <div class="col-7 px-0">
-            <div class="px-4 py-5 chat-box bg-white">
-              <!-- Sender Message-->
-              <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                <div class="media-body ml-3">
-                  <div class="bg-light rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
-                  </div>
-                  <p class="small text-muted">12:00 PM | Aug 13</p>
-                </div>
-              </div>
 
-              <!-- Reciever Message-->
-              <div class="media w-50 ml-auto mb-3">
-                <div class="media-body">
-                  <div class="bg-primary rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
-                  </div>
-                  <p class="small text-muted">12:00 PM | Aug 13</p>
-                </div>
-              </div>
-
-              <!-- Sender Message-->
-              <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                <div class="media-body ml-3">
-                  <div class="bg-light rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
-                  </div>
-                  <p class="small text-muted">12:00 PM | Aug 13</p>
-                </div>
-              </div>
-
-              <!-- Reciever Message-->
-              <div class="media w-50 ml-auto mb-3">
-                <div class="media-body">
-                  <div class="bg-primary rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                  </div>
-                  <p class="small text-muted">12:00 PM | Aug 13</p>
-                </div>
-              </div>
-
-              <!-- Sender Message-->
-              <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                <div class="media-body ml-3">
-                  <div class="bg-light rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
-                  </div>
-                  <p class="small text-muted">12:00 PM | Aug 13</p>
-                </div>
-              </div>
-
-              <!-- Reciever Message-->
-              <div class="media w-50 ml-auto mb-3">
-                <div class="media-body">
-                  <div class="bg-primary rounded py-2 px-3 mb-2">
-                    <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                  </div>
-                  <p class="small text-muted">12:00 PM | Aug 13</p>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Typing area -->
-            <form action="#" class="bg-light">
-              <div class="input-group">
-                <input type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
-                <div class="input-group-append">
-                  <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
-                </div>
-              </div>
-            </form>
-
-          </div>
+          </div>          
         </div>
+      
+      <?php else:
+        // Login necessário para acessar essa página
+        header("location:" . SITE_URL . "/Views/users/sign_in.php");
+        
+      endif;  
+      ?>
       </div>
     </main>
 
@@ -251,9 +139,7 @@ $titlePage = 'MTC | Chat';
     <!-- Scripts -->    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-    
-    <script src="sidebars.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>    
   </body>
 
 </html>

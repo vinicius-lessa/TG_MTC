@@ -1,8 +1,8 @@
-<footer class="bk-preto mt-5">
+<footer class="bk-black mt-5">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
-        <nav id="lista-footer" class="bk-preto">
+        <nav id="lista-footer" class="bk-black">
           <ul>
             <li>
               <a class="border-button ft-escuro font-weight-bold mt-3" href="<?php echo SITE_URL ?>/Views/homepage/index.php">

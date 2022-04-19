@@ -45,7 +45,7 @@
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
   </head>
 
-  <body class="d-flex flex-column h-100 bk-preto font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -73,7 +73,7 @@
     </main>
 
 <!-- bk -->
-<!-- <nav class="navbar navbar-light bk-left mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
+<!-- <nav class="navbar navbar-light bk-gray mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
   <a class="navbar-brand" style="height:800px;" href="#"></a>
 </nav> -->
 
@@ -161,7 +161,7 @@
   <div class="card-group">
   <div class="col-12 col-sm-2"></div>
 
-  <div class="bk-left col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+  <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
     <div class="row ms-5 mt-3 mb-3 me-5">
         <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
         <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
@@ -182,7 +182,7 @@
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
     
-    <script src="sidebars.js"></script>
+    
   </body>
 
 </html>

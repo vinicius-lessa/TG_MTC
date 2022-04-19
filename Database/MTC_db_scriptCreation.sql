@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `users`
     `password`        varchar(255) NOT NULL                 ,
     `created_on`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `modified_on`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT PK_users PRIMARY KEY (user_id);
+    CONSTRAINT PK_users PRIMARY KEY (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `categorys_x_brands`
   `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT PK_categorys_x_brands PRIMARY KEY (relation_id),
   CONSTRAINT FK_product_categorys FOREIGN KEY (category_id) REFERENCES product_categorys(category_id),
-  CONSTRAINT FK_product_brands FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id),
+  CONSTRAINT FK_product_brands FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
@@ -176,9 +176,9 @@ VALUES
 ( '7' , '13', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '13'), true ) ,
 ( '7' , '14', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '14'), true ) ,
 ( '7' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '15'), true ) ,
-( '11' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '11' and pb.brand_id = '15'), true ) ,
-( '1' , '16', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '16'), true ) ,
-( '1' , '17', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '17'), true ) ;
+( '11' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '11' and pb.brand_id = '15'), true ) ;
+--( '1' , '16', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '16'), true ) ,
+-- ( '1' , '17', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '17'), true ) ;
 
 
 -- ## 11º - Criar tabela `product_models`, referente ao Modelo de produtos
@@ -319,6 +319,35 @@ INSERT INTO `images_trade_posts`
 ( `image_name`, `trade_post_id`, `activity_status`)
 VALUES
 ( 'g2.jpg', '1', DEFAULT ) ;
+
+
+-- ## 21º - Criar tabela `chat`, referente as Mensagens trocadas entre usuários do sistema
+DROP TABLE IF EXISTS `chat`;
+CREATE TABLE IF NOT EXISTS `chat`
+(
+  `msg_id`                int(11)       NOT NULL auto_increment ,
+  `trade_post_id`         int(11)       NOT NULL                ,    
+  `user_id`               int(11)       NOT NULL                ,
+  `user_name`             varchar(50)   NOT NULL                ,  
+  `message`               TINYTEXT      NOT NULL                ,
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_images PRIMARY KEY (msg_id) ,
+  CONSTRAINT FK_posts_chat FOREIGN KEY (trade_post_id) REFERENCES trade_posts(post_id) ,
+  CONSTRAINT FK_users_chat FOREIGN KEY (user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 22º - Insere Dados na tabela `chat`
+INSERT INTO `chat`
+( `trade_post_id`, `user_id`, `user_name`, `message`, `activity_status`)
+VALUES
+( 224 , 4   , (SELECT user_name from users u where u.user_id = 4 and u.activity_status = 1) , 'Olá, Bom dia! O anúncio está disponível?' , DEFAULT) ,
+( 224 , 14  , (SELECT user_name from users u where u.user_id = 14 and u.activity_status = 1), 'Boa Tarde, está sim!' , DEFAULT) ,
+( 224 , 4   , (SELECT user_name from users u where u.user_id = 4 and u.activity_status = 1) , 'Ótimo, podemos nos encontrar?' , DEFAULT) ,
+( 224 , 14  , (SELECT user_name from users u where u.user_id = 14 and u.activity_status = 1), 'Claro, diga aonde e quando...' , DEFAULT) ;
+
+
 
 
 
