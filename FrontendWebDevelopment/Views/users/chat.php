@@ -111,31 +111,43 @@ endif;
                 <hr class="mt-1"> -->
 
                 <div class="row p-2 h-100">
-                  <div class="col-12 bk-chat h-100 p-3 rounded">
-                    <div id="chat">
-                      <div class="row mb-1">
-                        <strong><span>Rafaela Alle</span></strong>
+                  <div class="col-12 bk-chat h-100 rounded">
+                    <div class="mt-2">
+                      <div class="scrollbar p-3" id="chat">
+                        <div class="row mb-1">
+                          <strong><span>Rafaela Alle</span></strong>
+                        </div>
+                        <div class="row mb-4">
+                          <div class="col-12">
+                            <small>Olá Fulano, tudo bem?</small>
+                          </div>
+                        </div>
+                        
+                        <div class="row mb-1">
+                          <strong><span>Rafaela Alle</span></strong>
+                        </div>
+                        <div class="row mb-4">
+                          <div class="col-12">
+                            <small>Olá Fulano, tudo bem?</small>
+                          </div>
+                        </div> 
+                      </div>                                       
+                    </div>
+
+                    <!-- Input Mensage -->
+                    <div class="row p-3">
+                      <div class="col-12">
+                        <form>
+                          <div class="row">
+                            <div class="col-11 bk-white p-0">
+                              <input type="text" value="mensagem" class="form-control">
+                            </div>
+                            <div class="col-1 bk-yellow p-0">
+                              <input type="submit" value="Enviar" class="w-100 h-100 border-0">
+                            </div>
+                          </div>
+                        </form>
                       </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>agora</small>
-                        </div>
-                      </div>
-                      
-                      <div class="row mb-1">
-                        <strong><span>Rafaela Alle</span></strong>
-                      </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>agora</small>
-                        </div>
-                      </div>                      
                     </div>
                   </div>
                 </div>
@@ -154,7 +166,7 @@ endif;
                 <hr class="mt-1">
 
                 <div class="row p-2" style="height: 300px;">
-                  <div class="scrollbar scrollbar-primary h-100">
+                  <div class="scrollbar h-100">
                     <div class="col-12">
                       <div class="row mb-1">
                         <strong><span>Rafaela Alle</span></strong>

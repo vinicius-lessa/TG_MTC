@@ -215,9 +215,6 @@ a.link-none:link {
 */
 
 .scrollbar {  
+  scrollbar-color: #8f8f8f #1C2124;    
   overflow-y: scroll;
-}
-
-.scrollbar-primary {
-  scrollbar-color: #8f8f8f #1C2124;  
 }
