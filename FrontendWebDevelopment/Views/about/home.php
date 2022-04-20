@@ -51,13 +51,25 @@ $titlePage = 'Sobre Nós';
   <?php include SITE_PATH .'/includes/header.php';?>
 
   <main>
-      <div class="container">
-          <div class="text-center">
-              <div class="row">
-                  <h3 class="text-white">Sobre Nós...</h3>
-              </div>
+    <div class="container mt-5 mb-2">
+      <div class="text-left">
+        <div class="row">
+          <h2 class="text-white"><strong>Q U E M &nbsp;S O M O S</strong></h2>
+          <hr>
+        </div>
+
+        <div class="row">
+          <div class="col-6">
+            <h4 class="text-white">Somos uma empresa com foco no ramo da Música, proporcionando um Serviço totalmente focado na imersão de compra e venda de músico para músico.</h4>
           </div>
-      </div>
+        </div>
+    </div>
+
+    <div class="container col-6 col-sm-6 mb-3 mt-2">
+      <img class="img-fluid" src="<?php echo SITE_URL ?>/images/IMAGENS/QUEMSOMOS01-1.jpg" alt="Quem Somos">
+    </div>
+
+    <div class="container col-6"></div>
   </main>
 
   <!-- footer site -->

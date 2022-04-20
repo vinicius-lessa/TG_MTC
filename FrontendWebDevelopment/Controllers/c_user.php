@@ -24,8 +24,7 @@ if (!defined('SITE_URL')) {
 include SITE_PATH . '/Models/m_user.php';
 
 // Vars
-$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT); // Recieve Post values into $dados
-
+$dados = (filter_input_array(INPUT_POST, FILTER_DEFAULT) != null ? filter_input_array(INPUT_POST, FILTER_DEFAULT) : ["action" => "null"] ); // Recieve Post values into $dados
 
 // SignUp / Cadastrar
 if ($dados['action'] === "SignUp"):
