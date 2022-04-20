@@ -321,32 +321,46 @@ VALUES
 ( 'g2.jpg', '1', DEFAULT ) ;
 
 
--- ## 21º - Criar tabela `chat`, referente as Mensagens trocadas entre usuários do sistema
+-- ## 21º - Criar tabela `chat`, referente ao registro dos chats no Sistema (com anúncios relacionados ou não)
 DROP TABLE IF EXISTS `chat`;
 CREATE TABLE IF NOT EXISTS `chat`
 (
-  `msg_id`                int(11)       NOT NULL auto_increment ,
-  `trade_post_id`         int(11)       NOT NULL                ,    
-  `user_id`               int(11)       NOT NULL                ,
-  `user_name`             varchar(50)   NOT NULL                ,  
-  `message`               TINYTEXT      NOT NULL                ,
+  `chat_guid`             int(11)      	NOT NULL auto_increment ,
+  `trade_post_id`         int(11)       DEFAULT NULL            ,  
   `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
   `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT PK_images PRIMARY KEY (msg_id) ,
-  CONSTRAINT FK_posts_chat FOREIGN KEY (trade_post_id) REFERENCES trade_posts(post_id) ,
-  CONSTRAINT FK_users_chat FOREIGN KEY (user_id) REFERENCES users(user_id)
+  CONSTRAINT PK_images PRIMARY KEY (chat_guid) ,
+  CONSTRAINT FK_posts_chat FOREIGN KEY (trade_post_id) REFERENCES trade_posts(post_id)  
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
--- ## 22º - Insere Dados na tabela `chat`
-INSERT INTO `chat`
-( `trade_post_id`, `user_id`, `user_name`, `message`, `activity_status`)
-VALUES
-( 224 , 4   , (SELECT user_name from users u where u.user_id = 4 and u.activity_status = 1) , 'Olá, Bom dia! O anúncio está disponível?' , DEFAULT) ,
-( 224 , 14  , (SELECT user_name from users u where u.user_id = 14 and u.activity_status = 1), 'Boa Tarde, está sim!' , DEFAULT) ,
-( 224 , 4   , (SELECT user_name from users u where u.user_id = 4 and u.activity_status = 1) , 'Ótimo, podemos nos encontrar?' , DEFAULT) ,
-( 224 , 14  , (SELECT user_name from users u where u.user_id = 14 and u.activity_status = 1), 'Claro, diga aonde e quando...' , DEFAULT) ;
 
+-- ## 22º - Criar tabela `user_chat`, referente a relação entre Múltiplos Usuário e Multiplos Chats
+DROP TABLE IF EXISTS `user_chat`;
+CREATE TABLE IF NOT EXISTS `user_chat`
+(
+  `user_chat_chat_guid`   int(11)       NOT NULL                ,
+  `user_chat_user_id`     int(11)       NOT NULL                ,  
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT FK_chat_user_chat FOREIGN KEY (user_chat_chat_guid) REFERENCES chat(chat_guid) ,
+  CONSTRAINT FK_users_user_chat FOREIGN KEY (user_chat_user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 23º - Criar tabela `messages`, referente a gravação das Mensagens de Chat
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages`
+(
+  `message_chat_guid`     int(11)       NOT NULL                ,
+  `message_user_id`       int(11)       NOT NULL                ,
+  `message`               TINYTEXT      NOT NULL                , -- 255 Caracteres
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT FK_chat_message FOREIGN KEY (message_chat_guid) REFERENCES chat(chat_guid) ,
+  CONSTRAINT FK_users_message FOREIGN KEY (message_user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
 

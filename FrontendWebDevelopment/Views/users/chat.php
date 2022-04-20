@@ -77,7 +77,8 @@ endif;
 
   </head>
 
-  <body class="d-flex flex-column h-100 bk-black font-main" onload="ajax();">
+  <!-- <body class="d-flex flex-column h-100 bk-black font-main" onload="ajax();"> -->
+  <body class="d-flex flex-column h-100 bk-black font-main">
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -97,27 +98,148 @@ endif;
 
         <!-- Chat Boxes -->
         <div class="container text-white">
-          <div class="row">
-            <!-- Chat -->                      
-            <div class="col-12 col-sm-8 shadow bg-secondary">
-              <div class="row mb-3">
-                <div class="col-12">
-                  <h6>Histórico de Conversa</h6>
-                  <hr>
+          <div class="row" style="height: 500px; background-color: rgba(255,0,0,0.1);">
+            <!-- Current Chat -->
+            <div class="col-12 col-sm-8 p-2">
+              <div class="shadow bk-gray p-3 border border-danger rounded h-100">
+                <!-- <div class="row">
+                  <div class="col-12">
+                    <strong><h5>Histórico de Conversa</h5></strong>
+                  </div>                  
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div id="chat"> </div>
+                
+                <hr class="mt-1"> -->
+
+                <div class="row p-2 h-100">
+                  <div class="col-12 bk-chat h-100 p-3 rounded">
+                    <div id="chat">
+                      <div class="row mb-1">
+                        <strong><span>Rafaela Alle</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>agora</small>
+                        </div>
+                      </div>
+                      
+                      <div class="row mb-1">
+                        <strong><span>Rafaela Alle</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>agora</small>
+                        </div>
+                      </div>                      
+                    </div>
+                  </div>
                 </div>
               </div>              
             </div>
             
-            <!-- Other Talks -->
-            <div class="col-12 col-sm-4 shadow bg-primary">
-              <div class="row">
-                <h3>Nome Usuário</h3>
-                <p>Convesa teste</p>
+            <!-- Other Chats -->
+            <div class="col-12 col-sm-4 p-2">
+              <div class="shadow bk-gray p-3 rounded h-100">
+                <div class="row">
+                  <div class="col-12">
+                    <strong><h5>Outras Conversas</h5></strong>
+                  </div>                  
+                </div>
+
+                <hr class="mt-1">
+
+                <div class="row p-2" style="height: 300px;">
+                  <div class="scrollbar scrollbar-primary h-100">
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Rafaela Alle</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>agora</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Luiz</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>14:25</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Renato Lompandi</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>25/03/2022</small>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Renato Lompandi</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>25/03/2022</small>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Renato Lompandi</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>25/03/2022</small>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Renato Lompandi</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>25/03/2022</small>
+                        </div>
+                      </div>
+                    </div>                                   
+                  </div>
+                </div>
               </div>
             </div>
 
