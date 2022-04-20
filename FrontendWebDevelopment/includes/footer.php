@@ -36,7 +36,7 @@
       </ul>
 
       <div class="col-md-4 text-end">
-        <span>© 2020 - 2022 Copyright</span> <br />
+        <span class="text-gray">© 2020 - 2022 Copyright</span> <br />
         <a class="text-white" href="<?php echo SITE_URL ?>/Views/about/home.php">Music Trade Center</a>
       </div>
 
