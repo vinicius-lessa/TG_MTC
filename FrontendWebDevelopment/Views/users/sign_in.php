@@ -10,17 +10,17 @@
  * 
  */
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
 
-  $titlePage = "MTC | Cadastro";
+$titlePage = "MTC | SignUp";
 
 ?>
 

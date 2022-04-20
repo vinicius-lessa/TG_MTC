@@ -68,7 +68,7 @@ $titlePage = "MTC | Cadastro";
 
     <!-- Form -->
     <div class="form-default">            
-      <form id="singIn-form">
+      <form id="singUp-form">
         <span id="msgAlertErroLogin"></span>
         
           <!-- ICON -->

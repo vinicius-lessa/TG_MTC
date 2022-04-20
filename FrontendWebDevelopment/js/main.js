@@ -213,7 +213,7 @@ loginForm.submit(async function( event ){
     }, 2000);    
 });
 
-// Submit SignUp
+// New Post Submit
 newTradePostForm.submit(async function( event ){
     event.preventDefault();    
 
@@ -314,6 +314,7 @@ newTradePostForm.submit(async function( event ){
 
     // Images
     var files = $('#image-upload')[0].files;
+    
     if(files.length > 0 ){
         formData.append('file', files[0]);
     }    

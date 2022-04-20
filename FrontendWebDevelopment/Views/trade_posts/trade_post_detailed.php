@@ -22,7 +22,8 @@ $a_tpList   = [];
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
-// $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+
+$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
 
 $tradePostID = $_GET['trade_post'];
 
@@ -69,7 +70,7 @@ $titlePage = $tpDetails['data'][0]['title'];
             <div class="col-12 col-sm-6 mt-5">
               <h1 class="text-white"><strong><?php echo $tpDetails['data'][0]['title']?></strong></h1>
             </div>
-            <div>
+            <div class="text-gray">
               <span>Anúncio #<?php echo $tpDetails['data'][0]['post_id']?></span>
             </div>
             <hr>
@@ -104,7 +105,12 @@ $titlePage = $tpDetails['data'][0]['title'];
                   <span class="text-white">Valor:</span><h4 class="text-red"><strong>R$ <?php echo $tpDetails["data"][0]["price"] ?></strong></h4>
                 </div>
                 <div class="col-12 col-sm-4">
-                  <a class="text-white" href="<?php echo SITE_URL ?>/Views/users/chat.php/?user=<?php echo $tpDetails["data"][0]["user_id"]?>&post_id=<?php echo $tpDetails["data"][0]["post_id"]?>"><button type="button" class="btn btn-danger btn-lg border-0"><strong>CHAT</strong></button></a>
+                  <a  class="text-white" 
+                      href="<?php echo SITE_URL ?>/Views/users/chat.php/?user=<?php echo $tpDetails["data"][0]["user_id"]?>&post_id=<?php echo $tpDetails["data"][0]["post_id"]?>">
+                      <button type="button" class="btn btn-danger btn-lg border-0">
+                        <strong>CHAT</strong>
+                      </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -143,7 +149,16 @@ $titlePage = $tpDetails['data'][0]['title'];
               </div>
               <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                  <h5><a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" class="text-decoration-none text-white"><strong><?php echo $tpDetails["data"][0]["user_name"] ?></strong></a></h5>
+                  <h5>
+                    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                    class="text-decoration-none text-white">
+                      <strong>
+                        <?php echo $tpDetails["data"][0]["user_name"] ; 
+                              echo ( $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'] ? " (Você)" : null ); 
+                        ?>
+                      </strong>
+                    </a>
+                  </h5>
                 </div>
               </div>
             </div>
