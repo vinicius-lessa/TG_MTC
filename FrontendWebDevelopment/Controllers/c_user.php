@@ -95,14 +95,13 @@ endif;
 // Get USER Info
 if (isset($profileID)) :
 
-    if (is_numeric($profileID)) {        
+    if (is_numeric($profileID)) :
         $profileDetails = loadProfileDetails($profileID);    
   
-    } else {
-      header("location:" . SITE_URL . "/Views/homepage/index.php");
-    }
-  
-  endif;
+    else:
+      header("location:" . SITE_URL . "/Views/homepage/index.php");    
+    endif;  
+endif;
 
 
 // LogOut / Sair
