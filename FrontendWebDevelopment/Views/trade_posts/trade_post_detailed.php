@@ -167,10 +167,10 @@ $userCreator = $tpDetails["data"][0]["user_id"];
                     if ( !($isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) ) : 
                   ?>
                       <a  class='text-white'
-                          href='{SITE_URL}/Views/users/chat.php/?user={$userCreator}&post_id={$post_id}'>
-                          <button type='button' class='btn btn-lg border-0 btn-default'>
-                            <strong>CHAT</strong>
-                          </button>
+                          href='<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $userCreator ; ?>&post_id=<?php echo $post_id ; ?>'>
+                        <button type='button' class='btn btn-lg border-0 btn-default'>
+                          <strong>CHAT</strong>
+                        </button>
                       </a>
                   <?php
                     endif;
