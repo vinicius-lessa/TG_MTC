@@ -32,6 +32,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 $titlePage = $tpDetails['data'][0]['title'];
 
+$post_id = $tpDetails["data"][0]["post_id"];
+$userCreator = $tpDetails["data"][0]["user_id"];
+
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +69,7 @@ $titlePage = $tpDetails['data'][0]['title'];
     <main>
       <div class="container">
         <?php       
-          if (isset($tpDetails) && !$tpDetails["error"]) {            
+          if ( isset($tpDetails) && !($tpDetails["error"]) ) :        
         ?>
           <div class="row">
             <div class="col-12 col-sm-6 mt-5">
@@ -77,6 +80,7 @@ $titlePage = $tpDetails['data'][0]['title'];
             </div>
             <hr>
           </div>        
+          
           <!-- Trade Post Details -->
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -108,13 +112,13 @@ $titlePage = $tpDetails['data'][0]['title'];
           <!-- <div class="row">
             <div class="col-8 col-sm-8">
               <a href="#">
-                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="" style="max-width:100%;width:695px;height:595px;object-fit:cover;">
+                <img src="<?php //echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="" style="max-width:100%;width:695px;height:595px;object-fit:cover;">
               </a>
             </div>
             
             <div class="col-4 col-sm-4">
-                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
-                <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid mt-3" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
+                <img src="<?php //echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
+                <img src="<?php //echo $tpDetails["data"][0]["image_name"] ?>" class="img-fluid mt-3" alt="" style="max-width:100%;width:395px;height:295px;object-fit:cover;">
             </div>
           </div> -->
                     
@@ -160,17 +164,15 @@ $titlePage = $tpDetails['data'][0]['title'];
                 </div>
                 <div class="col-4 mt-4">
                   <?php
-                    if ( $isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) : ?>
-                    <!-- Shows nothing -->
-                  <?php 
-                    else: ?>
-                      <a  class="text-white"
-                      href="<?php echo SITE_URL ?>/Views/users/chat.php/?user=<?php echo $tpDetails["data"][0]["user_id"]?>&post_id=<?php echo $tpDetails["data"][0]["post_id"]?>">
-                      <button type="button" class="btn btn-lg border-0 btn-default">
-                        <strong>CHAT</strong>
-                      </button>
-                  <?endif; ?>
-                  </a>
+                    if ( !($isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) ) :
+                      echo  "<a class='text-white'" .
+                                "href='{SITE_URL}/Views/users/chat.php/?user={$userCreator}&post_id={$post_id}>" .
+                                "<button type='button' class='btn btn-lg border-0 btn-default'>".
+                                  "<strong>CHAT</strong>".
+                                "</button>".
+                            "</a>";             
+                    endif; 
+                  ?>
                 </div>
               </div>
 
@@ -204,13 +206,11 @@ $titlePage = $tpDetails['data'][0]['title'];
                     </div>
                   </div>
                 </div>              
-              </div>              
-              
-
+              </div>
             </div>
           </div>
 
-        <?php } else {  ?>   
+        <?php else:  ?>   
           <!-- Problemas ao Solicitar informações ao Server -->
           <div class="row text-center mb-4">
             <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
@@ -218,7 +218,7 @@ $titlePage = $tpDetails['data'][0]['title'];
           <div class="row text-center mb-4">
             <p class="text-white"><?php echo $tpDetails['msg'] ?></p>
           </div>            
-        <?php } ?>
+        <?php endif; ?>
       </div>
     </main>
 
@@ -235,7 +235,7 @@ $titlePage = $tpDetails['data'][0]['title'];
     <!-- Trade Posts (Anúncios) vindos do Banco de Dados -->
     <section>
       <?php 
-        if (isset($a_tpList) && !$a_tpList["error"]) {
+        if ( isset($a_tpList) && !$a_tpList["error"] ) :
       ?>
         <div class="container mb-5">
           <div class="row">          
@@ -257,7 +257,7 @@ $titlePage = $tpDetails['data'][0]['title'];
             <?php } ?>
           </div>
         </div>
-      <?php } else {  ?>
+      <?php else : ?>
         <div class="container mt-5 mb-5">
           <div class="row text-center mb-4">
             <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
@@ -266,7 +266,7 @@ $titlePage = $tpDetails['data'][0]['title'];
             <p class="text-white"><?php echo $a_tpList['msg'] ?></p>
           </div>
         </div>
-      <?php } ?>
+      <?php endif; ?>
     </section>
 
     <!-- ENCONTRE ARTISTAS -->
