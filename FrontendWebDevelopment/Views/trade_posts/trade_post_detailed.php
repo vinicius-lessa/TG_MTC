@@ -164,14 +164,16 @@ $userCreator = $tpDetails["data"][0]["user_id"];
                 </div>
                 <div class="col-4 mt-4">
                   <?php
-                    if ( !($isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) ) :
-                      echo  "<a class='text-white'" .
-                                "href='{SITE_URL}/Views/users/chat.php/?user={$userCreator}&post_id={$post_id}>" .
-                                "<button type='button' class='btn btn-lg border-0 btn-default'>".
-                                  "<strong>CHAT</strong>".
-                                "</button>".
-                            "</a>";             
-                    endif; 
+                    if ( !($isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) ) : 
+                  ?>
+                      <a  class='text-white'
+                          href='{SITE_URL}/Views/users/chat.php/?user={$userCreator}&post_id={$post_id}'>
+                          <button type='button' class='btn btn-lg border-0 btn-default'>
+                            <strong>CHAT</strong>
+                          </button>
+                      </a>
+                  <?php
+                    endif;
                   ?>
                 </div>
               </div>

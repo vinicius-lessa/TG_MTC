@@ -279,7 +279,7 @@ endif;
                           <small>25/03/2022</small>
                         </div>
                       </div>
-                    </div>                                   
+                    </div>       
                   </div>
                 </div>
               </div>
