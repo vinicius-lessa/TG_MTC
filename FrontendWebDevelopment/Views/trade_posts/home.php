@@ -7,7 +7,8 @@
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage.
  *  - Vinícius Lessa - 13/04/2022: Renomeação da página de 'Anúncios.php' para 'TradePosts.php'
  *  - Renata Carrillo - 18/04/2022: Adicionando o seguinte CSS no img dos anúncios para padronização de tamanho: style="max-width:100%;width:395px;height:295px;object-fit:cover;" 
- *  - Vinícius Lessa - 18/04/2022: Mudnaça do nome do arquivo de "trade_posts.php" para "home.php". Implentação do array de anúncios vindos do Banco de dados propriamente.
+ *  - Vinícius Lessa - 18/04/2022: Mudança do nome do arquivo de "trade_posts.php" para "home.php". Implentação do array de anúncios vindos do Banco de dados propriamente.
+ *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos anúncios
  * 
  * @ Notes: 
  * 
@@ -92,12 +93,12 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
               -->
               <div class="col-12 col-sm-6 col-lg-4 mt-4 mb-4">
                 <div class="p-3">
-                  <div>
-                    <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+                  <div class="gDskSC">
+                    <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="iWRsZI" alt="" style="">
                     </a>
                   </div>
-                  <div class="mt-3 p-2">
+                  <div class="p-2 bk-gray">
                     <div class="row">
                       <div class="col-12">
                         <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>

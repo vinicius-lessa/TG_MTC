@@ -117,7 +117,7 @@ a.link-none:link {
   text-decoration: none;
 }
 
-/* ################################ LOGIN/SIGNUP-SIGNIN
+/* ################################ SIGNUP-SIGNIN
 */ 
 .body-login {
   height: 100vh;
@@ -129,6 +129,54 @@ a.link-none:link {
   background: url("../images/IMAGENS/IMAGEMDELOGIN.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* ################################ ANUNCIOS
+*/ 
+.gDskSC {
+  padding-bottom: 75%;
+  /* display: flex; */
+  /* -moz-box-pack: center; */
+  /* justify-content: center; */
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* border-radius: 8px; */
+  background-color: #1c212489;
+}
+
+.iWRsZI {
+  height: 100%;
+  position: absolute;
+}
+
+/* ################################ ANUNCIOS-DETALHE
+*/ 
+/* .dpotTF {
+  background-image: url("https://img.olx.com.br/images/02/020240519145542.jpg");
+  background-position: 50% center;
+  filter: blur(32px);
+} */
+
+.bQbWAr {
+  max-height: 402px;
+  background-color: #59595ab6;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.image {
+  /* transform: translate(50%, 50%); */
+  right: 50%;
+  bottom: 50%;
+  /* position: absolute; */
+  user-select: none;
+  object-fit: contain;
+  max-height: 402px;
+  width: 100%;
 }
 
 /* ################################ JavaScript

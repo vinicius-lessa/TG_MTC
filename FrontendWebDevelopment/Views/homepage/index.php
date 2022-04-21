@@ -145,9 +145,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                 > 575 (sm)= 1
               -->
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
-                <div>
-                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+                <div class="gDskSC">
+                  <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="iWRsZI" alt="">
                   </a>
                 </div>
                   <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
