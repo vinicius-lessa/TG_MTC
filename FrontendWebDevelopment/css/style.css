@@ -65,6 +65,10 @@ form div {
   background-color: #1C2124;  
 }
 
+.bk-lightgray {
+  background-color: #6c6d6e;  
+}
+
 .bk-red {
   background-color: #af0b0b;
 }
@@ -268,16 +272,28 @@ a.link-none:link {
 /* ################################ Chats
 */
 
+@media (max-width: 2560px) { 
+  .chat_panel {
+    height: 500px;
+  }
+}
+
+@media (max-width: 1010px) {
+  .chat_panel {
+    height: 1000px;
+  }
+}
+
+
 .scrollbar {  
   scrollbar-color: #8f8f8f #1C2124;    
   overflow-y: scroll;
 }
 
-.reverse-direction {
-  position: relative;
-  /* display: flex; */
-  flex-direction: column-reverse;
-  /* width: 200px;
-  height: 200px;
-  background-color: #EEE; */
+.reverse-vertical-direction {
+  flex-direction: column-reverse;  
+}
+
+.msg-width {
+  max-width: 60%;
 }
