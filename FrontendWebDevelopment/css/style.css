@@ -30,6 +30,10 @@ footer{
   border: 0px;
 }
 
+.btn-default:hover {
+  background-color: #ed3737;
+}
+
 .fundohome  {
   background-color: #70707010;
 }

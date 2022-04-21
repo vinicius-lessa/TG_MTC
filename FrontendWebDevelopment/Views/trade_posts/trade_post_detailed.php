@@ -121,77 +121,93 @@ $titlePage = $tpDetails['data'][0]['title'];
           <!-- Principais Informações -->
           <div class="row mt-4">
             <div class="col-12 col-sm-8">
-              <div>  
+              
+              <div>
                 <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>SOBRE</strong></h5>
               </div>
-              <div class="mt-4">
+
+              <!-- Description -->
+              <div class="mt-3">
                 <p class="card-title text-white" style="text-align:left;"><?php echo $tpDetails["data"][0]["tp_desc"] ?></p>
               </div>
+              
+              <!-- Outras Informações sobre o Anúncio -->
+              <div class="row mt-4">
+                <div class="col-12 col-sm-6">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item bk-black text-white">Cidade: <strong>São Roque</strong></li>
+                    <li class="list-group-item bk-black text-white">Bairro: <strong></strong></li>                
+                    <li class="list-group-item bk-black text-white">Telefone: <strong><?php echo $tpDetails["data"][0]["phone"] ?></strong></li>
+                  </ul>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item bk-black text-white">Categoria: <strong><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></li>
+                    <li class="list-group-item bk-black text-white">Marca: <strong><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></li>
+                    <li class="list-group-item bk-black text-white">Modelo: <strong><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></li>
+                    <li class="list-group-item bk-black text-white">Estado: <strong>São Paulo</strong></li>
+                  </ul>
+                </div>
+              </div>
+
             </div>
-            <div class="col-12 col-sm-4 mt-3 mt-4">
+
+            <!-- Valor + Chat + Autor -->
+            <div class="col-12 col-sm-4">
               <div class="row">
-                <div class="col-12 col-sm-8">
+                <div class="col-8 mt-3">
                   <span class="text-white">Valor:</span><h4 class="text-red"><strong>R$ <?php echo $tpDetails["data"][0]["price"] ?></strong></h4>
                 </div>
-                <div class="col-12 col-sm-4">
-                  <a  class="text-white" 
+                <div class="col-4 mt-4">
+                  <?php
+                    if ( $isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) : ?>
+                    <!-- Shows nothing -->
+                  <?php 
+                    else: ?>
+                      <a  class="text-white"
                       href="<?php echo SITE_URL ?>/Views/users/chat.php/?user=<?php echo $tpDetails["data"][0]["user_id"]?>&post_id=<?php echo $tpDetails["data"][0]["post_id"]?>">
                       <button type="button" class="btn btn-lg border-0 btn-default">
                         <strong>CHAT</strong>
                       </button>
+                  <?endif; ?>
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- Outras Informações sobre o Anúncio -->
-          <div class="row mt-3">
-            <div class="col-12 col-sm-4">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item bk-black text-white">Categoria: <strong><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></li>
-                <li class="list-group-item bk-black text-white">Marca: <strong><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></li>
-                <li class="list-group-item bk-black text-white">Modelo: <strong><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></li>
-                <li class="list-group-item bk-black text-white">Estado: <strong>São Paulo</strong></li>
-              </ul>
-            </div>
+              <!-- Autor do Anúncio -->
+              <div class="row mt-3">                                
+                <div class="col-12 text-white">
+                  <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                      <h5>Anunciante</h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="100px" height="100px"></a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                      <h5>
+                        <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                        class="text-decoration-none text-white">
+                          <strong>
+                            <?php echo $tpDetails["data"][0]["user_name"] ; 
+                                  if ($isLoggedUser) :
+                                    echo ( $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'] ? " (Você)" : null );
+                                  endif;
+                            ?>
+                          </strong>
+                        </a>
+                      </h5>
+                    </div>
+                  </div>
+                </div>              
+              </div>              
               
-            <div class="col-12 col-sm-4">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item bk-black text-white">Cidade: <strong>São Roque</strong></li>
-                <li class="list-group-item bk-black text-white">Bairro: <strong></strong></li>                
-                <li class="list-group-item bk-black text-white">Telefone: <strong><?php echo $tpDetails["data"][0]["phone"] ?></strong></li>
-              </ul>
-            </div>
 
-            <!-- Autor do Anúncio -->
-            <div class="col-12 col-sm-4 text-white">
-              <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                  <h5>Anunciante</h5>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="100px" height="100px"></a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                  <h5>
-                    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
-                    class="text-decoration-none text-white">
-                      <strong>
-                        <?php echo $tpDetails["data"][0]["user_name"] ; 
-                              echo ( $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'] ? " (Você)" : null ); 
-                        ?>
-                      </strong>
-                    </a>
-                  </h5>
-                </div>
-              </div>
             </div>
-          
           </div>
 
         <?php } else {  ?>   

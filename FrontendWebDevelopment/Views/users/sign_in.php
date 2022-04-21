@@ -58,8 +58,12 @@ $titlePage = "MTC | SignUp";
     <?php if ( $isLoggedUser ): ?>
       <div class="text-center mt-5">
         <div class="row">
-          <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
-          <a class='' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
+          <div class="col-12">
+            <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
+          </div>
+          <div class="col-12">
+            <a class='' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
+          </div>
         </div>
       </div>
     </div>

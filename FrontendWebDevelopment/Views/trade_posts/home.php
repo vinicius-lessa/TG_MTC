@@ -70,7 +70,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <div class="form-outline col-10 col-sm-6">
             <input id="search-input" type="search" id="form1" class="form-control" />
           </div>
-            <button id="search-button" type="button" class="btn btn-danger">
+            <button id="search-button" type="button" class="btn btn-default">
               <i class="bi bi-search"></i>
           </button>
         </div>
@@ -106,7 +106,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       </div>
                     </div>
                     <div class="row mt-2">
-                      <div class="col-6">
+                      <div class="col-8">
                         <span class="card-title text-white ">Por:
                           <strong>
                             <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $a_tpItem['user_id'] ?>"
@@ -116,7 +116,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                           </strong>
                         </span>
                       </div>
-                      <div class="col-6 d-flex flex-row-reverse">
+                      <div class="col-4 d-flex flex-row-reverse">
                         <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
                         class="card-title text-white">Detalhes</a>
                       </div>

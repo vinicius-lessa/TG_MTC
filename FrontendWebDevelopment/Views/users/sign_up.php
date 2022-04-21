@@ -54,18 +54,20 @@ $titlePage = "MTC | Cadastro";
   <div class="row h-100">
     <div class="col-md-6 d-flex justify-content-center align-items-center">
 
-<!-- ATENÇÃO -->
+    <!-- ATENÇÃO -->
     <?php if ( $isLoggedUser ): ?>
       <div class="text-center mt-5">
         <div class="row">
-          <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
-          <a class='' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
+          <div class="col-12">
+            <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
+          </div>
+          <div class="col-12">
+            <a href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
+          </div>
         </div>
       </div>
     </div>
     <?php else:  ?>
-<!-- ATENÇÃO -->
-
     <!-- Form -->
     <div class="form-default">            
       <form id="singUp-form">
@@ -73,7 +75,7 @@ $titlePage = "MTC | Cadastro";
         
           <!-- ICON -->
           <div class="text-center">
-          <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
+            <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
             <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
           </a>
           </div>
