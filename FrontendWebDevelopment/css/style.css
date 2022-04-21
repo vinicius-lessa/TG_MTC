@@ -25,11 +25,9 @@ footer{
 }
 
 .btn-default {
-  background-color: #df3535;
-  color: #ffffff;
-  border-radius: 10px;
-  width: 50%;
-  padding: 10px 0px 10px 0px;
+  color: #fff;
+  background-color: #CD0000;
+  border: 0px;
 }
 
 .fundohome  {
@@ -73,6 +71,10 @@ form div {
 
 .bk-yellow {
   background-color: #ccd304;
+}
+
+.bk-orange {
+  background-color: #eb8d0b;
 }
 
 .bk-blue {
@@ -265,4 +267,13 @@ a.link-none:link {
 .scrollbar {  
   scrollbar-color: #8f8f8f #1C2124;    
   overflow-y: scroll;
+}
+
+.reverse-direction {
+  position: relative;
+  /* display: flex; */
+  flex-direction: column-reverse;
+  /* width: 200px;
+  height: 200px;
+  background-color: #EEE; */
 }

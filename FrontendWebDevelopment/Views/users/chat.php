@@ -110,48 +110,78 @@ endif;
                 
                 <hr class="mt-1"> -->
 
-                <div class="row p-2 h-100">
-                  <div class="col-12 bk-chat h-100 rounded">
-                    <div class="mt-2">
-                      <div class="scrollbar p-3" id="chat">
-                        <div class="row mb-1">
-                          <strong><span>Rafaela Alle</span></strong>
+                <div class="row px-2 h-100">
+                  <div class="col-12 bk-chat h-100 rounded p-3 d-flex reverse-direction">
+
+                    <!-- Input Mensage -->                    
+                    <div class="bk-orange" style="height: 45px;">
+                      <!-- <h3>Teste</h3> -->
+                      <form>
+                        <div class="d-flex">
+                          <!-- <div class="bk-white"> -->
+                            <input type="text" placeholder="Nova mensagem" class="h-100 w-100">
+                          <!-- </div> -->
+                          <!-- <div class="bk-yellow"> -->
+                            <input type="submit" value="Enviar" class="border-0">
+                          <!-- </div> -->
                         </div>
-                        <div class="row mb-4">
+                      </form>
+                    </div>
+                    
+                    <!-- ScrollBar -->
+                    <div class="bk-purple" style="height: 200px;">
+                      <div class="scrollbar" id="chat">
+                        
+                        <div class="col-12 mb-1">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-12 mb-4">
                           <div class="col-12">
-                            <small>Olá Fulano, tudo bem?</small>
+                            <strong><span>Rafaela Alle</span></strong>
+                          </div>
+                        </div>
+
+                        <div class="col-12 mb-1">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-12 mb-4">
+                          <div class="col-12">
+                            <strong><span>Rafaela Alle</span></strong>
+                          </div>
+                        </div>
+
+                        <div class="col-12 mb-1">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-12 mb-4">
+                          <div class="col-12">
+                            <strong><span>Rafaela Alle</span></strong>
+                          </div>
+                        </div>
+
+                        <div class="col-12 mb-1">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-12 mb-4">
+                          <div class="col-12">
+                            <strong><span>Rafaela Alle</span></strong>
                           </div>
                         </div>
                         
-                        <div class="row mb-1">
-                          <strong><span>Rafaela Alle</span></strong>
+                        <div class="col-12 mb-1">
+                          <small>Olá Fulano, tudo bem?</small>
                         </div>
-                        <div class="row mb-4">
+                        <div class="col-12 mb-4">
                           <div class="col-12">
-                            <small>Olá Fulano, tudo bem?</small>
+                            <strong><span>Rafaela Alle</span></strong>
                           </div>
-                        </div> 
-                      </div>                                       
-                    </div>
-
-                    <!-- Input Mensage -->
-                    <div class="row p-3">
-                      <div class="col-12">
-                        <form>
-                          <div class="row">
-                            <div class="col-11 bk-white p-0">
-                              <input type="text" value="mensagem" class="form-control">
-                            </div>
-                            <div class="col-1 bk-yellow p-0">
-                              <input type="submit" value="Enviar" class="w-100 h-100 border-0">
-                            </div>
-                          </div>
-                        </form>
-                      </div>
+                        </div>
+                        
+                      </div>  
                     </div>
                   </div>
                 </div>
-              </div>              
+              </div>
             </div>
             
             <!-- Other Chats -->
