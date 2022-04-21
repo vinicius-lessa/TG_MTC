@@ -35,7 +35,7 @@
         <li><a href="https://twitter.com/" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/twitter-alterado-branco.png" class="img-fluid" alt="" width="25px" height="25px"></a></li>
       </ul>
 
-      <div class="col-md-4 text-end">
+      <div class="col-md-4">
         <span class="text-gray">© 2020 - 2022 Copyright</span> <br />
         <a class="text-white" href="<?php echo SITE_URL ?>/Views/about/home.php">Music Trade Center</a>
       </div>

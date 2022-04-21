@@ -13,14 +13,18 @@
 
 ?>
 
-<header class="mb-5">
-  <div class="container">
-    <header class="d-flex flex-wrap py-3">
+<header class="mb-3 mt-2">
+  <div class="col-12 col-sm-12">
+  <div class="row">
+    <!-- <header class="py-3"> -->
       
+      <div class="col-12 col-sm-4 d-flex justify-content-center">
       <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
         <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="50" height="50">
       </a>
+      </div>
 
+      <div class="col-12 col-sm-8 d-flex justify-content-start">
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="border-button nav-link text-white" aria-current="page">Home</a></li>
         <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php" class="border-button nav-link text-white" aria-current="page">Anunciar</a></li>
@@ -35,6 +39,9 @@
           <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/users/sign_in.php" class="border-button nav-link text-white">Entrar</a></li>          
         <?php endif;  ?>        
       </ul>
+      </div>
 
-    </header>
+    <!-- </header> -->
   </div>
+  </div>
+</header>

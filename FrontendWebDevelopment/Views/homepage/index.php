@@ -64,7 +64,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <h6 class="text-red"><strong>Negociação Online</strong></h6>
             <h1 class="text-white"><strong>Music Trade Center</strong></h1>
             <p class="text-white">Aqui você faz negociação online diretamente com o vendedor, de forma transparente e segura, a qualquer horário, plataforma totalmente dedicadas a você.</p>
-            <a class="text-white" href="../trade_posts/home.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
+            <a class="text-white" href="../trade_posts/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>Negocie agora</strong></button></a>
           </div>
         </div>
       </div>
@@ -123,12 +123,12 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <div class="container mt-5">
         <div class="row">
 
-          <div class="col-9">
+          <div class="col-8">
             <h4 class="text-white"><strong>D E S T A Q U E S</strong></h4>
           </div>
 
-          <div class="col-3 mb-5">
-            <a class="text-white" style="font-size:16px;" href="../trade_posts/home.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
+          <div class="col-4 mb-5 d-flex justify-content-end">
+            <a class="text-white" href="../trade_posts/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>
           </div>
         </div>
       </div>
@@ -169,20 +169,25 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     </section>
 
     <!-- ENCONTRE ARTISTAS -->
-      <div class="card-group">
-      <div class="col-12 col-sm-2"></div>
+      <div class="card-group d-flex justify-content-center">
+      <!-- <div class="col-12 col-sm-2"></div> -->
 
       <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
-        <div class="row ms-5 mt-3 mb-3 me-5">
+        <div class="row mt-3 mb-3">
+
+          <div class="col-8 col-sm-8">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
-          <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-danger btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
+
+          <div class="col-4 col-sm-2 mt-1">
+            <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+          </div>
+
         </div>
       </div>
 
-      <div class="col-12 col-sm-2"></div>
+      <!-- <div class="col-12 col-sm-2"></div> -->
     </div>
 
     <!-- Footer Include -->
