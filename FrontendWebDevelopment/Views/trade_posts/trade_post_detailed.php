@@ -73,13 +73,19 @@ $userCreator = $tpDetails["data"][0]["user_id"];
           if ( isset($tpDetails) && !($tpDetails["error"]) ) :        
         ?>
           <div class="row">
-            <div class="col-12 col-sm-6 mt-5">
+            <div class="col-12 mt-5">
               <h1 class="text-white"><strong><?php echo $tpDetails['data'][0]['title']?></strong></h1>
             </div>
-            <div class="text-gray">
-              <span>Anúncio #<?php echo $tpDetails['data'][0]['post_id']?></span>
+            
+            <div class="col-12">
+              <div class="text-gray">
+                <span class="size-14">Anúncio #<?php echo $tpDetails['data'][0]['post_id']?></span>
+              </div>
             </div>
-            <hr>
+            
+            <div class="col-12">
+              <hr class="hr-default">
+            </div>
           </div>        
           
           <!-- Trade Post Details -->

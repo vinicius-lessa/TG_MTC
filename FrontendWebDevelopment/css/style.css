@@ -34,6 +34,15 @@ footer{
   background-color: #ed3737;
 }
 
+.btn-send {
+  color: #fff;
+  background-color: #0b6372;
+  border: 0px;  
+}
+
+.btn-send:hover {
+  background-color: #2e8fa0;
+}
 .fundohome  {
   background-color: #70707010;
 }
@@ -110,9 +119,14 @@ form div {
   font-family:'Helvetica', sans-serif;
 }
 
+.size-14 {
+  font-size:14px;
+}
+
 .tam-16 {
   font-size:16px;
 }
+
 /* Font Color */
 
 .text-white {
@@ -268,22 +282,20 @@ a.link-none:link {
 
 }
 
-
 /* ################################ Chats
 */
 
-@media (max-width: 2560px) { 
+@media (max-width: 2560px) {
   .chat_panel {
-    height: 500px;
+    height: 600px;
   }
 }
 
 @media (max-width: 1010px) {
   .chat_panel {
-    height: 1000px;
+    height: 1200px;
   }
 }
-
 
 .scrollbar {  
   scrollbar-color: #8f8f8f #1C2124;    
@@ -291,9 +303,34 @@ a.link-none:link {
 }
 
 .reverse-vertical-direction {
-  flex-direction: column-reverse;  
+  flex-direction: column-reverse;
+}
+
+.reverse-horizontal-direction {
+  flex-direction: row-reverse;  
 }
 
 .msg-width {
-  max-width: 60%;
+  max-width: 60%;  
+}
+
+.msg-user {  
+  background-color: #542020;
+}
+
+.time {
+  font-size: .7em;
+}
+
+.hr-default {
+  background-color: rgba(66, 66, 66, 0.405);  
+}
+
+.chat-topic {
+  height: 14%;
+}
+
+.chat-box {
+  height: 80%;
+  margin-top: 20px;
 }

@@ -1,8 +1,8 @@
 <?php
 
 // INSERT / POST
-function userCreation($data)
-{
+function userCreation($data) {
+    
     // Variables
     $token      = "16663056-351e723be15750d1cc90b4fcd";
     $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/';

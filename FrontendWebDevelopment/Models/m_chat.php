@@ -5,6 +5,7 @@
  * @Description Model que tem a função de buscar informações do Chat do Bando de Dados.
  * @ChangeLog 
  *  - Vinícius Lessa - 19/04/2022: Criação do arquivo e inclusão da documentação inicial.
+ *  - Vinícius Lessa - 21/04/2022: Início da implementação da função newMessage para inserção de mensagens no Banco de Dados.
  * 
  * @ Notes: 
  * 
@@ -12,6 +13,58 @@
 
 
 // FUNCTIONS
+
+function newMessage($data) {
+    // Variables
+    $token      = "16663056-351e723be15750d1cc90b4fcd";
+    $url        = 'http://localhost/TG_MTC/BackendDevelopment/chat.php/';
+    
+    $data       += ["token" => $token];
+
+    $postdata = http_build_query(
+        $data
+    );
+    
+    $opts = array('http' =>
+        array(
+            'method'        => 'POST',
+            'header'        => 'Content-Type: application/x-www-form-urlencoded',
+            'ignore_errors' => true,
+            'content'       => $postdata
+        )
+    );
+    
+    $context  = stream_context_create($opts);
+    
+    // file_get_contents
+    $returnJson = file_get_contents($url, false, $context);
+    
+    // Tranforms Json in Array
+    $aData = json_decode($returnJson, true); // Trasnforma em Array
+
+    // Servers Problems // ***************** VERIFICAR STATUS DO SERVER NO INÍCIO DE CADA PÁGINA **********************
+    // if (count($aData) == 0 || $aData == false):
+    //     $aData = array("erro" => true , "msg" => "A requisição ao Servidor falhou! Tente Novamente" );
+    // endif;
+
+    // Query/DB Problems
+    $status_line = $http_response_header[0];
+    preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
+    $status = $match[1];
+
+    if ($status !== "201") {
+        $aReturn = [
+            'error'      => true , 
+            'msg'       => "<div class='alert alert-danger' role='alert'>Erro: ". $aData['msg'] . "</div>" ,
+            'msgAdim'   => $aData['msg'] ,
+        ];
+
+        return $aReturn;
+    }
+
+    // Success
+    return $aData;
+}
 
 function selectChat($userLogged, $userCreator, $post_id){
 

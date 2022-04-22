@@ -118,6 +118,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         ]);
         exit;
     endif;
+
+    // Variables
+    $aUsers         = (isset($_POST['users']))          ? $_POST['users'] : ''              ;
+    $post_id        = (isset($_POST['post_id']))        ? intval($_POST['post_id']) : 0     ;
+    $newMessage     = (isset($_POST['newMessage']))     ? $_POST['newMessage'] : 0          ;
+    $chat_id        = (isset($_POST['p_condition']))    ? intval($_POST['p_condition']) : 0 ;
+    
+    // Check Recieved Data
+    // http_response_code(201);
+    // echo json_encode([
+    //     'error' => true ,
+    //     'msg'   => 'Teste' ,
+    //     'dados' => $_POST
+    // ]);
+    // exit;
+
+    
+    if (empty($aUsers) or
+        empty($newMessage) or
+        $post_id    == 0        
+        ):
+        http_response_code(406);
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Erro: Informe Todos os Parâmetros!'
+        ]);
+        exit;
+    endif;
+
+    // Insere dados na tabela CHAT: post_id
+
+    // recolhe ID do último chat criado
+
+    // Insere 2 dados na tabela 'user_chat': chat_guid (id_chat) + userLogged  e userTwo
+
+    // Insere dados na tabela 'messages': chat_guid (id_chat) + userID (criador da msg)
+
 endif;
 
 
