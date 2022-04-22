@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
  *  - Renata Carrillo - 13/04/2022: Finalização do Front da Página e linkagem com links externos;
+ *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap.
  * 
  * @ Notes: 
  * 
@@ -422,11 +423,11 @@
     <div class="card-group d-flex justify-content-center">
       <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row mt-3 mb-3">
-          <div class="col-8 col-sm-8">
+          <div class="col-12 col-sm-8">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           </div>
-          <div class="col-4 col-sm-2 mt-1">
+          <div class="col-12 col-sm-2 mt-1">
             <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>

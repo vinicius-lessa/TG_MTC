@@ -9,6 +9,7 @@
  *  - Renata Carrillo - 18/04/2022: Adicionando o seguinte CSS no img dos anúncios para padronização de tamanho: style="max-width:100%;width:395px;height:295px;object-fit:cover;" 
  *  - Vinícius Lessa - 18/04/2022: Mudança do nome do arquivo de "trade_posts.php" para "home.php". Implentação do array de anúncios vindos do Banco de dados propriamente.
  *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos anúncios
+ *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap.
  * 
  * @ Notes: 
  * 
@@ -143,11 +144,11 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <div class="card-group d-flex justify-content-center">
       <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row mt-3 mb-3">
-          <div class="col-8 col-sm-8">
+          <div class="col-12 col-sm-8">
             <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
             <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           </div>
-          <div class="col-4 col-sm-2 mt-1">
+          <div class="col-12 col-sm-2 mt-1">
             <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>
