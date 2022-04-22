@@ -322,6 +322,7 @@ VALUES
 
 
 -- ## 21º - Criar tabela `chat`, referente ao registro dos chats no Sistema (com anúncios relacionados ou não)
+-- Base on: https://stackoverflow.com/questions/8351526/storing-chat-messages-inside-a-mysql-table
 DROP TABLE IF EXISTS `chat`;
 CREATE TABLE IF NOT EXISTS `chat`
 (
@@ -339,7 +340,7 @@ CREATE TABLE IF NOT EXISTS `chat`
 DROP TABLE IF EXISTS `user_chat`;
 CREATE TABLE IF NOT EXISTS `user_chat`
 (
-  `user_chat_chat_guid`   int(11)       NOT NULL                ,
+  `user_chat_chat_guid`   int(11)       NOT NULL                , -- id do CHAT
   `user_chat_user_id`     int(11)       NOT NULL                ,  
   `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
   `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,

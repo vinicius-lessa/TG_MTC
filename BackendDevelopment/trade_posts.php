@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     $price          = (isset($_POST['price']))          ? floatval($_POST['price']) : 0     ;
     $pCondition_id  = (isset($_POST['p_condition']))    ? intval($_POST['p_condition']) : 0 ;
     $possuiNF       = (isset($_POST['possuiNF']))       ? intval($_POST['possuiNF']) : 3    ;
-    $user_id        = (isset($_POST['user_id']))        ? intval($_POST['user_id']) : 0             ;
+    $user_id        = (isset($_POST['user_id']))        ? intval($_POST['user_id']) : 0     ;
 
     $brand_id       = (isset($_POST['brand'])) ? intval($_POST['brand']) : 0                ;
     $model_id       = (isset($_POST['model'])) ? intval($_POST['model']) : 0                ;    
