@@ -27,14 +27,12 @@ $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) &&
 
 if ( $isLoggedUser ):
   $userLogged   = $_SESSION['user_id'];  
-  $post_id      = $_GET['post_id'];
-  
-  $chat_id      = null;  // Tratar depois
+  $post_id      = $_GET['post_id'];  
 
   if ( isset($_GET['user']) ):
-    $userTwo      = $_GET['user'];
+    $userTwo = $_GET['user'];
   else:
-    $userTwo      = 0; // Tratar depois
+    // $userTwo = 0; // Tratar depois
   endif;
 
 endif;
@@ -61,32 +59,33 @@ endif;
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
 
-    <script type="text/javascript">      
-      var url = '';
+    <script type="text/javascript">
+      var url   = '';      
 
       // Refresh Chat
-      function refreshChat(){
+      function refreshChat(){        
         var req = new XMLHttpRequest();
-        req.onreadystatechange = function()
-        {
-            if (req.readyState == 4 && req.status == 200) {
+        req.onreadystatechange = function(){
+          if (req.readyState == 4 && req.status == 200) {
               document.getElementById('chat').innerHTML = req.responseText;
-            }
+          }
         }
-        url = 'http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userCreator=<?php echo $userCreator ?>&post_id=<?php echo $post_id ?>';        
+
+        url = 'http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';
+        console.log(url);
         
         req.open('GET', url, true);
         req.send();
       }
       
-      // Repeat - 1 min
-      // setInterval(function(){refreshChat();}, 100000);
+      // Repeat - 10 seconds      
+      setInterval(function(){refreshChat();}, 10000);        
     </script>
 
   </head>
 
-  <!-- <body class="d-flex flex-column h-100 bk-black font-main" onload="refreshChat();"> -->
-  <body class="d-flex flex-column h-100 bk-black font-main">
+  <body class="d-flex flex-column h-100 bk-black font-main" onload="refreshChat();">
+  <!-- <body class="d-flex flex-column h-100 bk-black font-main"> -->
     
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
@@ -161,9 +160,9 @@ endif;
                               <input type="hidden" id="userLogged" name="userLogged"  value="<?php echo $userLogged; ?>">
                               <input type="hidden" id="userTwo" name="userTwo"        value="<?php echo $userTwo; ?>">
                               <input type="hidden" id="post_id" name="post_id"        value="<?php echo $post_id; ?>">
-                              <input type="hidden" id="chat_id" name="chat_id"        value="<?php echo $chat_id ?>">
+                              <!-- <input type="hidden" id="chat_id" name="chat_id"        value="<?php // echo $chat_id ?>"> -->
 
-                              <input type="submit" value="Enviar" class="btn-send" name="messageSubmit" id="messageSubmit">
+                              <input type="submit" value="Enviar" class="btn-send" name="messageSubmit" id="messageSubmit" onclick="refreshChat(false);">
 
                             <!-- </div> -->
                           </div>
@@ -174,7 +173,9 @@ endif;
                       <div class="row mx-0 p-0" style="height: 395px;">
                         <div class="col-12 d-flex scrollbar h-100 reverse-vertical-direction px-0" id="chat">
                           
-                          <div class="d-flex flex-row">
+                          <!-- Not Functional Messages Example -->
+
+                          <!-- <div class="d-flex flex-row">
                             <div class="my-1 bk-lightgray rounded msg-width">
                               <div class="m-0">
                                 <div class="col-12 mt-1 p-0 px-2">
@@ -190,24 +191,24 @@ endif;
                                 </div>                              
                               </div>
                             </div>
-                          </div>
+                          </div> -->
 
-                          <div class="d-flex flex-row-reverse">
+                          <!-- <div class="d-flex flex-row-reverse">
                             <div class="my-1 rounded msg-width msg-user">
                               <div class="m-0"> 
                                 <div class="col-12 mb-0 d-flex flex-row-reverse p-0 px-2">
-                                  <div class="m-0 p-0">                                                            
+                                  <div class="m-0 p-0">
                                     <small>Olá, tudo sim, e voce?</small>
                                   </div>
                                 </div>
                                 <div class="float-right mr-1 mb-1 p-0 time d-flex">
                                     <span>10:41</span>
-                                </div>                              
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          </div> -->
 
-                          <div class="d-flex flex-row">
+                          <!-- <div class="d-flex flex-row">
                             <div class="my-1 bk-lightgray rounded msg-width">
                               <div class="m-0">
                                 <div class="col-12 mt-1 p-0 px-2">
@@ -253,7 +254,7 @@ endif;
                                 </div>
                                 <div class="float-right mr-1 mb-1 p-0 time d-flex">
                                     <span>10:41</span>
-                                </div>                              
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -271,7 +272,8 @@ endif;
                                 </div>
                               </div>
                             </div>
-                          </div>                          
+                          </div> -->
+
                         </div>  
                       </div>
                     </div>

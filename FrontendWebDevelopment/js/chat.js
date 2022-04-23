@@ -22,7 +22,7 @@ newMessageForm.submit(async function( event ){
     if ( message.val() === "" || message.val() === null ) {
         // msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
         // $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
-        console.log("nada a fazer");
+        console.log("Sem mensagens a transmitir.");
 
         return false;
     }
