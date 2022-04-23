@@ -49,7 +49,7 @@
         <li class="nav-item">
         <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
           <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true" class="border-button nav-link text-white">Sair</a></li>
-          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/users/user_profile.php" class="border-button nav-link text-white">Meu Perfil</a></li>
+          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/users/user_profile.php" class="border-button nav-link text-white"><?php echo $_SESSION['user_name']; ?><img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle ml-1" alt="" style="max-width:100%;width:25px;height:25px;object-fit:cover;"></a></li>
         <?php else:  ?>
           <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/users/sign_up.php" class="border-button nav-link text-white">Cadastrar</a></li>
           <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/users/sign_in.php" class="border-button nav-link text-white">Entrar</a></li>          
