@@ -14,7 +14,7 @@ import {Home, Login, Rastreio} from './views'; //index
 import { color } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 export default function App() {
-
+//constante
   const Stack = createNativeStackNavigator();
 
   return (
