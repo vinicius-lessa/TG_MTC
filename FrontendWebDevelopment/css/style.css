@@ -24,6 +24,9 @@ footer{
   left: 0;
 }
 
+/* ################################ BOTÕES
+*/
+
 .btn-default {
   color: #fff;
   background-color: #CD0000;
@@ -43,8 +46,11 @@ footer{
 .btn-send:hover {
   background-color: #2e8fa0;
 }
-.fundohome  {
-  background-color: #70707010;
+
+.btn-efeito-hover:hover {
+  background-color: #CD0000;
+  border-radius: 15px;
+  font-weight: bold;
 }
 
 /* ################################ Forms
@@ -63,6 +69,10 @@ form div {
 
 /* ################################ Colors
 */
+
+.fundohome  {
+  background-color: #70707010;
+}
 
 .bk-black {
   /* background-color: #0d1011; */
@@ -284,6 +294,14 @@ a.link-none:link {
 
 /* ################################ Chats
 */
+
+@media (max-width: 575.98px) {
+  /* .efeito3:hover {
+    transform: scale(1.5);
+    font-style: italic;
+    background-color:#0d1011;
+  } */
+ }
 
 @media (max-width: 2560px) {
   .chat_panel {

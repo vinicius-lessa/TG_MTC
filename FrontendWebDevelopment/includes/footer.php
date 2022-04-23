@@ -18,9 +18,9 @@
     <div class="py-3">
       <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">
         <!-- <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li> -->
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/about/home.php" class="nav-link border-button text-white">Quem Somos</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/feed_musical/home.php" class="nav-link border-button text-white">Feed Musical</a></li>
-        <li class="nav-item"><a href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php" class="nav-link border-button text-white">Music Trade Center</a></li>
+        <li class="nav-item btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/about/home.php" class="nav-link border-button text-white">Quem Somos</a></li>
+        <li class="nav-item btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/feed_musical/home.php" class="nav-link border-button text-white">Feed Musical</a></li>
+        <li class="nav-item btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php" class="nav-link border-button text-white">Music Trade Center</a></li>
       </ul>
     </div>
     <hr class="my-3">
