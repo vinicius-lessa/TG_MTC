@@ -52,24 +52,24 @@ function newMessage($data) {
     preg_match('{HTTP\/\S*\s(\d{3})}', $status_line, $match);
     $status = $match[1];
 
-    if ($status !== "201") {
-        $aReturn = [
-            'error'      => true , 
-            'msg'       => "<div class='alert alert-danger' role='alert'>Erro: ". $aData['msg'] . "</div>" ,
-            'msgAdim'   => $aData['msg'] ,
-        ];
+    // if ($status !== "201") {
+    //     $aReturn = [
+    //         'error'      => true , 
+    //         'msg'       => "<div class='alert alert-danger' role='alert'>Erro: ". $aData['msg'] . "</div>" ,
+    //         'msgAdim'   => $aData['msg'] ,
+    //     ];
 
-        return $aReturn;
-    }
+    //     return $aReturn;
+    // }
 
     // Success
     return $aData;
 }
 
-function selectChat($userLogged, $userCreator, $post_id){
+function selectChat($userLogged, $userTwo, $post_id){
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/chat.php/?token=" . $token . "&userLogged=" . $userLogged . "&userCreator=" . $userCreator . "&post_id=" . $post_id;
+    $url    = "http://localhost/TG_MTC/BackendDevelopment/chat.php/?token=" . $token . "&userLogged=" . $userLogged . "&userTwo=" . $userTwo . "&post_id=" . $post_id;
 
     $opts = array('http' =>
         array(

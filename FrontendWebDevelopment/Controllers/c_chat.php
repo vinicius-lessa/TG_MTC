@@ -33,17 +33,21 @@ if ($dados['action'] === "newMessage"):
     
     if ( isset($dados['userTwo']) && isset($dados['post_id']) && isset($dados['newMessage']) ):        
         
-        $users      = [0 => $dados['userLogged'], 1 => $dados['userTwo']];
+        if ( $dados['userLogged'] === $dados['userTwo'] ):
+            $users      = [0 => $dados['userLogged']];
+        else:            
+            $users      = [0 => $dados['userLogged'], 1 => $dados['userTwo']];
+        endif;
+        
         $post_id    = $dados['post_id'];
         $newMessage = $dados['newMessage'];
 
-        $chat_id    = isset($_POST['chat_id']) ? $_POST['chat_id'] : null ;
+        // $chat_id    = isset($_POST['chat_id']) ? $_POST['chat_id'] : null ;
         
         $data = [
             "users"         =>  $users ,
             "post_id"       =>  $post_id ,
-            "newMessage"    =>  $newMessage ,
-            "chat_id"       =>  $chat_id 
+            "newMessage"    =>  $newMessage
         ];
 
         $response = newMessage($data);
@@ -61,33 +65,74 @@ if ($dados['action'] === "newMessage"):
     endif;
 endif;
 
-return;
-
 
 // REFRESH MESSAGES
-// if ( isset($_GET['userLogged']) && isset($_GET['userCreator']) && isset($_GET['post_id']) ):
-//     $userLogged     = $_GET['userLogged'];
-//     $userCreator    = $_GET['userCreator'];
-//     $post_id        = $_GET['post_id'];    
+if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_id']) ):
+    
+    $userLogged = $_GET['userLogged'];
+    $userTwo    = $_GET['userTwo'];
+    $post_id    = $_GET['post_id'];
 
-//     $response = selectChat($userLogged, $userCreator, $post_id);
+    $response = selectChat($userLogged, $userTwo, $post_id);
 
-//     // print_r($response['data']);
+    // print_r($response);
 
-// 	foreach ($response['data'] as $chatRow) {
-// 		echo "<h3>" . $chatRow['user_name'] . "</h3>";
-// 		echo "<h5>" . $chatRow['message'] . "</h5>";
-// 	}    
+    if ( !$response['error'] ):            
+        
+        foreach ($response['data'] as $chatRow) {
 
-//     // echo "<h3>Vinícius Lessa</h3>"; 
-//     // echo "<h5>Olá, bom dia!</h5>";
+            if ( $chatRow['message_user_id'] == $_SESSION['user_id'] ):
+                echo "
+                    <div class='d-flex flex-row-reverse mr-2'>
+                        <div class='my-1 rounded msg-width msg-user'>
+                            <div class='m-0'>
+                                <!-- <div class='col-12 mt-1 p-0 px-2'>
+                                    <strong><span>Você</span></strong>
+                                </div> -->
+                                <div class='col-12 mb-0 d-flex flex-row-reverse p-0 px-2'>
+                                    <div class='m-0 p-0'>
+                                        <span>". $chatRow['message'] ."</span>
+                                    </div>
+                                </div>
+                                <div class='float-right mr-1 mb-1 p-0 d-flex time'>
+                                    <span>10:41</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            else:
+                echo "                
+                    <div class='d-flex flex-row'>
+                        <div class='my-1 bk-lightgray rounded msg-width'>
+                        <div class='m-0'>
+                            <div class='col-12 mt-1 p-0 px-2'>
+                            <strong><span>". $chatRow['user_name'] ."</span></strong>
+                            </div>
+                            <div class='col-12 mb-0 p-0 px-2'>
+                            <div class='m-0 p-0'>
+                                <span>". $chatRow['message'] ."</span>
+                            </div>                                
+                            </div>
+                            <div class='float-right mr-1 mb-1 p-0 d-flex time'>
+                                <span>10:41</span>
+                            </div>                              
+                        </div>
+                        </div>
+                    </div>";
+            endif;
+        }
+    else:
+        echo 200; // nenhuma conversa encontrada
+        exit;
+    endif;
+    
+else:
+    echo json_encode([
+        'cod'   =>  500,
+        'msg'   =>  'Preencha todos os parâmetros.'
+    ]);
+    exit;
 
-//     // echo "<h3>Renata Carrillo</h3>"; 
-//     // echo "<h5>Olá, como posso ajudar?</h5>";
-
-// else:
-//     echo "Error, User Not Logged In";
-
-// endif;
+endif;
 
 ?>

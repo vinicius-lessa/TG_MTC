@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "login",
+    "slug": "login",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/img/icon.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/img/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#000"
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

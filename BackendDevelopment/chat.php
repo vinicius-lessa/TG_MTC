@@ -58,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
         // Variables        
         $userLogged     = (isset($_GET["userLogged"])) ? $_GET["userLogged"] : "" ;
-        $userCreator    = (isset($_GET["userCreator"])) ? $_GET["userCreator"] : "" ;
+        $userTwo        = (isset($_GET["userTwo"])) ? $_GET["userTwo"] : "" ;
         $post_id        = (isset($_GET["post_id"])) ? $_GET["post_id"] : "" ;
 
-        if ( Empty($userLogged) || Empty($userCreator) || Empty($post_id) ):
+        if ( Empty($userLogged) || Empty($userTwo) || Empty($post_id) ):
             http_response_code(404); // Not Found
             echo json_encode([
                 'error' => true ,
@@ -70,11 +70,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             exit;
         else:
             // Unique Trade Post
-            if ( is_numeric($userLogged) && is_numeric($userCreator) && is_numeric($post_id) ):
+            if ( is_numeric($userLogged) && is_numeric($userTwo) && is_numeric($post_id) ):
                 $dados = CrudDB::select(
-                    'SELECT * FROM CHAT 
-                     WHERE trade_post_id = '. $post_id . ' AND user_id IN(' . $userLogged . ',' . $userCreator . ') AND activity_status = true
-                     ORDER BY created_on DESC;', [], TRUE);
+                    'SELECT m.message_chat_guid, m.message_user_id, u.user_name, m.message, m.created_on FROM messages m
+                     INNER JOIN users u ON m.message_user_id = u.user_id
+                     WHERE 	m.message_user_id IN(:USER_LOGGED, :USER_TWO) AND
+                            m.activity_status = 1 AND
+                            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = m.message_chat_guid AND uc.user_chat_user_id = :USER_LOGGED LIMIT 1) AND
+                            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = m.message_chat_guid AND uc.user_chat_user_id = :USER_TWO LIMIT 1) AND
+                            m.message_chat_guid = (SELECT c.chat_guid FROM chat c WHERE c.trade_post_id =:POST_ID)
+                    order by m.created_on desc limit 10;' , 
+                    [                        
+                        'USER_LOGGED' => $userLogged ,
+                        'USER_TWO' => $userTwo ,
+                        'POST_ID' => $post_id ,
+                    ], TRUE);
                 
                 if (!empty($dados)):                    
                     http_response_code(200); // Success
@@ -123,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     $aUsers         = (isset($_POST['users']))          ? $_POST['users'] : ''              ;
     $post_id        = (isset($_POST['post_id']))        ? intval($_POST['post_id']) : 0     ;
     $newMessage     = (isset($_POST['newMessage']))     ? $_POST['newMessage'] : 0          ;
-    $chat_id        = (isset($_POST['p_condition']))    ? intval($_POST['p_condition']) : 0 ;
+    // $chat_id        = (isset($_POST['chat_id']))        ? intval($_POST['chat_id']) : 0     ;
     
     // Check Recieved Data
     // http_response_code(201);
@@ -134,7 +144,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // ]);
     // exit;
 
-    
     if (empty($aUsers) or
         empty($newMessage) or
         $post_id    == 0        
@@ -147,13 +156,150 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         exit;
     endif;
 
-    // Insere dados na tabela CHAT: post_id
+    // Checa se um CHAT envolvendo o ANUNCIO para estes dois usuário já EXISTE
+    $dados = 
+    CrudDB::select(
+        'SELECT c.chat_guid FROM chat c 
+         WHERE  c.trade_post_id =:POST_ID AND 
+                EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = c.chat_guid AND uc.user_chat_user_id =:USER_LOGGED LIMIT 1) AND
+                EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = c.chat_guid AND uc.user_chat_user_id =:USER_TWO LIMIT 1) ;' ,
+        [
+            'POST_ID'       => $post_id ,
+            'USER_LOGGED'   => $aUsers[0] ,
+            'USER_TWO'      => $aUsers[1]
+        ] ,
+        TRUE
+    );
 
-    // recolhe ID do último chat criado
+    // Insere tabela CHAT: trade_post_id com $post_id (Somente se for uma nova conversa)
+    if ( empty($dados) ):
+               
+        // http_response_code(500); // Internal Server Error
+        // echo json_encode([
+        //     'error'     => true ,
+        //     'msg'       => "SELECT c.chat_guid FROM chat c 
+        //     WHERE  c.trade_post_id =$post_id AND 
+        //            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = c.chat_guid AND uc.user_chat_user_id =".$aUsers[0]." LIMIT 1) AND
+        //            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = c.chat_guid AND uc.user_chat_user_id =".$aUsers[1]." LIMIT 1) ;"
+        // ]);
+        // exit;
 
-    // Insere 2 dados na tabela 'user_chat': chat_guid (id_chat) + userLogged  e userTwo
+        CrudDB::setTabela('chat');
+            
+        // $dbReturn = true;
+        $dbReturn = CrudDB::insert([
+            'trade_post_id' => "'" . $post_id . "'"
+        ]);
 
-    // Insere dados na tabela 'messages': chat_guid (id_chat) + userID (criador da msg)
+        if ( !$dbReturn ):
+            http_response_code(500); // Internal Server Error        
+            echo json_encode([
+                'error'     => true ,
+                'msg'       => "Não foi possível enviar esta mensagem!" ,
+                'msgAdmin'  => 'Erro ao Inserir novo CHAT para esta conversa'
+            ]);
+            exit;
+        endif;
+
+        // Se for uma nova conversa, recupera o Chat ID incluído acima
+        if ( empty($chat_id) ):
+
+            // ID do último chat criado        
+            $dados = 
+            CrudDB::select(
+                'SELECT chat_guid FROM chat WHERE trade_post_id =:POST_ID AND activity_status = 1 ORDER BY created_on DESC LIMIT 1' ,
+                ['POST_ID' => $post_id] ,
+                TRUE
+            );
+
+            if ( !empty($dados) ):
+                $chat_id = intval($dados[0]->chat_guid);
+            else:
+                http_response_code(500); // Internal Server Error
+                echo json_encode([
+                    'error'     => true ,
+                    'msg'       => "Não foi possível enviar esta mensagem!" ,
+                    'msgAdmin'  => "Erro no SELECT da tabela 'chat'."
+                ]);
+                exit;
+            endif;
+
+        endif;
+    else:
+        $chat_id = intval($dados[0]->chat_guid);
+    endif;    
+
+    if ( $chat_id != 0 && is_numeric($chat_id) ):
+        
+        // Insere 2 dados na tabela 'user_chat': chat_guid (id_chat) + user_id            
+        foreach( $aUsers as $user_id ){
+            
+            // Verifica se Chat já existe para ambos os usuários
+            $dados = CrudDB::select(
+                'SELECT * FROM user_chat WHERE user_chat_chat_guid =:CHAT_ID AND user_chat_user_id =:USER_ID AND activity_status = 1 ORDER BY created_on DESC LIMIT 1' ,
+                ['CHAT_ID' => $chat_id, 'USER_ID' => $user_id] ,
+                TRUE);
+
+            if ( empty($dados) ):
+
+                CrudDB::setTabela('user_chat');
+
+                // $dbReturn = true;
+                $dbReturn = CrudDB::insert([
+                    'user_chat_chat_guid' => "'" . $chat_id . "'" ,
+                    'user_chat_user_id' => "'" . $user_id . "'"
+                ]);
+
+                if ( !$dbReturn ):
+                    http_response_code(500); // Internal Server Error
+                    echo json_encode([
+                        'error'     => true ,
+                        'msg'       => "Não foi possível enviar esta mensagem!" ,
+                        'msgAdmin'  => "Erro ao inserir dados na tabela 'user_chat'."
+                    ]);
+                    exit;
+                endif;
+
+            endif;
+        }
+
+        // Insere dados na tabela 'messages': chat_guid (id_chat) + userID (criador da msg) + msg            
+        CrudDB::setTabela('messages');
+
+        // $dbReturn = true;
+        $dbReturn = CrudDB::insert([
+            'message_chat_guid' => "'" . $chat_id . "'" ,
+            'message_user_id'   => "'" . $aUsers[0] . "'" , // Sempre o Usuário Logado (que enviou a mensagem) Definido em c_chat.php.
+            'message'           => "'" . $newMessage . "'"
+        ]);
+
+        if ( !$dbReturn ):
+            http_response_code(500); // Internal Server Error
+            echo json_encode([
+                'error'     => true ,
+                'msg'       => "Não foi possível enviar esta mensagem!" ,
+                'msgAdmin'  => "Erro ao inserir dados na tabela 'messages'."
+            ]);
+            exit;
+        else:
+            http_response_code(201); // Created
+            echo json_encode([
+                'error'     => false ,
+                'msgAdmin'  => "Todos os dados foram inseridos com sucesso!."
+            ]);
+            exit;                
+        endif;
+                        
+    
+    else:
+        http_response_code(500); // Internal Server Error
+        echo json_encode([
+            'error'     => true ,
+            'msg'       => "Não foi possível enviar esta mensagem!" ,
+            'msgAdmin'  => "O ID do Chat não pode ser encontrado."
+        ]);
+        exit;
+    endif;      
 
 endif;
 
