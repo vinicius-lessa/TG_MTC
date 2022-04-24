@@ -168,6 +168,16 @@ a.link-none:link {
   text-decoration: none;
 }
 
+.linkdefault {
+  text-decoration: none;
+  color: white;
+}
+.linkdefault:hover {
+  text-decoration: none;
+  color: #eb3535;
+}
+
+
 /* ################################ SIGNUP-SIGNIN
 */ 
 .body-login {
@@ -242,8 +252,9 @@ a.link-none:link {
 /* ################################ Visual Effects
 */
 
+/* Generic Loader */
 .spinner-wrapper{
-  /* display: flex; */
+  /* display: flex; - Ativado via Js*/
   display: none;
   width: 100%;
   height: 100%;
@@ -289,7 +300,34 @@ a.link-none:link {
   to {
       transform: rotate(360deg);
   }
+}
 
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+/* Chat Box - https://loading.io/css/ */
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ################################ Chats
@@ -305,13 +343,13 @@ a.link-none:link {
 
 @media (max-width: 2560px) {
   .chat_panel {
-    height: 600px;
+    height: 650px;
   }
 }
 
 @media (max-width: 1010px) {
   .chat_panel {
-    height: 1200px;
+    height: 1300px;
   }
 }
 
@@ -341,14 +379,14 @@ a.link-none:link {
 }
 
 .hr-default {
-  background-color: rgba(66, 66, 66, 0.405);  
+  background-color: rgb(118, 115, 115);  
 }
 
 .chat-topic {
-  height: 14%;
+  height: 18%;
 }
 
 .chat-box {
-  height: 80%;
+  height: 76%;
   margin-top: 20px;
 }

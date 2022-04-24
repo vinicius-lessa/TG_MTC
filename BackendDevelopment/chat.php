@@ -284,7 +284,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         else:
             http_response_code(201); // Created
             echo json_encode([
-                'error'     => true ,                    
+                'error'     => false ,
                 'msgAdmin'  => "Todos os dados foram inseridos com sucesso!."
             ]);
             exit;                

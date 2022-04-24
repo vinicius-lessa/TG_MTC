@@ -78,58 +78,60 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
     // print_r($response);
 
     if ( !$response['error'] ):            
+        
         foreach ($response['data'] as $chatRow) {
 
             if ( $chatRow['message_user_id'] == $_SESSION['user_id'] ):
                 echo "
-                <div class='d-flex flex-row-reverse mr-2'>
-                    <div class='my-1 rounded msg-width msg-user'>
+                    <div class='d-flex flex-row-reverse mr-2'>
+                        <div class='my-1 rounded msg-width msg-user'>
+                            <div class='m-0'>
+                                <!-- <div class='col-12 mt-1 p-0 px-2'>
+                                    <strong><span>Você</span></strong>
+                                </div> -->
+                                <div class='col-12 mb-0 d-flex flex-row-reverse p-0 px-2'>
+                                    <div class='m-0 p-0'>
+                                        <span>". $chatRow['message'] ."</span>
+                                    </div>
+                                </div>
+                                <div class='float-right mr-1 mb-1 p-0 d-flex time'>
+                                    <span>10:41</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+            else:
+                echo "                
+                    <div class='d-flex flex-row'>
+                        <div class='my-1 bk-lightgray rounded msg-width'>
                         <div class='m-0'>
-                            <!-- <div class='col-12 mt-1 p-0 px-2'>
-                                <strong><span>Você</span></strong>
-                            </div> -->
-                            <div class='col-12 mb-0 d-flex flex-row-reverse p-0 px-2'>
+                            <div class='col-12 mt-1 p-0 px-2'>
+                            <strong><span>". $chatRow['user_name'] ."</span></strong>
+                            </div>
+                            <div class='col-12 mb-0 p-0 px-2'>
                             <div class='m-0 p-0'>
                                 <span>". $chatRow['message'] ."</span>
-                            </div>
+                            </div>                                
                             </div>
                             <div class='float-right mr-1 mb-1 p-0 d-flex time'>
                                 <span>10:41</span>
-                            </div>
+                            </div>                              
                         </div>
-                    </div>
-                </div>";
-            else:
-                echo "
-                <div class='d-flex flex-row'>
-                    <div class='my-1 bk-lightgray rounded msg-width'>
-                    <div class='m-0'>
-                        <div class='col-12 mt-1 p-0 px-2'>
-                        <strong><span>". $chatRow['user_name'] ."</span></strong>
                         </div>
-                        <div class='col-12 mb-0 p-0 px-2'>
-                        <div class='m-0 p-0'>
-                            <span>". $chatRow['message'] ."</span>
-                        </div>                                
-                        </div>
-                        <div class='float-right mr-1 mb-1 p-0 d-flex time'>
-                            <span>10:41</span>
-                        </div>                              
-                    </div>
-                    </div>
-                </div>";            
+                    </div>";
             endif;
         }
     else:
-        echo json_encode([
-            'cod'   =>  1,
-            'msg'   =>  'Nenhuma conversa encontrada.'
-        ]);
+        echo 200; // nenhuma conversa encontrada
         exit;
     endif;
     
 else:
-    echo "Error, preencha todos os parâmetros.";
+    echo json_encode([
+        'cod'   =>  500,
+        'msg'   =>  'Preencha todos os parâmetros.'
+    ]);
+    exit;
 
 endif;
 
