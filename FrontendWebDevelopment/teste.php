@@ -35,29 +35,29 @@
 
     <div class="row">
         <div class="col-12">              
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Meus Dados</button>
-            </li>
-            <li class="nav-item" role="presentation">
-            <button class="nav-link" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Meus Anúncios</button>
-            </li>
-            <li class="nav-item" role="presentation">
-            <button class="nav-link" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab" aria-controls="configuration" aria-selected="false">Configurações</button>
-            </li>
-        </ul>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Meus Dados</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Meus Anúncios</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                <button class="nav-link" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab" aria-controls="configuration" aria-selected="false">Configurações</button>
+                </li>
+            </ul>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">Dados</div>
-            <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">Anúncios</div>
-            <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">Configurações</div>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">Dados</div>
+                <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">Anúncios</div>
+                <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">Configurações</div>
+            </div>
         </div>
-        </div>
-    </div>    
+    </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
