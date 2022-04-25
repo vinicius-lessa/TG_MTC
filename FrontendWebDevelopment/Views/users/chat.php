@@ -254,13 +254,13 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                 <div class="row text-center">
                   <div class="col-12">
                     <strong><h5>OUTRAS CONVERSAS</h5></strong>
-                  </div>                  
+                  </div>
                 </div>
 
                 <hr class="mt-1">
 
-                <div class="row p-2" style="height: 490px;">
-                  <div class="scrollbar h-100 w-100">
+                <div class="row pl-2 pr-1" style="height: 550px;">
+                  <div class="col-12 scrollbar h-100 w-100">
                     <div class="col-12">
                       <div class="row mb-1">
                         <strong><span>Rafaela Alle</span></strong>
@@ -303,6 +303,20 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                       </div>
                     </div>
 
+                    <div class="col-12">
+                      <div class="row mb-1">
+                        <strong><span>Renato Lompandi</span></strong>
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-6 d-flex">
+                          <small>Olá Fulano, tudo bem?</small>
+                        </div>
+                        <div class="col-6 d-flex flex-row-reverse text-gray">
+                          <small>25/03/2022</small>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <div class="col-12">
                       <div class="row mb-1">
                         <strong><span>Renato Lompandi</span></strong>

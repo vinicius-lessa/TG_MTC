@@ -53,6 +53,20 @@ footer{
   font-weight: bold;
 }
 
+.default-tabs {
+  color: white !important;  
+  border: 0px !important;
+}
+
+.default-tabs:hover {
+  background-color: #d32828 !important;    
+}
+
+.default-tabs.active{  
+  background-color: #ed3737 !important;  
+}.nav-tabs
+
+
 /* ################################ Forms
 */
 

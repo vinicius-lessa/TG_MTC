@@ -133,18 +133,18 @@ endif;
           
           <!-- Testes de Multiple Tabs -->  
           <div class="row text-white">
-            <div class="col-12">
+            <div class="col-12 p-2">
               <div class="row">
-                <div class="col-12">              
+                <div class="col-12">
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Meus Dados</button>
+                      <button class="nav-link active default-tabs" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Meus Dados</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Meus Anúncios</button>
+                      <button class="nav-link default-tabs" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Meus Anúncios</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab" aria-controls="configuration" aria-selected="false">Configurações</button>
+                      <button class="nav-link default-tabs" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab" aria-controls="configuration" aria-selected="false">Configurações</button>
                     </li>
                   </ul>
                 </div>
@@ -153,139 +153,151 @@ endif;
               <div class="row">
                 <div class="col-12">
                   <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">Dados</div>
-                    <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">Anúncios</div>
-                    <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">Configurações</div>
+                    
+                    <!-- MEUS DADOS -->
+                    <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
+                      <div class="row">
+                        <div class="col-12 mt-4 mb-4 text-center">
+                          <h5 class="text-red"><strong>Meus Dados</strong></h5>
+                        </div>
+                      </div>
+
+                      <div class="row mx-1">
+                        <div class="col-6">
+                          <h6 class="text-red"><strong>Habilidades</strong></h6>
+                          <p class="text-white">Guitarra</p>
+                          <p class="text-white">Violão</p>
+                          <p class="text-white">Baixo</p>
+                          
+                          <div class="form-group mb-3">
+                            <select class="custom-select" id="inputGroupSelect02">
+                              <option selected>Escolha...</option>
+                              <option value="1">Guitarra</option>
+                              <option value="2">Violão</option>
+                              <option value="3">Baixo</option>
+                              <option value="4">Bateria</option>
+                              <option value="5">Piano</option>
+                            </select>
+                            <div class="input-group-append">
+                              <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                            </div>
+                          </div>
+
+                          <!-- BIOGRAFIA -->
+                          <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
+                          <!-- <div class="form-group">
+                            <textarea class="form-control" type="text" name="description" id="description" rows="3">
+                              <?php echo $profileDetails['data'][0]['bio'] ?>
+                            </textarea>
+                          </div> -->
+
+                          <p class="text-white mt-2" style="font-size:14px;">
+                            <?php echo $profileDetails['data'][0]['bio'] ?>
+                          </p>
+
+                        </div>          
+
+                        <!-- OUTRAS INFORMAÇÕES -->
+                        <div class="col-6 mb-5 text-white">
+                          <h6 class="text-red"><strong>Outras Informações</strong></h6>
+
+                          <!-- GÊNERO -->
+                          <label><strong>Gênero(s):</strong></label>
+                          <p class="text-white">Guitarra</p>
+                          <p class="text-white">Violão</p>
+                          <p class="text-white">Baixo</p>
+
+                          <div class="input-group mb-3">
+                            <select class="custom-select" id="inputGroupSelect02">
+                              <option selected>Escolha...</option>
+                              <option value="1">Guitarra</option>
+                              <option value="2">Violão</option>
+                              <option value="3">Baixo</option>
+                              <option value="4">Bateria</option>
+                              <option value="5">Piano</option>
+                            </select>
+                            <div class="input-group-append">
+                              <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                            </div>
+                          </div>
+
+                          <!-- CIDADE -->
+                          <div class="form-group mt-3">
+                            <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
+                            <select class="form-select" name="brand" id="brand">
+                              <option selected>Escolha...</option>
+                              <option value="1">São Paulo</option>
+                              <option value="2">São Roque</option>
+                              <?php foreach ($selectBrand as $itemBrand) {?>
+                                <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                              <?php };?>
+                            </select>
+                          </div>
+
+                          <!-- ESTADO -->
+                          <div class="form-group mt-3">
+                            <label class="mb-2" for="brand"><strong>Estado:</strong></label>
+                              <select class="form-select" name="brand" id="brand">
+                                <option selected>Escolha...</option>
+                                <option value="1">São Paulo</option>
+                                <option value="2">Rio de Janeiro</option>
+                                <?php foreach ($selectBrand as $itemBrand) {?>
+                                  <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                                <?php };?>
+                              </select>
+                          </div>
+
+                          <!-- DATA DE NASCIMENTO -->
+                          <div class="form-group mt-3">
+                            <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
+                              <p><?php echo $profileDetails['data'][0]['birthday'] ?></p>
+                              <!-- <select class="form-select" name="brand" id="brand">
+                                <option selected>Escolha...</option>
+                                <option value="1">São Paulo</option>
+                                <option value="3">São Roque</option>
+                                <?php foreach ($selectBrand as $itemBrand) {?>
+                                  <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                                <?php };?>                  
+                              </select> -->
+                          </div>
+
+                          <!-- E-MAIL -->
+                          <div class="form-group text-white mt-3">
+                            <label for="userEmail"><strong>E-mail:</strong></label>
+                            <input type="email" class="form-control" placeholder="<?php echo $profileDetails['data'][0]['email'] ?>" id="userEmail" name="email">
+                          </div>                
+                          
+                          <!-- BIOGRAFIA -->
+                          <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
+
+                          <!-- <div class="form-group">
+                            <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
+                          </div>
+                          <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                            eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
+                            enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
+                            primis in faucibus orci luctus et ultrices posuere cubilia curae.
+                          </p> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ANÚNCIOS -->
+                    <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">
+                      Anúncios
+                    </div>
+
+                    <!-- CONFIGURAÇÕES -->
+                    <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
+                      Configurações
+                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-12 mt-4 mb-4 text-center">
-              <h5 class="text-red"><strong>Meus Dados</strong></h5>
-            </div>
-          </div>
-
-          <div class="row bk-gray" style="margin-left:15px;">
-            <div class="col-6">
-              <h6 class="text-red"><strong>Habilidades</strong></h6>
-              <p class="text-white">Guitarra</p>
-              <p class="text-white">Violão</p>
-              <p class="text-white">Baixo</p>
-              
-              <div class="form-group mb-3">
-                <select class="custom-select" id="inputGroupSelect02">
-                  <option selected>Escolha...</option>
-                  <option value="1">Guitarra</option>
-                  <option value="2">Violão</option>
-                  <option value="3">Baixo</option>
-                  <option value="4">Bateria</option>
-                  <option value="5">Piano</option>
-                </select>
-                <div class="input-group-append">
-                  <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                </div>
-              </div>
-
-              <!-- BIOGRAFIA -->
-              <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
-              <!-- <div class="form-group">
-                <textarea class="form-control" type="text" name="description" id="description" rows="3">
-                  <?php echo $profileDetails['data'][0]['bio'] ?>
-                </textarea>
-              </div> -->
-
-              <p class="text-white mt-2" style="font-size:14px;">
-                <?php echo $profileDetails['data'][0]['bio'] ?>
-              </p>
-
-            </div>          
-
-            <!-- OUTRAS INFORMAÇÕES -->
-            <div class="col-6 mb-5 text-white">
-              <h6 class="text-red"><strong>Outras Informações</strong></h6>
-
-              <!-- GÊNERO -->
-              <label><strong>Gênero(s):</strong></label>
-              <p class="text-white">Guitarra</p>
-              <p class="text-white">Violão</p>
-              <p class="text-white">Baixo</p>
-
-              <div class="input-group mb-3">
-                <select class="custom-select" id="inputGroupSelect02">
-                  <option selected>Escolha...</option>
-                  <option value="1">Guitarra</option>
-                  <option value="2">Violão</option>
-                  <option value="3">Baixo</option>
-                  <option value="4">Bateria</option>
-                  <option value="5">Piano</option>
-                </select>
-                <div class="input-group-append">
-                  <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                </div>
-              </div>
-
-              <!-- CIDADE -->
-              <div class="form-group mt-3">
-                <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
-                <select class="form-select" name="brand" id="brand">
-                  <option selected>Escolha...</option>
-                  <option value="1">São Paulo</option>
-                  <option value="2">São Roque</option>
-                  <?php foreach ($selectBrand as $itemBrand) {?>
-                    <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                  <?php };?>
-                </select>
-              </div>
-
-              <!-- ESTADO -->
-              <div class="form-group mt-3">
-                <label class="mb-2" for="brand"><strong>Estado:</strong></label>
-                  <select class="form-select" name="brand" id="brand">
-                    <option selected>Escolha...</option>
-                    <option value="1">São Paulo</option>
-                    <option value="2">Rio de Janeiro</option>
-                    <?php foreach ($selectBrand as $itemBrand) {?>
-                      <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                    <?php };?>
-                  </select>
-              </div>
-
-              <!-- DATA DE NASCIMENTO -->
-              <div class="form-group mt-3">
-                <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
-                  <p><?php echo $profileDetails['data'][0]['birthday'] ?></p>
-                  <!-- <select class="form-select" name="brand" id="brand">
-                    <option selected>Escolha...</option>
-                    <option value="1">São Paulo</option>
-                    <option value="3">São Roque</option>
-                    <?php foreach ($selectBrand as $itemBrand) {?>
-                      <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                    <?php };?>                  
-                  </select> -->
-              </div>
-
-              <!-- E-MAIL -->
-              <div class="form-group text-white mt-3">
-                <label for="userEmail"><strong>E-mail:</strong></label>
-                <input type="email" class="form-control" placeholder="<?php echo $profileDetails['data'][0]['email'] ?>" id="userEmail" name="email">
-              </div>                
-              
-              <!-- BIOGRAFIA -->
-              <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
-
-              <!-- <div class="form-group">
-                <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-              </div>
-              <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                primis in faucibus orci luctus et ultrices posuere cubilia curae.
-              </p> -->
-            </div>
-          </div>
+          
         </div>          
       
       <!-- Perfil Público -->        
