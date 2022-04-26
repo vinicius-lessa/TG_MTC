@@ -35,12 +35,14 @@ function refreshChat(){
                 $( "#chat" ).html( req.responseText );
                 $( "#chat" ).css("display", "flex");
                 
-                console.log("Atualizando");
-
+                $( "#noMessages" ).css("display", "none");                                
+                
+                console.log("Atualizando mensagens...");
             } else {
                 $( "#noMessages" ).css("display", "block");
 
-            }
+                console.log("Nenhuma mensagem encontrada!");
+            }            
         }
     }    
 
@@ -49,7 +51,7 @@ function refreshChat(){
 }
       
 // Repeat - 10 seconds
-setInterval(function(){refreshChat();}, 3000);
+setInterval(function(){refreshChat();}, 40000);
 
 
 // Events
@@ -83,7 +85,7 @@ newMessageForm.submit(async function( event ){
     "</div> ";
     
 
-    $( "#noMessages" ).css("display", "none");    
+    $( "#noMessages" ).css("display", "none");
 
     $( "#chat" ).css("display", "flex");
     $( "#chat" ).html( function() {

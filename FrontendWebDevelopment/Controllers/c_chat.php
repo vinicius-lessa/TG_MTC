@@ -122,8 +122,11 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
             endif;
         }
     else:
-        echo 200; // nenhuma conversa encontrada
+        echo 200; // nenhuma conversa encontrada        
         exit;
+
+        // echo json_encode($response);
+        // exit;
     endif;
     
 else:

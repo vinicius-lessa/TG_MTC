@@ -4,7 +4,8 @@
  * 
  * @Description Página de entrada para requisições do tipo GET, PUT, POST e DELETE para CHAT entre usuários
  * @ChangeLog 
- *  - Vinícius Lessa - 19/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST, 
+ *  - Vinícius Lessa - 19/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST.
+ *  - Vinícius Lessa - 26/04/2022: Reformulação da query de GET dos chats, pois estava com erro quando um mesmo POST tinha mais de um chat.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -72,14 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             // Unique Trade Post
             if ( is_numeric($userLogged) && is_numeric($userTwo) && is_numeric($post_id) ):
                 $dados = CrudDB::select(
-                    'SELECT m.message_chat_guid, m.message_user_id, u.user_name, m.message, m.created_on FROM messages m
-                     INNER JOIN users u ON m.message_user_id = u.user_id
-                     WHERE 	m.message_user_id IN(:USER_LOGGED, :USER_TWO) AND
-                            m.activity_status = 1 AND
-                            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = m.message_chat_guid AND uc.user_chat_user_id = :USER_LOGGED LIMIT 1) AND
-                            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = m.message_chat_guid AND uc.user_chat_user_id = :USER_TWO LIMIT 1) AND
-                            m.message_chat_guid = (SELECT c.chat_guid FROM chat c WHERE c.trade_post_id =:POST_ID)
-                    order by m.created_on desc limit 10;' , 
+                    'SELECT c.chat_guid, m.message_user_id, m.message, m.created_on from chat c
+                     INNER JOIN messages m ON m.message_chat_guid = c.chat_guid
+                     where 	c.trade_post_id = :POST_ID and
+                            c.activity_status = 1 and 
+                            m.activity_status = 1 and
+                            m.message_user_id in (:USER_TWO, :USER_LOGGED) and
+                            exists (select uc.user_chat_chat_guid from user_chat uc where uc.user_chat_chat_guid = m.message_chat_guid and uc.user_chat_user_id = :USER_LOGGED limit 1) and
+                            exists (select uc.user_chat_chat_guid from user_chat uc where uc.user_chat_chat_guid = m.message_chat_guid and uc.user_chat_user_id = :USER_TWO limit 1)
+                     order by m.created_on desc limit 10;',
                     [                        
                         'USER_LOGGED' => $userLogged ,
                         'USER_TWO' => $userTwo ,
