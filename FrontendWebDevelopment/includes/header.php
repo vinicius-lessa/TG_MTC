@@ -30,31 +30,31 @@
     <div class="col-8 collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="border-button nav-link text-white" aria-current="page">Home</a></li>
+          <li class="nav-link active btn-efeito-hover d-flex justify-content-center"><a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="border-button nav-link text-white" aria-current="page">Home</a></li>
         </li>
         <li class="nav-item">
-          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php" class="border-button nav-link text-white" aria-current="page">Anunciar</a></li>
+          <li class="nav-link active btn-efeito-hover d-flex justify-content-center"><a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php" class="border-button nav-link text-white" aria-current="page">Anunciar</a></li>
         </li>
         <li class="nav-item">
-          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/trade_posts/home.php" class="border-button nav-link text-white" aria-current="page">Anúncios</a></li>
+          <li class="nav-link active btn-efeito-hover d-flex justify-content-center"><a href="<?php echo SITE_URL ?>/Views/trade_posts/home.php" class="border-button nav-link text-white" aria-current="page">Anúncios</a></li>
         </li>
         <li class="nav-item">
-          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/feed_musical/home.php" class="border-button nav-link text-white" aria-current="page">Feed Musical</a></li>
+          <li class="nav-link active btn-efeito-hover d-flex justify-content-center"><a href="<?php echo SITE_URL ?>/Views/feed_musical/home.php" class="border-button nav-link text-white" aria-current="page">Feed Musical</a></li>
         </li>
         <li class="nav-item">
-          <li class="nav-link active btn-efeito-hover"><a href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php" class="border-button nav-link text-white" aria-current="page">Music Trade Center</a></li>
+          <li class="nav-link active btn-efeito-hover d-flex justify-content-center"><a href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php" class="border-button nav-link text-white" aria-current="page">Music Trade Center</a></li>
         </li>
 
 
         <li class="nav-item">
         <?php if (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email']) ): ?>
           <li class="nav-link active btn-efeito-hover">
-            <a href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true" class="border-button nav-link text-white">
+            <a href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true" class="border-button nav-link text-white d-flex justify-content-center">
               Sair
             </a>
           </li>
           <li class="nav-link active btn-efeito-hover">
-            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php" class="border-button nav-link text-white">
+            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php" class="border-button nav-link text-white d-flex justify-content-center">
               <?php echo $_SESSION['user_name']; ?>
               <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle ml-2" alt="" style="max-width:100%;width:30px;height:30px;object-fit:cover;">
             </a>
