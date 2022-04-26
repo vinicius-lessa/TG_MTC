@@ -94,9 +94,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
               -->
               <div class="col-12 col-sm-6 col-lg-4 mt-4 mb-4">
                 <div class="p-3">
-                  <div class="gDskSC">
+                  <div class="image_container">
                     <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="iWRsZI" alt="" style="">
+                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
                     </a>
                   </div>
                   <div class="p-2 bk-gray">

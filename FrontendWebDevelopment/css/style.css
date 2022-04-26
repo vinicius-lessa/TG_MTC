@@ -206,24 +206,25 @@ a.link-none:link {
   background-size: cover;
 }
 
-/* ################################ ANUNCIOS
-*/ 
-.gDskSC {
+/* ################################ Imagens */
+
+.image_container {  
   padding-bottom: 75%;
+  position: relative;
+  width: 100%;
+  overflow: hidden;  
+  background-color: #1c212489;
   /* display: flex; */
   /* -moz-box-pack: center; */
   /* justify-content: center; */
-  position: relative;
-  width: 100%;
-  overflow: hidden;
   /* border-radius: 8px; */
-  background-color: #1c212489;
 }
 
-.iWRsZI {
+.image_default {
   height: 100%;
   position: absolute;
 }
+
 
 /* ################################ ANUNCIOS-DETALHE
 */ 

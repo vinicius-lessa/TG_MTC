@@ -26,7 +26,7 @@ function loadTradePosts(){
     // $response = json_decode(curl_exec($ch));
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=home";
+    $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all";
 
     $opts = array('http' =>
         array(

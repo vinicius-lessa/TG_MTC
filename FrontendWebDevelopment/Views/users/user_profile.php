@@ -51,6 +51,11 @@ else:
 
 endif;
 
+$titlePage  = 'MTC | Anúncios';
+$a_tpList   = [];
+
+require SITE_PATH . '/Controllers/c_trade_posts.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -284,7 +289,60 @@ endif;
 
                     <!-- ANÚNCIOS -->
                     <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">
-                      Anúncios
+                      <div class="row">
+                        <div class="col-12 mt-4 mb-4 text-center">
+                          <h5 class="text-red"><strong>Meus Anúncios</strong></h5>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 mt-4 mb-4 text-center">
+                          
+                          <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+                            <div class="row bk-green mb-5">
+                              
+                              <!-- Image -->
+                              <div class="col-12 col-sm-3 bk-yellow" style="height: 200px;">
+                                <div class="image_container">
+                                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                                    <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
+                                  </a>
+                                </div>
+                              </div>
+
+                              <!-- Trade Post Info -->
+                              <div class="col-12 col-sm-9 bk-purple">
+                                <div class="p-2">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>
+                                      <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>                        
+                                    </div>
+                                  </div>
+                                  <div class="row mt-2">
+                                    <div class="col-8">
+                                      <span class="card-title text-white ">Por:
+                                        <strong>
+                                          <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $a_tpItem['user_id'] ?>"
+                                            class="text-decoration-none text-white">
+                                            <?php echo $a_tpItem['user_name'] ?>
+                                          </a>
+                                        </strong>
+                                      </span>
+                                    </div>
+                                    <div class="col-4 d-flex flex-row-reverse">
+                                      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
+                                      class="card-title text-white">Detalhes</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          <?php } ?>
+                          
+                        </div>
+                      </div>                      
                     </div>
 
                     <!-- CONFIGURAÇÕES -->

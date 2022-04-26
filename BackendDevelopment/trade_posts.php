@@ -58,7 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     if ( !Empty($uri) && $uri <> 'index.php' ):
 
         // Variables
-        $keySearch  = (isset($_GET["key"])) ? $_GET["key"] : "" ;        
+        $keySearch  = (isset($_GET["key"]))     ? $_GET["key"] : "" ;
+        $user_id    = (isset($_GET['user_id'])) ? intval($_GET['user_id']) : '';
 
         if (Empty($keySearch)):
             http_response_code(404); // Not Found
@@ -101,9 +102,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     INNER JOIN users u ON tp.user_id = u.user_id
                     INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
                     WHERE 
-                        tp.post_id          = '. $keySearch .' AND
+                        tp.post_id          =:POST_ID AND
                         tp.activity_status  = 1
-                    ORDER BY tp.created_on DESC LIMIT 1;', [], TRUE);
+                    ORDER BY tp.created_on DESC LIMIT 1;', 
+                    [
+                        'POST_ID' => $keySearch
+                    ], TRUE);
                 
                 if (!empty($dados)):                    
                     foreach ($dados as $tradePost) {
@@ -126,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 endif;
 
             // All Trade Posts
-            elseif ($keySearch == 'home'):
+            elseif ($keySearch == 'all'):
                 
                 $dados = CrudDB::select(
                     'SELECT 
@@ -142,9 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     INNER JOIN users u ON tp.user_id = u.user_id
                     INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
                     INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id                    
-                    where tp.activity_status = 1
-                    ORDER BY tp.created_on DESC LIMIT 12', [], TRUE);
-                
+                    where tp.activity_status = 1 ' . (!empty($user_id) ? 'and tp.user_id =:USER_ID ' : '') .
+                    'ORDER BY tp.created_on DESC LIMIT 12;',
+                    [
+                        'USER_ID' => $user_id
+                    ], TRUE);                        
+
                 if (!empty($dados)):
                     foreach ($dados as $tradePost) {
                         $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
@@ -155,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         'error' => false ,
                         'data' => $dados
                     ]);
-                    exit;                    
+                    exit;                  
                 else:
                     http_response_code(200); // Success
                     echo json_encode([
