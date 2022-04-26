@@ -136,7 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     'SELECT 
                         tp.post_id , 
                         tp.title ,
-                        tp.user_id , 
+                        tp.description as tp_desc 	,
+                        tp.user_id ,
                         u.user_name ,
                         tp.category_id ,
                         pc.description , 

@@ -83,7 +83,7 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
 
             if ( $chatRow['message_user_id'] == $_SESSION['user_id'] ):
                 echo "
-                    <div class='d-flex flex-row-reverse mr-2'>
+                    <div class='d-flex flex-row-reverse mx-2'>
                         <div class='my-1 rounded msg-width msg-user'>
                             <div class='m-0'>
                                 <!-- <div class='col-12 mt-1 p-0 px-2'>

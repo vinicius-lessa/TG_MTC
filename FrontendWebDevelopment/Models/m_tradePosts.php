@@ -15,7 +15,7 @@
 
 // FUNCTIONS
 
-function loadTradePosts(){
+function loadTradePosts($userID){
 
     // $url = "http://localhost/FATEC/_GitFinal/TG_TMC_BACKEND/SERVIDOR/anuncios.php/anuncios/";
     // $ch = curl_init($url);
@@ -26,7 +26,7 @@ function loadTradePosts(){
     // $response = json_decode(curl_exec($ch));
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all";
+    $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all&user_id=" . $userID;
 
     $opts = array('http' =>
         array(

@@ -20,8 +20,8 @@ include SITE_PATH . '/Models/m_tradePosts.php';
 
 
 // trade_posts/home.php
-if (isset($a_tpList)) {  
-  $a_tpList = loadTradePosts();
+if ( isset($a_tpList) ) {
+  $a_tpList = loadTradePosts($profileID);
   // $itensCarrosel = carregarDestaques($conn);
 }
 

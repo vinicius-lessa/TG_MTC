@@ -1,8 +1,9 @@
 /**
 * @descrption CSS File for the entire project - 2022/03 
 * @ChangeLog
-*   2022/03/04 - Vinícius Lessa - Primeiras mudanças, e criação das próprias classes.
-*   2022/03/15 - Vinícius Lessa - Ajustes referentes ao Formulário defaut.
+*   04/03/2022 - Vinícius Lessa - Primeiras mudanças, e criação das próprias classes.
+*   15/03/2022 - Vinícius Lessa - Ajustes referentes ao Formulário defaut.
+*   16/04/2022 - Vinícius Lessa - Ciração de classes diversas para mostrar imagem no estilo OLX. Mudança de cor de HOVER do menu.
 */
 
 /* ################################ Default Elements
@@ -40,7 +41,7 @@ footer{
 .btn-send {
   color: #fff;
   background-color: #0b6372;
-  border: 0px;  
+  border: 0px;
 }
 
 .btn-send:hover {
@@ -48,19 +49,28 @@ footer{
 }
 
 .btn-efeito-hover:hover {
-  background-color: #CD0000;
+  background-color: #f6424296;
   border-radius: 15px;
-  font-weight: bold;
+  /* font-weight: bold; */
+}
+
+.profile-btn {
+  position: absolute; 
+  transform: translate(90px, 250px);  
 }
 
 .default-tabs {
-  color: white !important;  
+  color: white !important; 
   border: 0px !important;
 }
 
-.default-tabs:hover {
-  background-color: #d32828 !important;    
-}
+.default-tabs:hover {  
+  color: #ea4646 !important;
+}.nav-tabs
+
+.default-tabs.active:hover {  
+  color: white !important;
+}.nav-tabs
 
 .default-tabs.active{  
   background-color: #ed3737 !important;  
@@ -158,7 +168,7 @@ form div {
 }
 
 .text-red {
-  color: #c31919;
+  color: #d21b1b;
 }
 
 .text-lightred {
@@ -192,7 +202,7 @@ a.link-none:link {
 }
 
 
-/* ################################ SIGNUP-SIGNIN
+/* ################################ SignIn - SignUp
 */ 
 .body-login {
   height: 100vh;
@@ -206,7 +216,17 @@ a.link-none:link {
   background-size: cover;
 }
 
-/* ################################ Imagens */
+/* ################################ My Profile
+*/
+
+.tp-card {
+  background-color: rgb(43, 49, 50) ;
+  border-right-style: solid;
+  border-width: 8px;
+  border-color: #eb3535;
+}
+
+/* ################################ Images */
 
 .image_container {  
   padding-bottom: 75%;
@@ -214,10 +234,6 @@ a.link-none:link {
   width: 100%;
   overflow: hidden;  
   background-color: #1c212489;
-  /* display: flex; */
-  /* -moz-box-pack: center; */
-  /* justify-content: center; */
-  /* border-radius: 8px; */
 }
 
 .image_default {
@@ -226,13 +242,39 @@ a.link-none:link {
 }
 
 
+/* Vinícius - 26/04/2022 */
+.image_container_test {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  transform: translate(0px, -229px);
+}
+
+.blur-container {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #858585;
+}
+
+.blur_background {
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat; 
+  background-size: cover;  
+  filter: blur(2px) brightness(0.6);
+}
+
+.testtwo{
+  max-width: 100%;
+  height: 100%;
+  filter: contrast(110%) brightness(1.2);
+}
+
+
 /* ################################ ANUNCIOS-DETALHE
-*/ 
-/* .dpotTF {
-  background-image: url("https://img.olx.com.br/images/02/020240519145542.jpg");
-  background-position: 50% center;
-  filter: blur(32px);
-} */
+*/
 
 .bQbWAr {
   max-height: 402px;
