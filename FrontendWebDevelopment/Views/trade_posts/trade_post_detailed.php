@@ -10,6 +10,7 @@
  *  - Renata Carrillo - 18/04/22: Inclusão dos "outros anúncios"
  *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos produtos;
  *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap.
+ *  - Vinícius Lessa - 26/04/2022: Início da implementação da visualização do Anúncio pelo criador (meu perfil > meus anúncios).
  * 
  * @ Notes: 
  * 
@@ -27,14 +28,16 @@ if (!defined('SITE_URL')) {
 
 $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
 
-$tradePostID = $_GET['trade_post'];
+$tradePostID = $_GET['trade_post']; // usado em 'c_trade_posts.php'
 
 require SITE_PATH . '/Controllers/c_trade_posts.php';
 
-$titlePage = $tpDetails['data'][0]['title'];
+$titlePage    = $tpDetails['data'][0]['title'];
 
-$post_id = $tpDetails["data"][0]["post_id"];
-$userCreator = $tpDetails["data"][0]["user_id"];
+$post_id      = $tpDetails["data"][0]["post_id"];
+$userCreator  = $tpDetails["data"][0]["user_id"];
+
+$isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id']
 
 ?>
 
@@ -88,21 +91,12 @@ $userCreator = $tpDetails["data"][0]["user_id"];
             </div>
           </div>
                   
-          <!-- IMAGENS -->
+          <!-- IMAGES -->
           <div class="container">
             <div class="row">
-              <div class="col-8 bQbWAr">
+              <div class="col-12 bQbWAr">
                 <img class="image" src="<?php echo $tpDetails["data"][0]["image_name"] ?>">
-              </div>
-
-              <div class="col-4 bk-green">
-                <div class="col-6 mb-3">
-                  <img class="img-fluid" src="<?php echo $tpDetails["data"][0]["image_name"] ?>">
-                </div>
-                <div class="col-6">
-                  <img class="img-fluid" src="<?php echo SITE_URL ?>/images/icon.png">
-                </div>
-              </div>
+              </div>              
             </div>
           </div>
 
@@ -148,7 +142,7 @@ $userCreator = $tpDetails["data"][0]["user_id"];
                 </div>
                 <div class="col-4 mt-4">
                   <?php
-                    if ( !($isLoggedUser && ($tpDetails["data"][0]["user_id"] === $_SESSION['user_id'])) ) : 
+                    if ( !($isOwnPost) ) :
                   ?>
                       <a  class='text-white'
                           href='<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $userCreator ; ?>&post_id=<?php echo $post_id ; ?>&img_url=<?php echo $tpDetails["data"][0]["image_name"] ; ?>'>
@@ -181,12 +175,9 @@ $userCreator = $tpDetails["data"][0]["user_id"];
                         <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                         class="text-decoration-none text-white">
                           <strong>
-                            <?php echo $tpDetails["data"][0]["user_name"] ; 
-                                  if ($isLoggedUser) :
-                                    echo ( $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'] ? " (Você)" : null );
-                                  endif;
-                            ?>
+                            <?php echo $tpDetails["data"][0]["user_name"] ; ?>                            
                           </strong>
+                          <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
                         </a>
                       </h5>
                     </div>

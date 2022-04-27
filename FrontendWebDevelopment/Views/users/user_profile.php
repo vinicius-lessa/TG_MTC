@@ -119,9 +119,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <div class="row">
             <div class="col-12 d-flex justify-content-center my-3 p-2">
               
-              <div class="">
+              <div class="position-static">
                 <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
-              </div>              
+              </div>
 
               <div class="profile-btn">
                 <button type="button" class="btn btn-primary p-1">
@@ -143,10 +143,11 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
         <!-- Profile Info -->
         <div class="container bk-gray mt-3 mb-5 rounded">
-          
-          <!-- Testes de Multiple Tabs -->  
+                    
           <div class="row text-white">
             <div class="col-12 p-2">
+
+              <!-- Multiple Tabs -->
               <div class="row">
                 <div class="col-12">
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -316,11 +317,11 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                 </div>
 
                                 <!-- Image -->
-                                <div class="image_container_test">
+                                <div class="image_container_test" style="transform: translate(0px, -229px);">
                                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
                                     <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
                                   </a>
-                                </div>                                
+                                </div>
                               </div>
                               
 
