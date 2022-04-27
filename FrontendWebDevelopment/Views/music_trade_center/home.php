@@ -66,7 +66,7 @@
           <div class="form-outline col-10 col-sm-6">
             <input id="search-input" type="search" id="form1" class="form-control" />
           </div>
-            <button id="search-button" type="button" class="btn btn-danger">
+            <button id="search-button" type="button" class="btn btn-default">
               <i class="bi bi-search"></i>
           </button>
         </div>

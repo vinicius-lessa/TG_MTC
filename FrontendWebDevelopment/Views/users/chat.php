@@ -27,7 +27,7 @@ $titlePage = 'MTC | Chat';
 $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
 
 if ( $isLoggedUser ):
-  $userLogged   = $_SESSION['user_id'];  
+  $userLogged   = $_SESSION['user_id'];
   $post_id      = $_GET['post_id'];  
 
   if ( isset($_GET['user']) ):
@@ -38,9 +38,14 @@ if ( $isLoggedUser ):
 
 endif;
 
-$tradePostID = $_GET['post_id'];
 
+$a_OtherChats = [] ; // Chamado em 'c_chat.php'
+require SITE_PATH . '/Controllers/c_chat.php';
+
+
+$tradePostID  = $_GET['post_id']; // Chamado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';
+
 
 $userCreator      = $tpDetails["data"][0]["user_id"];
 $userCreatorName  = $tpDetails["data"][0]["user_name"];
@@ -206,9 +211,9 @@ $category         = $tpDetails["data"][0]["pc_desc"];
 
                         <div class="col-12 scrollbar h-100 reverse-vertical-direction px-0" id="chat" style="display: none;">
                           
-                          <!-- Not Functional Messages Example -->
-                                                    
-                          <!-- <div class="d-flex flex-row-reverse mr-2">
+                          <!-- Not Functional Messages Example -->                                                    
+
+                          <!--<div class="d-flex flex-row-reverse mr-2">
                             <div class="my-1 rounded msg-width msg-user">
                               <div class="m-0"> 
                                 <div class="col-12 mb-0 d-flex flex-row-reverse p-0 px-2">
@@ -252,9 +257,9 @@ $category         = $tpDetails["data"][0]["pc_desc"];
             <!-- Other Chats -->
             <div class="col-12 col-sm-4 p-2">
               <div class="shadow bk-gray p-3 rounded h-100">
-                <div class="row text-center">
-                  <div class="col-12">
-                    <strong><h5>OUTRAS CONVERSAS</h5></strong>
+                <div class="row">
+                  <div class="col-12 text-red">
+                    <strong><h4>OUTRAS CONVERSAS</h4></strong>
                   </div>
                 </div>
 
@@ -262,103 +267,144 @@ $category         = $tpDetails["data"][0]["pc_desc"];
 
                 <div class="row pl-2 pr-1" style="height: 550px;">
                   <div class="col-12 scrollbar h-100 w-100">
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Rafaela Alle</span></strong>
-                      </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>agora</small>
-                        </div>
+                    
+                  <?php if ( !empty($a_OtherChats["data"]) ): ?>
+                    
+                    <div class="row mt-2 mb-4">
+                      <div class="col-12 text-center">
+                        <strong><h5>SEUS ANÚNCIOS</h5></strong>
                       </div>
                     </div>
 
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Luiz</span></strong>
+                    <?php 
+                      $countChatRows = 0;
+                      foreach ($a_OtherChats["data"] as $chat) {                      
+                    ?>                      
+                      <?php if ( $chat["userid_tp_creator"] == $userLogged ):
+                        $countChatRows += 1;
+                      ?>                      
+
+                        <div class="col-12">
+                          <div class="row mb-1">
+                            <div class="col-10">
+                              <strong>
+                                <p class="mb-2">
+                                <?php echo $chat["post_title"] ?>
+                                </p>
+                              </strong>
+                              <small>
+                                <?php 
+                                  if ( $chat["userid_lastmessage"] == $userLogged ):
+                                    echo "<strong>Você</strong>: " .  $chat["last_message"] ;
+
+                                  else:
+                                    echo "<strong>" . $chat["username_lastmessage"] . "</strong>: " .  $chat["last_message"] ;
+
+                                  endif;
+                                ?> <span class="text-gray size-12"> - 10:41 </span> 
+                              </small>
+                            </div>
+                            
+                            <!-- Image -->                              
+                            <div class="col-2 p-0 blur-container" style="height: 55px;">
+                              <!-- Blur -->
+                              <div class="blur_background" style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                              </div>
+
+                              <!-- Image -->
+                              <div class="image_container_test" style="transform: translate(0px, -53px);">
+                                <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
+                                  <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
+                                </a>
+                              </div>
+                            </div>
+
+                          </div>                          
+                        </div>
+
+                        <hr class="hr-default my-4">
+
+                      <?php endif; ?>
+                    <?php } ?>
+
+                    <?php if ( $countChatRows == 0 ): ?>
+                      <div class="col-12 text-center mb-5">
+                        <h6>Nenhuma Conversa encontrada.</h6>
                       </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>14:25</small>
-                        </div>
+                    <?php endif; ?>
+
+
+                    <div class="row mt-4 mb-4">
+                      <div class="col-12 text-center">
+                        <strong><h5>SEUS INTERESSES</h5></strong>
                       </div>
                     </div>
 
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Renato Lompandi</span></strong>
-                      </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>25/03/2022</small>
-                        </div>
-                      </div>
-                    </div>
+                    <?php 
+                      $countChatRows = 0;
+                      foreach ($a_OtherChats["data"] as $chat) {                        
+                    ?>
+                      <?php if ( !($chat["userid_tp_creator"] == $userLogged) ): 
+                        $countChatRows += 1;
+                      ?>
 
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Renato Lompandi</span></strong>
-                      </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
+                        <div class="col-12">
+                          <div class="row mb-1">
+                            <div class="col-10">
+                              <strong>
+                                <p class="mb-2">
+                                <?php echo $chat["post_title"] ?>
+                                </p>
+                              </strong>
+
+                              <small>
+                                <?php 
+                                  if ( $chat["userid_lastmessage"] == $userLogged ):
+                                    echo "<strong>Você</strong>: " .  $chat["last_message"] ;
+
+                                  else:
+                                    echo "<strong>" . $chat["username_lastmessage"] . "</strong>: " .  $chat["last_message"] ;
+
+                                  endif;
+                                ?> <span class="text-gray size-12"> - <?php echo $chat["date"] ?> </span> 
+                              </small>
+
+                            </div>
+                            
+                            <!-- Image -->                              
+                            <div class="col-2 p-0 blur-container" style="height: 55px;">
+                              <!-- Blur -->
+                              <div class="blur_background" style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                              </div>
+
+                              <!-- Image -->
+                              <div class="image_container_test" style="transform: translate(0px, -53px);">
+                                <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
+                                  <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
+                                </a>
+                              </div>
+                            </div>
+
+                          </div>                          
                         </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>25/03/2022</small>
-                        </div>
-                      </div>
-                    </div>
+
+                        <hr class="hr-default my-4">
+
+                      <?php endif; ?>
+                    <?php } ?>
                     
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Renato Lompandi</span></strong>
+                    <?php if ( $countChatRows == 0 ): ?>
+                      <div class="col-12 text-center">
+                        <h6>Nenhuma Conversa encontrada.</h6>
                       </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>25/03/2022</small>
-                        </div>
-                      </div>
+                    <?php endif; ?>                                                                   
+
+                  <?php else: ?>
+                    <div class="col-12 text-center">
+                      <h3>Nenhuma Conversa encontrada!</h3> <!-- Fazer depois -->
                     </div>
-                    
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Renato Lompandi</span></strong>
-                      </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>25/03/2022</small>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="col-12">
-                      <div class="row mb-1">
-                        <strong><span>Renato Lompandi</span></strong>
-                      </div>
-                      <div class="row mb-4">
-                        <div class="col-6 d-flex">
-                          <small>Olá Fulano, tudo bem?</small>
-                        </div>
-                        <div class="col-6 d-flex flex-row-reverse text-gray">
-                          <small>25/03/2022</small>
-                        </div>
-                      </div>
-                    </div>       
+                  <?php endif; ?>
+
                   </div>
                 </div>
               </div>

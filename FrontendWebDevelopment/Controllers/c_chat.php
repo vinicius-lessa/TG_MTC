@@ -66,6 +66,13 @@ if ($dados['action'] === "newMessage"):
 endif;
 
 
+// GET OTHER CHATS
+if ( isset($a_OtherChats) && isset($userLogged) ):
+    $a_OtherChats = getOtherChats($userLogged);
+    return;
+endif;
+
+
 // REFRESH MESSAGES
 if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_id']) ):
     
@@ -73,7 +80,7 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
     $userTwo    = $_GET['userTwo'];
     $post_id    = $_GET['post_id'];
 
-    $response = selectChat($userLogged, $userTwo, $post_id);
+    $response = refreshChat($userLogged, $userTwo, $post_id);
 
     // print_r($response);
 
@@ -124,9 +131,7 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
     else:
         echo 200; // nenhuma conversa encontrada        
         exit;
-
-        // echo json_encode($response);
-        // exit;
+        
     endif;
     
 else:

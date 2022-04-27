@@ -51,7 +51,7 @@ function refreshChat(){
 }
       
 // Repeat - 10 seconds
-setInterval(function(){refreshChat();}, 40000);
+setInterval(function(){refreshChat();}, 5000);
 
 
 // Events
