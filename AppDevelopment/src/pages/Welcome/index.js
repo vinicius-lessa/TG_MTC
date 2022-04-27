@@ -22,7 +22,7 @@ export default function Welcome() {
         <Animatable.View delay={600} animation="fadeInUp" style={styles.containerForm}>
         <TouchableOpacity 
         style={styles.button}
-        onPress={() => navigation.navigate('LogIn')}
+        onPress={() => navigation.navigate('Home')}
         >
         <Text style={styles.buttonText}>Acessar</Text>  
         </TouchableOpacity>

@@ -4,6 +4,7 @@ import Welcome from '../pages/Welcome'
 import LogIn from '../pages/LogIn'
 import Home from "../pages/Home";
 import Create from "../pages/Create";
+import CreateAd from "../pages/CreateAd";
 
 //Gera uma constante do tipo stack 
 const Stack = createNativeStackNavigator();
@@ -30,6 +31,11 @@ export default function Routes(){
             <Stack.Screen
                 name="Create"
                 component={Create}
+                options={{headerShown: false}}
+            />
+              <Stack.Screen
+                name="CreateAd"
+                component={CreateAd}
                 options={{headerShown: false}}
             />
         </Stack.Navigator>
