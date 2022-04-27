@@ -28,22 +28,37 @@ $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) &&
 
 if ( $isLoggedUser ):
   $userLogged   = $_SESSION['user_id'];
-  $post_id      = $_GET['post_id'];  
 
-  if ( isset($_GET['user']) ):
-    $userTwo = $_GET['user'];
-  else:
-    // $userTwo = 0; // Tratar depois
+  if ( isset($_GET['user']) && isset($_GET['post_id']) ):
+    $post_id  = $_GET['post_id'];  
+    $userTwo  = $_GET['user'];
+    $imgUrl   = $_GET['img_url'];
+
   endif;
+
+else:
+  // Login necessário para acessar essa página
+  header("location:" . SITE_URL . "/Views/users/sign_in.php");
 
 endif;
 
 
-$a_OtherChats = [] ; // Chamado em 'c_chat.php'
+$a_OtherChats = [] ; // Chamado em 'c_chat.php' - Carrega todos os Chats do Usuário
 require SITE_PATH . '/Controllers/c_chat.php';
 
+// Último Chat Ativo (caso não tenha vindo de um Post Específico)
+if ( !isset($post_id) && !isset($userTwo) && !isset($imgUrl) && !empty($a_OtherChats) ):
+  $post_id  = $a_OtherChats["data"][0]["post_id"];
+  $userTwo  = $a_OtherChats["data"][0]["userTwo"];
+  $imgUrl   = $a_OtherChats["data"][0]["image_name"];
 
-$tradePostID  = $_GET['post_id']; // Chamado em 'c_trade_posts.php'
+else:
+  $noChats = true;
+
+endif;
+
+
+// $chatPostID = $post_id; // Chamado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 
@@ -51,6 +66,8 @@ $userCreator      = $tpDetails["data"][0]["user_id"];
 $userCreatorName  = $tpDetails["data"][0]["user_name"];
 $title            = $tpDetails["data"][0]["title"];
 $category         = $tpDetails["data"][0]["pc_desc"];
+
+$isOwnPost        = $userCreator === $_SESSION['user_id']
 
 ?>
 
@@ -78,7 +95,7 @@ $category         = $tpDetails["data"][0]["pc_desc"];
     <script type="text/javascript">
       
       // Used in 'chat.js'
-      url = 'http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';      
+      url = 'http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';
 
     </script>
 
@@ -92,10 +109,26 @@ $category         = $tpDetails["data"][0]["pc_desc"];
     
     <!-- Begin page content -->
     <main>
-      <div class="container">
-        <!-- Somente se estiver Logado -->
-        <?php if ( $isLoggedUser ): ?>
+      <!-- Has Chats? No -->
+      <?php if ( $noChats ): ?>
+        <div class="container text-center text-white">
+          <div class="row">
+            <div class="col-12 mx-5">
+              <h1 class=""><strong>Ainda não começou nenhuma Conversa?</strong></h1>
+            </div>
 
+            <div class="col-12 mx-5">
+              <h5 class="">Comece novas Conversas a partir de outros <a href="#" class="btn-default">Anúncios</a> ou Receba propostas de seus próprios <a href="#" class="btn-default">Anúncios</a>.</h5>
+            </div>
+            <div class="col-12 mx-5">
+              <h5 class="">¯\_(ツ)_/¯</h5>
+            </div>                
+          </div>
+        </div>
+              
+      <!-- Has Chats? Yes -->
+      <?php else: ?>
+      <div class="container">
         <div class="row">
           <div class="col-12 col-sm-6 mt-5">
             <h1 class="text-white"><strong>CHAT</strong></h1>
@@ -129,7 +162,7 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                       <!-- TP Image -->
                       <div class="col-4 col-sm-2 p-0">
                         <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $post_id ?>">
-                          <img src="<?php echo $_GET['img_url'] ?>" class="rounded" alt="" style="width:190px; height:106px; object-fit:cover;">
+                          <img src="<?php echo $imgUrl ?>" class="rounded" alt="" style="width:190px; height:106px; object-fit:cover;">
                         </a>
                       </div>
 
@@ -149,7 +182,12 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                             <span><?php echo $category; ?></span>
                           </div>
                           <div class="col-12 mt-1">
-                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $userCreator; ?>" class="linkdefault"><span><?php echo $userCreatorName ?></span></a>
+                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $userCreator; ?>" class="linkdefault">
+                              <span>
+                                <?php echo $userCreatorName ?>
+                              </span>
+                              <?php if ($isOwnPost) : echo "<small> (Você)</small>" ;  endif; ?>                              
+                            </a>
                           </div>                          
                         </div>
 
@@ -244,7 +282,7 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                                 </div>                              
                               </div>
                             </div>
-                          </div> -->                          
+                          </div> -->                       
 
                         </div>  
                       </div>
@@ -258,8 +296,8 @@ $category         = $tpDetails["data"][0]["pc_desc"];
             <div class="col-12 col-sm-4 p-2">
               <div class="shadow bk-gray p-3 rounded h-100">
                 <div class="row">
-                  <div class="col-12 text-red">
-                    <strong><h4>OUTRAS CONVERSAS</h4></strong>
+                  <div class="col-12">                    
+                    <h3 class="title-default">OUTRAS CONVERSAS</h3>
                   </div>
                 </div>
 
@@ -271,8 +309,8 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                   <?php if ( !empty($a_OtherChats["data"]) ): ?>
                     
                     <div class="row mt-2 mb-4">
-                      <div class="col-12 text-center">
-                        <strong><h5>SEUS ANÚNCIOS</h5></strong>
+                      <div class="col-12 text-center text-red stroke-one">
+                        <h5>SEUS ANÚNCIOS</h5>
                       </div>
                     </div>
 
@@ -284,14 +322,20 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                         $countChatRows += 1;
                       ?>                      
 
-                        <div class="col-12">
-                          <div class="row mb-1">
+                        <div class="col-12">                          
+                          <div class="row mb-1">                            
                             <div class="col-10">
-                              <strong>
-                                <p class="mb-2">
-                                <?php echo $chat["post_title"] ?>
-                                </p>
-                              </strong>
+                              
+                              <a class="linkdefault" 
+                                 href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
+                              >
+                                <strong>
+                                  <p class="mb-2">
+                                  <?php echo $chat["post_title"] ?>
+                                  </p>
+                                </strong>
+                              </a>
+
                               <small>
                                 <?php 
                                   if ( $chat["userid_lastmessage"] == $userLogged ):
@@ -301,7 +345,7 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                                     echo "<strong>" . $chat["username_lastmessage"] . "</strong>: " .  $chat["last_message"] ;
 
                                   endif;
-                                ?> <span class="text-gray size-12"> - 10:41 </span> 
+                                ?> <span class="text-gray size-12"> - <?php echo $chat["message_date"] ?> </span>
                               </small>
                             </div>
                             
@@ -317,7 +361,7 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                                   <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
                                 </a>
                               </div>
-                            </div>
+                            </div>                            
 
                           </div>                          
                         </div>
@@ -335,8 +379,8 @@ $category         = $tpDetails["data"][0]["pc_desc"];
 
 
                     <div class="row mt-4 mb-4">
-                      <div class="col-12 text-center">
-                        <strong><h5>SEUS INTERESSES</h5></strong>
+                      <div class="col-12 text-center text-red stroke-one">
+                        <h5>SEUS INTERESSES</h5>
                       </div>
                     </div>
 
@@ -351,11 +395,19 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                         <div class="col-12">
                           <div class="row mb-1">
                             <div class="col-10">
-                              <strong>
+                              <a  class="linkdefault" 
+                                  href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
+                              >                                                              
                                 <p class="mb-2">
-                                <?php echo $chat["post_title"] ?>
-                                </p>
-                              </strong>
+                                  <strong>
+                                    <?php echo $chat["post_title"] ?>
+                                  </strong>
+                                  
+                                  <small> 
+                                    (<?php echo $chat["username_tp_creator"] ?>)
+                                  </small>
+                                </p>                                
+                              </a>
 
                               <small>
                                 <?php 
@@ -366,7 +418,7 @@ $category         = $tpDetails["data"][0]["pc_desc"];
                                     echo "<strong>" . $chat["username_lastmessage"] . "</strong>: " .  $chat["last_message"] ;
 
                                   endif;
-                                ?> <span class="text-gray size-12"> - <?php echo $chat["date"] ?> </span> 
+                                ?> <span class="text-gray size-12"> - <?php echo $chat["message_date"] ?> </span> 
                               </small>
 
                             </div>
@@ -412,14 +464,10 @@ $category         = $tpDetails["data"][0]["pc_desc"];
 
           </div>          
         </div>
-      
-      <?php else:
-        // Login necessário para acessar essa página
-        header("location:" . SITE_URL . "/Views/users/sign_in.php");
-        
-      endif;  
-      ?>
       </div>
+      
+      <!-- Has Chats? End -->
+      <?php endif; ?>
     </main>
 
     <!-- Footer Include -->

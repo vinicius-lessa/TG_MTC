@@ -19,18 +19,18 @@ include SITE_PATH . '/Models/m_tradePosts.php';
 // include SITE_PATH . '/Models/m_comentario.php';
 
 
-// trade_posts/home.php
+// Called in: 'trade_posts/home.php'
 if ( isset($a_tpList) ) {
   $a_tpList = loadTradePosts($profileID);
   // $itensCarrosel = carregarDestaques($conn);
 }
 
 
-// trade_posts/trade_post_detailed.php
-if (isset($tradePostID)) :
+// Called in: 'trade_posts/trade_post_detailed.php' e 'users/chat.php'
+if ( isset($post_id) ) :
 
-  if (is_numeric($tradePostID)) {    
-    $tpDetails = loadTradePostDetails($tradePostID);
+  if (is_numeric($post_id)) {
+    $tpDetails = loadTradePostDetails($post_id);
 
     // $Comentarios = carregarComentarios($conn, $DetalheProduto);
     // $notaMedia = calculaNotaMedia($Comentarios);
@@ -52,21 +52,7 @@ if (isset($_POST['newTradePost'])) {
       $dados[$key] = ($value);
     }
   }
-
-  // var_dump($dados);
-
-  // $nomecover = publicarImagem($_FILES['cover_img']);
-  // $nomebanner = publicarImagem($_FILES['banner_img']);
-
-  // $dados['cover_img'] = $nomecover;
-  // $dados['banner_img'] = $nomebanner;
-
-  //   if (cadastarproduto($dados, $conn)) {
-  //       header("location:" . SITE_URL . "/Views/produtos/cadastrado-sucesso.php");
-  //   } else {
-  //       echo 'Erro para cadastrar dado no Banco';
-  //   }
-  //   exit;
+ 
 }
 
 

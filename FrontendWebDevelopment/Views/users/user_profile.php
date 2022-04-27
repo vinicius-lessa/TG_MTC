@@ -51,7 +51,6 @@ else:
 
 endif;
 
-$titlePage  = 'MTC | Anúncios';
 $a_tpList   = [];
 
 require SITE_PATH . '/Controllers/c_trade_posts.php';
@@ -168,7 +167,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                 <div class="col-12">
                   <div class="tab-content" id="myTabContent">
                     
-                    <!-- MEUS DADOS -->
+                    <!-- Self User Data -->
                     <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
                       <div class="row">
                         <div class="col-12 mt-5 mb-5 text-center">
@@ -296,7 +295,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       </div>
                     </div>                    
 
-                    <!-- ANÚNCIOS -->
+                    <!-- Self User Trade Posts -->
                     <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
                       <div class="row mt-5">
                         <div class="col-12 text-center p-0">

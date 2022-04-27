@@ -43,6 +43,11 @@ $uri = basename($_SERVER['REQUEST_URI']);
 // ### GET (Consulta)
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
+    // Possíveis Requisições:
+    // - Todos os Anúncios: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=all'
+    // - Anúncios de um usuário Específico: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=all&user_id=14'
+    // - Anúncio Específico: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=224'
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
     // Token Validation

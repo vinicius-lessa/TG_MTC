@@ -26,18 +26,14 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-$isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
-
-$tradePostID = $_GET['trade_post']; // usado em 'c_trade_posts.php'
-
+$post_id = $_GET['trade_post']; // usado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';
-
-$titlePage    = $tpDetails['data'][0]['title'];
 
 $post_id      = $tpDetails["data"][0]["post_id"];
 $userCreator  = $tpDetails["data"][0]["user_id"];
+$titlePage    = $tpDetails['data'][0]['title'];
 
-$isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id']
+$isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
 
 ?>
 
@@ -70,8 +66,8 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id']
     <?php include SITE_PATH . '/includes/header.php'; ?>
     
     <!-- Begin page content -->
-    <main>
-      <div class="container">
+    <div class="container">
+      <main class="">
         <?php       
           if ( isset($tpDetails) && !($tpDetails["error"]) ) :        
         ?>
@@ -91,137 +87,171 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id']
             </div>
           </div>
                   
-          <!-- IMAGES -->
-          <div class="container">
-            <div class="row">
-              <div class="col-12 bQbWAr">
-                <img class="image" src="<?php echo $tpDetails["data"][0]["image_name"] ?>">
-              </div>              
-            </div>
-          </div>
+          <!-- Main Content -->          
+          <article>              
+            <div class="row tradepost_container">
 
-          <!-- Principais Informações -->
-          <div class="row mt-4">
-            <div class="col-12 col-sm-8">
-              
-              <div>
-                <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>SOBRE</strong></h5>
-              </div>
-
-              <!-- Description -->
-              <div class="mt-3">
-                <p class="card-title text-white" style="text-align:left;"><?php echo $tpDetails["data"][0]["tp_desc"] ?></p>
-              </div>
-              
-              <!-- Outras Informações sobre o Anúncio -->
-              <div class="row mt-4">
-                <div class="col-12 col-sm-6">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item bk-black text-white">Cidade: <strong>São Roque</strong></li>
-                    <li class="list-group-item bk-black text-white">Bairro: <strong></strong></li>                
-                    <li class="list-group-item bk-black text-white">Telefone: <strong><?php echo $tpDetails["data"][0]["phone"] ?></strong></li>
-                  </ul>
+              <!-- Image Carrousel -->
+              <div class="col-12 col-sm-8 p-0 blur-container">
+                <!-- Blur -->
+                <div class="blur_background" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
                 </div>
-                <div class="col-12 col-sm-6">
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item bk-black text-white">Categoria: <strong><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></li>
-                    <li class="list-group-item bk-black text-white">Marca: <strong><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></li>
-                    <li class="list-group-item bk-black text-white">Modelo: <strong><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></li>
-                    <li class="list-group-item bk-black text-white">Estado: <strong>São Paulo</strong></li>
-                  </ul>
+
+                <!-- Image -->
+                <div class="image_container_test" style="transform: translate(0px, -498px);">
+                  <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="testtwo" alt="">
                 </div>
               </div>
 
-            </div>
+              <!-- Trade Post Info -->
+              <div class="col-12 col-sm-4 h-100">
 
-            <!-- Valor + Chat + Autor -->
-            <div class="col-12 col-sm-4">
-              <div class="row">
-                <div class="col-8 mt-3">
-                  <span class="text-white">Valor:</span><h4 class="text-red"><strong>R$ <?php echo $tpDetails["data"][0]["price"] ?></strong></h4>
-                </div>
-                <div class="col-4 mt-4">
-                  <?php
-                    if ( !($isOwnPost) ) :
-                  ?>
-                      <a  class='text-white'
-                          href='<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $userCreator ; ?>&post_id=<?php echo $post_id ; ?>&img_url=<?php echo $tpDetails["data"][0]["image_name"] ; ?>'>
-                        <button type='button' class='btn btn-lg border-0 btn-default'>
-                          <strong>CHAT</strong>
-                        </button>
-                      </a>
-                  <?php
-                    endif;
-                  ?>
-                </div>
-              </div>
-
-              <!-- Autor do Anúncio -->
-              <div class="row mt-3">                                
-                <div class="col-12 text-white">
-                  <div class="row">
-                    <div class="col-12 d-flex justify-content-center">
-                      <h5>Anunciante</h5>
-                    </div>
+                <!-- Title -->
+                <div class="row my-3 mx-0">
+                  <div class="col-12">
+                    <h3 class="text-white"><strong><?php echo $tpDetails['data'][0]['title']?></strong></h3>
                   </div>
-                  <div class="row">
-                    <div class="col-12 d-flex justify-content-center">
-                    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" class="nav-link px-4 link-secondary"><img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="100px" height="100px"></a>
-                    </div>
+                </div>
+                <div class="row my-2 mx-0">
+                  <div class="col-12">
+                    <h3 class="text-red" style="font-weight: bold;">R$ <?php echo $tpDetails["data"][0]["price"] ?></h3>
                   </div>
-                  <div class="row">
-                    <div class="col-12 d-flex justify-content-center">
-                      <h5>
-                        <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
-                        class="text-decoration-none text-white">
-                          <strong>
-                            <?php echo $tpDetails["data"][0]["user_name"] ; ?>                            
-                          </strong>
-                          <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
+                </div>                  
+
+                <!-- Outras Informações sobre o Anúncio -->
+                <div class="row my-3 mx-0">
+                  <div class="col-12 text-white">
+                    <div class="row">
+                      <div class="col-6">
+                        <p>Categoria: <strong class="size-18"><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></p>                          
+                      </div>
+                      <div class="col-6">
+                        <p>Marca: <strong class="size-18"><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12">
+                        <p>Modelo: <strong class="size-18"><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></p>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6">
+                        <p>Estado: <strong class="size-18">São Paulo</strong></p>                          
+                        <p>Cidade: <strong class="size-18">São Roque</strong></p>
+                      </div>
+                      <div class="col-6">
+                      <p>Bairro: <strong class="size-18"></strong></p>
+                        <p>Telefone: <strong class="size-18"><?php echo $tpDetails["data"][0]["phone"] ?></strong></p>
+                      </div>
+                    </div>
+
+                    <!-- Autor do Anúncio -->
+                    <div class="row mt-2">
+                      <div class="col-12 text-white">
+
+                        <div class="row">
+                          <div class="col-12 d-flex justify-content-center">
+                            <p>Item anunciado por:</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 d-flex align-items-center justify-content-center">
+                            <span>
+                              <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                              class="text-decoration-none text-white">
+                                <strong>
+                                  <?php echo $tpDetails["data"][0]["user_name"] ; ?>
+                                </strong>
+                                <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
+                              </a>
+                            </span>
+                            <a 
+                              href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                              class="nav-link px-4 link-secondary">
+                                <!-- <img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="70px" height="70px"> -->
+                                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                            </a>                              
+                          </div>                                                          
+                        </div>
+
+                      </div>              
+                    </div>                      
+
+                  </div>
+                </div>   
+                
+                <!-- Conversar/Chat -->
+                <div class="row mx-0">
+                  <div class="col-12 py-2 text-center">
+                    <!-- Validar com JS para exibir o botão, porém ao clicar e ser o mesmo usuário, cancelar a âncora -->
+                    <?php
+                      if ( !($isOwnPost) ) :
+                    ?>
+                        <a  class='text-white'
+                            href='<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $userCreator ; ?>&post_id=<?php echo $post_id ; ?>&img_url=<?php echo $tpDetails["data"][0]["image_name"] ; ?>'>
+                          <button type='button' class='btn btn-lg border-0 btn-default'>
+                            <strong>Conversar com <?php echo $tpDetails["data"][0]["user_name"] ; ?></strong>
+                          </button>
                         </a>
-                      </h5>
-                    </div>
+                    <?php
+                      endif;
+                    ?>
                   </div>
-                </div>              
+                </div>
+
               </div>
             </div>
-          </div>
+            
+            <!-- Description -->
+            <div class="row">
+              <div class="col-12 mt-4 mb-5">
+                <div>
+                  <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>Descrição do Anúncio:</strong></h5>
+                </div>
+                <div class="mt-3">
+                  <p class="card-title text-white" style="text-align:left;"><?php echo $tpDetails["data"][0]["tp_desc"] ?></p>
+                </div>
+              </div>
+            </div>            
+
+          </article>          
 
         <?php else:  ?>   
           <!-- Problemas ao Solicitar informações ao Server -->
-          <div class="row text-center mb-4">
-            <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
+          <div class="row text-center my-5 text-white">
+            <h1>Desculpe, não encontramos nada por aqui!</h1>
+            <h1 class="mt-5">¯\_(ツ)_/¯</h1>
           </div>
           <div class="row text-center mb-4">
             <p class="text-white"><?php echo $tpDetails['msg'] ?></p>
-          </div>            
-        <?php endif; ?>
+          </div>
+        <?php endif; ?>        
+      
+      </main>
+      
+      <div class="col-12">
+        <hr class="hr-default">
       </div>
-    </main>
 
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-12 col-sm-12 mt-5">
-          <h1 class="text-white"><strong>OUTROS &nbsp;A N Ú N C I O S</strong></h1>
+      <!-- OUTROS ANÚNCIOS-->
+      <section>      
+        <div class="row">
+          <div class="col-12 col-sm-12 mt-5">
+            <h1 class="text-white"><strong>OUTROS &nbsp;A N Ú N C I O S</strong></h1>
+          </div>
+          <div class="col-12">
+            <hr class="hr-default">
+          </div>
         </div>
-          <hr></hr>
-      </div>
-    </div>
 
-    <!-- OUTROS ANÚNCIOS-->
-    <!-- Trade Posts (Anúncios) vindos do Banco de Dados -->
-    <section>
-      <?php 
-        if ( isset($a_tpList) && !$a_tpList["error"] ) :
-      ?>
-        <div class="container mb-5">
+        <?php 
+          if ( isset($a_tpList) && !$a_tpList["error"] ) :
+        ?>          
           <div class="row">          
             <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
-              <!--
-                > 990 (lg)= 3 
-                < 990 (md)= 2
-                > 575 (sm)= 1 
-              -->
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="image_container">
                   <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
@@ -232,34 +262,36 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id']
                   <p class="card-title text-red" style="text-align:left;"><strong><small>R$</small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></p>
               </div>            
             <?php } ?>
+          </div>          
+        <?php else : ?>
+          <div class="container mt-5 mb-5">
+            <div class="row text-center mb-4">
+              <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
+            </div>
+            <div class="row text-center mb-4">
+              <p class="text-white"><?php echo $a_tpList['msg'] ?></p>
+            </div>
           </div>
-        </div>
-      <?php else : ?>
-        <div class="container mt-5 mb-5">
-          <div class="row text-center mb-4">
-            <h3 class="text-white">Desculpe, não encontramos nada por aqui!</h3>
-          </div>
-          <div class="row text-center mb-4">
-            <p class="text-white"><?php echo $a_tpList['msg'] ?></p>
-          </div>
-        </div>
-      <?php endif; ?>
-    </section>
+        <?php endif; ?>
+      </section>
 
-    <!-- ENCONTRE ARTISTAS -->
-    <div class="card-group d-flex justify-content-center">
-      <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
-        <div class="row mt-3 mb-3">
-          <div class="col-12 col-sm-8">
-            <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
-            <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
-          </div>
-          <div class="col-12 col-sm-2 mt-1">
-            <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+      <section>
+        <!-- ENCONTRE ARTISTAS -->
+        <div class="card-group d-flex justify-content-center">
+          <div class="bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+            <div class="row mt-3 mb-3">
+              <div class="col-12 col-sm-8">
+                <h3 class="mt-2"><strong>Encontre artistas de diversos genêros</strong></h3>
+                <p>Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
+              </div>
+              <div class="col-12 col-sm-2 mt-1">
+                <a class="text-white" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </div>       
 
     <!-- Footer Include -->
     <?php include SITE_PATH . '/includes/footer.php'; ?>    

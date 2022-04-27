@@ -85,8 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         
             if ( is_numeric($userLogged) && is_numeric($userTwo) && is_numeric($post_id) ):
                 $dados = CrudDB::select(
-                    'SELECT c.chat_guid, m.message_user_id, m.message, m.created_on from chat c
+                    'SELECT c.chat_guid, m.message_user_id, u.user_name, m.message, m.created_on from chat c
                      INNER JOIN messages m ON m.message_chat_guid = c.chat_guid
+                     INNER JOIN users u ON m.message_user_id = u.user_id
                      where 	c.trade_post_id = :POST_ID and
                             c.activity_status = 1 and 
                             m.activity_status = 1 and
@@ -170,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                                 m.message_chat_guid = c.chat_guid AND
                                 m.message_user_id IN (userTwo, :USER_ID)
                         order by m.created_on DESC LIMIT 1
-                    ) AS 'date' ,	
+                    ) AS 'message_date' ,	
                     itp.image_name  AS `image_name`
                     FROM user_chat uc
                     INNER JOIN chat c ON c.chat_guid = uc.user_chat_chat_guid
@@ -179,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     left JOIN images_trade_posts itp ON itp.trade_post_id = c.trade_post_id
                     WHERE c.activity_status = 1 AND	  
                         uc.user_chat_user_id =:USER_ID
-                    order by userid_tp_creator, uc.created_on desc;",
+                    order by 'message_date', userid_tp_creator desc;",
                     [                        
                         'USER_ID' => $userLogged
                     ], TRUE);
