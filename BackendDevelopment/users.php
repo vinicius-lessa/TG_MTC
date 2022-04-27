@@ -22,6 +22,10 @@ header('Content-type: application/json; charset=UTF-8');
 
 require_once 'classes/Class.Crud.php';
 
+if (!defined('SITE_URL')) {
+    include_once 'config.php';
+}
+
 # Estabelece Conexão com o BANCO DE DADOS
 
 // Class.Conexao.php
@@ -72,11 +76,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $userId = $valueSearch;
 
                 if (is_numeric($userId)):
-                    $dados = CrudDB::select('SELECT * FROM users WHERE user_id =:USER_ID'
+                    $dados = CrudDB::select(
+                        'SELECT u.user_id, u.user_name, u.birthday, u.phone, u.tipo_pessoa, u.email, u.cep, u.bio, u.created_on, ip.image_name FROM users u
+                        LEFT JOIN images_profile ip ON ip.user_id  = u.user_id
+                        WHERE u.user_id =:USER_ID'
                         ,['USER_ID' => $userId]
                         ,TRUE);
                     
                     if (!empty($dados)):
+                        foreach ($dados as $user) {
+                            $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
+                        }    
                         http_response_code(200);
                         echo json_encode([
                             'error' => false ,

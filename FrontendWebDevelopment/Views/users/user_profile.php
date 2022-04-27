@@ -119,7 +119,11 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <div class="col-12 d-flex justify-content-center my-3 p-2">
               
               <div class="position-static">
-                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
+                <?php if ( isset($profileDetails['data'][0]['image_name']) ): ?> 
+                  <img src="<?php echo $profileDetails['data'][0]['image_name'] ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
+                <?php else: ?>
+                  <img src="<?php echo SITE_URL ?>/images/icon-profile.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
+                <?php endif; ?>
               </div>
 
               <div class="profile-btn">

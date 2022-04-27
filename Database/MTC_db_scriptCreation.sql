@@ -364,7 +364,25 @@ CREATE TABLE IF NOT EXISTS `messages`
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
+-- ## 24º - Criar tabela `images_profile`, referente as IMAGENS utilizadas nos anúncios do sistema
+DROP TABLE IF EXISTS `images_profile`;
+CREATE TABLE IF NOT EXISTS `images_profile`
+(
+  `image_id`              int(11)       NOT NULL auto_increment ,
+  `image_name`            varchar(255)  NOT NULL                ,
+  `user_id`               int(11)       NOT NULL                ,  
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_images PRIMARY KEY (image_id) ,
+  CONSTRAINT FK_users_images FOREIGN KEY (user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
+-- ## 25º - Insere Dados na tabela `images_profile`
+INSERT INTO `images_profile`
+( `image_name`, `user_id`, `activity_status`)
+VALUES
+( 'img-001.jpg', '4', DEFAULT ) ;
 
 -- ############################################################### ANALISAR ###############################################################
 
