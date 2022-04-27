@@ -84,9 +84,9 @@
   <div class="row">
 
   <div class="col-6 col-sm-3 mt-3">
-  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA01.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-      </a>
+    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA01.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+    </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white" style="font-size:14px;">
@@ -99,9 +99,9 @@
   </div>
 
   <div class="col-6 col-sm-3 mt-3">
-  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-      </a>
+    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+    </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white" style="font-size:14px;">
@@ -114,9 +114,9 @@
   </div>
 
   <div class="col-6 col-sm-3 mt-3">
-  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAMEN02.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-      </a>
+    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAMEN02.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+    </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white" style="font-size:14px;">
@@ -129,9 +129,9 @@
   </div>
 
   <div class="col-6 col-sm-3 mt-3">
-  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-      </a>
+    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+    </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
       <div class="card-body text-white" style="font-size:14px;">
