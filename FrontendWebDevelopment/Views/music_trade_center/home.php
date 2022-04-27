@@ -10,18 +10,19 @@
  * @ Notes: 
  * 
  */
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-  $titlePage = 'Music Trade Center';
-  $data_slide = 0;
+$titlePage  = 'MTC | Music Trade Center';
+$a_tpList   = [];
 
-  // require SITE_PATH . '/Controllers/c_trade_posts.php';
+require SITE_PATH . '/Controllers/c_trade_posts.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -74,18 +75,28 @@
       </div>
     </main>
 
-<!-- bk -->
-<!-- <nav class="navbar navbar-light bk-gray mt-5" style="positiom:absolute;z-index:-1;margin-bottom:-830px;width:650px;">
-  <a class="navbar-brand" style="height:800px;" href="#"></a>
-</nav> -->
-
 <!-- MÚSICOS -->
 <div class="container mb-5">
   <div class="row">
 
   <div class="col-6 col-sm-3 mt-3">
     <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
-      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA01.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA01.jpg" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
+    </a>
+    </div>
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
+      <div class="card-body text-white" style="font-size:14px;">
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $_SESSION['user_name'] ?></strong></p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong>23 anos</p>
+    </div>
+  </div>
+
+  <div class="col-6 col-sm-3 mt-3">
+    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
     </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
@@ -100,7 +111,7 @@
 
   <div class="col-6 col-sm-3 mt-3">
     <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
-      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAMEN02.jpg" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
     </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
@@ -115,22 +126,7 @@
 
   <div class="col-6 col-sm-3 mt-3">
     <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
-      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAMEN02.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-    </a>
-    </div>
-    <div class="col-6 col-sm-3 mt-3 bk-gray">
-      <div class="card-body text-white" style="font-size:14px;">
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php /*echo $_SESSION['user_name'] */?>NOME</strong></p>
-      <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
-      <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
-      <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
-      <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong>23 anos</p>
-    </div>
-  </div>
-
-  <div class="col-6 col-sm-3 mt-3">
-    <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
-      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+      <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
     </a>
     </div>
     <div class="col-6 col-sm-3 mt-3 bk-gray">
