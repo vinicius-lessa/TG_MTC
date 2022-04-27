@@ -4,7 +4,8 @@
  * 
  * @Description Página de entrada para requisições do tipo GET, PUT, POST e DELETE para CHAT entre usuários
  * @ChangeLog 
- *  - Vinícius Lessa - 19/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST, 
+ *  - Vinícius Lessa - 19/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST.
+ *  - Vinícius Lessa - 26/04/2022: Reformulação da query de GET dos chats, pois estava com erro quando um mesmo POST tinha mais de um chat.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -57,29 +58,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     if ( !Empty($uri) && $uri <> 'index.php' ):
 
         // Variables        
+        $keysearch      = (isset($_GET["key"])) ? $_GET["key"] : "" ;
         $userLogged     = (isset($_GET["userLogged"])) ? $_GET["userLogged"] : "" ;
         $userTwo        = (isset($_GET["userTwo"])) ? $_GET["userTwo"] : "" ;
-        $post_id        = (isset($_GET["post_id"])) ? $_GET["post_id"] : "" ;
+        $post_id        = (isset($_GET["post_id"])) ? $_GET["post_id"] : "" ;        
 
-        if ( Empty($userLogged) || Empty($userTwo) || Empty($post_id) ):
+        if ( empty($keysearch) ):
             http_response_code(404); // Not Found
             echo json_encode([
                 'error' => true ,
-                'msg' => 'Informe todos os parâmetros!'
+                'msg' => "Preencha o tipo de pesquisa ('&key=')"
             ]);
             exit;
-        else:
-            // Unique Trade Post
+        endif;
+
+        // ...chat.php/?token=16663056-351e723be15750d1cc90b4fcd&userLogged=4&userTwo=14&post_id=204&key=refreshChat
+        if ( $keysearch == "refreshChat" ):
+            if ( empty($userLogged) || empty($userTwo) || empty($post_id) ):
+                http_response_code(404); // Not Found
+                echo json_encode([
+                    'error' => true ,
+                    'msg' => "Preencha os parâmetros para a atualização do Chat!"
+                ]);
+                exit;
+            endif;
+        
             if ( is_numeric($userLogged) && is_numeric($userTwo) && is_numeric($post_id) ):
                 $dados = CrudDB::select(
-                    'SELECT m.message_chat_guid, m.message_user_id, u.user_name, m.message, m.created_on FROM messages m
+                    'SELECT c.chat_guid, m.message_user_id, u.user_name, m.message, m.created_on from chat c
+                     INNER JOIN messages m ON m.message_chat_guid = c.chat_guid
                      INNER JOIN users u ON m.message_user_id = u.user_id
-                     WHERE 	m.message_user_id IN(:USER_LOGGED, :USER_TWO) AND
-                            m.activity_status = 1 AND
-                            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = m.message_chat_guid AND uc.user_chat_user_id = :USER_LOGGED LIMIT 1) AND
-                            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = m.message_chat_guid AND uc.user_chat_user_id = :USER_TWO LIMIT 1) AND
-                            m.message_chat_guid = (SELECT c.chat_guid FROM chat c WHERE c.trade_post_id =:POST_ID)
-                    order by m.created_on desc limit 10;' , 
+                     where 	c.trade_post_id = :POST_ID and
+                            c.activity_status = 1 and 
+                            m.activity_status = 1 and
+                            m.message_user_id in (:USER_TWO, :USER_LOGGED) and
+                            exists (select uc.user_chat_chat_guid from user_chat uc where uc.user_chat_chat_guid = m.message_chat_guid and uc.user_chat_user_id = :USER_LOGGED limit 1) and
+                            exists (select uc.user_chat_chat_guid from user_chat uc where uc.user_chat_chat_guid = m.message_chat_guid and uc.user_chat_user_id = :USER_TWO limit 1)
+                     order by m.created_on desc limit 10;',
                     [                        
                         'USER_LOGGED' => $userLogged ,
                         'USER_TWO' => $userTwo ,
@@ -97,11 +112,113 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     http_response_code(200); // Success
                     echo json_encode([
                         'error' => true ,
+                        'msg' => 'Nenhuma mensagem anterior encontrada.'
+                    ]);
+                    exit;
+                endif;
+            else:
+                http_response_code(406); // Not Acceptable
+                echo json_encode([
+                    'error' => true ,
+                    'msg' => 'Parâmetros não são Numéricos!'
+                ]);
+                exit;
+            endif;
+
+        // ...chat.php/?token=16663056-351e723be15750d1cc90b4fcd&userLogged=4&key=chatList
+        elseif ( $keysearch == "chatList" && !(empty($userLogged)) ):
+            if ( is_numeric($userLogged) ):
+                $dados = CrudDB::select(
+                    "SELECT 
+                    c.chat_guid 			AS `chat_id`	,
+                    c.trade_post_id 		AS `post_id`	,
+                    tp.title 				AS `post_title` ,
+                    tp.user_id 				AS `userid_tp_creator` ,
+                    (SELECT u3.user_name 
+                        FROM users u3
+                        WHERE 	u3.activity_status = 1 AND
+                                u3.user_id = userid_tp_creator
+                    ) AS `username_tp_creator` ,
+                    uc.user_chat_user_id 	AS `user_id` 	,
+                    (SELECT uc2.user_chat_user_id
+                        FROM user_chat uc2 
+                        WHERE 	uc2.activity_status = 1 AND
+                                uc2.user_chat_chat_guid = c.chat_guid AND
+                                uc2.user_chat_user_id !=:USER_ID
+                    ) AS `userTwo` 	,
+                    (SELECT m.message_user_id 
+                        FROM messages m
+                        WHERE	m.activity_status 	= 1 AND
+                                m.message_chat_guid = c.chat_guid AND
+                                m.message_user_id IN (userTwo, :USER_ID)
+                        order by m.created_on DESC LIMIT 1
+                    ) AS 'userid_lastmessage' ,
+                    (SELECT m.message
+                        FROM messages m
+                        WHERE	m.activity_status 	= 1 AND
+                                m.message_chat_guid = c.chat_guid AND
+                                m.message_user_id IN (userTwo, :USER_ID)
+                        order by m.created_on DESC LIMIT 1
+                    ) AS 'last_message' ,	
+                    (SELECT u2.user_name 
+                        FROM users u2 
+                        WHERE 	u2.activity_status = 1 AND
+                                u2.user_id = userid_lastmessage
+                    ) AS 'username_lastmessage' ,	
+                    (SELECT m.created_on 
+                        FROM messages m
+                        WHERE	m.activity_status 	= 1 AND
+                                m.message_chat_guid = c.chat_guid AND
+                                m.message_user_id IN (userTwo, :USER_ID)
+                        order by m.created_on DESC LIMIT 1
+                    ) AS 'message_date' ,	
+                    itp.image_name  AS `image_name`
+                    FROM user_chat uc
+                    INNER JOIN chat c ON c.chat_guid = uc.user_chat_chat_guid
+                    INNER JOIN users u ON u.user_id = uc.user_chat_user_id
+                    INNER JOIN trade_posts tp ON tp.post_id = c.trade_post_id
+                    left JOIN images_trade_posts itp ON itp.trade_post_id = c.trade_post_id
+                    WHERE c.activity_status = 1 AND	  
+                        uc.user_chat_user_id =:USER_ID
+                    order by 'message_date', userid_tp_creator desc;",
+                    [                        
+                        'USER_ID' => $userLogged
+                    ], TRUE);
+                
+                if ( !empty($dados) ):
+                    foreach ($dados as $chat) {
+                        $chat->image_name = SITE_URL . "/uploads/" . $chat->image_name;
+                    }
+                    
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => false ,
+                        'data' => $dados
+                    ]);
+                    exit;
+                else:
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => true ,
                         'msg' => 'Nenhum registro de Chat encontrado.'
                     ]);
                     exit;
                 endif;
-            endif;
+            else:
+                http_response_code(406); // Not Acceptable
+                echo json_encode([
+                    'error' => true ,
+                    'msg' => 'Parâmetros não são Numéricos!'
+                ]);
+                exit;
+            endif; 
+        else:
+            http_response_code(404); // Not Found
+            echo json_encode([
+                'error' => true ,
+                'msg' => "Parâmetros inválidos!"
+            ]);
+            exit;            
         endif;            
     else:                
         http_response_code(406); // Not Acceptable
@@ -284,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         else:
             http_response_code(201); // Created
             echo json_encode([
-                'error'     => true ,                    
+                'error'     => false ,
                 'msgAdmin'  => "Todos os dados foram inseridos com sucesso!."
             ]);
             exit;                
