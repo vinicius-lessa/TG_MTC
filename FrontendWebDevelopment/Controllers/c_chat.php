@@ -91,8 +91,8 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
             if ( $chatRow['message_user_id'] == $_SESSION['user_id'] ):
                 echo "
                     <div class='d-flex flex-row-reverse mx-2'>
-                        <div class='my-1 rounded msg-width msg-user'>
-                            <div class='m-0'>
+                        <div class='mb-1 rounded msg-width msg-user'>
+                            <div class='m-0 mt-2 message-default'>
                                 <!-- <div class='col-12 mt-1 p-0 px-2'>
                                     <strong><span>Você</span></strong>
                                 </div> -->
@@ -101,7 +101,7 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
                                         <span>". $chatRow['message'] ."</span>
                                     </div>
                                 </div>
-                                <div class='float-right mr-1 mb-1 p-0 d-flex time'>
+                                <div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>
                                     <span>10:41</span>
                                 </div>
                             </div>
@@ -110,20 +110,20 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
             else:
                 echo "                
                     <div class='d-flex flex-row'>
-                        <div class='my-1 bk-lightgray rounded msg-width'>
-                        <div class='m-0'>
-                            <div class='col-12 mt-1 p-0 px-2'>
-                            <strong><span>". $chatRow['user_name'] ."</span></strong>
+                        <div class='my-1 bk-gray rounded msg-width'>
+                            <div class='m-0 mt-2 message-default'>
+                                <div class='col-12 mt-1 p-0 px-2'>
+                                    <strong><span>". $chatRow['user_name'] ."</span></strong>
+                                </div>
+                                <div class='col-12 mb-0 p-0 px-2'>
+                                    <div class='m-0 p-0'>
+                                        <span>". $chatRow['message'] ."</span>
+                                    </div>                                
+                                </div>
+                                <div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>
+                                    <span>10:41</span>
+                                </div>
                             </div>
-                            <div class='col-12 mb-0 p-0 px-2'>
-                            <div class='m-0 p-0'>
-                                <span>". $chatRow['message'] ."</span>
-                            </div>                                
-                            </div>
-                            <div class='float-right mr-1 mb-1 p-0 d-flex time'>
-                                <span>10:41</span>
-                            </div>                              
-                        </div>
                         </div>
                     </div>";
             endif;
@@ -134,12 +134,12 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
         
     endif;
     
-else:
-    echo json_encode([
-        'cod'   =>  500,
-        'msg'   =>  'Preencha todos os parâmetros.'
-    ]);
-    exit;
+// else:
+//     echo json_encode([
+//         'cod'   =>  500,
+//         'msg'   =>  'Preencha todos os parâmetros.'
+//     ]);
+//     exit;
 
 endif;
 

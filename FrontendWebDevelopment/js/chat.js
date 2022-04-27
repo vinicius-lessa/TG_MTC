@@ -41,17 +41,17 @@ function refreshChat(){
             } else {
                 $( "#noMessages" ).css("display", "block");
 
-                console.log("Nenhuma mensagem encontrada!");
-            }            
+                console.log("Nenhuma mensagem encontrada!");                
+            }
         }
-    }    
+    }
 
     req.open('GET', url, true);
     req.send();
 }
       
 // Repeat - 10 seconds
-setInterval(function(){refreshChat();}, 5000);
+setInterval(function(){refreshChat();}, 20000);
 
 
 // Events
@@ -69,15 +69,15 @@ newMessageForm.submit(async function( event ){
 
     // Insere mensagem Instantâneamente.
     var innerMessage =
-    "<div class='d-flex flex-row-reverse mr-2'> " +
-        " <div class='my-1 rounded msg-width msg-user'> " +
-        "<div class='m-0'> " +
-            "<div class='col-12 mb-0 d-flex flex-row-reverse p-0 px-2'> " +
+    "<div class='d-flex flex-row-reverse mx-2'>" +
+        "<div class='mb-1 rounded msg-width msg-user'>" +
+        "<div class='m-0 mt-2 message-default'>" +
+            "<div class='col-12 mb-0 d-flex flex-row-reverse p-0 px-2'>" +
                 "<div class='m-0 p-0'> " +
                 "<span>" + message.val() + "</span> " +
                     "</div> " +
                 "</div> " +
-                "<div class='float-right mr-1 mb-1 p-0 d-flex time'> " +
+                "<div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>" +
                 "<span>10:41</span> " +
                     "</div> " +
                 "</div> " +
