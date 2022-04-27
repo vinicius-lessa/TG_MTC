@@ -66,7 +66,7 @@
           <div class="form-outline col-10 col-sm-6">
             <input id="search-input" type="search" id="form1" class="form-control" />
           </div>
-            <button id="search-button" type="button" class="btn btn-danger">
+            <button id="search-button" type="button" class="btn btn-default">
               <i class="bi bi-search"></i>
           </button>
         </div>
@@ -79,85 +79,73 @@
   <a class="navbar-brand" style="height:800px;" href="#"></a>
 </nav> -->
 
-
-<!-- ANÚNCIOS 01-->
-<div class="container">
-  <div class="row">
-
-    <div class="col-12 col-sm-4 mt-3">
-      <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-          <img src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-        </a>
-      </div>
-        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-        <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
-    </div>
-
-
-    <div class="col-12 col-sm-4 mt-3">
-      <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-          <img src="<?php echo SITE_URL ?>/images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-        </a>
-      </div>
-        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-        <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
-    </div>
-
-    <div class="col-12 col-sm-4 mt-3">
-      <div class="">
-        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-          <img src="<?php echo SITE_URL ?>/images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
-        </a>
-      </div>
-        <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-        <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
-    </div>
-
-  </div>
-
-  </div>
-</div>
-
-
-<!-- ANÚNCIOS 02-->
+<!-- MÚSICOS -->
 <div class="container mb-5">
   <div class="row">
 
-  <div class="col-12 col-sm-4 mt-3">
-    <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/produtos2/GUITARRA3.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+  <div class="col-6 col-sm-3 mt-3">
+  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
+        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA01.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Guitarra Fender Stratoscaster</strong></p>
-      <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.789,00</strong></p>
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
+      <div class="card-body text-white" style="font-size:14px;">
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php /*echo $_SESSION['user_name'] */?>NOME</strong></p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong>23 anos</p>
+    </div>
   </div>
 
-
-  <div class="col-12 col-sm-4 mt-3">
-    <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/produtos2/BATERIA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+  <div class="col-6 col-sm-3 mt-3">
+  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
+        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Bateria Gretsch</strong></p>
-      <p class="card-title text-red" style="text-align:left;"><strong>R$ 1.210,00</strong></p>
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
+      <div class="card-body text-white" style="font-size:14px;">
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php /*echo $_SESSION['user_name'] */?>NOME</strong></p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong>23 anos</p>
+    </div>
   </div>
 
-  <div class="col-12 col-sm-4 mt-3">
-    <div class="">
-      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
-        <img src="<?php echo SITE_URL ?>/images/produtos2/VITROLA.jpg" class="img-fluid" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+  <div class="col-6 col-sm-3 mt-3">
+  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
+        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAMEN02.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
       </a>
     </div>
-      <p class="card-title text-white mt-2" style="text-align:left;"><strong>Vitrola Pulse Perkins</strong></p>
-      <p class="card-title text-red" style="text-align:left;"><strong>R$ 2.220,00</strong></p>
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
+      <div class="card-body text-white" style="font-size:14px;">
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php /*echo $_SESSION['user_name'] */?>NOME</strong></p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong>23 anos</p>
+    </div>
+  </div>
+
+  <div class="col-6 col-sm-3 mt-3">
+  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php">
+        <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTAWOMEN04.jpg" class="img-fluid rounded" alt="" style="max-width:100%;width:395px;height:240px;object-fit:cover;">
+      </a>
+    </div>
+    <div class="col-6 col-sm-3 mt-3 bk-gray">
+      <div class="card-body text-white" style="font-size:14px;">
+      <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php /*echo $_SESSION['user_name'] */?>NOME</strong></p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
+      <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong>23 anos</p>
+    </div>
   </div>
 
   </div>
 </div>
+
 
     <!-- ENCONTRE ARTISTAS -->
     <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
