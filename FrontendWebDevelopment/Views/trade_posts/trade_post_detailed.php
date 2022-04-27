@@ -91,17 +91,18 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
           <article>              
             <div class="row tradepost_container">
 
-              <!-- Image Carrousel -->
+              <!-- Image Carrousel -->              
               <div class="col-12 col-sm-8 p-0 blur-container">
                 <!-- Blur -->
                 <div class="blur_background" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
                 </div>
 
-                <!-- Image -->
+                <!-- Image  -->
                 <div class="image_container_test" style="transform: translate(0px, -498px);">
                   <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="testtwo" alt="">
                 </div>
               </div>
+                                                    
 
               <!-- Trade Post Info -->
               <div class="col-12 col-sm-4 h-100">
