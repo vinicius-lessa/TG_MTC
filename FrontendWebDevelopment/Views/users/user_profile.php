@@ -368,54 +368,74 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
                         <div class="row">
                           <div class="col-12 mt-0 mb-4 p-4">
-                            
-                            <?php foreach ($a_userTradePosts["data"] as $a_tpItem) { ?>
-                              <div class="row my-3 mx-2 p-2">
-                                  
-                                <!-- Image -->                              
-                                <div class="col-12 col-sm-3 p-0 blur-container" style="height: 230px;">
-                                  <!-- Blur -->
-                                  <div class="blur_background" style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
-                                  </div>
-
-                                  <!-- Image -->
-                                  <div class="image_container_test" style="transform: translate(0px, -229px);">
-                                    <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
-                                    </a>
-                                  </div>
+                            <? if ( empty($a_userTradePosts["data"]) ): ?>
+                              <div class="row text-center">
+                                <div class="col-12 my-3">
+                                  <h5 class="mb-5">
+                                    Você ainda não possui nenhum Anúncio :(
+                                  </h5>
+                                  <h5>
+                                    Comece a
+                                    <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php">
+                                      <button type='button' class='btn btn-lg border-0 btn-default'>
+                                      <strong>ANUNCIAR</strong>
+                                      </button>
+                                    </a> 
+                                    agora mesmo!
+                                  </h5>
                                 </div>
-                                
 
-                                <!-- Trade Post Info -->
-                                <div class="col-12 col-sm-9 tp-card">
-                                  <!-- Detalhes -->  
-                                  <div class="row mt-2">
-                                    <div class="col-8">
+                              </div>
+                            <? else: ?>
+                            
+                              <?php foreach ($a_userTradePosts["data"] as $a_tpItem) { ?>
+                                <div class="row my-3 mx-2 p-2">
+                                    
+                                  <!-- Image -->                              
+                                  <div class="col-12 col-sm-3 p-0 blur-container" style="height: 230px;">
+                                    <!-- Blur -->
+                                    <div class="blur_background" style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    </div>
+
+                                    <!-- Image -->
+                                    <div class="image_container_test" style="transform: translate(0px, -229px);">
+                                      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
+                                      </a>
+                                    </div>
+                                  </div>
+                                  
+
+                                  <!-- Trade Post Info -->
+                                  <div class="col-12 col-sm-9 tp-card">
+                                    <!-- Detalhes -->  
+                                    <div class="row mt-2">
                                       <div class="col-8">
-                                        <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>
-                                        <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>                                      
+                                        <div class="col-8">
+                                          <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>
+                                          <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>                                      
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                                                        
-                                  <div class="row">
-                                    <div class="col-8">
-                                      <span class="card-title text-white ">
-                                        Sobre: <?php echo $a_tpItem['tp_desc'] ?>
-                                      </span>
+                                                                          
+                                    <div class="row">
+                                      <div class="col-8">
+                                        <span class="card-title text-white ">
+                                          Sobre: <?php echo $a_tpItem['tp_desc'] ?>
+                                        </span>
+                                      </div>
+
+                                      <!-- Link -->
+                                      <!-- <div class="col-4 d-flex flex-row-reverse">
+                                        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
+                                        class="card-title text-white">Detalhes</a>
+                                      </div> -->                                  
                                     </div>
 
-                                    <!-- Link -->
-                                    <!-- <div class="col-4 d-flex flex-row-reverse">
-                                      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
-                                      class="card-title text-white">Detalhes</a>
-                                    </div> -->                                  
                                   </div>
-
                                 </div>
-                              </div>
-                            <?php } ?>
+                              <?php } ?>
+                            <? endif; ?>
                             
                           </div>
                         </div>                      
@@ -423,7 +443,13 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
                       <!-- CONFIGURAÇÕES -->
                       <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
-                        Configurações
+                        
+                        <div class="row mt-5">
+                          <div class="col-12 text-center p-0">
+                            <h4 class="text-red"><strong>Suas Configurações</strong></h4>
+                          </div>
+                        </div>
+
                       </div>
 
                     </div>
@@ -469,129 +495,246 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             </div>
           </div>
 
-          <!-- User Info -->
+          <!-- Profile Info -->
           <div class="container bk-gray mt-3 mb-5 rounded">
-            <div class="row">
-              <div class="col-12 mt-3 mt-4 mb-4 text-center">
-                <h5 class="text-red"><strong>Mais Sobre <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>              
+            
+            <div class="row text-white">
+              <div class="col-12 p-2">
+
+                <!-- Multiple Tabs -->
+                <div class="row">
+                  <div class="col-12">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active default-tabs" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Informações</button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link default-tabs" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Anúncios Públicados</button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <div class="tab-content" id="myTabContent">
+                      
+                      <!-- Public User Info -->
+                      <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
+                        <div class="row">
+                          <div class="col-12 mt-5 mb-5 text-center">
+                            <h5 class="text-red"><strong>Mais Sobre <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>
+                          </div>
+                        </div>
+
+                        <div class="row mx-1">
+
+                          <div class="col-6">
+                            <h6 class="text-red"><strong>Habilidades</strong></h6>
+                            <p class="text-white">Guitarra</p>
+                            <p class="text-white">Violão</p>
+                            <p class="text-white">Baixo</p>
+                            
+                            <!--
+                            <div class="form-group mb-3">
+                              <select class="custom-select" id="inputGroupSelect02">
+                                <option selected>Escolha...</option>
+                                <option value="1">Guitarra</option>
+                                <option value="2">Violão</option>
+                                <option value="3">Baixo</option>
+                                <option value="4">Bateria</option>
+                                <option value="5">Piano</option>
+                              </select>
+                              <div class="input-group-append">
+                                <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                              </div> 
+                            </div>
+                            -->
+
+                            <!-- BIOGRAFIA -->
+                            <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
+                            <!-- <div class="form-group">
+                              <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
+                            </div> -->
+                            <p class="text-white mt-2" style="font-size:14px;">
+                              <?php echo $profileDetails['data'][0]['bio'] ?>
+                            </p>            
+                          </div>                                   
+
+                          <!-- OUTRAS INFORMAÇÕES -->
+                          <div class="col-6 text-white mb-4">
+                            <h6 class="text-red"><strong>Outras Informações</strong></h6>
+
+                            <!-- GÊNERO -->
+                            <label><strong>Gênero(s):</strong></label>
+                            <p class="text-white">Guitarra</p>
+                            <p class="text-white">Violão</p>
+                            <p class="text-white">Baixo</p>
+
+                            <div class="input-group mb-3">
+                              <!-- <select class="custom-select" id="inputGroupSelect02">
+                                <option selected>Escolha...</option>
+                                <option value="1">Guitarra</option>
+                                <option value="2">Violão</option>
+                                <option value="3">Baixo</option>
+                                <option value="4">Bateria</option>
+                                <option value="5">Piano</option>
+                              </select> -->
+                              <!-- <div class="input-group-append">
+                                <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                              </div> -->
+                            </div>
+
+                            <!-- CIDADE -->
+                            <div class="form-group mt-3">
+                              <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
+                              <!-- <select class="form-select" name="brand" id="brand">
+                                <option selected>Escolha...</option>
+                                <option value="1">São Paulo</option>
+                                <option value="3">São Roque</option>
+                                <?php foreach ($selectBrand as $itemBrand) {?>
+                                  <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                                <?php };?>
+                              </select> -->
+                            </div>
+
+                            <!-- ESTADO -->
+                            <div class="form-group mt-3">
+                              <label class="mb-2" for="brand"><strong>Estado:</strong></label>
+                                <!-- <select class="form-select" name="brand" id="brand">
+                                  <option selected>Escolha...</option>
+                                  <option value="1">São Paulo</option>
+                                  <option value="3">Rio de Janeiro</option>
+                                  <?php foreach ($selectBrand as $itemBrand) {?>
+                                    <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                                  <?php };?>
+                                </select> -->
+                            </div>
+
+                            <!-- DATA DE NASCIMENTO -->
+                            <div class="form-group mt-3">
+                              <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
+                              <p> <?php echo $profileDetails['data'][0]['birthday'] ?> </p>
+                            <!-- <select class="form-select" name="brand" id="brand">
+                                  <option selected>Escolha...</option>
+                                  <option value="1">São Paulo</option>
+                                  <option value="3">São Roque</option>
+                                  <?php foreach ($selectBrand as $itemBrand) {?>
+                                    <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
+                                  <?php };?>                  
+                                </select> -->
+                            </div>
+
+                            <!-- E-MAIL -->
+                            <div class="form-group text-white mt-3">
+                              <label for="userEmail"><strong>E-mail:</strong></label>
+                              <p><?php echo $profileDetails['data'][0]['email'] ?></p>
+                              <!-- <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email"> -->
+                            </div>
+
+                            <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
+
+                            <!-- BIOGRAFIA -->
+                            <!-- <div class="form-group"> -->
+                              <!-- <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea> -->
+                            <!-- </div> -->
+                            <!-- <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
+                              eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
+                              enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
+                              primis in faucibus orci luctus et ultrices posuere cubilia curae.
+                            </p> -->
+                          </div>
+                       
+                        </div>                                                  
+                      </div>                    
+
+                      <!-- Public User Trade Posts -->
+                      <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
+                        <div class="row mt-5">
+                          <div class="col-12 text-center p-0">
+                            <h4 class="text-red"><strong>Meus Anúncios</strong></h4>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 mt-0 mb-4 p-4">
+                            
+                            <? if ( empty($a_userTradePosts["data"]) ): ?>
+                                <div class="row text-center">
+                                  <div class="col-12 my-3">
+                                    <h5>
+                                      Este usuário não possui 
+                                        <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/home.php">
+                                          <button type='button' class='btn btn-lg btn-default'>
+                                            <strong>Anúncios</strong>
+                                          </button>
+                                        </a>
+                                    </h5>
+                                  </div>
+
+                                  <div class="col-12 my-3">
+                                    <h3>¯\_(ツ)_/¯</h3>
+                                  </div>
+                                </div>
+                            <? else: ?>
+                              <?php foreach ($a_userTradePosts["data"] as $a_tpItem) { ?>
+                                <div class="row my-3 mx-2 p-2">
+                                    
+                                  <!-- Image -->                              
+                                  <div class="col-12 col-sm-3 p-0 blur-container" style="height: 230px;">
+                                    <!-- Blur -->
+                                    <div class="blur_background" style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    </div>
+
+                                    <!-- Image -->
+                                    <div class="image_container_test" style="transform: translate(0px, -229px);">
+                                      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
+                                      </a>
+                                    </div>
+                                  </div>
+                                  
+
+                                  <!-- Trade Post Info -->
+                                  <div class="col-12 col-sm-9 tp-card">
+                                    <!-- Detalhes -->  
+                                    <div class="row mt-2">
+                                      <div class="col-8">
+                                        <div class="col-8">
+                                          <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>
+                                          <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>                                      
+                                        </div>
+                                      </div>
+                                    </div>
+                                                                          
+                                    <div class="row">
+                                      <div class="col-8">
+                                        <span class="card-title text-white ">
+                                          Sobre: <?php echo $a_tpItem['tp_desc'] ?>
+                                        </span>
+                                      </div>
+
+                                      <!-- Link -->
+                                      <!-- <div class="col-4 d-flex flex-row-reverse">
+                                        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
+                                        class="card-title text-white">Detalhes</a>
+                                      </div> -->                                  
+                                    </div>
+
+                                  </div>
+                                </div>
+                              <?php } ?>
+                            <? endif; ?>
+                            
+                          </div>
+                        </div>                      
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div class="row bk-gray" style="margin-left:15px;">
-              <div class="col-6">
-                <h6 class="text-red"><strong>Habilidades</strong></h6>
-                <p class="text-white">Guitarra</p>
-                <p class="text-white">Violão</p>
-                <p class="text-white">Baixo</p>
-                
-                <div class="form-group mb-3">
-                  <select class="custom-select" id="inputGroupSelect02">
-                    <option selected>Escolha...</option>
-                    <option value="1">Guitarra</option>
-                    <option value="2">Violão</option>
-                    <option value="3">Baixo</option>
-                    <option value="4">Bateria</option>
-                    <option value="5">Piano</option>
-                  </select>
-                  <!-- <div class="input-group-append">
-                    <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                  </div> -->
-                </div>
-
-                <!-- BIOGRAFIA -->
-                <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
-                <!-- <div class="form-group">
-                  <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-                </div> -->
-                <p class="text-white mt-2" style="font-size:14px;">
-                  <?php echo $profileDetails['data'][0]['bio'] ?>
-                </p>            
-              </div>          
-
-              <!-- OUTRAS INFORMAÇÕES -->
-              <div class="col-6 text-white mb-4">
-                <h6 class="text-red"><strong>Outras Informações</strong></h6>
-
-                <!-- GÊNERO -->
-                <label><strong>Gênero(s):</strong></label>
-                <p class="text-white">Guitarra</p>
-                <p class="text-white">Violão</p>
-                <p class="text-white">Baixo</p>
-
-                <div class="input-group mb-3">
-                  <!-- <select class="custom-select" id="inputGroupSelect02">
-                    <option selected>Escolha...</option>
-                    <option value="1">Guitarra</option>
-                    <option value="2">Violão</option>
-                    <option value="3">Baixo</option>
-                    <option value="4">Bateria</option>
-                    <option value="5">Piano</option>
-                  </select> -->
-                  <!-- <div class="input-group-append">
-                    <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                  </div> -->
-                </div>
-
-                <!-- CIDADE -->
-                <div class="form-group mt-3">
-                  <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
-                  <!-- <select class="form-select" name="brand" id="brand">
-                    <option selected>Escolha...</option>
-                    <option value="1">São Paulo</option>
-                    <option value="3">São Roque</option>
-                    <?php foreach ($selectBrand as $itemBrand) {?>
-                      <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                    <?php };?>
-                  </select> -->
-                </div>
-
-                <!-- ESTADO -->
-                <div class="form-group mt-3">
-                  <label class="mb-2" for="brand"><strong>Estado:</strong></label>
-                    <!-- <select class="form-select" name="brand" id="brand">
-                      <option selected>Escolha...</option>
-                      <option value="1">São Paulo</option>
-                      <option value="3">Rio de Janeiro</option>
-                      <?php foreach ($selectBrand as $itemBrand) {?>
-                        <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                      <?php };?>
-                    </select> -->
-                </div>
-
-                <!-- DATA DE NASCIMENTO -->
-                <div class="form-group mt-3">
-                  <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
-                  <p> <?php echo $profileDetails['data'][0]['birthday'] ?> </p>
-                <!-- <select class="form-select" name="brand" id="brand">
-                      <option selected>Escolha...</option>
-                      <option value="1">São Paulo</option>
-                      <option value="3">São Roque</option>
-                      <?php foreach ($selectBrand as $itemBrand) {?>
-                        <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                      <?php };?>                  
-                    </select> -->
-                </div>
-
-                <!-- E-MAIL -->
-                <div class="form-group text-white mt-3">
-                  <label for="userEmail"><strong>E-mail:</strong></label>
-                  <p><?php echo $profileDetails['data'][0]['email'] ?></p>
-                  <!-- <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email"> -->
-                </div>
-
-                <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
-
-                <!-- BIOGRAFIA -->
-                <!-- <div class="form-group"> -->
-                  <!-- <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea> -->
-                <!-- </div> -->
-                <!-- <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                  eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                  enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                  primis in faucibus orci luctus et ultrices posuere cubilia curae.
-                </p> -->
-              </div>
-            </div>
+            </div>          
           </div>
         
         <!-- Erro Inesperado -->

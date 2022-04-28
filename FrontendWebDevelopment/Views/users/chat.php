@@ -122,8 +122,23 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
             </div>
 
             <div class="col-12 my-5">
-              <h5 class="">Comece novas Conversas a partir de outros <a href="#" class="btn-default">Anúncios</a> ou Receba propostas de seus próprios <a href="#" class="btn-default">Anúncios</a>.</h5>
+              <h5>
+                Comece novas Conversas a partir de outros 
+                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/home.php">
+                    <button type='button' class='btn btn-lg border-0 btn-default'>
+                      <strong>Anúncios</strong>
+                    </button>
+                  </a>
+                  
+                ou Receba propostas de seus próprios 
+                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php">
+                    <button type='button' class='btn btn-lg border-0 btn-default'>
+                      <strong>Anúncios</strong>
+                    </button>
+                  </a>
+              </h5>
             </div>
+            
             <div class="col-12 my-5">
               <h3>¯\_(ツ)_/¯</h3>
             </div>                

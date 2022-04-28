@@ -69,8 +69,8 @@ footer{
   border: 0px;
 }
 
-.btn-default:hover {
-  background-color: #f63f3f;
+.btn-default:hover {  
+  color: rgb(0, 0, 0);
 }
 
 .btn-send {
