@@ -60,8 +60,8 @@ endif;
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">--> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->        
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     
@@ -116,8 +116,10 @@ endif;
               <div class="form-outline col-10 col-sm-6">
                 <input id="search-input" type="search" id="form1" class="form-control" />
               </div>
-                <button id="search-button" type="button" class="btn btn-default">
-                  <i class="bi bi-search"></i>
+              <button id="search-button" type="button" class="btn btn-default">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
               </button>
             </div>
 
@@ -129,7 +131,7 @@ endif;
 
             <?php foreach ($a_Users["data"] as $user) { ?>
                 <div class="col-6 col-sm-3 mt-3">
-                  <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php">
+                  <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $user["user_id"] ?>">
                     <?php if ( isset($user["image_name"]) ): ?>
                       <img src="<?php echo $user["image_name"] ?>" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
                     <?php else: ?>
@@ -138,8 +140,10 @@ endif;
                   </a>
                   </div>
                   <div class="col-6 col-sm-3 mt-3 bk-gray">
-                    <div class="card-body text-white" style="font-size:14px;">
-                    <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $user["user_name"] ?></strong></p>
+                    <div class="card-body text-white size-14">
+                      <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $user["user_id"] ?>">
+                      <h5 class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $user["user_name"] ?></strong></h5>
+                    </a>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>

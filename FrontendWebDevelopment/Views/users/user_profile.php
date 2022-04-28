@@ -52,12 +52,12 @@ else:
     $diff     = (array) date_diff($birthday, $now);
     $age      = $diff['y'];
     
-    // URL profile photo
-    if ( !isset($_SESSION['profile-pic']) || $_SESSION['profile-pic'] != $profileDetails['data'][0]['image_name'] ):
+    // Self URL profile photo
+    if ( $userState == 1 && 
+        (!isset($_SESSION['profile-pic']) || $_SESSION['profile-pic'] != $profileDetails['data'][0]['image_name']) 
+    ):
       $_SESSION['profile-pic'] = $profileDetails['data'][0]['image_name'];
-    endif;
-
-    // print_r($profileDetails);
+    endif;    
 
   endif;
 
@@ -131,7 +131,18 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <!-- Error on User Search ? No -->
       <?php else: ?>
       
-        <div class="container">
+        <div class="container">          
+          
+        <!-- Não Logado -->
+        <?php
+          if ( $userState === 0 ):
+          
+            // Login necessário para acessar essa página
+            header("location:" . SITE_URL . "/Views/users/sign_in.php");
+        
+          // Perfil Próprio        
+          elseif ( $userState === 1 ):
+        ?>
           <div class="row">
             <div class="col-12 col-sm-6 mt-5">
               <h1 class="text-white"><strong>Seu Perfil</strong></h1>
@@ -147,17 +158,6 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
               <hr class="hr-default">
             </div>
           </div>
-          
-        <!-- Não Logado -->
-        <?php
-          if ( $userState === 0 ):
-          
-            // Login necessário para acessar essa página
-            header("location:" . SITE_URL . "/Views/users/sign_in.php");
-        
-          // Perfil Próprio        
-          elseif ( $userState === 1 ):
-        ?>
 
           <!-- Profile Header -->
           <div class="container bk-gray text-white rounded">

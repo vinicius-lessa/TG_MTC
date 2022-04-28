@@ -44,8 +44,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">--> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     
@@ -72,8 +72,10 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <div class="form-outline col-10 col-sm-6">
             <input id="search-input" type="search" id="form1" class="form-control" />
           </div>
-            <button id="search-button" type="button" class="btn btn-default">
-              <i class="bi bi-search"></i>
+          <button id="search-button" type="button" class="btn btn-default">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
           </button>
         </div>
 
