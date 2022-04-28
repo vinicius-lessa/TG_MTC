@@ -26,7 +26,11 @@ function loadTradePosts($userID){
     // $response = json_decode(curl_exec($ch));
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all&user_id=" . $userID;
+    if ( $userID == null ):
+      $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all"; // All TP
+    else:
+      $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all&user_id=" . $userID; // All TP from Especic User
+    endif;
 
     $opts = array('http' =>
         array(

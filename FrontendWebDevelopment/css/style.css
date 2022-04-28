@@ -119,27 +119,7 @@ footer{
   border-radius: 15px;  
 }
 
-.profile-btn {
-  position: absolute; 
-  transform: translate(90px, 250px);  
-}
-
-.profileImage-input {
-  display: none;
-}
-
-.profileImage-label {
-  padding: 20px 10px;
-  width: 200px;
-  background-color: #333;
-  color: #FFF;
-  text-transform: uppercase;
-  text-align: center;
-  display: block;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
+/* User Profile */
 .default-tabs {
   color: white !important; 
   border: 0px !important;
@@ -156,6 +136,12 @@ footer{
 .default-tabs.active{  
   background-color: #ed3737 !important;  
 }.nav-tabs
+
+.profileImage-label {  
+  width: 30px;
+  height: 27px; 
+  cursor: pointer;
+}
 
 
 /* ################################ Forms

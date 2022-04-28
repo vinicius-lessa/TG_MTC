@@ -21,7 +21,13 @@ include SITE_PATH . '/Models/m_tradePosts.php';
 
 // Called in: 'trade_posts/home.php'
 if ( isset($a_tpList) ) {
-  $a_tpList = loadTradePosts($profileID);
+  $a_tpList = loadTradePosts(null);
+  // $itensCarrosel = carregarDestaques($conn);
+}
+
+// Called in: 'trade_posts/home.php'
+if ( isset($a_userTradePosts) ) {
+  $a_userTradePosts = loadTradePosts($profileID);
   // $itensCarrosel = carregarDestaques($conn);
 }
 

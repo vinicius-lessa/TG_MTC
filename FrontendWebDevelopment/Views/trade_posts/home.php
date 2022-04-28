@@ -44,8 +44,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     
@@ -158,8 +158,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
         
   </body>

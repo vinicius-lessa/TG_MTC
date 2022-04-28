@@ -36,9 +36,10 @@ $titlePage = 'Sobre Nós';
     <title> <?php echo $titlePage; ?> </title>
     
     <!-- StyleSheet -->
+    <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     
@@ -48,38 +49,38 @@ $titlePage = 'Sobre Nós';
 
   <body class="d-flex flex-column h-100 bk-black font-main">
 
-  <!-- Header Include -->
-  <?php include SITE_PATH .'/includes/header.php';?>
+    <!-- Header Include -->
+    <?php include SITE_PATH .'/includes/header.php';?>
 
-  <main>
-    <div class="container mt-5 mb-2">
-      <div class="text-left">
-        <div class="row">
-          <h2 class="text-white"><strong>Q U E M &nbsp;S O M O S</strong></h2>
-          <hr>
-        </div>
-
-        <div class="row">
-          <div class="col-6">
-            <h4 class="text-white">Somos uma empresa com foco no ramo da Música, proporcionando um Serviço totalmente focado na imersão de compra e venda de músico para músico.</h4>
+    <main>
+      <div class="container mt-5 mb-2">
+        <div class="text-left">
+          <div class="row">
+            <h2 class="text-white"><strong>Q U E M &nbsp;S O M O S</strong></h2>
+            <hr>
           </div>
-        </div>
-    </div>
 
-    <div class="container col-6 col-sm-6 mb-3 mt-2">
-      <img class="img-fluid" src="<?php echo SITE_URL ?>/images/IMAGENS/QUEMSOMOS01-1.jpg" alt="Quem Somos">
-    </div>
+          <div class="row">
+            <div class="col-6">
+              <h4 class="text-white">Somos uma empresa com foco no ramo da Música, proporcionando um Serviço totalmente focado na imersão de compra e venda de músico para músico.</h4>
+            </div>
+          </div>
+      </div>
 
-    <div class="container col-6"></div>
-  </main>
+      <div class="container col-6 col-sm-6 mb-3 mt-2">
+        <img class="img-fluid" src="<?php echo SITE_URL ?>/images/IMAGENS/QUEMSOMOS01-1.jpg" alt="Quem Somos">
+      </div>
 
-  <!-- footer site -->
-  <?php include SITE_PATH.'/includes/footer.php'; ?>
+      <div class="container col-6"></div>
+    </main>
 
-  <!-- Scripts -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <!-- footer site -->
+    <?php include SITE_PATH.'/includes/footer.php'; ?>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
   </body>
 
 </html>

@@ -60,7 +60,7 @@ if ($dados['action'] === "SignUp"):
         if(!$retorna["erro"]):
             $_SESSION['user_id']    =  $retorna["dados"]["user_id"];
             $_SESSION['user_name']  =  $retorna["dados"]["user_name"];
-            $_SESSION['user_email'] = $retorna["dados"]["email"];
+            $_SESSION['user_email'] = $retorna["dados"]["email"];            
         endif;
     endif;
 
@@ -81,9 +81,10 @@ if ($dados['action'] === "SignIn"):
         $retorna = userValidation($dados["userEmail"], $dados["userPassword"]);
         
         if(!$retorna["erro"]):            
-            $_SESSION['user_id']    =  $retorna["dados"]["user_id"];
-            $_SESSION['user_name']  =  $retorna["dados"]["user_name"];
-            $_SESSION['user_email'] = $retorna["dados"]["email"];        
+            $_SESSION['user_id']        =  $retorna["dados"]["user_id"];
+            $_SESSION['user_name']      =  $retorna["dados"]["user_name"];
+            $_SESSION['user_email']     =  $retorna["dados"]["email"]; 
+            $_SESSION['profile-pic']    =  $retorna["dados"]["image_name"];
         endif;
     }
 
@@ -92,26 +93,34 @@ if ($dados['action'] === "SignIn"):
 endif;
 
 
-// Get USER Info
-if (isset($profileID)) :
-
-    if (is_numeric($profileID)) :
-        $profileDetails = loadProfileDetails($profileID);    
-  
-    else:
-      header("location:" . SITE_URL . "/Views/homepage/index.php");    
-    endif;  
+// Called in: 'users/user_profile.php'
+if ( isset($profileID) ) :
+    
+    $profileDetails = loadProfileDetails($profileID);
 endif;
+
+// Called in: 'music_trade_center/home.php'
+if ( isset($a_Users) ) {
+    $a_Users = loadProfileDetails(null); // All Users
+    return;
+}
+
+// Called in: 'music_trade_center/home.php'
+// if ( isset($a_Users) && isset($params) ) {
+//     $a_userTradePosts = loadProfileDetails($params); // Implementar na Busca Posteriormente    
+// }
 
 
 // LogOut / Sair
 if (isset($_GET['signOut'])) {
     // session_destroy();
-    unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email']);
+    unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_email'], $_SESSION['profile-pic']);
     header("location:" . SITE_URL . "/Views/users/sign_in.php");
     exit;
 }
 
+
+// ********** REMOVEEEEEEEEEEEEEER ************************ tratar no JS que puxa este trecho
 // GET REQUESTS (from FrontEnd)
 if (isset($_GET["key"]) && $_SERVER['REQUEST_METHOD'] == 'GET' ):
 

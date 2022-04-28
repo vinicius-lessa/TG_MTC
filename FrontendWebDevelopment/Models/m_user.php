@@ -5,7 +5,7 @@ function userCreation($data) {
     
     // Variables
     $token      = "16663056-351e723be15750d1cc90b4fcd";
-    $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/';
+    $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/?key=newUser';
     
     $data       += ["token" => $token];
 
@@ -67,7 +67,7 @@ function userValidation($email, $password)
 
     $opts = array('http' =>
         array(
-            'method'        =>"GET",
+            'method'        => "GET",
             'header'        => 'Content-Type: application/x-www-form-urlencoded',
             'ignore_errors' => true
         )
@@ -111,7 +111,13 @@ function userValidation($email, $password)
 
 function loadProfileDetails($profileID){
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=id&value=". $profileID;
+    
+    if ( $profileID == null ):
+        $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=allUsers"; // All Users (Music Trade Center)
+    else:
+        $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=id&value=". $profileID; // Especific User (Profile)
+    endif;
+    
   
     $opts = array('http' =>
         array(

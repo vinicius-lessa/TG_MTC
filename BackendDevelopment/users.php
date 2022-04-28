@@ -44,6 +44,9 @@ $uri = basename($_SERVER['REQUEST_URI']);
 // ### GET (Consulta)
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
+    // For example:  .../users.php/?token=...&key=allUsers
+    // For example: .../users.php/?token=...&key=id&value=7    
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
     // Token Validation
@@ -59,27 +62,73 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : ""        ;
         $valueSearch    = (isset($_GET["value"])) ? $_GET["value"] : ""    ;
 
-        if (Empty($keySearch) || Empty($valueSearch)):            
+        if ( Empty($keySearch) ):
             http_response_code(404); // Not Found
             echo json_encode(['msg' => 'Erro: Informe todos os parâmetros!']);
             exit;
         else:
             // All Users
-            if ($keySearch == 'allUsers' && $valueSearch == 'true'):
-                // For example:  .../users.php/?token=...&key=allUsers&value=true
-                $dados = CrudDB::select('SELECT * FROM users WHERE activity_status = true ORDER BY user_id DESC LIMIT 10',[],TRUE);
+            if ( $keySearch == 'allUsers' ):
+                $dados = CrudDB::select('SELECT u.user_id,
+                                                u.user_name, 
+                                                u.birthday,
+                                                u.phone,
+                                                u.tipo_pessoa, 
+                                                u.email,
+                                                u.cep,       
+                                                u.created_on, 
+                                                (SELECT ip.image_name FROM images_profile ip 
+                                                    WHERE ip.user_id = u.user_id AND
+                                                        ip.activity_status = 1
+                                                    ORDER BY ip.created_on DESC LIMIT 1) AS `image_name`
+                                        FROM users u
+                                        WHERE u.activity_status = 1
+                                        order by u.created_on desc limit 12;', [], TRUE);
+                if (!empty($dados)):
+                    foreach ($dados as $user) {
+                        if ( !empty($user->image_name) ):
+                            $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
+                        endif;
+                    }
+                    
+                    http_response_code(200);
+                    echo json_encode([
+                        'error' => false ,
+                        'data'  => $dados
+                    ]);
+                    exit;
+                else:
+                    http_response_code(200);
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'  => 'Erro: o Perfil solicitado não foi encontrado!'
+                    ]);
+                    exit;
+                endif;
             
             // Search by ID
-            elseif ($keySearch == 'id'):
-                // For example: .../users.php/?token=...&key=id&value=7
+            elseif ( $keySearch == 'id' && !empty($valueSearch) ):
 
                 $userId = $valueSearch;
 
                 if (is_numeric($userId)):
                     $dados = CrudDB::select(
-                        'SELECT u.user_id, u.user_name, u.birthday, u.phone, u.tipo_pessoa, u.email, u.cep, u.bio, u.created_on, ip.image_name FROM users u
-                        LEFT JOIN images_profile ip ON ip.user_id  = u.user_id
-                        WHERE u.user_id =:USER_ID'
+                        'SELECT u.user_id,
+                                u.user_name, 
+                                u.birthday, 
+                                u.phone, 
+                                u.tipo_pessoa, 
+                                u.email, 
+                                u.cep, 
+                                u.bio, 
+                                u.created_on, 
+                                (SELECT ip.image_name FROM images_profile ip 
+                                    WHERE ip.user_id = u.user_id AND
+                                          ip.activity_status = 1
+                                    ORDER BY ip.created_on DESC LIMIT 1) AS `image_name`
+                        FROM users u
+                        WHERE 	u.user_id =:USER_ID and
+                                u.activity_status = 1;'
                         ,['USER_ID' => $userId]
                         ,TRUE);
                     
@@ -111,25 +160,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     ]);
                 endif;
     
-            // Search by E-mail
-            elseif ($_GET['key'] == 'email'):
-                // For example: .../users.php/?token=...&key=email&value=andre@test.com
+            // Used for LOGIN
+            elseif ($_GET['key'] == 'email'):                
 
                 $userEmail = $valueSearch;
 
                 if (!is_numeric($userEmail)):
-                    $dados = CrudDB::select('SELECT user_id, user_name, email, password FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
+                    $dados = CrudDB::select('SELECT 
+                                                u.user_id, 
+                                                u.user_name, 
+                                                u.email, 
+                                                u.password ,
+                                                (SELECT ip.image_name FROM images_profile ip 
+                                                    WHERE ip.user_id = u.user_id AND
+                                                        ip.activity_status = 1
+                                                    ORDER BY ip.created_on desc limit 1) AS `image_name`
+                                            FROM users u 
+                                            WHERE u.email =:USER_EMAIL AND 
+                                                activity_status = 1 
+                                            ORDER BY u.created_on DESC LIMIT 1;'
                         ,['USER_EMAIL' => $userEmail]
                         ,TRUE);
+                    
+                    // Se possuir Imagem de Perfil                    
+                    if ( !empty($dados) && !empty($dados[0]->image_name) ):
+                        foreach ($dados as $user) {
+                            if ( !empty($user->image_name) ):
+                                $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
+                            endif;
+                        }
+                    endif;
                 else:                    
                     http_response_code(406); // Not Acceptable
                     echo json_encode(['msg' => 'Parâmetro E-mail inválido!']);
+                    exit;
                 endif;    
             
             // Unknown Key
             else:                                
                 http_response_code(406); // Not Acceptable
                 echo json_encode(['msg' => 'Informe uma Chave (key) correta!']);
+                exit;
             endif;          
         endif;
 
@@ -147,6 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     else:                
         http_response_code(406); // Not Acceptable
         echo json_encode(['msg' => 'Parâmetro não preenchido na consulta!']);
+        exit;
     endif;
 endif;
 
@@ -157,88 +229,232 @@ endif;
 // No INSOMINIA, utilizar o "MULTIPART FORM" (Structured)
 if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
+    // Possíveis Requisições:
+    // - Inclusão de novos Usuários: 'users.php/?key=newUser'
+    // - Alteração da Foto de Perfil: 'users.php/?key=profilePic'
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
     // Token Validation
     if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
         http_response_code(401); // Unauthorized
-        echo json_encode(['msg' => 'Token is not Valid!']);
-        exit;
-    endif;
-
-    // Variables
-    $userName           = (isset($_POST['userName'])) ? $_POST['userName'] : ''                 ;
-    $userBirthday       = (isset($_POST['userBirthday'])) ? $_POST['userBirthday'] : ''         ;
-    $userPhone          = (isset($_POST['userPhone'])) ? $_POST['userPhone'] : ''               ;
-    $userType           = (isset($_POST['userType'])) ? $_POST['userType'] : ''                 ;
-    $userEmail          = (isset($_POST['userEmail'])) ? $_POST['userEmail'] : ''               ;    
-    $userZipCode        = (isset($_POST['userZipCode'])) ? $_POST['userZipCode'] : ''           ;    
-    $userPassword       = (isset($_POST['userPassword'])) ? $_POST['userPassword'] : ''         ;
-    // $cpf_cnpj           = (isset($_POST['cpf_cnpj'])) ? $_POST['cpf_cnpj'] : ''                 ;
-    // $bio                = (isset($_POST['bio'])) ? $_POST['bio'] : ''                           ;
-    
-    if (empty($userName) or
-        empty($userType) or 
-        empty($userEmail) or
-        empty($userPassword)
-        ):         
-        http_response_code(406);
-        echo json_encode(['msg' => 'Informe Todos os Parâmetros!']);
-        exit;
-    endif;
-
-    // Verifica se USER já existe
-    $dados = CrudDB::select(
-        "SELECT email FROM users WHERE email LIKE(:EMAIL) and activity_status = 1",
-        ['EMAIL' => $userEmail],
-        TRUE
-    );
-
-    if (!Empty($dados)):        
-        http_response_code(406);
         echo json_encode([
-            'msg'       => 'Usuário já existe!' ,
-            'cod_erro'  => 1
+            'error' => true , 
+            'msg' => 'Token is not Valid!'
         ]);
         exit;
-    else:        
-        CrudDB::setTabela('users');
-        
-        $retorno = CrudDB::insert
-        ([
-            'user_name'         => "'" . $userName . "'"        ,
-            'email'             => "'" . $userEmail . "'"       ,
-            'password'          => "'" . $userPassword . "'"    ,
-            'tipo_pessoa'       => "'" . $userType. "'"         ,
-            'birthday'          => "'" . $userBirthday . "'"    ,
-            'phone'             => "'" . $userPhone . "'"       ,
-            'cep'               => "'" . $userZipCode . "'"     ,
-            // 'cpf_cnpj'          => "'" . $cpf_cnpj . "'"        ,
-            // 'bio'               => "'" . $bio . "'"
-        ]);
-
-        if ($retorno):
-            // Consulta a inclusão feita para devolver dados de login automático
-            $dados = CrudDB::select('SELECT user_id, user_name, email FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
-                ,['USER_EMAIL' => $userEmail]
-                ,TRUE);
-
-            if (!Empty($dados)):
-                http_response_code(201);
-                echo json_encode([
-                    'msg'   => 'Usuário inserido com Sucesso!' ,
-                    'dados' => $dados 
-                ]);                
-            else:
-                http_response_code(500);
-                echo json_encode(['msg' => 'Usuário inserido com sucesso, porém não encontrado para realizar login automático!']);
-            endif;
-            exit;
-        else:            
-            http_response_code(500);
-            echo json_encode(['msg' => 'Erro ao inserir novo Usuário!']);
-        endif;
     endif;
+
+    if ( !Empty($uri) && $uri <> 'index.php' ):        
+        $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : ""        ;
+    endif;
+
+    // New User
+    if ( $keySearch == "newUser" ):
+        
+        // Variables
+        $userName           = (isset($_POST['userName'])) ? $_POST['userName'] : ''                 ;
+        $userBirthday       = (isset($_POST['userBirthday'])) ? $_POST['userBirthday'] : ''         ;
+        $userPhone          = (isset($_POST['userPhone'])) ? $_POST['userPhone'] : ''               ;
+        $userType           = (isset($_POST['userType'])) ? $_POST['userType'] : ''                 ;
+        $userEmail          = (isset($_POST['userEmail'])) ? $_POST['userEmail'] : ''               ;    
+        $userZipCode        = (isset($_POST['userZipCode'])) ? $_POST['userZipCode'] : ''           ;    
+        $userPassword       = (isset($_POST['userPassword'])) ? $_POST['userPassword'] : ''         ;
+        // $cpf_cnpj           = (isset($_POST['cpf_cnpj'])) ? $_POST['cpf_cnpj'] : ''                 ;
+        // $bio                = (isset($_POST['bio'])) ? $_POST['bio'] : ''                           ;
+
+        if (empty($userName) or
+            empty($userType) or 
+            empty($userEmail) or
+            empty($userPassword)
+            ):         
+            http_response_code(406); // Not Acceptable
+            echo json_encode([
+                'error' => true , 
+                'msg' => 'Informe Todos os Parâmetros!'
+            ]);
+            exit;
+        endif;
+        
+        // Verifica se USER já existe
+        $dados = CrudDB::select(
+            "SELECT email FROM users WHERE email LIKE(:EMAIL) and activity_status = 1",
+            ['EMAIL' => $userEmail],
+            TRUE
+        );
+
+        if (!Empty($dados)):        
+            http_response_code(406);
+            echo json_encode([
+                'msg'       => 'Usuário já existe!' ,
+                'cod_erro'  => 1
+            ]);
+            exit;
+        else:        
+            CrudDB::setTabela('users');
+            
+            $retorno = CrudDB::insert
+            ([
+                'user_name'         => "'" . $userName . "'"        ,
+                'email'             => "'" . $userEmail . "'"       ,
+                'password'          => "'" . $userPassword . "'"    ,
+                'tipo_pessoa'       => "'" . $userType. "'"         ,
+                'birthday'          => "'" . $userBirthday . "'"    ,
+                'phone'             => "'" . $userPhone . "'"       ,
+                'cep'               => "'" . $userZipCode . "'"     ,
+                // 'cpf_cnpj'          => "'" . $cpf_cnpj . "'"        ,
+                // 'bio'               => "'" . $bio . "'"
+            ]);
+
+            if ($retorno):
+                // Consulta a inclusão feita para devolver dados de login automático
+                $dados = CrudDB::select('SELECT user_id, user_name, email FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
+                    ,['USER_EMAIL' => $userEmail]
+                    ,TRUE);
+
+                if (!Empty($dados)):
+                    http_response_code(201);
+                    echo json_encode([
+                        'msg'   => 'Usuário inserido com Sucesso!' ,
+                        'dados' => $dados 
+                    ]);                
+                else:
+                    http_response_code(500);
+                    echo json_encode(['msg' => 'Usuário inserido com sucesso, porém não encontrado para realizar login automático!']);
+                endif;
+                exit;
+            else:            
+                http_response_code(500);
+                echo json_encode(['msg' => 'Erro ao inserir novo Usuário!']);
+            endif;
+        endif;        
+
+    // New Profile Photo
+    elseif ( $keySearch == "profilePic" ):        
+    
+        $user_id = (isset($_POST['user_id']))        ? intval($_POST['user_id']) : 0 ;
+
+        if ( empty($user_id) ):         
+            http_response_code(406); // Not Acceptable
+            echo json_encode([
+                'error' => true ,
+                'msg' => 'Informe Todos os Parâmetros!'
+            ]);
+            exit;
+        else:
+            // Verifica se o USER existe        
+            $dados = CrudDB::select(
+                "SELECT u.user_id FROM users u WHERE u.user_id =:USER_ID and activity_status = 1",
+                ['USER_ID' => $user_id],
+                TRUE
+            );
+
+            if ( empty($dados) ):
+                http_response_code(406);
+                echo json_encode([
+                    'error' => true ,
+                    'msg'   => 'Usuário ' . $user_id . 'Não encontrado!'
+                ]);
+                exit;
+            endif;
+
+        endif;
+
+        // Checks IMAGES to UPLOAD
+        if(isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])):
+            
+            // Check recieved values
+            // echo var_dump($_FILES); // Doesn't work with JS
+            // echo json_encode( ['Arquivos' => $_FILES] );            
+    
+            // Extension
+            $imageFileType  = strrchr($_FILES['file']['name'], ".");
+            $imageFileType  = strtolower($imageFileType);
+    
+            // Getting and Defining file name
+            $data = new DateTime();
+            $fileName = "imagem-" . $data->format('Y-m-d') . "_" . rand(1, 9999) . $imageFileType;
+        
+            // Locations
+            $tmpLocation       = $_FILES['file']['tmp_name'];
+            $newLocation       = "uploads/user-profile/".$fileName;
+    
+    
+            // File Sizes
+            $fileSize       = $_FILES['file']['size'];
+            $maxsize        = 4194304; //bytes (4mb)        
+    
+            // Acceptable Extensions
+            $valid_extensions = array("jpg","jpeg","png");                      
+            
+            // File Extension Validation
+            if ($fileSize > $maxsize):
+                http_response_code(406); // Not Acceptable
+                echo json_encode([
+                    'error' => true ,
+                    'msg'   => 'O tamanho do arquivo deve ser de no máximo 4mb!'
+                ]);
+                exit;
+            endif;
+    
+            // File Size Validation
+            if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):
+                http_response_code(406); // Not Acceptable
+                echo json_encode([
+                    'error' => true ,
+                    'msg'   => 'Somente os formatos jpg, jpeg e png são permitidos!'
+                ]);
+                exit;
+            endif;                
+
+        endif;
+
+        if (move_uploaded_file($tmpLocation, $newLocation)):
+                        
+            CrudDB::setTabela('images_profile');
+
+            $dbReturnTwo = CrudDB::insert ([
+                'image_name'    => "'" . $fileName . "'" ,
+                'user_id'       => "'" . $user_id . "'"
+            ]);
+
+            if ($dbReturnTwo):
+                http_response_code(201); // Created
+                echo json_encode([
+                    'error' => false ,
+                    'msg' => "Foto de Perfil atualizada com sucesso!"
+                ]);
+                exit;
+            else:
+                http_response_code(500); // Internal Server Error                        
+                echo json_encode([
+                    'error' => true ,
+                    'msg' => "Erro ao Inserir Imagem no Banco de Dados!"
+                ]);
+                exit;
+            endif;           
+        else:
+            http_response_code(500); // Internal Server Error
+            echo json_encode([
+                'error' => true ,
+                'msg'   => 'Tivemos um Erro no Upload da imagem ao Servidor!'
+            ]);
+            exit;
+        endif;        
+
+
+    else:
+        http_response_code(200);
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Forneça uma Key via get para a operação!'
+        ]);
+        exit;    
+    endif;
+
+
+
+    
 endif;
 
 

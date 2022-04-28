@@ -46,8 +46,8 @@ $selectColor    = [];
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
         
     <!-- Favicon -->
@@ -59,7 +59,7 @@ $selectColor    = [];
     <!-- Header Include -->
     <?php include SITE_PATH . '/includes/header.php'; ?>
 
-    <!-- Loading Icon -->
+    <!-- Loading Animation -->
     <div class='spinner-wrapper'>
       <div class="spinner"></div>
     </div>
@@ -251,14 +251,13 @@ $selectColor    = [];
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery Include -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->    
+    <script src="<?php echo SITE_URL ?>/js/tradepost.js"></script>
 
     <script type="text/javascript">
-      // Input Masks
-      $('.money').mask('000.000.000.000.000,00', {reverse: true});
+      
     </script>
 
   </body>

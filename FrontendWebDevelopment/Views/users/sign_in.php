@@ -37,92 +37,90 @@ $titlePage = "MTC | SignUp";
     <title> <?php echo $titlePage; ?> </title>
     
     <!-- StyleSheet -->
+    <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">    
   </head>
 
-    <!-- Loading Icon -->
-    <div class='spinner-wrapper'>
-      <div class="spinner"></div>
-    </div>
-
-<body class="body-login bk-gray">
-  <div class="container-fluid h-100">
-  <div class="row h-100">
-    <div class="col-md-6 d-flex justify-content-center align-items-center">
-
-<!-- ATENÇÃO -->
-    <?php if ( $isLoggedUser ): ?>
-      <div class="text-center mt-5">
-        <div class="row">
-          <div class="col-12">
-            <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
-          </div>
-          <div class="col-12">
-            <a class='' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <?php else:  ?>
-<!-- ATENÇÃO -->
-
-    <!-- Form -->
-    <div class="form-default">            
-      <form id="singIn-form">
-        <span id="msgAlertErroLogin"></span>
-        
-          <!-- ICON -->
-          <div class="text-center">
-          <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
-            <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
-          </a>
-          </div>
-
-          <h3 class="text-white"><strong>Faça seu Login</strong></h3>
-          <p class="text-white" style="font-size:14px;">Edite seu perfill, publique seus produtos e negocie!</p>
-          <div class="form-floating">
-            <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
-            <label for="userEmail">E-mail</label>
-          </div>
-
-          <div class="form-floating">
-            <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
-            <label for="userPassword">Senha</label>
-          </div>
-
-          <div class="text-center mt-5">
-            <input class="btn-default btn btn-danger border-0" type="submit" value="ENTRAR" name="signIn" id="signIn-btn">
-          </div>
-
-          <div class="mt-5 text-white text-center">
-            <span>Não possui conta?
-              <a href="<?php echo SITE_URL ?>/Views/users/sign_up.php">Cadastre-se aqui</a>
-            </span>
-          </div>
-      </form>
-    </div>
-
-    </div>
-      <?php endif; ?>
-
-      <!-- IMAGEM RIGHT -->
-      <div class="col-md-6 d-none d-sm-flex justify-content-center align-items-center banner-login">
-        <div></div>
-      </div>
-
-  <!-- </div> -->
+  <!-- Loading Animation -->
+  <div class='spinner-wrapper'>
+    <div class="spinner"></div>
   </div>
 
+  <body class="body-login bk-gray">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+          
+          <!-- Logged -->
+          <?php if ( $isLoggedUser ): ?>
+            <div class="text-center mt-5">
+              <div class="row">
+                <div class="col-12">
+                  <h3 class="text-white">Bem vindo(a), <?php echo $_SESSION['user_name'] ?>!</h3> 
+                </div>
+                <div class="col-12">
+                  <a class='' href='<?php echo SITE_URL ?>/Views/homepage/index.php'><buttom class="text-white btn-default btn btn-danger border-0 mt-3">Clique aqui para começar!</buttom></a>
+                </div>
+              </div>
+            </div>          
+          <?php else:  ?>
+            <!-- Form -->
+            <div class="form-default">            
+              <form id="singIn-form">
+                <span id="msgAlertErroLogin"></span>
+                
+                <!-- ICON -->
+                <div class="text-center">
+                <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
+                  <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
+                </a>
+                </div>
+
+                <h3 class="text-white"><strong>Faça seu Login</strong></h3>
+                <p class="text-white" style="font-size:14px;">Edite seu perfill, publique seus produtos e negocie!</p>
+                <div class="form-floating">
+                  <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
+                  <label for="userEmail">E-mail</label>
+                </div>
+
+                <div class="form-floating">
+                  <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
+                  <label for="userPassword">Senha</label>
+                </div>
+
+                <div class="text-center mt-5">
+                  <input class="btn-default btn btn-danger border-0" type="submit" value="ENTRAR" name="signIn" id="signIn-btn">
+                </div>
+
+                <div class="mt-5 text-white text-center">
+                  <span>Não possui conta?
+                    <a href="<?php echo SITE_URL ?>/Views/users/sign_up.php">Cadastre-se aqui</a>
+                  </span>
+                </div>
+              </form>
+            </div>
+          
+          <?php endif; ?>
+        </div>
+
+        <!-- IMAGEM RIGHT -->
+        <div class="col-md-6 d-none d-sm-flex justify-content-center align-items-center banner-login">
+          <div></div>
+        </div> 
+      </div>     
+    </div>
+
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/signin.js"></script>
+
+  </body>
 
 </html>
