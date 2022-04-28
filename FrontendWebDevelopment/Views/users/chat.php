@@ -7,6 +7,7 @@
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
  *  - Vinícius Lessa - 19/04/2022: Início dos trabalhos para tornar o chat funcional.
  *  - Vinícius Lessa - 23/04/2022: Implementação da mensagem imediata do usuário + ajustes visuais.
+ *  - Vinícius Lessa - 27/04/2022: Implementação de "Outras Conversas".
  * 
  * @ Notes: 
  * 
@@ -29,11 +30,12 @@ $isLoggedUser = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) &&
 if ( $isLoggedUser ):
   $userLogged   = $_SESSION['user_id'];
 
-  if ( isset($_GET['user']) && isset($_GET['post_id']) ):
+  // /Views/users/chat.php/&img_url=<?php echo $chat['image_name']
+  if ( isset($_GET['user']) && isset($_GET['post_id']) && isset($_GET['img_url']) ):
     $post_id  = $_GET['post_id'];  
     $userTwo  = $_GET['user'];
     $imgUrl   = $_GET['img_url'];
-
+  
   endif;
 
 else:
@@ -47,10 +49,12 @@ $a_OtherChats = [] ; // Chamado em 'c_chat.php' - Carrega todos os Chats do Usu�
 require SITE_PATH . '/Controllers/c_chat.php';
 
 // Último Chat Ativo (caso não tenha vindo de um Post Específico)
-if ( !isset($post_id) && !isset($userTwo) && !isset($imgUrl) && !empty($a_OtherChats) ):
-  $post_id  = $a_OtherChats["data"][0]["post_id"];
-  $userTwo  = $a_OtherChats["data"][0]["userTwo"];
-  $imgUrl   = $a_OtherChats["data"][0]["image_name"];
+if ( !empty($a_OtherChats) ):
+  if ( !isset($post_id) && !isset($userTwo) && !isset($imgUrl) ):
+    $post_id  = $a_OtherChats["data"][0]["post_id"];
+    $userTwo  = $a_OtherChats["data"][0]["userTwo"];
+    $imgUrl   = $a_OtherChats["data"][0]["image_name"];
+  endif;
 
 else:
   $noChats = true;

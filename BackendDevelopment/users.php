@@ -85,8 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     
                     if (!empty($dados)):
                         foreach ($dados as $user) {
-                            $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
-                        }    
+                            if ( !empty($user->image_name) ):
+                                $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
+                            endif;
+                        }
                         http_response_code(200);
                         echo json_encode([
                             'error' => false ,

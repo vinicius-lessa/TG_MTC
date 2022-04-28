@@ -60,7 +60,7 @@ footer{
   left: 0;
 }
 
-/* ################################ BOTÕES
+/* ################################ Buttons
 */
 
 .btn-default {
@@ -124,7 +124,21 @@ footer{
   transform: translate(90px, 250px);  
 }
 
-/* Mudanças no BOOTSTRAP */
+.profileImage-input {
+  display: none;
+}
+
+.profileImage-label {
+  padding: 20px 10px;
+  width: 200px;
+  background-color: #333;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  cursor: pointer;
+}
 
 .default-tabs {
   color: white !important; 
