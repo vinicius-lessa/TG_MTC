@@ -171,10 +171,13 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
                             <a 
                               href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                               class="nav-link px-4 link-secondary">
-                                <!-- <img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="70px" height="70px"> -->
-                                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
-                            </a>                              
-                          </div>                                                          
+                                <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) ): ?>
+                                  <img src="<?php echo $tpDetails["data"][0]["img_profile_name"] ?>" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                                <?php else: ?>
+                                  <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                                <?php endif; ?>
+                            </a>
+                          </div>
                         </div>
 
                       </div>              

@@ -174,7 +174,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
               </div>
               <div class="col-12 d-flex justify-content-center">              
               </div>
-            </div> 
+            </div>
 
             <div class="row">
               <div class="col-12 text-center bk-blue p-0" style="height: 0px;">
@@ -481,14 +481,16 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <div class="row">
               <div class="col-2"></div>
               <div class="col-8 mt-3 mb-3 text-center p-2">
-                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
-                <!-- <div class="form-group mb-3 mt-2" style="width:90px;">
-                  <label class="mb-2" for="image-upload" style="font-size:12px;">Alterar Imagem</label>
-                  <input class="form-control" type="file" name="image-upload" id="image-upload" style="font-size:14px;">
-                </div> -->
+                <?php if ( isset($profileDetails['data'][0]['image_name']) ): ?>
+                  <img src="<?php echo $profileDetails['data'][0]['image_name'] ; ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
+                <?php else: ?>
+                  <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
+                <?php endif; ?>
+
+                
                 <div class="mt-4">
-                  <h5><strong><?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>
-                  <h6><?php echo $age ?> Anos</h6>
+                  <h4><strong><?php echo $profileDetails['data'][0]['user_name'] ?></strong></h4>
+                  <h5 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?> </h5>
                 </div>
               </div>
               <div class="col-2"></div>

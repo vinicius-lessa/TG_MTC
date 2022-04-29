@@ -69,21 +69,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         else:
             // All Users
             if ( $keySearch == 'allUsers' ):
-                $dados = CrudDB::select('SELECT u.user_id,
-                                                u.user_name, 
-                                                u.birthday,
-                                                u.phone,
-                                                u.tipo_pessoa, 
-                                                u.email,
-                                                u.cep,       
-                                                u.created_on, 
-                                                (SELECT ip.image_name FROM images_profile ip 
-                                                    WHERE ip.user_id = u.user_id AND
-                                                        ip.activity_status = 1
-                                                    ORDER BY ip.created_on DESC LIMIT 1) AS `image_name`
-                                        FROM users u
-                                        WHERE u.activity_status = 1
-                                        order by u.created_on desc limit 12;', [], TRUE);
+                $dados = CrudDB::select(
+                    'SELECT u.user_id,
+                            u.user_name, 
+                            u.birthday,
+                            u.phone,
+                            u.tipo_pessoa,
+                            u.email,
+                            u.cep,
+                            u.created_on, 
+                            (SELECT ip.image_name FROM images_profile ip 
+                                WHERE ip.user_id = u.user_id AND
+                                    ip.activity_status = 1
+                                ORDER BY ip.created_on DESC LIMIT 1) AS `image_name`
+                    FROM users u
+                    WHERE u.activity_status = 1
+                    order by u.created_on desc limit 12;', [], TRUE);
                 if (!empty($dados)):
                     foreach ($dados as $user) {
                         if ( !empty($user->image_name) ):

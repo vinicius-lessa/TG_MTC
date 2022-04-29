@@ -1,9 +1,18 @@
+/**
+ * File DOC
+ * 
+ * Description Arquivo .js criado a parte para tratar da Inclusão de Novos Anúncios ao sistema.
+ * ChangeLog 
+ *  - Vinícius Lessa - 28/04/2022: Criação do arquivo a partir do antigo "main.js" e início da implementação da tratativa dos campos 'Categoria', 'Marca', 'Modelo' e 'Cores'.
+ * 
+ * @ Notes: 
+ * 
+ */
+
 $(document).ready(function(){
     // Input Masks
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
 });
-
-// Functions
 
 // NewTradePost Image Preview
 // function readURL(imgInput) {
@@ -23,6 +32,9 @@ $(document).ready(function(){
 const newTradePostForm  = $("#newTradePost-form");
 const msgAlertErroPost  = $("#msgAlertErroPost");
 
+const brandSelector     = $("#brand");
+const modelSelector     = $("#model");
+
 var title               = $("#title");
 var category            = $("#category");
 var brand               = $("#brand");
@@ -37,9 +49,117 @@ var possuiNF            = $('input[name=possuiNF]:checked', newTradePostForm);
 let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
 
 
+// Functions
+
+async function changeCategory() {
+    
+    // Start Loading Icon
+    spinnerWrapper.style.display = 'flex';
+    
+    var innerMessage = "";
+    var myHeaders = new Headers();
+
+    var myInit = { 
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default'
+    };
+
+    const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
+    
+    const j_TPinfo = await r_TPinfo.json();    
+    // console.log(j_TPinfo.data);
+
+    if ( j_TPinfo.error ){        
+        innerMessage = "<option value='44'>Outra</option>"; // Define Default (Código 44 no DB)
+    } else {
+        console.log("Marca: OK");
+        innerMessage = "<option value='default'>Selecione a Marca</option>"; // Permanece
+        
+        for (var p of j_TPinfo.data) {    
+            innerMessage += "<option value='" + p["brand_id"] + "'>" + p["brand_description"] + "</option>";
+        }
+    }        
+
+    brandSelector.html( function() {
+        return innerMessage;
+    });
+    
+    // Desabilita Loading
+    spinnerWrapper.style.display = 'none';
+}
+
+async function changeBrand() {        
+
+    if ( category.val() == "default" ){
+        window.alert("Preencha a Categoria Primeiro!");
+        brand.val("default");
+        return;
+    }
+
+    // Start Loading Icon
+    spinnerWrapper.style.display = 'flex';
+    
+    var innerMessage = "";
+    var myHeaders = new Headers();
+
+    var myInit = { 
+        method: 'GET',
+        headers: myHeaders,
+        mode: 'cors',
+        cache: 'default'
+    };
+
+    const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
+    
+    const j_TPinfo = await r_TPinfo.json();    
+    // console.log(j_TPinfo.data);    
+    
+    if ( j_TPinfo.error ){
+        innerMessage = "<option value='84'>Outros</option>"; // Define Default (Código 84 no DB)
+    } else {
+        console.log("Modelo: OK");
+        innerMessage = "<option value='default'>Selecione o Modelo</option>"; // Permanece
+        
+        for (var p of j_TPinfo.data) {        
+            innerMessage += "<option value='" + p["model_id"] + "'>" + p["description"] + "</option>";
+        }
+    }
+    
+
+    modelSelector.html( function() {
+        return innerMessage;
+    });
+    
+    // Desabilita Loading
+    spinnerWrapper.style.display = 'none';
+
+}
+
+function changeModel() {    
+
+    if ( category.val() == "default"){
+        window.alert("Preencha o Campo Categoria Primeiro!");
+        model.val("default");
+        return;
+    }
+
+    if ( brand.val() == "default"){
+        window.alert("Preencha o campo Marca Primeiro!");
+        model.val("default");
+        return;
+    }    
+}
+
+
 // New Post Submit
 newTradePostForm.submit(async function( event ){
     event.preventDefault();    
+
+    //Continuar
+    console.log(parseFloat(price.val().replace(',', '.')));
+    return
 
     if ( title.val() === "" || title.val() === null ) {
         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
@@ -51,7 +171,7 @@ newTradePostForm.submit(async function( event ){
         $(title).removeAttr("style");
     }
 
-    if ( category.val() === "" || category.val() === null ) {
+    if ( category.val() === "default" || category.val() === null ) {
         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
         $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
@@ -61,7 +181,7 @@ newTradePostForm.submit(async function( event ){
         $(category).removeAttr("style");
     }
 
-    if ( brand.val() === "" || brand.val() === null ) {
+    if ( brand.val() === "default" || brand.val() === null ) {
         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
         $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
@@ -71,7 +191,7 @@ newTradePostForm.submit(async function( event ){
         $(brand).removeAttr("style");
     }    
 
-    if ( model.val() === "" || model.val() === null ) {
+    if ( model.val() === "default" || model.val() === null ) {
         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
         $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
@@ -115,19 +235,20 @@ newTradePostForm.submit(async function( event ){
     spinnerWrapper.style.display = 'flex';
 
     // Get USER_ID
-    var myHeaders = new Headers();
+    // var myHeaders = new Headers();
 
-    var myInit = { 
-        method: 'GET',
-        headers: myHeaders,
-        mode: 'cors',
-        cache: 'default'
-    };
+    // var myInit = { 
+    //     method: 'GET',
+    //     headers: myHeaders,
+    //     mode: 'cors',
+    //     cache: 'default'
+    // };
 
-    const r_UserData = await fetch("../../Controllers/c_user.php/?key=user_info" , myInit);
+    // const r_UserData = await fetch("../../Controllers/c_user.php/?key=user_info" , myInit);
     
-    const j_userData = await r_UserData.json();
-    var user_id      = j_userData.user_id;
+    // const j_userData = await r_UserData.json();
+    
+    // var user_id      = j_userData.user_id;
     
     // Send Form to REST API
     const formData = new FormData(event.target); // All Form Values
@@ -174,7 +295,7 @@ newTradePostForm.submit(async function( event ){
             spinnerWrapper.style.display = 'none';
             // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
     
-            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_posts.php");
+            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/trade_posts/home.php");
         }
     }, 2000);    
 

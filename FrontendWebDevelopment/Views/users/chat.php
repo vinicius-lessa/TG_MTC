@@ -48,8 +48,9 @@ endif;
 $a_OtherChats = [] ; // Chamado em 'c_chat.php' - Carrega todos os Chats do Usuário
 require SITE_PATH . '/Controllers/c_chat.php';
 
+
 // Último Chat Ativo (caso não tenha vindo de um Post Específico)
-if ( !empty($a_OtherChats) ):
+if ( !empty($a_OtherChats) && !$a_OtherChats["error"] ):
   if ( !isset($post_id) && !isset($userTwo) && !isset($imgUrl) ):
     $post_id  = $a_OtherChats["data"][0]["post_id"];
     $userTwo  = $a_OtherChats["data"][0]["userTwo"];
@@ -60,7 +61,6 @@ else:
   $noChats = true;
 
 endif;
-
 
 // $chatPostID = $post_id; // Chamado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';
@@ -124,14 +124,14 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
             <div class="col-12 my-5">
               <h5>
                 Comece novas Conversas a partir de outros 
-                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/home.php">
+                  <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/home.php">
                     <button type='button' class='btn btn-lg border-0 btn-default'>
                       <strong>Anúncios</strong>
                     </button>
                   </a>
                   
                 ou Receba propostas de seus próprios 
-                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php">
+                  <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php">
                     <button type='button' class='btn btn-lg border-0 btn-default'>
                       <strong>Anúncios</strong>
                     </button>

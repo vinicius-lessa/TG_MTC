@@ -84,52 +84,58 @@ function loadTradePostDetails($tradePostID){
 }
 
 
+function loadNewTPOptions($type){
+
+  $token  = "16663056-351e723be15750d1cc90b4fcd";  
+
+  switch( $type ){
+    case "categorys":
+      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=categorys"; // All Categorys;
+      break;
+
+    case "brands":
+      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=brands"; // All Brands;
+      break;
+
+    case "models":
+      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=models"; // All Models;
+      break;
+
+    case "colors":
+      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=colors"; // All Colors;
+      break;
+  }  
+
+  $opts = array('http' =>
+      array(
+          'method'        =>"GET",
+          'header'        => 'Content-Type: application/x-www-form-urlencoded',
+          'ignore_errors' => true
+      )
+  );
+    
+  $context = stream_context_create($opts);
+
+  // file_get_contents
+  $returnJson = file_get_contents($url, false, $context);
+  
+  // Tranforms Json in Array
+  $aData = json_decode($returnJson, true); // Trasnforma em Array
+
+  if (count($aData) == 0 || $aData == false):
+    $aData = [
+      'erro'=> true , 
+      'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problemas na requisição ao Servidor!</div>"
+    ];
+
+  endif;
+  
+  return $aData;
+}
+
+
 // ********************************************** ANALISAR ********************************************** //
 
-// Upload Imagem ao Servidor
-function publicarImagem($arquivo)
-{
-  $data = new DateTime();
-  $arquivotemp = $arquivo['tmp_name'];
-  $nomeoriginal = $arquivo['name'];
-  $nomeproduto = "imagem-" . $data->format('dmY') . $data->format('His') . rand(1, 9999) . strrchr($nomeoriginal, ".");
-
-  if (move_uploaded_file($arquivotemp, SITE_PATH . "/images/produtos/" . $nomeproduto)) {
-    return $nomeproduto;
-  } else {
-    return false;
-  }
-}
-
-// Cadastra Produtos
-function cadastarproduto($dados, $conn)
-{
-  $valores = $dados;
-  $sql = 'INSERT INTO produto (nome_prod, descricao_prod, valor_un, cover_img, banner_img, estoque, cod_categoria, destaque, tipo_prod, modelo_prod, localizacao_prod) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssdssiiisss", $valores['nome_prod'], $valores['descricao_prod'], $valores['valor_un'], $valores['cover_img'], $valores['banner_img'], $valores['estoque'], $valores['cod_categoria'], $valores['destaque'], $valores['tipo_prod'], $valores['modelo_prod'], $valores['localizacao_prod']);
-  // $stmt->execute();
-  $result = $stmt->execute() ? true : false;
-  $stmt->close();
-
-  return $result;
-}
-
-/* FUNÇÃO PARA LISTAR TODOS OS PRODUTOS */
-function carregarProdutos($conn, $limit = 12, $offset = 0)
-{
-  $sql = "SELECT  p.cod_produto, p.nome_prod, p.descricao_prod, p.cover_img, p.valor_un, c.nome_categoria, p.estoque
-    FROM produto p  INNER JOIN categoria c ON p.cod_categoria = c.cod_categoria 
-    ORDER BY p.nome_prod ASC LIMIT ? OFFSET ? ";
-
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ii", $limit, $offset);
-  $stmt->execute();
-
-  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-  $stmt->close();
-  return $result;
-}
 
 /* FUNÇÃO PARA PESQUISAR O PRODUTO DO CAMPO PESQUISA */
 function pesquisarProduto($conn, $produtoPesquisa)
@@ -150,20 +156,6 @@ function pesquisarProduto($conn, $produtoPesquisa)
 
 /* ================================================================================ */
 
-/* FUNÇÃO PARA CADASTRAR CATEGORIA DOS PRODUTOS */
-function cadastrarcategoria($dados, $conn)
-{
-  $valores = $dados;
-  $sql = 'INSERT INTO categoria (nome_categoria) VALUES(?)';
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $valores['nome_categoria']);
-  // $stmt->execute();
-  $result = $stmt->execute() ? true : false;
-  $stmt->close();
-
-  return $result;
-}
-
 /* ALTERAR CATEGORIA NO BANCO */
 function alterarcategoria($dados, $conn)
 {
@@ -171,30 +163,6 @@ function alterarcategoria($dados, $conn)
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("si", $dados['nome_categoria'], $dados['cod_categoria']);
   $result = $stmt->execute() ? true : false;
-  $stmt->close();
-  return $result;
-}
-
-/* FUNÇÃO PARA LISTAR CATEGORIA */
-function listarcategoria($conn)
-{
-  $sql = 'SELECT cod_categoria, nome_categoria FROM categoria';
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-
-  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-  $stmt->close();
-  return $result;
-}
-
-/* FUNÇÃO PARA FAZER UM SELECT E LISTAR AS CATEGORIAS */
-function selectcategoria($conn)
-{
-  $sql = 'SELECT cod_categoria, nome_categoria FROM categoria ';
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-
-  $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   $stmt->close();
   return $result;
 }

@@ -4,8 +4,9 @@
  * 
  * @Description Página de entrada para requisições do tipo GET, PUT, POST e DELETE de 'TradePosts' (Anúncios)
  * @ChangeLog 
- *  - Vinícius Lessa - 14/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST,
+ *  - Vinícius Lessa - 14/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST.
  *  - Vinícius Lessa - 16/04/2022: Implementação da tratativa POST para inclusão de anúncios com imagens.
+ *  - Vinícius Lessa - 28/04/2022: Implementação das consultas das tabelas de 'PRODUCT_CATEGORY', 'PRODUCT_BRANDS', 'PRODUCT_MODELS' e 'COLORS'.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -47,6 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     // - Todos os Anúncios: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=all'
     // - Anúncios de um usuário Específico: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=all&user_id=14'
     // - Anúncio Específico: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=224'
+    
+    // - Seleciona Categorias: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=categorys'
+
+    // - Seleciona Marcas: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands'
+    // - Seleciona Marcas (baseado em CATEGORIA): 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value={pc.category_id}}'
+
+    // - Seleciona Modelos: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models'
+    // - Seleciona Cores: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=colors'
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
@@ -63,8 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     if ( !Empty($uri) && $uri <> 'index.php' ):
 
         // Variables
-        $keySearch  = (isset($_GET["key"]))     ? $_GET["key"] : "" ;
-        $user_id    = (isset($_GET['user_id'])) ? intval($_GET['user_id']) : '';
+        $keySearch      = (isset($_GET["key"]))     ? $_GET["key"] : "" ;
+        $valueSearch    = (isset($_GET["value"]))     ? $_GET["value"] : "" ;
+        $user_id        = (isset($_GET['user_id'])) ? intval($_GET['user_id']) : '';
 
         if (Empty($keySearch)):
             http_response_code(404); // Not Found
@@ -96,8 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         u.phone 					,
                         tp.price					,
                         tp.eletronic_invoice 		,
-                        tp.created_on				,
-                        itp.image_name as image_name
+                        itp.image_name as image_name,
+                        ip.image_name as img_profile_name
                     FROM trade_posts tp 
                     INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
                     INNER JOIN product_brands pb ON tp.brand_id = pb.brand_id
@@ -106,6 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     INNER JOIN product_conditions pc2 ON tp.condition_id = pc2.condition_id 
                     INNER JOIN users u ON tp.user_id = u.user_id
                     INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
+                    INNER JOIN images_profile ip ON ip.user_id = u.user_id 
                     WHERE 
                         tp.post_id          =:POST_ID AND
                         tp.activity_status  = 1
@@ -116,7 +127,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 
                 if (!empty($dados)):                    
                     foreach ($dados as $tradePost) {
-                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
+                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name ;
+
+                        if ( !empty($tradePost->img_profile_name) ):
+                            $tradePost->img_profile_name = SITE_URL . "/uploads/user-profile/" . $tradePost->img_profile_name ;
+                        endif;
                     }
 
                     http_response_code(200); // Success
@@ -177,7 +192,201 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     ]);
                     exit;
                 endif;
+            
+            // Categorys
+            elseif ( $keySearch == 'categorys' ):
+                            
+                $dados = CrudDB::select(
+                    'SELECT pc.category_id, pc.description 
+                    FROM product_categorys pc
+                    WHERE pc.activity_status = 1
+                    ORDER BY pc.description ;',
+                    [], TRUE);
+
+                if (!empty($dados)):
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => false ,
+                        'data' => $dados
+                    ]);
+                    exit;     
+                else:
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => true ,
+                        'msg' => 'Problema ao realizar a consulta da tabela `product_categorys` no Banco de Dados'            
+                    ]);
+                    exit;
+                endif;            
+
+            // Brands
+            elseif ( $keySearch == 'brands' ):
+                
+                if ( !empty($valueSearch) ):
+                    if ( is_numeric($valueSearch) ):
+                        $dados = CrudDB::select(
+                            "SELECT
+                            cb.category_brand_category_id   AS `category_id`, 
+                            pc.description                  AS `category_description` ,
+                            cb.category_brand_brand_id      AS `brand_id` ,	
+                            pb.description                  AS `brand_description` 
+                            FROM category_brand cb
+                            INNER JOIN product_categorys pc on pc.category_id = cb.category_brand_category_id
+                            INNER JOIN product_brands pb    on pb.brand_id = cb.category_brand_brand_id
+                            WHERE cb.activity_status = 1 AND
+                                pc.activity_status = 1 AND
+                                pb.activity_status = 1 AND 
+                                cb.category_brand_category_id in (:CATEGORY_ID, 34)
+                            order by pc.description, pb.description ;",
+                            [
+                                'CATEGORY_ID' => $valueSearch
+                            ], TRUE);
+        
+                        if (!empty($dados)):
+                            http_response_code(200); // Success
+                            echo json_encode([
+                                'error' => false ,
+                                'data' => $dados
+                            ]);
+                            exit;     
+                        else:
+                            http_response_code(200); // Success
+                            echo json_encode([
+                                'error' => true ,
+                                'msg' => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
+                            ]);
+                            exit;
+                        endif;
+                    else:
+                        http_response_code(406); // Not Acceptable
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => 'Valor de Categoria inválido!'
+                        ]);
+                        exit;
+                    endif;
+
+                else:
+                    $dados = CrudDB::select(
+                        "SELECT 
+                            distinct(pb.description) as `description`, 
+                            ( SELECT pb2.brand_id 
+                              FROM product_brands pb2 
+                              WHERE activity_status = 1 AND
+                                    pb2.description = pb.description 
+                              ORDER BY created_on DESC LIMIT 1 ) AS `brand_id`
+                        FROM product_brands pb
+                        WHERE pb.activity_status = 1
+                        ORDER BY pb.description ;",
+                        [], TRUE);
+    
+                    if (!empty($dados)):
+                        http_response_code(200); // Success
+                        echo json_encode([
+                            'error' => false ,
+                            'data' => $dados
+                        ]);
+                        exit;     
+                    else:
+                        http_response_code(200); // Success
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => 'Problema ao realizar a consulta da tabela `product_brands` no Banco de Dados'
+                        ]);
+                        exit;
+                    endif;
+                endif;                            
+            
+            // Models
+            elseif ($keySearch == 'models'):
+                            
+                if ( !empty($valueSearch) ):
+                    if ( is_numeric($valueSearch) ):
+                        $dados = CrudDB::select(
+                            "SELECT pm.model_id, pm.description FROM product_models pm 
+                            WHERE pm.activity_status = 1 AND
+                                  pm.brand_id =:BRAND_ID
+                            ORDER BY pm.description;",
+                            [
+                                'BRAND_ID' => $valueSearch
+                            ], TRUE);
+        
+                        if (!empty($dados)):
+                            http_response_code(200); // Success
+                            echo json_encode([
+                                'error' => false ,
+                                'data' => $dados
+                            ]);
+                            exit;     
+                        else:
+                            http_response_code(200); // Success
+                            echo json_encode([
+                                'error' => true ,
+                                'msg' => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
+                            ]);
+                            exit;
+                        endif;
+                    else:
+                        http_response_code(406); // Not Acceptable
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => 'Valor de Categoria inválido!'
+                        ]);
+                        exit;
+                    endif;
+                    
+                else:                    
+                    $dados = CrudDB::select(
+                        'SELECT pm.model_id, pm.description 
+                        FROM product_models pm
+                        WHERE pm.activity_status = 1
+                        ORDER BY pm.description ;',
+                        [], TRUE);
+
+                    if (!empty($dados)):
+                        http_response_code(200); // Success
+                        echo json_encode([
+                            'error' => false ,
+                            'data' => $dados
+                        ]);
+                        exit;     
+                    else:
+                        http_response_code(200); // Success
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => 'Problema ao realizar a consulta da tabela `product_models` no Banco de Dados'            
+                        ]);
+                        exit;
+                    endif;
+                endif;            
+
+            // Colors
+            elseif ($keySearch == 'colors'):
+                            
+                $dados = CrudDB::select(
+                    'SELECT c.color_id, c.description 
+                    FROM colors c
+                    WHERE c.activity_status = 1
+                    ORDER BY c.description ;',
+                    [], TRUE);
+
+                if (!empty($dados)):
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => false ,
+                        'data' => $dados
+                    ]);
+                    exit;     
+                else:
+                    http_response_code(200); // Success
+                    echo json_encode([
+                        'error' => true ,
+                        'msg' => 'Problema ao realizar a consulta da tabela `colors` no Banco de Dados'
+                    ]);
+                    exit;
+                endif;
             endif;
+
         endif;            
     else:                
         http_response_code(406); // Not Acceptable
