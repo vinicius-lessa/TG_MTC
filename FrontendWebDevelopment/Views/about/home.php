@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 12/04/2022: Criação do arquivo da página, estruturação mínima;
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e $titlePage;
+ *  - Renata Carrillo - 01/05/2022: Estruturação do conteúdo da página como um todo;
  *
  * @ Notes: 
  *
@@ -53,25 +54,70 @@ $titlePage = 'Sobre Nós';
     <?php include SITE_PATH .'/includes/header.php';?>
 
     <main>
+
+    
+    <section class="showcase">
+      <video src="<?php echo SITE_URL ?>/images/teste.mp4" autoplay loop muted></video>
+        <h1 class="title text-center mt-5"><strong>MUSIC TRADE CENTER</strong></h1>
+    </section>
+
       <div class="container mt-5 mb-2">
-        <div class="text-left">
-          <div class="row">
-            <h2 class="text-white"><strong>Q U E M &nbsp;S O M O S</strong></h2>
+
+          <div class="row mt-5">
+            <h3 class="text-white"><strong>Q U E M &nbsp;S O M O S</strong></h3>
             <hr>
-          </div>
 
           <div class="row">
-            <div class="col-6">
-              <h4 class="text-white">Somos uma empresa com foco no ramo da Música, proporcionando um Serviço totalmente focado na imersão de compra e venda de músico para músico.</h4>
+            <div class="col-12 col-sm-6">
+              <h4 class="text-white">Somos uma empresa com foco no ramo da Música, proporcionando um Serviço totalmente focado na imersão de <strong class="text-red">compra e venda</strong> de músico para músico.</h4>
             </div>
+
+            <div class="container col-12 col-sm-6 mt-2">
+              <img class="img-fluid" src="<?php echo SITE_URL ?>/images/IMAGENS/QUEMSOMOS01-1.jpg" alt="Quem Somos">
+            </div>
+
           </div>
       </div>
 
-      <div class="container col-6 col-sm-6 mb-3 mt-2">
-        <img class="img-fluid" src="<?php echo SITE_URL ?>/images/IMAGENS/QUEMSOMOS01-1.jpg" alt="Quem Somos">
+      <div class="container mt-5 mb-2">
+        <div class="row mt-5">
+          <h3 class="text-red"><strong>D E S E N V O L V E D O R E S</strong></h3>
+          <hr>
+        </div>
       </div>
 
-      <div class="container col-6"></div>
+      <div class="container">
+      <div class="row">
+
+        <div class="col-12 col-sm-5">
+          <img class="card-img-top ms-4" src="<?php echo SITE_URL ?>/images/IMAGENS/DESENVOLVEDORES/VINICIUS.jpg" style="max-width:250px;max-height:250px;" alt="Card image cap">
+          <div class="card-body text-white">
+            <h5 class="card-title text-left">Vinícius Lessa</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                                 Some quick example text to build on the card title and make up the bulk of the card's content.
+                                 Some quick example text to build on the card title and make up the bulk of the card's content.
+            </p>
+            <a href="https://github.com/vinicius-lessa" class="btn btn-default">Github</a>
+          </div>
+        </div>
+
+        <div class="col-sm-2"></div>
+
+        <div class="col-12 col-sm-5">
+          <img class="card-img-top ms-4" src="<?php echo SITE_URL ?>/images/IMAGENS/DESENVOLVEDORES/IURY.jpg" style="max-width:250px;max-height:250px;" alt="Card image cap">
+          <div class="card-body text-white">
+            <h5 class="card-title">Iury Kukli</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                                 Some quick example text to build on the card title and make up the bulk of the card's content.
+                                 Some quick example text to build on the card title and make up the bulk of the card's content.
+            </p>
+            <a href="https://github.com/iurykuklik" class="btn btn-default">Github</a>
+          </div>
+        </div>
+
+      </div>
+      </div>
+
     </main>
 
     <!-- footer site -->
