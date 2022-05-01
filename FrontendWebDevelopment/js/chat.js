@@ -5,6 +5,7 @@
  * ChangeLog 
  *  - Vinícius Lessa - 21/04/2022: Criação do arquivo e inclusão da documentação inicial. Início da Implementação da função 
  *  - Vinícius Lessa - 23/04/2022: Implementação da mensagem instantanea, e adição de um "Loading" antes que a consulta no banco possa ser feita.
+ * 
  * @ Notes: 
  * 
  */
@@ -51,7 +52,7 @@ function refreshChat(){
 }
       
 // Repeat - 10 seconds
-// setInterval(function(){refreshChat();}, 20000);
+setInterval(function(){refreshChat();}, 4000);
 
 
 // Events
