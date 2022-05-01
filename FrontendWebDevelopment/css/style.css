@@ -61,10 +61,11 @@
 html, body {
   margin: 0;
   padding: 0;
-  min-height: 1080px;
+  /* min-height: 1080px; */
 }
 
 footer{
+  position: relative !important;
   width: 100%;
   bottom: 0;
   left: 0;
