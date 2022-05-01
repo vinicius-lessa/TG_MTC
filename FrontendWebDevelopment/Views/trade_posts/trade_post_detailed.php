@@ -20,7 +20,7 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-$a_tpList   = [];
+$a_tpList   = []; // Other Trade Posts
 
 if (!defined('SITE_URL')) {
   include_once '../../config.php';

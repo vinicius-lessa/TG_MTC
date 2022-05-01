@@ -487,7 +487,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     $user_id        = (isset($_POST['user_id']))        ? intval($_POST['user_id']) : 0     ;
 
     $brand_id       = (isset($_POST['brand'])) ? intval($_POST['brand']) : 0                ;
-    $model_id       = (isset($_POST['model'])) ? intval($_POST['model']) : 0                ;    
+    $model_id       = (isset($_POST['model'])) ? intval($_POST['model']) : 0                ;
     $description    = (isset($_POST['description'])) ? $_POST['description'] : ''           ;
     $color_id       = (isset($_POST['color'])) ? intval($_POST['color']) : 0                ;
     
@@ -657,19 +657,63 @@ endif;
 #############################################################################################
 
 // **************** PUT (ALTERAÇÃO)
-// No INSOMINIA, utilizar o "FORM URL ENCODED" (Structured)
 if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
     
+    // Utilizar "FORM URL Encoded" (application/x-www-form-urlencoded)
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
     // exit;
 
     parse_str(file_get_contents('php://input'), $_PUT);
 
-    echo json_encode([
-        'data' => $_PUT
-    ]);
-    http_response_code(200); // Not Acceptable
-    exit;
+    // Token Validation
+    if (!($_DELETE['token'] === '16663056-351e723be15750d1cc90b4fcd')):
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Erro: Token is not Valid!'
+        ]);
+        http_response_code(401); // Unauthorized
+        exit;
+    endif;
+
+    // Variables
+    $title          = (isset($_PUT['title']))          ? $_PUT['title'] : ''              ;
+    $category_id    = (isset($_PUT['category']))       ? intval($_PUT['category']) : 0    ;
+    $price          = (isset($_PUT['price']))          ? floatval($_PUT['price']) : 0     ;
+    $pCondition_id  = (isset($_PUT['p_condition']))    ? intval($_PUT['p_condition']) : 0 ;
+    $possuiNF       = (isset($_PUT['possuiNF']))       ? intval($_PUT['possuiNF']) : 3    ;
+    $user_id        = (isset($_PUT['user_id']))        ? intval($_PUT['user_id']) : 0     ;
+
+    $brand_id       = (isset($_PUT['brand'])) ? intval($_PUT['brand']) : 0                ;
+    $model_id       = (isset($_PUT['model'])) ? intval($_PUT['model']) : 0                ;
+    $description    = (isset($_PUT['description'])) ? $_PUT['description'] : ''           ;
+    $color_id       = (isset($_PUT['color'])) ? intval($_PUT['color']) : 0                ;
+    
+    $imageUpload    = false; // By default, image upload will not happen
+
+    // Check Recieved Data
+    // echo json_encode([
+    //     'error' => true ,
+    //     'msg'   => 'Teste' ,
+    //     'dados' => $_PUT
+    // ]);
+    // exit;
+
+    if (empty($title) or
+        $category_id    == 0 or
+        $price          == 0 or
+        $pCondition_id  == 0 or
+        $user_id        == 0 or
+        $possuiNF       == 3
+        ):
+        
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Erro: Informe Todos os Parâmetros!'
+        ]);
+        http_response_code(406);
+        exit;
+    endif;    
 
 endif;
 
@@ -679,8 +723,7 @@ endif;
 // ********************* DELETE
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
     
-    // Possíveis Requisições:
-    // - ".../trade_posts.php/token=16663056-351e723be15750d1cc90b4fcd&post_id=14" - Deleção de ANÚNCIO com base em seu ID
+    // Utilizar "FORM URL Encoded" (application/x-www-form-urlencoded)
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
     // exit;

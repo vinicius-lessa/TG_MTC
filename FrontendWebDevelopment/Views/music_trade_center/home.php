@@ -136,7 +136,7 @@ endif;
                       <img src="<?php echo $user["image_name"] ?>" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
                     <?php else: ?>
                       <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img-mtc-1.jpg" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
-                    <?php endif; ?>              
+                    <?php endif; ?>
                   </a>
                   </div>
                   <div class="col-6 col-sm-3 mt-3 bk-gray">

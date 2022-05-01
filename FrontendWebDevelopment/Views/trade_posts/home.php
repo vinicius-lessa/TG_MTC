@@ -90,16 +90,28 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
         <div class="container mb-5">
           <div class="row">
             <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
-              <!--
-                > 990 (lg)= 3 
-                < 990 (md)= 2
-                > 575 (sm)= 1 
-              -->
               <div class="col-12 col-sm-6 col-lg-4 mt-4 mb-4">
                 <div class="p-3">
                   <div class="image_container">
                     <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
+                      <?php if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ): ?>
+                        <?php
+                          $file = $a_tpItem['image_name'];
+                          $file_headers = @get_headers($file);
+
+                          if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found'):
+                          ?>
+                            <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
+                        <?php 
+                          else: 
+                        ?>
+                            <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
+                        <?php
+                          endif;
+                        ?>
+                      <?php else: ?>
+                        <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
+                      <?php endif; ?>
                     </a>
                   </div>
                   <div class="p-2 bk-gray">
