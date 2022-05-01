@@ -7,6 +7,7 @@
  *  - Vinícius Lessa - 14/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST.
  *  - Vinícius Lessa - 16/04/2022: Implementação da tratativa POST para inclusão de anúncios com imagens.
  *  - Vinícius Lessa - 28/04/2022: Implementação das consultas das tabelas de 'PRODUCT_CATEGORY', 'PRODUCT_BRANDS', 'PRODUCT_MODELS' e 'COLORS'.
+ *  - Vinícius Lessa - 01/05/2022: Implementação do método DELETE.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -18,7 +19,7 @@
  
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Content-type: application/json; charset=UTF-8');
+header('Content-type: application/json; application/x-www-form-urlencoded; charset=UTF-8');
 
 require_once 'classes/Class.Crud.php';
 
@@ -57,15 +58,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     // - Seleciona Modelos: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models'
     // - Seleciona Cores: 'trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=colors'
 
+    // *** Início
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
     // Token Validation
-    if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):       
-        http_response_code(401); // Unauthorized
+    if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):
         echo json_encode([
             'error' => true ,
-            'msg' => 'Erro: Token is not Valid!'            
+            'msg' => 'Erro: Token is not Valid!'
         ]);
+        http_response_code(401); // Unauthorized
         exit;
     endif;
 
@@ -76,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         $valueSearch    = (isset($_GET["value"]))     ? $_GET["value"] : "" ;
         $user_id        = (isset($_GET['user_id'])) ? intval($_GET['user_id']) : '';
 
-        if (Empty($keySearch)):
-            http_response_code(404); // Not Found
+        if (Empty($keySearch)):            
             echo json_encode([
                 'error' => true ,
                 'msg' => 'Informe todos os parâmetros!'
             ]);
+            http_response_code(404); // Not Found
             exit;
         else:
             // Unique Trade Post
@@ -133,19 +136,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             $tradePost->img_profile_name = SITE_URL . "/uploads/user-profile/" . $tradePost->img_profile_name ;
                         endif;
                     }
-
-                    http_response_code(200); // Success
+                    
                     echo json_encode([
                         'error' => false ,
                         'data' => $dados
                     ]);
-                    exit;
-                else:
                     http_response_code(200); // Success
+                    exit;
+                else:                    
                     echo json_encode([
                         'error' => true ,
                         'msg' => 'Erro: O Anúncio solicitado não foi encontrado!'
                     ]);
+                    http_response_code(200); // Success
                     exit;
                 endif;
 
@@ -177,19 +180,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     foreach ($dados as $tradePost) {
                         $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
                     }
-
-                    http_response_code(200); // Success
+                    
                     echo json_encode([
                         'error' => false ,
                         'data' => $dados
                     ]);
-                    exit;                  
-                else:
                     http_response_code(200); // Success
+                    exit;                  
+                else:                    
                     echo json_encode([
                         'error' => true ,
                         'msg' => 'Erro: Nenhum anúncio Encontrado!'            
                     ]);
+                    http_response_code(200); // Success
                     exit;
                 endif;
             
@@ -197,37 +200,81 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             elseif ( $keySearch == 'categorys' ):
                             
                 $dados = CrudDB::select(
-                    'SELECT pc.category_id, pc.description 
+                    "(SELECT pc.category_id, pc.description  as `description`
                     FROM product_categorys pc
-                    WHERE pc.activity_status = 1
-                    ORDER BY pc.description ;',
+                    WHERE pc.activity_status = 1 and
+                          pc.category_id != (SELECT pc.category_id from product_categorys pc 
+                                             where pc.activity_status = 1 and
+                                                   pc.description like ('%Outr%'))
+                    ORDER BY `description`)
+                    UNION
+                    (SELECT pc.category_id, pc.description as `description`
+                    FROM product_categorys pc
+                    WHERE pc.activity_status = 1 and
+                          pc.category_id = (select pc.category_id from product_categorys pc 
+                                            where pc.activity_status = 1 and
+                                                  pc.description like ('%Outr%'))
+                    ORDER BY `description`);",
                     [], TRUE);
 
-                if (!empty($dados)):
-                    http_response_code(200); // Success
+                if (!empty($dados)):                    
                     echo json_encode([
                         'error' => false ,
                         'data' => $dados
                     ]);
-                    exit;     
-                else:
                     http_response_code(200); // Success
+                    exit;     
+                else:                    
                     echo json_encode([
                         'error' => true ,
                         'msg' => 'Problema ao realizar a consulta da tabela `product_categorys` no Banco de Dados'            
                     ]);
+                    http_response_code(200); // Success
                     exit;
                 endif;            
 
             // Brands
             elseif ( $keySearch == 'brands' ):
                 
-                if ( !empty($valueSearch) ):
+                // All Brands
+                if ( empty($valueSearch) ):
+                    $dados = CrudDB::select(
+                        "(SELECT pb.brand_id , pb.description  as `description`
+                        FROM product_brands pb 
+                        WHERE pb.activity_status = 1 and
+                              pb.brand_id != (select pb2.brand_id  from product_brands pb2
+                                                 where pb2.activity_status = 1 and
+                                                       pb2.description like ('%Outr%'))
+                        ORDER BY `description`)
+                        UNION
+                        (SELECT pb.brand_id, pb.description  as `description`
+                        FROM product_brands pb 
+                        WHERE pb.activity_status = 1 and
+                              pb.brand_id = (select pb2.brand_id  from product_brands pb2
+                                                 where pb2.activity_status = 1 and
+                                                       pb2.description like ('%Outr%'))
+                        ORDER BY `description`);",
+                        [], TRUE);
+    
+                    if (!empty($dados)):                        
+                        echo json_encode([
+                            'error' => false ,
+                            'data' => $dados
+                        ]);
+                        http_response_code(200); // Success
+                        exit;     
+                    else:                        
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => 'Problema ao realizar a consulta da tabela `product_brands` no Banco de Dados'
+                        ]);
+                        http_response_code(200); // Success
+                        exit;
+                    endif;
+                else:
                     if ( is_numeric($valueSearch) ):
                         $dados = CrudDB::select(
-                            "SELECT
-                            cb.category_brand_category_id   AS `category_id`, 
-                            pc.description                  AS `category_description` ,
+                            "(SELECT
                             cb.category_brand_brand_id      AS `brand_id` ,	
                             pb.description                  AS `brand_description` 
                             FROM category_brand cb
@@ -236,161 +283,178 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             WHERE cb.activity_status = 1 AND
                                 pc.activity_status = 1 AND
                                 pb.activity_status = 1 AND 
-                                cb.category_brand_category_id in (:CATEGORY_ID, 34)
-                            order by pc.description, pb.description ;",
+                                cb.category_brand_category_id = :CATEGORY_ID
+                            order by `brand_description` )
+                            union
+                            (SELECT
+                            cb.category_brand_brand_id      AS `brand_id` ,	
+                            pb.description                  AS `brand_description` 
+                            FROM category_brand cb
+                            INNER JOIN product_categorys pc on pc.category_id = cb.category_brand_category_id
+                            INNER JOIN product_brands pb    on pb.brand_id = cb.category_brand_brand_id
+                            WHERE cb.activity_status = 1 AND
+                                pc.activity_status = 1 AND
+                                pb.activity_status = 1 AND 
+                                cb.category_brand_category_id = (select pc2.category_id  from product_categorys pc2 
+                                                                 where pc2.activity_status = 1 and
+                                                                       pc2.description like ('%Outr%'))
+                            order by `brand_description` ) ;",
                             [
                                 'CATEGORY_ID' => $valueSearch
                             ], TRUE);
         
-                        if (!empty($dados)):
-                            http_response_code(200); // Success
+                        if (!empty($dados)):                            
                             echo json_encode([
                                 'error' => false ,
                                 'data' => $dados
                             ]);
-                            exit;     
-                        else:
                             http_response_code(200); // Success
+                            exit;     
+                        else:                            
                             echo json_encode([
                                 'error' => true ,
                                 'msg' => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
                             ]);
+                            http_response_code(200); // Success
                             exit;
                         endif;
-                    else:
-                        http_response_code(406); // Not Acceptable
+                    else:                        
                         echo json_encode([
                             'error' => true ,
                             'msg' => 'Valor de Categoria inválido!'
                         ]);
+                        http_response_code(406); // Not Acceptable
                         exit;
-                    endif;
-
-                else:
-                    $dados = CrudDB::select(
-                        "SELECT 
-                            distinct(pb.description) as `description`, 
-                            ( SELECT pb2.brand_id 
-                              FROM product_brands pb2 
-                              WHERE activity_status = 1 AND
-                                    pb2.description = pb.description 
-                              ORDER BY created_on DESC LIMIT 1 ) AS `brand_id`
-                        FROM product_brands pb
-                        WHERE pb.activity_status = 1
-                        ORDER BY pb.description ;",
-                        [], TRUE);
-    
-                    if (!empty($dados)):
-                        http_response_code(200); // Success
-                        echo json_encode([
-                            'error' => false ,
-                            'data' => $dados
-                        ]);
-                        exit;     
-                    else:
-                        http_response_code(200); // Success
-                        echo json_encode([
-                            'error' => true ,
-                            'msg' => 'Problema ao realizar a consulta da tabela `product_brands` no Banco de Dados'
-                        ]);
-                        exit;
-                    endif;
+                    endif;                    
                 endif;                            
             
             // Models
             elseif ($keySearch == 'models'):
-                            
-                if ( !empty($valueSearch) ):
-                    if ( is_numeric($valueSearch) ):
-                        $dados = CrudDB::select(
-                            "SELECT pm.model_id, pm.description FROM product_models pm 
-                            WHERE pm.activity_status = 1 AND
-                                  pm.brand_id =:BRAND_ID
-                            ORDER BY pm.description;",
-                            [
-                                'BRAND_ID' => $valueSearch
-                            ], TRUE);
-        
-                        if (!empty($dados)):
-                            http_response_code(200); // Success
-                            echo json_encode([
-                                'error' => false ,
-                                'data' => $dados
-                            ]);
-                            exit;     
-                        else:
-                            http_response_code(200); // Success
-                            echo json_encode([
-                                'error' => true ,
-                                'msg' => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
-                            ]);
-                            exit;
-                        endif;
-                    else:
-                        http_response_code(406); // Not Acceptable
-                        echo json_encode([
-                            'error' => true ,
-                            'msg' => 'Valor de Categoria inválido!'
-                        ]);
-                        exit;
-                    endif;
-                    
-                else:                    
+                     
+                // All Models
+                if ( empty($valueSearch) ):
                     $dados = CrudDB::select(
-                        'SELECT pm.model_id, pm.description 
+                        "(SELECT pm.model_id , pm.description  as `description`
                         FROM product_models pm
-                        WHERE pm.activity_status = 1
-                        ORDER BY pm.description ;',
+                        WHERE pm.activity_status = 1 and
+                              pm.model_id != (select pm2.model_id from product_models pm2
+                                               where pm2.activity_status = 1 and
+                                                       pm2.description like ('%Outr%'))
+                        ORDER BY `description`)
+                        UNION
+                        (SELECT pm.model_id , pm.description  as `description`
+                        FROM product_models pm
+                        WHERE pm.activity_status = 1 and
+                              pm.model_id = (select pm2.model_id from product_models pm2
+                                               where pm2.activity_status = 1 and
+                                                     pm2.description like ('%Outr%'))
+                        ORDER BY `description`);",
                         [], TRUE);
 
-                    if (!empty($dados)):
-                        http_response_code(200); // Success
+                    if (!empty($dados)):                        
                         echo json_encode([
                             'error' => false ,
                             'data' => $dados
                         ]);
-                        exit;     
-                    else:
                         http_response_code(200); // Success
+                        exit;     
+                    else:                        
                         echo json_encode([
                             'error' => true ,
                             'msg' => 'Problema ao realizar a consulta da tabela `product_models` no Banco de Dados'            
                         ]);
+                        http_response_code(200); // Success
                         exit;
-                    endif;
+                    endif;                    
+                    
+                else:   
+                    if ( is_numeric($valueSearch) ):
+                        $dados = CrudDB::select(
+                            "(SELECT pm.model_id, pm.description as `description` FROM product_models pm 
+                            WHERE pm.activity_status = 1 AND
+                                  pm.brand_id =:BRAND_ID and 
+                                  pm.model_id  != (select pm2.model_id from product_models pm2
+                                                    where pm2.activity_status = 1 and
+                                                          pm2.description like ('%Outr%'))
+                            ORDER BY `description`)
+                            union
+                            (SELECT pm.model_id, pm.description as `description` FROM product_models pm 
+                            WHERE pm.activity_status = 1 AND      
+                                  pm.model_id = (select pm2.model_id from product_models pm2
+                                                    where pm2.activity_status = 1 and
+                                                          pm2.description like ('%Outr%'))
+                            ORDER BY `description`);",
+                            [
+                                'BRAND_ID' => $valueSearch
+                            ], TRUE);
+        
+                        if (!empty($dados)):                            
+                            echo json_encode([
+                                'error' => false ,
+                                'data' => $dados
+                            ]);
+                            http_response_code(200); // Success
+                            exit;     
+                        else:                            
+                            echo json_encode([
+                                'error' => true ,
+                                'msg' => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
+                            ]);
+                            http_response_code(200); // Success
+                            exit;
+                        endif;
+                    else:                        
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => 'Valor de Categoria inválido!'
+                        ]);
+                        http_response_code(406); // Not Acceptable
+                        exit;
+                    endif;                                        
                 endif;            
 
             // Colors
             elseif ($keySearch == 'colors'):
                             
                 $dados = CrudDB::select(
-                    'SELECT c.color_id, c.description 
+                    "(SELECT c.color_id , c.description as `description`
                     FROM colors c
-                    WHERE c.activity_status = 1
-                    ORDER BY c.description ;',
+                    WHERE c.activity_status = 1 and
+                          c.color_id != (select c2.color_id from colors c2
+                                           where c2.activity_status = 1 and
+                                                 c2.description like ('%Outr%'))
+                    ORDER BY `description`)
+                    UNION
+                    (SELECT c.color_id , c.description as `description`
+                    FROM colors c
+                    WHERE c.activity_status = 1 and
+                          c.color_id = (select c2.color_id from colors c2
+                                           where c2.activity_status = 1 and
+                                                 c2.description like ('%Outr%'))
+                    ORDER BY `description`);",
                     [], TRUE);
 
-                if (!empty($dados)):
-                    http_response_code(200); // Success
+                if (!empty($dados)):                    
                     echo json_encode([
                         'error' => false ,
                         'data' => $dados
                     ]);
+                    http_response_code(200); // Success
                     exit;     
                 else:
-                    http_response_code(200); // Success
                     echo json_encode([
                         'error' => true ,
                         'msg' => 'Problema ao realizar a consulta da tabela `colors` no Banco de Dados'
                     ]);
+                    http_response_code(200); // Success
                     exit;
                 endif;
             endif;
 
         endif;            
-    else:                
-        http_response_code(406); // Not Acceptable
+    else:                        
         echo json_encode(['msg' => 'Parâmetro não preenchido na consulta!']);
+        http_response_code(406); // Not Acceptable
     endif;
 
 endif;
@@ -405,12 +469,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
     // Token Validation
-    if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):
-        http_response_code(401); // Unauthorized
+    if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
         echo json_encode([
             'error' => true ,
-            'msg' => 'Erro: Token is not Valid!'            
+            'msg' => 'Erro: Token is not Valid!'
         ]);
+        http_response_code(401); // Unauthorized
         exit;
     endif;
 
@@ -437,19 +501,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // ]);
     // exit;
 
-    // echo json_encode([
-    //     'error' => true ,
-    //     'msg'   => 'Teste' ,
-    //     'dados' => [
-    //         "title"      => $title ,
-    //         "category"   => $category_id ,
-    //         "price"      => $price ,
-    //         "condition"  => $p_condition_id ,
-    //         "nf"         => $possuiNF ,
-    //     ]
-    // ]);
-    // exit;
-
     if (empty($title) or
         $category_id    == 0 or
         $price          == 0 or
@@ -457,11 +508,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $user_id        == 0 or
         $possuiNF       == 3
         ):
-        http_response_code(406);
+        
         echo json_encode([
             'error' => true ,
             'msg' => 'Erro: Informe Todos os Parâmetros!'
         ]);
+        http_response_code(406);
         exit;
     endif;
 
@@ -493,22 +545,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $valid_extensions = array("jpg","jpeg","png");                      
         
         // File Extension Validation
-        if ($fileSize > $maxsize):
-            http_response_code(406); // Not Acceptable
+        if ($fileSize > $maxsize):            
             echo json_encode([
                 'error' => true ,
                 'msg'   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
             ]);
+            http_response_code(406); // Not Acceptable
             exit;
         endif;
 
         // File Size Validation
-        if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):
-            http_response_code(406); // Not Acceptable
+        if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):            
             echo json_encode([
                 'error' => true ,
                 'msg'   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos!'
             ]);
+            http_response_code(406); // Not Acceptable
             exit;
         endif;
 
@@ -549,57 +601,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                         'trade_post_id' => "'" . intval($dados[0]->post_id) . "'" ,
                     ]);
         
-                    if ($dbReturnTwo):
-                        http_response_code(201); // Created
+                    if ($dbReturnTwo):                        
                         echo json_encode([
                             'error' => false ,
                             'msg' => "Anúncio incluído com êxito!"
                         ]);
+                        http_response_code(201); // Created
                         exit;
-                    else:
-                        http_response_code(500); // Internal Server Error                        
+                    else:                        
                         echo json_encode([
                             'error' => false ,
                             'msg' => "Anúncio incluído, porém tivemos um Erro na Gravação das imagens no Banco"
                         ]);
+                        http_response_code(500); // Internal Server Error
                         exit;
                     endif;            
-                else: 
-                    http_response_code(500); // Internal Server Error                    
+                else:                     
                     echo json_encode([
                         'error' => false ,
                         'msg' => "Anúncio incluído mas não encontrado para relacionar imagens!"
                     ]);
+                    http_response_code(500); // Internal Server Error
                     exit;
                 endif;
-            else:
-                http_response_code(500); // Internal Server Error
+            else:                
                 echo json_encode([
                     'error' => true ,
                     'msg'   => 'Anúncio incluído, porém tivemos um Erro no Upload da(s) imagem(ns) ao Servidor'
                 ]);
+                http_response_code(500); // Internal Server Error
                 exit;
             endif;
-        else:
-            http_response_code(201); // Created
+        else:            
             echo json_encode([
                 'error' => false ,
                 'msg' => "Anúncio incluído com êxito!"
             ]);
+            http_response_code(201); // Created
             exit;        
         endif;
 
-    else:            
-        http_response_code(500); // Internal Server Error        
+    else:                    
         echo json_encode([
             'error' => true ,
             'msg'   => 'Erro ao Inserir Anúncio no Banco de Dados'
         ]);
+        http_response_code(500); // Internal Server Error
         exit;
     endif;
 
 endif;
-
 
 
 
@@ -609,7 +660,16 @@ endif;
 // No INSOMINIA, utilizar o "FORM URL ENCODED" (Structured)
 if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
     
-    echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
+
+    parse_str(file_get_contents('php://input'), $_PUT);
+
+    echo json_encode([
+        'data' => $_PUT
+    ]);
+    http_response_code(200); // Not Acceptable
+    exit;
 
 endif;
 
@@ -619,7 +679,117 @@ endif;
 // ********************* DELETE
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
     
+    // Possíveis Requisições:
+    // - ".../trade_posts.php/token=16663056-351e723be15750d1cc90b4fcd&post_id=14" - Deleção de ANÚNCIO com base em seu ID
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
+
+    parse_str(file_get_contents('php://input'), $_DELETE);
+
+    // Token Validation
+    if (!($_DELETE['token'] === '16663056-351e723be15750d1cc90b4fcd')):
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Erro: Token is not Valid!'
+        ]);
+        http_response_code(401); // Unauthorized
+        exit;
+    endif;
+
+    $post_id = (isset($_DELETE['post_id'])) ? intval($_DELETE['post_id']) : 0 ;
+
+    if (!is_numeric($post_id)):
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'O parâmetro não é numérico'
+        ]);
+        http_response_code(406); // Not Acceptable
+        exit;
+    else:        
+        $dados = CrudDB::select("SELECT tp.post_id FROM trade_posts tp WHERE tp.activity_status = 1 AND tp.post_id = :POST_ID", ["POST_ID" => $post_id], FALSE);
+        
+        if (!empty($dados)):
+
+            // Check if Exists Images related to the Trade Post
+            $dados = CrudDB::select("SELECT itp.image_name FROM images_trade_posts itp WHERE itp.activity_status = 1 AND itp.trade_post_id = :POST_ID;", ["POST_ID" => $post_id], TRUE);
+
+            if (!empty($dados)):
+
+                foreach ($dados as $image) {                     
+                    $file = "uploads/".$image->image_name;
+                    
+                    if( is_file($file) ) {
+                        // delete file
+                        if ( !(unlink($file)) ): 
+
+                            http_response_code(500); // Internal Server Error
+                            echo json_encode([
+                                'error' => true ,
+                                'mensagem' => "Anúncio NÃO Deletado. Problema na Deleção do(s) Arquivo(s) '". $file . "' do SERVER!"
+                            ]);
+                            exit;
+
+                        else:
+                            // Delete Image Name from DB
+                            CrudDB::setTabela('images_trade_posts');
+                            $retorno = CrudDB::delete([
+                                'trade_post_id' => $post_id ,
+                                'image_name' => $image->image_name
+                            ]);
+
+                            if (!$retorno):
+                                http_response_code(500); // Internal Server Error
+                                echo json_encode([
+                                    'error' => true ,
+                                    'mensagem' => "Anúncio NÃO DELETADO. Imagem(ens) DELETADA(s) do SERVER, porém não encontradas no BANCO (" . $image->image_name . ")."
+                                ]);
+                                exit;
+                            endif;
+
+                        endif;
+                    }
+                }                                
+
+                // Deletes TRADE POST
+                CrudDB::setTabela('trade_posts');
+                $retorno = CrudDB::delete(['post_id' => $post_id]);
+    
+                if ($retorno):
+                    http_response_code(202); // Accepted
+                    echo json_encode([
+                        'error' => false ,
+                        'mensagem' => "Anúncio e Imagem(ens) deletados com Sucesso!"
+                    ]);
+                    exit;                    
+    
+                else:
+                    http_response_code(500); // Internal Server Error
+                    echo json_encode([
+                        'error' => true ,
+                        'mensagem' => 'Imagens Deletadas, porém tivemos problemas na DELEÇÃO do Anúncio!'
+                    ]);
+                    exit;
+                endif;
+
+            else:
+                http_response_code(202); // Accepted
+                echo json_encode([
+                    'error' => false ,
+                    'mensagem' => 'Trade Post deletado com sucesso, porém NENHUMA Imagem relacionada foi encontrada!'
+                ]);
+                exit;
+            endif;                           
+            
+        else:
+            http_response_code(404); // Not Found
+            echo json_encode([
+                'error' => true ,
+                'mensagem' => 'O parâmetro informado não foi encontrado'
+            ]);
+            exit;
+        endif;
+    endif;    
 
 endif;
 ?>

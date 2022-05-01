@@ -88,7 +88,7 @@ endif;
         <?php if ( $isLoggedUser ): ?>
           
           <div class="text-center mt-4">
-            <h2 class="text-white">Informações do Anúncio</h2>
+            <h2 class="text-white">Novo Anúncio</h2>
           </div>
 
           <div class="row justify-content-md-center text-white mt-4">
@@ -100,7 +100,7 @@ endif;
                 <!-- Title / Título do Anúncio -->
                 <div class="form-group">
                   <label class="mb-2" for="title">Título</label>
-                  <input class="form-control" type="text" name="title" id="title">
+                  <input class="form-control" type="text" name="title" id="title" autocomplete="off">
                 </div>
 
                 <!-- Category / Categoria do Item -->

@@ -130,10 +130,10 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                     </button>
                   </a>
                   
-                ou Receba propostas de seus próprios 
-                  <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/new_post.php">
+                ou Receba propostas dos
+                  <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=trade_posts">
                     <button type='button' class='btn btn-lg border-0 btn-default'>
-                      <strong>Anúncios</strong>
+                      <strong>Seus Anúncios</strong>
                     </button>
                   </a>
               </h5>
@@ -369,13 +369,13 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             </div>
                             
                             <!-- Image -->                              
-                            <div class="col-2 p-0 blur-container" style="height: 55px;">
+                            <div class="col-2 p-0 image-container-new" style="height: 55px;">
                               <!-- Blur -->
-                              <div class="blur_background" style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                              <div class="img_tp_background " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
                               </div>
 
                               <!-- Image -->
-                              <div class="image_container_test" style="transform: translate(0px, -53px);">
+                              <div class="img_tp" style="transform: translate(0px, -53px);">
                                 <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
                                   <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
                                 </a>
@@ -443,13 +443,13 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             </div>
                             
                             <!-- Image -->                              
-                            <div class="col-2 p-0 blur-container" style="height: 55px;">
+                            <div class="col-2 p-0 image-container-new" style="height: 55px;">
                               <!-- Blur -->
-                              <div class="blur_background" style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                              <div class="img_tp_background " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
                               </div>
 
                               <!-- Image -->
-                              <div class="image_container_test" style="transform: translate(0px, -53px);">
+                              <div class="img_tp" style="transform: translate(0px, -53px);">
                                 <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
                                   <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
                                 </a>

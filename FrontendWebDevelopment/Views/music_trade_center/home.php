@@ -125,13 +125,13 @@ endif;
 
           </div>            
 
-          <!-- MÚSICOS -->
+          <!-- Perfis -->
           <div class="container mb-5">
             <div class="row">
 
             <?php foreach ($a_Users["data"] as $user) { ?>
                 <div class="col-6 col-sm-3 mt-3">
-                  <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $user["user_id"] ?>">
+                  <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $user["user_id"] ?>">
                     <?php if ( isset($user["image_name"]) ): ?>
                       <img src="<?php echo $user["image_name"] ?>" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
                     <?php else: ?>

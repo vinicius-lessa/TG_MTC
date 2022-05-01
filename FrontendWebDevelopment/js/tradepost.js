@@ -53,87 +53,93 @@ let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading
 
 async function changeCategory() {
     
-    // Start Loading Icon
-    spinnerWrapper.style.display = 'flex';
-    
-    var innerMessage = "";
-    var myHeaders = new Headers();
-
-    var myInit = { 
-        method: 'GET',
-        headers: myHeaders,
-        mode: 'cors',
-        cache: 'default'
-    };
-
-    const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
-    
-    const j_TPinfo = await r_TPinfo.json();    
-    // console.log(j_TPinfo.data);
-
-    if ( j_TPinfo.error ){        
-        innerMessage = "<option value='44'>Outra</option>"; // Define Default (Código 44 no DB)
-    } else {
-        console.log("Marca: OK");
-        innerMessage = "<option value='default'>Selecione a Marca</option>"; // Permanece
+    if ( category.val() != "default" ) {
         
-        for (var p of j_TPinfo.data) {    
-            innerMessage += "<option value='" + p["brand_id"] + "'>" + p["brand_description"] + "</option>";
-        }
-    }        
+        // Start Loading Icon
+        spinnerWrapper.style.display = 'flex';
+            
+        var innerMessage = "";
+        var myHeaders = new Headers();
 
-    brandSelector.html( function() {
-        return innerMessage;
-    });
-    
-    // Desabilita Loading
-    spinnerWrapper.style.display = 'none';
+        var myInit = { 
+            method: 'GET',
+            headers: myHeaders,
+            mode: 'cors',
+            cache: 'default'
+        };
+
+        const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
+
+        const j_TPinfo = await r_TPinfo.json();    
+        // console.log(j_TPinfo.data);
+
+        if ( j_TPinfo.error ){        
+            innerMessage = "<option value='44'>Outra</option>"; // Define Default (Código 44 no DB)
+        } else {
+            console.log("Marca: OK");
+            innerMessage = "<option value='default'>Selecione a Marca</option>"; // Permanece
+            
+            for (var p of j_TPinfo.data) {    
+                innerMessage += "<option value='" + p["brand_id"] + "'>" + p["brand_description"] + "</option>";
+            }
+        }        
+
+        brandSelector.html( function() {
+            return innerMessage;
+        });
+
+        // Desabilita Loading
+        spinnerWrapper.style.display = 'none';
+    }
 }
 
 async function changeBrand() {        
 
-    if ( category.val() == "default" ){
-        window.alert("Preencha a Categoria Primeiro!");
-        brand.val("default");
-        return;
-    }
+    if ( brand.val() != "default" ) {
 
-    // Start Loading Icon
-    spinnerWrapper.style.display = 'flex';
-    
-    var innerMessage = "";
-    var myHeaders = new Headers();
-
-    var myInit = { 
-        method: 'GET',
-        headers: myHeaders,
-        mode: 'cors',
-        cache: 'default'
-    };
-
-    const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
-    
-    const j_TPinfo = await r_TPinfo.json();    
-    // console.log(j_TPinfo.data);    
-    
-    if ( j_TPinfo.error ){
-        innerMessage = "<option value='84'>Outros</option>"; // Define Default (Código 84 no DB)
-    } else {
-        console.log("Modelo: OK");
-        innerMessage = "<option value='default'>Selecione o Modelo</option>"; // Permanece
-        
-        for (var p of j_TPinfo.data) {        
-            innerMessage += "<option value='" + p["model_id"] + "'>" + p["description"] + "</option>";
+        if ( category.val() == "default" ){
+            window.alert("Preencha a Categoria Primeiro!");
+            brand.val("default");
+            return;
         }
-    }
-    
 
-    modelSelector.html( function() {
-        return innerMessage;
-    });
-    
-    // Desabilita Loading
-    spinnerWrapper.style.display = 'none';
+        // Start Loading Icon
+        spinnerWrapper.style.display = 'flex';
+        
+        var innerMessage = "";
+        
+        var myHeaders = new Headers();
+        var myInit = { 
+            method: 'GET',
+            headers: myHeaders,
+            mode: 'cors',
+            cache: 'default'
+        };
+
+        const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
+        
+        const j_TPinfo = await r_TPinfo.json();    
+        // console.log(j_TPinfo.data);    
+        
+        if ( j_TPinfo.error ){
+            innerMessage = "<option value='84'>Outros</option>"; // Define Default (Código 84 no DB)
+        } else {
+            console.log("Modelo: OK");
+            innerMessage = "<option value='default'>Selecione o Modelo</option>"; // Permanece
+            
+            for (var p of j_TPinfo.data) {        
+                innerMessage += "<option value='" + p["model_id"] + "'>" + p["description"] + "</option>";
+            }
+        }
+        
+
+        modelSelector.html( function() {
+            return innerMessage;
+        });
+        
+        // Desabilita Loading
+        spinnerWrapper.style.display = 'none';
+    }
 
 }
 
@@ -157,10 +163,7 @@ function changeModel() {
 newTradePostForm.submit(async function( event ){
     event.preventDefault();    
 
-    //Continuar
-    console.log(parseFloat(price.val().replace(',', '.')));
-    return
-
+    // Validations
     if ( title.val() === "" || title.val() === null ) {
         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
         $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
@@ -233,29 +236,17 @@ newTradePostForm.submit(async function( event ){
 
     // Start Loading Icon
     spinnerWrapper.style.display = 'flex';
-
-    // Get USER_ID
-    // var myHeaders = new Headers();
-
-    // var myInit = { 
-    //     method: 'GET',
-    //     headers: myHeaders,
-    //     mode: 'cors',
-    //     cache: 'default'
-    // };
-
-    // const r_UserData = await fetch("../../Controllers/c_user.php/?key=user_info" , myInit);
-    
-    // const j_userData = await r_UserData.json();
-    
-    // var user_id      = j_userData.user_id;
     
     // Send Form to REST API
     const formData = new FormData(event.target); // All Form Values
 
     formData.append('token', '16663056-351e723be15750d1cc90b4fcd');
     formData.append('user_id', user_id);
-    formData.set("price", parseFloat(price.val().replace(',', '.')));
+    
+    var newPrice = price.val().replace('.', '');    
+    newPrice = newPrice.replace(',', '.');
+
+    formData.set( "price", newPrice );    
 
     // Images
     var files = $('#image-upload')[0].files;
@@ -295,7 +286,8 @@ newTradePostForm.submit(async function( event ){
             spinnerWrapper.style.display = 'none';
             // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
     
-            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/trade_posts/home.php");
+            // window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/trade_posts/home.php");
+            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
         }
     }, 2000);    
 

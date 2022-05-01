@@ -91,20 +91,20 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
             <div class="row tradepost_container">
 
               <!-- Image Carrousel -->              
-              <div class="col-12 col-sm-8 p-0 blur-container">
+              <div class="col-12 col-lg-8 p-0 image-container-new" id="tradepost-img-container">
                 <!-- Blur -->
-                <div class="blur_background" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
+                <div class="img-default-content img_tp_background" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
                 </div>
 
                 <!-- Image  -->
-                <div class="image_container_test" style="transform: translate(0px, -498px);">
+                <div class="img-default-content img_tp">
                   <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="testtwo" alt="">
                 </div>
               </div>
-                                                    
+
 
               <!-- Trade Post Info -->
-              <div class="col-12 col-sm-4 h-100">
+              <div class="col-12 col-lg-4 h-100">
 
                 <!-- Title -->
                 <div class="row my-3 mx-0">
@@ -114,7 +114,7 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
                 </div>
                 <div class="row my-2 mx-0">
                   <div class="col-12">
-                    <h3 class="text-red" style="font-weight: bold;">R$ <?php echo $tpDetails["data"][0]["price"] ?></h3>
+                    <h3 class="text-red" style="font-weight: bold;">R$ <?php echo number_format($tpDetails["data"][0]["price"], 2, ',', '.') ?></h3>
                   </div>
                 </div>                  
 

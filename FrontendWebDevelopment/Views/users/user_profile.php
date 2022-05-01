@@ -7,6 +7,7 @@
  *  - Renata Carrillo - 12/04/2022: Padronização do <head>.
  *  - Vinícius Lessa - 13/04/2022: Correções mínimas de session.
  *  - Vinícius Lessa - 19/04/2022: Diversas mudanças e implementações para validar tipo de visualização e buscar dados do usuário do Banco.
+ *  - Vinícius Lessa - 30/04/2022: Inclusão dos Botões de EXCLUIR ANÚNCIO e ALTERAR ANÚNCIO (Não Funcional).
  * 
  * @ Notes: 
  * 
@@ -21,6 +22,7 @@ if (!defined('SITE_URL')) {
 }
 
 // Vars
+$defaultContent = $_GET["key"];
 $userState = null; // 0 = Não Logado - 1 = Perfil Próprio - 2 = Perfil Público
 
 // User State Verify
@@ -82,7 +84,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
@@ -131,7 +133,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <!-- Error on User Search ? No -->
       <?php else: ?>
       
-        <div class="container">          
+        <div class="container zeroMargin-Padding-mobile">
           
         <!-- Não Logado -->
         <?php
@@ -162,7 +164,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <!-- Profile Header -->
           <div class="container bk-gray text-white rounded">
             
-            <div class="row">
+            <div class="row ">
               <div class="col-12 d-flex justify-content-center my-3 p-2">
                 <div>
                   <?php if ( isset($_SESSION['profile-pic']) ): ?>
@@ -214,13 +216,13 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                   <div class="col-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link active default-tabs" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Meus Dados</button>
+                        <button class="nav-link <?php echo $defaultContent == "about" ? "active" : "" ; ?> default-tabs" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Meus Dados</button>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link default-tabs" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Meus Anúncios</button>
+                        <button class="nav-link <?php echo $defaultContent == "trade_posts" ? "active" : "" ; ?> default-tabs" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Meus Anúncios</button>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link default-tabs" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab" aria-controls="configuration" aria-selected="false">Configurações</button>
+                        <button class="nav-link <?php echo $defaultContent == "config" ? "active" : "" ; ?> default-tabs" id="configuration-tab" data-bs-toggle="tab" data-bs-target="#configuration" type="button" role="tab" aria-controls="configuration" aria-selected="false">Configurações</button>
                       </li>
                     </ul>
                   </div>
@@ -231,7 +233,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                     <div class="tab-content" id="myTabContent">
                       
                       <!-- Self User Data -->
-                      <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
+                      <div class="tab-pane fade <?php echo $defaultContent == "about" ? "show active" : "" ; ?>" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
                         <div class="row">
                           <div class="col-12 mt-5 mb-5 text-center">
                             <h4 class="text-red"><strong>Minhas Informações</strong></h4>
@@ -359,7 +361,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       </div>                    
 
                       <!-- Self User Trade Posts -->
-                      <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
+                      <div class="tab-pane fade <?php echo $defaultContent == "trade_posts" ? "show active" : "" ; ?>" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
                         <div class="row mt-5">
                           <div class="col-12 text-center p-0">
                             <h4 class="text-red"><strong>Meus Anúncios</strong></h4>
@@ -367,7 +369,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                         </div>
 
                         <div class="row">
-                          <div class="col-12 mt-0 mb-4 p-4">
+                          <div class="col-12 mt-0 mb-4 p-4 zeroMargin-Padding-mobile">
                             <? if ( empty($a_userTradePosts["data"]) ): ?>
                               <div class="row text-center">
                                 <div class="col-12 my-3">
@@ -384,21 +386,20 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                     agora mesmo!
                                   </h5>
                                 </div>
-
                               </div>
                             <? else: ?>
                             
                               <?php foreach ($a_userTradePosts["data"] as $a_tpItem) { ?>
-                                <div class="row my-3 mx-2 p-2">
+                                <div class="row my-3 mx-2 p-2 zeroMargin-Padding-mobile">
                                     
                                   <!-- Image -->                              
-                                  <div class="col-12 col-sm-3 p-0 blur-container" style="height: 230px;">
+                                  <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
                                     <!-- Blur -->
-                                    <div class="blur_background" style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    <div class="img-default-content img_tp_background " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
                                     </div>
 
                                     <!-- Image -->
-                                    <div class="image_container_test" style="transform: translate(0px, -229px);">
+                                    <div class="img-default-content img_tp">
                                       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
                                         <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
                                       </a>
@@ -407,29 +408,86 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   
 
                                   <!-- Trade Post Info -->
-                                  <div class="col-12 col-sm-9 tp-card">
+                                  <div class="col-12 col-sm-9 tp-card px-3 py-3">
+                                  
                                     <!-- Detalhes -->  
-                                    <div class="row mt-2">
-                                      <div class="col-8">
-                                        <div class="col-8">
-                                          <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>
-                                          <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>                                      
-                                        </div>
-                                      </div>
-                                    </div>
-                                                                          
                                     <div class="row">
-                                      <div class="col-8">
-                                        <span class="card-title text-white ">
-                                          Sobre: <?php echo $a_tpItem['tp_desc'] ?>
-                                        </span>
+                                      
+                                      <!-- Título + Preço -->
+                                      <div class="col-12 col-sm-10 text-center-mobile">
+                                          <h3 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h3>
+                                          <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>
                                       </div>
+                                      
+                                      <!-- Funções/CRUD -->
+                                      <div class="col-12 col-sm-2 my-3">
+                                        
+                                        <div class="row">
+                                          <div class="col-6 col-sm-12 py-2">
+                                            <div class="text-center">
+                                              <a class="linkdefault" id="editButton" href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16" style="transform: translate(-3px, -2px);">
+                                                  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                                </svg>                                                
+                                                <span>Editar</span>
+                                              </a>
+                                            </div>
+                                          </div>
 
-                                      <!-- Link -->
-                                      <!-- <div class="col-4 d-flex flex-row-reverse">
-                                        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
-                                        class="card-title text-white">Detalhes</a>
-                                      </div> -->                                  
+                                          <div class="col-6 col-sm-12 py-2">
+                                            <div class="text-center">
+                                              <a class="linkdefault" href="#" data-bs-toggle="modal" data-bs-target="#confirm-delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" style="transform: translate(-3px, -2px);">
+                                                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                                </svg>                                                
+                                                <span>Excluir</span>
+                                              </a>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- Model Delete Window -->
+                                        <div class="modal fade text-black" id="confirm-delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel">Deletar</h5>
+                                                <button type="button" class="btn-close" id="closeModalBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                                              </div>
+                                              <div class="modal-body">
+                                                Deseja realmente Deletar este Anúncio?
+                                              </div>
+
+                                              <div class="my-2">
+                                                <div class="justify-content-center" id="modalLoading" style="display: none;">
+                                                  <div class="spinner-border text-danger" role="status"></div><br>
+                                                </div>
+                                              </div>
+
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="button" class="btn btn-danger" id="deleteButton" data-post-id="<?php echo $a_tpItem['post_id'] ?>">Excluir</button>
+                                                <div ></div>
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                        </div>                                        
+
+                                      </div>                                      
+                                                                          
+                                    </div>
+                                    
+                                    <!-- Descrição -->
+                                    <div class="row">
+                                      <div class="col-12 text-white">
+                                        <span class="card-title">
+                                          Descrição do Anúncio:
+                                        </span>
+                                        <p><?php echo $a_tpItem['tp_desc'] ?></p>
+                                      </div>
                                     </div>
 
                                   </div>
@@ -442,7 +500,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       </div>
 
                       <!-- CONFIGURAÇÕES -->
-                      <div class="tab-pane fade" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
+                      <div class="tab-pane fade <?php echo $defaultContent == "config" ? "show active" : "" ; ?>" id="configuration" role="tabpanel" aria-labelledby="configuration-tab">
                         
                         <div class="row mt-5">
                           <div class="col-12 text-center p-0">
@@ -508,10 +566,10 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                   <div class="col-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link active default-tabs" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Informações</button>
+                        <button class="nav-link <?php echo $defaultContent == "about" ? "active" : "" ; ?> default-tabs" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados" type="button" role="tab" aria-controls="dados" aria-selected="true">Informações</button>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link default-tabs" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Anúncios Públicados</button>
+                        <button class="nav-link <?php echo $defaultContent == "trade_post" ? "active" : "" ; ?> default-tabs" id="anuncios-tab" data-bs-toggle="tab" data-bs-target="#anuncios" type="button" role="tab" aria-controls="anuncios" aria-selected="false">Anúncios Públicados</button>
                       </li>
                     </ul>
                   </div>
@@ -522,7 +580,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                     <div class="tab-content" id="myTabContent">
                       
                       <!-- Public User Info -->
-                      <div class="tab-pane fade show active" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
+                      <div class="tab-pane fade <?php echo $defaultContent == "about" ? "show active" : "" ; ?>" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
                         <div class="row">
                           <div class="col-12 mt-5 mb-5 text-center">
                             <h5 class="text-red"><strong>Mais Sobre <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>
@@ -648,10 +706,10 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                           </div>
                        
                         </div>                                                  
-                      </div>                    
+                      </div>
 
                       <!-- Public User Trade Posts -->
-                      <div class="tab-pane fade" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
+                      <div class="tab-pane fade <?php echo $defaultContent == "trade_post" ? "show active" : "" ; ?>" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
                         <div class="row mt-5">
                           <div class="col-12 text-center p-0">
                             <h4 class="text-red"><strong>Meus Anúncios</strong></h4>
@@ -683,13 +741,13 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                 <div class="row my-3 mx-2 p-2">
                                     
                                   <!-- Image -->                              
-                                  <div class="col-12 col-sm-3 p-0 blur-container" style="height: 230px;">
+                                  <div class="col-12 col-sm-3 p-0 image-container-new" style="height: 230px;">
                                     <!-- Blur -->
-                                    <div class="blur_background" style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    <div class="img_tp_background " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
                                     </div>
 
                                     <!-- Image -->
-                                    <div class="image_container_test" style="transform: translate(0px, -229px);">
+                                    <div class="img_tp" style="transform: translate(0px, -229px);">
                                       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
                                         <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
                                       </a>
@@ -756,7 +814,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <?php include SITE_PATH.'/includes/footer.php'; ?>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
     <script src="<?php echo SITE_URL ?>/js/profile.js"></script>
   </body>
