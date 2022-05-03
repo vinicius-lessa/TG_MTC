@@ -505,21 +505,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // ]);
     // exit;
 
-    // if (empty($title) or
-    //     $category_id    == 0 or
-    //     $price          == 0 or
-    //     $pCondition_id  == 0 or
-    //     $user_id        == 0 or
-    //     $possuiNF       == 3
-    //     ):
+    if (empty($title) or
+        $category_id    == 0 or
+        $price          == 0 or
+        $pCondition_id  == 0 or
+        $user_id        == 0 or
+        $possuiNF       == 3
+        ):
         
-    //     echo json_encode([
-    //         'error' => true ,
-    //         'msg' => 'Erro: Informe Todos os Parâmetros!'
-    //     ]);
-    //     http_response_code(406);
-    //     exit;
-    // endif;
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Erro: Informe Todos os Parâmetros!'
+        ]);
+        http_response_code(406);
+        exit;
+    endif;
 
     $count = count($_FILES['files']['name']);
 
@@ -754,67 +754,171 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
     // endif;
 
     $count = count($_FILES['files']['name']);
-    
-    for ($i = 0; $i < $count; $i++) {
-    //     echo 'Name: '.$_FILES['fileToUpload']['name'][$i].'<br/>';
-    }
-    
-    echo json_encode([
-        'error' => true ,
-        'Arquivos' => $_FILES
-    ]);
-    http_response_code(200);
-    exit;  
-    
-    // Checks IMAGES to UPLOAD
-    if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name'])){
+
+    // echo json_encode([
+    //     'error' => false ,
+    //     'Dados'   => $_FILES['files']
+    // ]);
+    // http_response_code(200); // Not Acceptable
+    // exit;
+
+    if ( $count > 0 ):
+        
+        $a_TmpLocations = array();
+        $a_NewLocations = array();
+        $a_FileNames    = array();
         
         // Check recieved values
         // echo var_dump($_FILES); // Doesn't work with JS
         // echo json_encode( ['Arquivos' => $_FILES] );
 
-        // Extension
-        $imageFileType  = strrchr($_FILES['files']['name'][$i], ".");
-        $imageFileType  = strtolower($imageFileType);
+        for ($i = 0; $i < $count; $i++) {
+    
+            // Checks IMAGES to UPLOAD
+            if( isset($_FILES['files']['name'][$i]) && !empty($_FILES['files']['name'][$i]) ):
+    
+                // Extension                
+                $imageFileType  = strrchr($_FILES['files']['name'][$i], ".");
+                $imageFileType  = strtolower($imageFileType);
+    
+                // Getting and Defining file name
+                $data           = new DateTime();
+                $a_FileNames[]  = "imagem-" . $data->format('Y-m-d') . "_" . rand(1, 9999) . $imageFileType;
+            
+                // Locations
+                $a_TmpLocations[]  = $_FILES['files']['tmp_name'][$i];
+                $a_NewLocations[]  = "uploads/".$a_FileNames[$i];
+    
+                // File Sizes
+                // $a_tmpSizes[]   = $_FILES['files']['size'][$i];
+                $fileSize       = $_FILES['files']['size'][$i];
+                $maxsize        = 4194304; //bytes (4mb)        
+    
+                // Acceptable Extensions
+                $valid_extensions = array("jpg","jpeg","png");
+                
+                // File Extension Validation
+                if ($fileSize > $maxsize):            
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
+                    ]);
+                    http_response_code(406); // Not Acceptable
+                    exit;
+                endif;
+    
+                // File Size Validation
+                if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):            
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos! '
+                    ]);
+                    http_response_code(406); // Not Acceptable
+                    exit;
+                endif;
+    
+                $imageUpload = true;
+            else:
+                echo json_encode([
+                    'error' => true ,
+                    'msg'   => 'Problema no leitura das Imagens para Upload!'
+                ]);
+                http_response_code(406); // Not Acceptable
+                exit;
+            endif;
+        }        
+    endif; 
 
-        // Getting and Defining file name
-        $data = new DateTime();
-        $fileName = "imagem-" . $data->format('Y-m-d') . "_" . rand(1, 9999) . $imageFileType;
-     
-        // Locations
-        $tmpLocation       = $_FILES['file']['tmp_name'];
-        $newLocation       = "uploads/".$fileName;
-   
-
-        // File Sizes
-        $fileSize       = $_FILES['file']['size'];
-        $maxsize        = 4194304; //bytes (4mb)        
-
-        // Acceptable Extensions
-        $valid_extensions = array("jpg","jpeg","png");                      
+    CrudDB::setTabela('trade_posts');
         
-        // File Extension Validation
-        if ($fileSize > $maxsize):            
+    // $dbReturn = true;
+    $dbReturn = CrudDB::insert([
+        'title'             => "'" . $title . "'" ,
+        'description'       => "'" . $description . "'" ,
+        'category_id'       => "'" . $category_id . "'" ,
+        'brand_id'          => "'" . $brand_id . "'" ,
+        'model_id'          => "'" . $model_id . "'" ,
+        'color_id'          => "'" . $color_id . "'" , 
+        'condition_id'      => "'" . $pCondition_id. "'" ,
+        'user_id'           => "'" . $user_id . "'" ,
+        'price'             => "'" . $price . "'" ,
+        'eletronic_invoice' => "'" . $possuiNF . "'" ,
+    ]);
+
+    if ($dbReturn):
+        // Upload file
+        if ($imageUpload):
+
+            $count = count($a_TmpLocations);
+
+            for ($i = 0; $i < $count; $i++) {                
+
+                if (move_uploaded_file($a_TmpLocations[$i], $a_NewLocations[$i])):                    
+                    
+                    // TradePost ID
+                    $dados = CrudDB::select('SELECT post_id FROM trade_posts WHERE user_id =:USER_ID  ORDER BY created_on DESC LIMIT 1'
+                                ,['USER_ID' => $user_id]
+                                ,TRUE);
+                    
+                    if (!Empty($dados)):
+                        CrudDB::setTabela('images_trade_posts');
+    
+                        $dbReturnTwo = CrudDB::insert ([
+                            'image_name'    => "'" . $a_FileNames[$i] . "'" ,
+                            'trade_post_id' => "'" . intval($dados[0]->post_id) . "'" ,
+                        ]);
+            
+                        if ( !$dbReturnTwo ):       
+                            echo json_encode([
+                                'error' => false ,
+                                'msg' => "Anúncio incluído, porém tivemos um Erro na Gravação das imagens no Banco"
+                            ]);
+                            http_response_code(500); // Internal Server Error
+                            exit;
+                        endif;
+                    else:
+                        echo json_encode([
+                            'error' => false ,
+                            'msg' => "Anúncio incluído mas não encontrado para relacionar imagens!"
+                        ]);
+                        http_response_code(500); // Internal Server Error
+                        exit;
+                    endif;
+                else:                
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'   => 'Anúncio incluído, porém tivemos um Erro no Upload da(s) imagem(ns) ao Servidor'
+                    ]);
+                    http_response_code(500); // Internal Server Error
+                    exit;
+                endif;
+            }
+
+        // Desired Goal
+        echo json_encode([
+            'error' => false ,
+            'msg' => "Anúncio incluído com êxito!"
+        ]);
+        http_response_code(201); // Created
+        exit;
+
+        else:            
             echo json_encode([
-                'error' => true ,
-                'msg'   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
+                'error' => false ,
+                'msg' => "Anúncio incluído com êxito!"
             ]);
-            http_response_code(406); // Not Acceptable
-            exit;
+            http_response_code(201); // Created
+            exit;        
         endif;
 
-        // File Size Validation
-        if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):            
-            echo json_encode([
-                'error' => true ,
-                'msg'   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos!'
-            ]);
-            http_response_code(406); // Not Acceptable
-            exit;
-        endif;
-
-        $imageUpload = true;
-    }    
+    else:                    
+        echo json_encode([
+            'error' => true ,
+            'msg'   => 'Erro ao Inserir Anúncio no Banco de Dados'
+        ]);
+        http_response_code(500); // Internal Server Error
+        exit;
+    endif;
 
 endif;
 
