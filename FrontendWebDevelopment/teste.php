@@ -13,36 +13,71 @@ if (!defined('SITE_URL')) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 
     <title>Página de TESTE</title>
   </head>
 
-  <body style="height: 1080px; background-color: gray; text-align: center; padding: 300px 20px 300px 20px">
+  <body class="d-flex flex-column h-100 bk-black font-main" class="" style="height: 1000px;">
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-    </button>
+    <div class="container bk-white" style="height: 1000px;">
+        <main class="">
+            <div class="row d-flex justify-content-center">
+                <div class="col-12 p-2">
 
-    <!-- Modal -->
-    <!-- Model Delete Confirmation -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Deletar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Deseja realmente EXCLUIR o Anúncio <?php echo $a_tpItem['post_id'] ?> ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Excluir</button>
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="col-12 p-0 image-container-new" id="tradepost-img-container">
+                                    <!-- Blur -->
+                                    <div class="img-default-content img_background_blur" style="background-image: url('http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-05-03_4091.jpg');">
+                                    </div>
+
+                                    <!-- Image  -->
+                                    <div class="img-default-content">
+                                    <img src="http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-05-03_4091.jpg" class="img-tag-tp-default" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-12 p-0 image-container-new" id="tradepost-img-container">
+                                    <!-- Blur -->
+                                    <div class="img-default-content img_background_blur" style="background-image: url('http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-05-03_2233.jpg');">
+                                    </div>
+
+                                    <!-- Image  -->
+                                    <div class="img-default-content">
+                                    <img src="http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-05-03_2233.jpg" class="img-tag-tp-default" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="col-12 p-0 image-container-new" id="tradepost-img-container">
+                                    <!-- Blur -->
+                                    <div class="img-default-content img_background_blur" style="background-image: url('http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-05-01_7070.jpg');">
+                                    </div>
+
+                                    <!-- Image  -->
+                                    <div class="img-default-content">
+                                    <img src="http://localhost/TG_MTC/BackendDevelopment/uploads/imagem-2022-05-01_7070.jpg" class="img-tag-tp-default" alt="">
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style="z-index: 12 ;">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" style="z-index: 12 ;">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                    
                 </div>
             </div>
-        </div>
+        </main>
     </div>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

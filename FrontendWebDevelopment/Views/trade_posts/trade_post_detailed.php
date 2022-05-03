@@ -7,10 +7,10 @@
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e titlePage;
  *  - Vinícius Lessa - 18/04/2022: Mudanças do nome do arquivo de "trade_post_view.php" para "trade_post_detailed.php".
  *                                 Mudanças nas estruturas html do anúncio. Implementação do consumo de informações do Banco de dados (de acordo com o anúncio clicado).
- *  - Renata Carrillo - 18/04/22: Inclusão dos "outros anúncios"
- *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos produtos;
- *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap.
- *  - Vinícius Lessa - 26/04/2022: Início da implementação da visualização do Anúncio pelo criador (meu perfil > meus anúncios).
+ *  - Renata Carrillo - 18/04/22: Inclusão dos "outros anúncios".
+ *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos produtos.
+ *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap. 
+ *  - Vinícius Lessa - 03/05/2022: Inclusão da Lógica de Carrossel das imagens baseado na quantidade de imagens.
  * 
  * @ Notes: 
  * 
@@ -34,6 +34,7 @@ $userCreator  = $tpDetails["data"][0]["user_id"];
 $titlePage    = $tpDetails['data'][0]['title'];
 
 $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
+$imagesCount  = count($tpDetails["data"]);
 
 ?>
 
@@ -85,58 +86,52 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
               <hr class="hr-default">
             </div>
           </div>
-               
-          
-<!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" alt="First slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="<?php echo $tpDetails["data"][0]["image_name"] ?>" alt="Second slide">
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" alt="Third slide">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div> -->
-
-<input type="radio" name="position" checked />
-  <input type="radio" name="position" />
-  <input type="radio" name="position" />
-  <input type="radio" name="position" />
-  <input type="radio" name="position" />
-  <main id="carousel">
-    <div class="item"><img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-tag-tp-default" alt=""></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </main>
 
           <!-- Main Content -->          
-          <article>              
+          <article>
             <div class="row">
 
-              <!-- Image Carrousel -->              
-              <div class="col-12 col-lg-8 p-0 image-container-new" id="tradepost-img-container">
-                <!-- Blur -->
-                <div class="img-default-content img_background_blur" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
-                </div>
+              <!-- Image Carrousel -->
+              <div class="col-12 col-lg-8 p-0">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators" style="z-index: 12 ;">
+                    <?php for ($i = 0; $i < $imagesCount; $i++) {  
+                      if ( $i == 0 ):?>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $i?>" class="active" aria-current="true" aria-label="Slide <?php echo $i?>"></button>
+                      <?php else: ?>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $i?>" aria-label="Slide <?php echo $i?>"></button>
+                      <?php endif; ?>
+                    <?php }  ?>
+                  </div>
+                  <div class="carousel-inner">
+                    <?php for ($i = 0; $i < $imagesCount; $i++) {  ?>
+                                            
+                      <div class="carousel-item <?php echo $i == 0 ? 'active' : '' ; ?>" data-bs-interval="100000">
+                        <div class="col-12 p-0 image-container-new" id="tradepost-img-container">
+                          <!-- Blur -->
+                          <div class="img-default-content img_background_blur" style="background-image: url('<?php echo $tpDetails["data"][$i]["image_name"] ?>');">
+                          </div>
 
-                <!-- Image  -->
-                <div class="img-default-content">
-                  <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-tag-tp-default" alt="">
+                          <!-- Image  -->
+                          <div class="img-default-content">
+                            <img src="<?php echo $tpDetails["data"][$i]["image_name"] ?>" class="img-tag-tp-default" alt="">
+                          </div>
+                        </div>
+                      </div>
+
+                    <?php }  ?>
+                  </div>
+
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="z-index: 12 ;">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="z-index: 12 ;">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
-              </div>
+              </div>              
 
 
               <!-- Trade Post Info -->
