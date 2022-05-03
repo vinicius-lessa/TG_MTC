@@ -140,7 +140,14 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       ?>
         <div class="container mb-5">
           <div class="row">          
-            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+            <?php 
+              $lastId = 0;
+              foreach ($a_tpList["data"] as $a_tpItem) { 
+                if ( $lastId == $a_tpItem['post_id'] ):
+                  continue; // Skip Iteration
+                endif;
+                $lastId = $a_tpItem['post_id'];
+            ?>
               <!--
                 > 990 (lg)= 3
                 < 990 (md)= 2

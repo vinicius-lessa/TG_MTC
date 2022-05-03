@@ -156,18 +156,32 @@ footer{
 }
 
 /* New Trade Post */
-.tradePostImage-Button {
+.insertImage-btn {
   background-color: transparent;
-  border: 0px;  
-  color: #e22121b7;  
+  border: 0px;
+  color: #e22121b7;
 }
 
-.tradePostImage-Button:hover {
+.insertImage-btn:hover {
   font-size: 1.1em;   
 }
 
 .label-default:hover {
   cursor: pointer;
+}
+
+.deleteImage-btn {
+  position: absolute;
+  color: #ffffffa4;
+  z-index: 10; 
+  background-color: transparent; 
+  border: 0px; 
+  transform: translate(0px, -22px);
+  right: 5%;
+}
+
+.deleteImage-btn:hover {
+  color: #ffffffc4;
 }
 
 
@@ -276,6 +290,8 @@ form div {
 
 .text-gray {color: #868484;}
 
+.text-DeepGray {color: #545252;}
+
 .stroke-one {
   text-shadow: 0 0 3px #FF0000, 0 0 5px #434344;
 }
@@ -347,13 +363,13 @@ a.link-none:link {
 /* New Trade Post */
 
 .image-preview-box {
-  height: 120px;
+  height: 240px;
   padding: 3px;
   border-style: dashed;
   border-width: 2px;
-  border-color: #e22121b7;
+  border-color: #e2212171;
   border-radius: 10px;
-  color: #e22121b7;
+  color: #e2212171;
   margin: auto;
   align-items: center;
   vertical-align: middle;  
@@ -372,12 +388,12 @@ a.link-none:link {
 .img-default-content { /* Called in Background Blur, as such in the Image itself */
   position: absolute;
   top: 0;
-  left: 0;  
+  left: 0;
   width: 100%;
   height: 100%;
   vertical-align: middle;
   text-align: center;
-  z-index: 9;  
+  z-index: 9;
 }
 
 .img_background_blur  {

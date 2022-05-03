@@ -352,21 +352,21 @@ endif;
               <!-- Image Upload -->
               <div class="form-group">
 
-                <p class="mb-2" for="">Fotos do Item/Produto</p>
+                <p class="mb-2" for="">Adicione até 3 Fotos:</p>
                 <!-- <input class="form-control" accept="image/*" type="file" name="image-upload" id="image-upload"> -->
                 
                 <!-- Image Preview -->
                 <div class="row mt-4 px-3">
 
                   <!-- 1 -->
-                  <div class="col-12 col-sm-4 text-center px-2">
+                  <div class="col-12 col-sm-6 text-center px-2">
                     <div class="image-preview-box row p-1" id="image-preview-box-one">
                       
                       <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][0]['image_name']))  ): ?>
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto;">
-                          <button type="button" class="tradePostImage-Button">
+                          <button type="button" class="insertImage-btn">
                             <label for="image-upload-one" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -388,11 +388,17 @@ endif;
                         <?php if ( validateImageSource($tpDetails['data'][0]['image_name']) ): ?>
 
                           <!-- Image ifself -->
-                          <div class="img-newTP-upload position-relative h-100 p-0">
+                          <div class="img-newTP-upload position-relative h-100 p-0">                            
 
                             <!-- Blur -->
                             <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
                             </div>
+                            
+                            <button type="button" class="deleteImage-btn p-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                            </button>
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">
@@ -423,14 +429,14 @@ endif;
                   </div>
 
                   <!-- 2 -->
-                  <div class="col-12 col-sm-4 text-center px-2">
+                  <div class="col-12 col-sm-6 text-center px-2">
                     <div class="image-preview-box row p-1" id="image-preview-box-two">
 
                       <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][1]['image_name']))  ): ?>
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto;">
-                          <button type="button" class="tradePostImage-Button">
+                          <button type="button" class="insertImage-btn">
                             <label for="image-upload-two" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -457,6 +463,12 @@ endif;
                             <!-- Blur -->
                             <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][1]["image_name"] ?>');">
                             </div>
+
+                            <button type="button" class="deleteImage-btn p-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                            </button>
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">
@@ -487,14 +499,14 @@ endif;
                   </div>
 
                   <!-- 3 -->
-                  <div class="col-12 col-sm-4 text-center px-3">
+                  <div class="col-12 col-sm-6 text-center px-2">
                     <div class="image-preview-box row p-0" id="image-preview-box-three">
 
                       <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][2]['image_name']))  ): ?>
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto;">
-                          <button type="button" class="tradePostImage-Button">
+                          <button type="button" class="insertImage-btn">
                             <label for="image-upload-three" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -521,6 +533,12 @@ endif;
                             <!-- Blur -->
                             <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][2]["image_name"] ?>');">
                             </div>
+
+                            <button type="button" class="deleteImage-btn p-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                            </button>                            
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">

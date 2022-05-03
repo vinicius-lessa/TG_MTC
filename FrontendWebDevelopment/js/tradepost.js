@@ -22,6 +22,8 @@ const msgAlertErroPost  = $("#msgAlertErroPost");
 const brandSelector = $("#brand");
 const modelSelector = $("#model");
 
+const imgPreviewOne = $("#image-preview-box-one");
+
 var title           = $("#title");
 var category        = $("#category");
 var brand           = $("#brand");
@@ -35,6 +37,7 @@ var possuiNF        = $('input[name=possuiNF]:checked', newTradePostForm);
 var imageOne        = $("#image-upload-one");
 var imageTwo        = $("#image-upload-two");
 var imageThree      = $("#image-upload-three");
+
 
 // Generic
 let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
@@ -53,40 +56,27 @@ let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading
 
 // Events
 
+// Insert Image
 imageOne.change(function(event) {
     imageOne.src = URL.createObjectURL(event.target.files[0]);
 
-    var newHtml = 
-    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
-        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageOne.src + ");'>" +
-        "</div>" +
-        "<div class='img-default-content m-0'>" +
-            "<img src='" + imageOne.src + "' class='img-tag-tp-default' alt=''>" +
-        "</div>" +
-    "</div>";
+    var newHtml = insertImageHtml(imageOne.src);
 
     document.querySelector("#image-preview-box-one .image-preview-text").style.setProperty("display", "none", "important");
 
-    $("#image-preview-box-one").append( function() {
+    imgPreviewOne.append( function() {
         return newHtml;
     });
 
     imageOne.onload = function() {
-        URL.revokeObjectURL(imageOne.src) // free memory
-    }
+        URL.revokeObjectURL(imageOne.src) // free memory        
+    }    
 });
 
 imageTwo.change(function(event) {
     imageTwo.src = URL.createObjectURL(event.target.files[0]);
 
-    var newHtml =
-    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
-        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageTwo.src + ");'>" +
-        "</div>" +
-        "<div class='img-default-content m-0'>" +
-            "<img src='" + imageTwo.src + "' class='img-tag-tp-default' alt=''>" +
-        "</div>" +
-    "</div>";
+    var newHtml = insertImageHtml(imageTwo.src);
 
     document.querySelector("#image-preview-box-two .image-preview-text").style.setProperty("display", "none", "important");
 
@@ -102,14 +92,7 @@ imageTwo.change(function(event) {
 imageThree.change(function(event) {
     imageThree.src = URL.createObjectURL(event.target.files[0]);
 
-    var newHtml = 
-    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
-        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageThree.src + ");'>" +
-        "</div>" +
-        "<div class='img-default-content m-0'>" +
-            "<img src='" + imageThree.src + "' class='img-tag-tp-default' alt=''>" +
-        "</div>" +
-    "</div>";
+    var newHtml = insertImageHtml(imageThree.src);
 
     document.querySelector("#image-preview-box-three .image-preview-text").style.setProperty("display", "none", "important");
 
@@ -121,10 +104,6 @@ imageThree.change(function(event) {
         URL.revokeObjectURL(imageThree.src) // free memory
     }
 });
-
-// ************************************************ CONTINUE
-// To remove File:
-// document.getElementById('multifile').value = "";
 
 
 // Functions
@@ -242,78 +221,78 @@ newTradePostForm.submit(async function( event ){
     event.preventDefault();      
 
     // Validations
-    // if ( title.val() === "" || title.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
-    //     $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( title.val() === "" || title.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
+        $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(title).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(title).removeAttr("style");
+    }
 
-    // if ( category.val() === "default" || category.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
-    //     $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( category.val() === "default" || category.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
+        $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(category).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(category).removeAttr("style");
+    }
 
-    // if ( brand.val() === "default" || brand.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
-    //     $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( brand.val() === "default" || brand.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
+        $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(brand).removeAttr("style");
-    // }    
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(brand).removeAttr("style");
+    }    
 
-    // if ( model.val() === "default" || model.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
-    //     $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( model.val() === "default" || model.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
+        $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(model).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(model).removeAttr("style");
+    }
 
-    // if ( p_condition.val() === "" || p_condition.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
-    //     $(p_condition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( p_condition.val() === "" || p_condition.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
+        $(p_condition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(p_condition).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(p_condition).removeAttr("style");
+    }
 
-    // if ( price.val() === "" || price.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
-    //     $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( price.val() === "" || price.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
+        $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(price).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(price).removeAttr("style");
+    }
 
-    // if ( possuiNF.val() === "" || possuiNF.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
-    //     $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( possuiNF.val() === "" || possuiNF.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
+        $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(possuiNF).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(possuiNF).removeAttr("style");
+    }
 
     // Start Loading Icon
-    // spinnerWrapper.style.display = 'flex';
+    spinnerWrapper.style.display = 'flex';
     
     // Send Form to REST API
     const formData = new FormData(event.target); // All Form Values    
@@ -356,22 +335,46 @@ newTradePostForm.submit(async function( event ){
 
     console.log(j_Response);
 
-    // setTimeout(function () {
+    setTimeout(function () {
 
-    //     if(j_Response['error']){        
-    //         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
-    //         spinnerWrapper.style.display = 'none';
-    //     } else {
-    //         // window.alert("Anúncio incluído com sucesso!");
-    //         window.alert("Sucesso: " + j_Response['msg']);
+        if(j_Response['error']){        
+            msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
+            spinnerWrapper.style.display = 'none';
+        } else {
+            // window.alert("Anúncio incluído com sucesso!");
+            window.alert("Sucesso: " + j_Response['msg']);
 
-    //         // Desabilita Loading
-    //         spinnerWrapper.style.display = 'none';
-    //         // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
-    
-    //         // window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/trade_posts/home.php");
-    //         window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
-    //     }
-    // }, 2000);
+            // Desabilita Loading
+            spinnerWrapper.style.display = 'none';
+            // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+                
+            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
+        }
+    }, 2000);
 
 });
+
+function deleteTmpImage() {
+    console.log( "Handler for .click() called." );
+
+};
+
+function insertImageHtml(imageUrl) {
+    var newHtml =
+    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
+        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageUrl + ");'>" +
+        "</div>" +
+        "<button type='button' class='deleteImage-btn p-0' onClick='deleteTmpImage();'>" +
+            "<svg xmlns='http://www.w3.org/2000/svg' width='25' height='25' fill='currentColor' class='bi bi-x-circle-fill' viewBox='0 0 16 16'>" +
+                "<path d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/>" +
+            "</svg>" +
+        "</button>" +        
+        "<div class='img-default-content m-0'>" +
+            "<img src='" + imageUrl + "' class='img-tag-tp-default' alt=''>" +
+        "</div>" +
+    "</div>";    
+    return newHtml;
+};
+
+function deleteImageHtml() {    
+};

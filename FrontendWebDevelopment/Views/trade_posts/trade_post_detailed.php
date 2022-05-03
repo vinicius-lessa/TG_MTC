@@ -254,7 +254,14 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
           if ( isset($a_tpList) && !$a_tpList["error"] ) :
         ?>          
           <div class="row">          
-            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+            <?php 
+              $lastId = 0;
+              foreach ($a_tpList["data"] as $a_tpItem) { 
+              if ( $lastId == $a_tpItem['post_id'] ):
+                continue; // Skip Iteration
+              endif;
+              $lastId = $a_tpItem['post_id'];                
+            ?>
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="image_container">
                   <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
