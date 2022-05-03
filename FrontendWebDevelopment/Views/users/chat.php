@@ -32,7 +32,7 @@ if ( $isLoggedUser ):
 
   // /Views/users/chat.php/&img_url=<?php echo $chat['image_name']
   if ( isset($_GET['user']) && isset($_GET['post_id']) && isset($_GET['img_url']) ):
-    $post_id  = $_GET['post_id'];  
+    $post_id  = $_GET['post_id'];
     $userTwo  = $_GET['user'];
     $imgUrl   = $_GET['img_url'];
   
@@ -57,7 +57,7 @@ if ( !empty($a_OtherChats) && !$a_OtherChats["error"] ):
     $imgUrl   = $a_OtherChats["data"][0]["image_name"];
   endif;
 
-else:
+elseif ( !isset($post_id) && !isset($imgUrl) && !isset($imgUrl) ):
   $noChats = true;
 
 endif;
@@ -371,13 +371,13 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             <!-- Image -->                              
                             <div class="col-2 p-0 image-container-new" style="height: 55px;">
                               <!-- Blur -->
-                              <div class="img_tp_background " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                              <div class="img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
                               </div>
 
                               <!-- Image -->
                               <div class="img_tp" style="transform: translate(0px, -53px);">
                                 <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
-                                  <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
+                                  <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
                                 </a>
                               </div>
                             </div>                            
@@ -445,13 +445,13 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             <!-- Image -->                              
                             <div class="col-2 p-0 image-container-new" style="height: 55px;">
                               <!-- Blur -->
-                              <div class="img_tp_background " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                              <div class="img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
                               </div>
 
                               <!-- Image -->
                               <div class="img_tp" style="transform: translate(0px, -53px);">
                                 <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
-                                  <img src="<?php echo $chat['image_name'] ?>" class="testtwo" alt="" style="">
+                                  <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
                                 </a>
                               </div>
                             </div>

@@ -30,7 +30,7 @@
   } 
 
   #tradepost-img-container{height: 500px;}
-  #profileTP-img-container{height: 210px;}
+  #profileTP-img-container{height: 210px;}  
 }
 
 /* Mobile */
@@ -40,7 +40,8 @@
   }  
 
   #tradepost-img-container{height: 300px;}
-  #profileTP-img-container{height: 210px;}
+  #profileTP-img-container{height: 210px;}  
+
   .zeroMargin-Padding-mobile {
     padding-left: 0px !important;
     padding-right: 0px !important;
@@ -150,7 +151,22 @@ footer{
 
 .profileImage-label {  
   width: 30px;
-  height: 27px; 
+  height: 27px;
+  cursor: pointer;
+}
+
+/* New Trade Post */
+.tradePostImage-Button {
+  background-color: transparent;
+  border: 0px;  
+  color: #e22121b7;  
+}
+
+.tradePostImage-Button:hover {
+  font-size: 1.1em;   
+}
+
+.label-default:hover {
   cursor: pointer;
 }
 
@@ -246,39 +262,26 @@ form div {
 
 /* Font Color */
 
-.text-white {
-  color: #ffffff;
-}
+.text-white {color: #ffffff;}
 
-.text-black {
-  color: #000;
-}
+.text-black {color: #000;}
 
-.text-red {
-  color: #d21b1b;
-}
+.text-red {color: #d21b1b;}
 
-.text-lightred {
-  color: #f64141;
-}
+.text-lightred {color: #f64141;}
 
-.text-blue-link {
-  color: #1cb7e6;
-}
+.text-blue-link {color: #1cb7e6;}
 
-.text-lightgray {
-  color: #d3d1d1;
-}
+.text-lightgray {color: #d3d1d1;}
 
-.text-gray {
-  color: #868484;
-}
+.text-gray {color: #868484;}
 
 .stroke-one {
   text-shadow: 0 0 3px #FF0000, 0 0 5px #434344;
 }
 
-/*remover sublinhado*/
+/* Text Links */
+
 a.link-none:link {
   text-decoration: none;
 }
@@ -341,25 +344,43 @@ a.link-none:link {
   position: absolute;
 }
 
+/* New Trade Post */
 
-/* Vinícius - 26/04/2022 */
+.image-preview-box {
+  height: 120px;
+  padding: 3px;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #e22121b7;
+  border-radius: 10px;
+  color: #e22121b7;
+  margin: auto;
+  align-items: center;
+  vertical-align: middle;  
+}
+
+
+/* Background Image TP Detailed + User Profile (BLUR) + New Post */
 
 .image-container-new {
   position: relative;
   border-style: solid;
   border-width: 1px;
-  border-color: #85858597;  
+  border-color: #85858597;
 }
 
-.img-default-content {
+.img-default-content { /* Called in Background Blur, as such in the Image itself */
   position: absolute;
   top: 0;
   left: 0;  
   width: 100%;
   height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 9;  
 }
 
-.img_tp_background  {
+.img_background_blur  {
   background-position: center center;
   background-repeat: no-repeat; 
   background-size: cover;  
@@ -367,16 +388,10 @@ a.link-none:link {
   /* background-color: #59595ab6; */
 }
 
-.img_tp {
-  vertical-align: middle;
-  text-align: center;
-  z-index: 9;
-}
-
-.testtwo{
+.img-tag-tp-default {
   max-width: 100%;
   height: 100%;
-  filter: contrast(110%) brightness(1.2);
+  filter: contrast(105%) brightness(1.1);
 }
 
 

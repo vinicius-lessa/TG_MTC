@@ -23,6 +23,9 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
+include_once '../../defaultFunctions.php';
+
+// Vars
 $titlePage  = 'MTC | Anúncios';
 $a_tpList   = [];
 
@@ -89,27 +92,29 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       ?>
         <div class="container mb-5">
           <div class="row">
-            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+            <?php
+              $lastId = 0;
+              foreach ($a_tpList["data"] as $a_tpItem) { 
+                if ( $lastId == $a_tpItem['post_id'] ):
+                  continue; // Skip Iteration
+                endif;
+                $lastId = $a_tpItem['post_id'];
+            ?>              
               <div class="col-12 col-sm-6 col-lg-4 mt-4 mb-4">
                 <div class="p-3">
                   <div class="image_container">
                     <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                      <?php if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ): ?>
+                      <?php
+                        if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ): 
+                          if ( validateImageSource($a_tpItem['image_name']) ):?>
+                        
+                          <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
                         <?php
-                          $file = $a_tpItem['image_name'];
-                          $file_headers = @get_headers($file);
-
-                          if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found'):
-                          ?>
+                          else: ?>
                             <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
-                        <?php 
-                          else: 
-                        ?>
-                            <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
-                        <?php
-                          endif;
-                        ?>
-                      <?php else: ?>
+                        <?php endif; ?>
+                      <?php 
+                        else: ?>  
                         <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
                       <?php endif; ?>
                     </a>

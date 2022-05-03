@@ -8,6 +8,7 @@
  *  - Vinícius Lessa - 16/04/2022: Implementação da tratativa POST para inclusão de anúncios com imagens.
  *  - Vinícius Lessa - 28/04/2022: Implementação das consultas das tabelas de 'PRODUCT_CATEGORY', 'PRODUCT_BRANDS', 'PRODUCT_MODELS' e 'COLORS'.
  *  - Vinícius Lessa - 01/05/2022: Implementação do método DELETE.
+ *  - Vinícius Lessa - 02/05/2022: Implementação da Criação de Anúncios com 3 imagens.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -91,26 +92,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             if (is_numeric($keySearch)):
                 $dados = CrudDB::select(
                     'SELECT 
-                        tp.post_id 					,
-                        tp.title					,
-                        tp.description as tp_desc 	,
-                        tp.category_id				,
-                        pc.description as pc_desc 	,
-                        tp.brand_id					,
-                        pb.description as pb_desc  	,
-                        tp.model_id					,
-                        pm.description as pm_desc  	,
-                        tp.color_id					,
-                        c.description as c_desc  	,
-                        tp.condition_id				,
-                        pc2.description as pc2_desc ,
-                        tp.user_id					,
-                        u.user_name 				,
-                        u.phone 					,
-                        tp.price					,
-                        tp.eletronic_invoice 		,
-                        itp.image_name as image_name,
-                        ip.image_name as img_profile_name
+                    tp.post_id as `post_id` 	,
+                    tp.title					,
+                    tp.description as tp_desc 	,
+                    tp.category_id				,
+                    pc.description as pc_desc 	,
+                    tp.brand_id					,
+                    pb.description as pb_desc  	,
+                    tp.model_id					,
+                    pm.description as pm_desc  	,
+                    tp.color_id					,
+                    c.description as c_desc  	,
+                    tp.condition_id				,
+                    pc2.description as pc2_desc ,
+                    tp.user_id					,
+                    u.user_name 				,
+                    u.phone 					,
+                    tp.price					,
+                    tp.eletronic_invoice 		,
+                    itp.image_name as image_name,
+                    ip.image_name as img_profile_name
                     FROM trade_posts tp 
                     INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
                     INNER JOIN product_brands pb ON tp.brand_id = pb.brand_id
@@ -118,12 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     INNER JOIN colors c ON tp.color_id  = c.color_id
                     INNER JOIN product_conditions pc2 ON tp.condition_id = pc2.condition_id 
                     INNER JOIN users u ON tp.user_id = u.user_id
-                    INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
+                    -- INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
+                    CROSS join images_trade_posts itp 
                     INNER JOIN images_profile ip ON ip.user_id = u.user_id 
                     WHERE 
-                        tp.post_id          =:POST_ID AND
+                        tp.post_id          =:POST_ID and
+                        itp.trade_post_id = `post_id` and
                         tp.activity_status  = 1
-                    ORDER BY tp.created_on DESC LIMIT 1;', 
+                    ORDER BY tp.created_on DESC',
                     [
                         'POST_ID' => $keySearch
                     ], TRUE);
@@ -467,6 +470,7 @@ endif;
 if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
 
     // Token Validation
     if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
@@ -501,31 +505,276 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // ]);
     // exit;
 
-    if (empty($title) or
-        $category_id    == 0 or
-        $price          == 0 or
-        $pCondition_id  == 0 or
-        $user_id        == 0 or
-        $possuiNF       == 3
-        ):
+    // if (empty($title) or
+    //     $category_id    == 0 or
+    //     $price          == 0 or
+    //     $pCondition_id  == 0 or
+    //     $user_id        == 0 or
+    //     $possuiNF       == 3
+    //     ):
         
+    //     echo json_encode([
+    //         'error' => true ,
+    //         'msg' => 'Erro: Informe Todos os Parâmetros!'
+    //     ]);
+    //     http_response_code(406);
+    //     exit;
+    // endif;
+
+    $count = count($_FILES['files']['name']);
+
+    // echo json_encode([
+    //     'error' => false ,
+    //     'Dados'   => $_FILES['files']
+    // ]);
+    // http_response_code(200); // Not Acceptable
+    // exit;
+
+    if ( $count > 0 ):
+        
+        $a_TmpLocations = array();
+        $a_NewLocations = array();
+        $a_FileNames    = array();
+        
+        // Check recieved values
+        // echo var_dump($_FILES); // Doesn't work with JS
+        // echo json_encode( ['Arquivos' => $_FILES] );
+
+        for ($i = 0; $i < $count; $i++) {
+    
+            // Checks IMAGES to UPLOAD
+            if( isset($_FILES['files']['name'][$i]) && !empty($_FILES['files']['name'][$i]) ):
+    
+                // Extension                
+                $imageFileType  = strrchr($_FILES['files']['name'][$i], ".");
+                $imageFileType  = strtolower($imageFileType);
+    
+                // Getting and Defining file name
+                $data           = new DateTime();
+                $a_FileNames[]  = "imagem-" . $data->format('Y-m-d') . "_" . rand(1, 9999) . $imageFileType;
+            
+                // Locations
+                $a_TmpLocations[]  = $_FILES['files']['tmp_name'][$i];
+                $a_NewLocations[]  = "uploads/".$a_FileNames[$i];
+    
+                // File Sizes
+                // $a_tmpSizes[]   = $_FILES['files']['size'][$i];
+                $fileSize       = $_FILES['files']['size'][$i];
+                $maxsize        = 4194304; //bytes (4mb)        
+    
+                // Acceptable Extensions
+                $valid_extensions = array("jpg","jpeg","png");
+                
+                // File Extension Validation
+                if ($fileSize > $maxsize):            
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
+                    ]);
+                    http_response_code(406); // Not Acceptable
+                    exit;
+                endif;
+    
+                // File Size Validation
+                if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):            
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos! '
+                    ]);
+                    http_response_code(406); // Not Acceptable
+                    exit;
+                endif;
+    
+                $imageUpload = true;
+            else:
+                echo json_encode([
+                    'error' => true ,
+                    'msg'   => 'Problema no leitura das Imagens para Upload!'
+                ]);
+                http_response_code(406); // Not Acceptable
+                exit;
+            endif;
+        }        
+    endif; 
+
+    CrudDB::setTabela('trade_posts');
+        
+    // $dbReturn = true;
+    $dbReturn = CrudDB::insert([
+        'title'             => "'" . $title . "'" ,
+        'description'       => "'" . $description . "'" ,
+        'category_id'       => "'" . $category_id . "'" ,
+        'brand_id'          => "'" . $brand_id . "'" ,
+        'model_id'          => "'" . $model_id . "'" ,
+        'color_id'          => "'" . $color_id . "'" , 
+        'condition_id'      => "'" . $pCondition_id. "'" ,
+        'user_id'           => "'" . $user_id . "'" ,
+        'price'             => "'" . $price . "'" ,
+        'eletronic_invoice' => "'" . $possuiNF . "'" ,
+    ]);
+
+    if ($dbReturn):
+        // Upload file
+        if ($imageUpload):
+
+            $count = count($a_TmpLocations);
+
+            for ($i = 0; $i < $count; $i++) {                
+
+                if (move_uploaded_file($a_TmpLocations[$i], $a_NewLocations[$i])):                    
+                    
+                    // TradePost ID
+                    $dados = CrudDB::select('SELECT post_id FROM trade_posts WHERE user_id =:USER_ID  ORDER BY created_on DESC LIMIT 1'
+                                ,['USER_ID' => $user_id]
+                                ,TRUE);
+                    
+                    if (!Empty($dados)):
+                        CrudDB::setTabela('images_trade_posts');
+    
+                        $dbReturnTwo = CrudDB::insert ([
+                            'image_name'    => "'" . $a_FileNames[$i] . "'" ,
+                            'trade_post_id' => "'" . intval($dados[0]->post_id) . "'" ,
+                        ]);
+            
+                        if ( !$dbReturnTwo ):       
+                            echo json_encode([
+                                'error' => false ,
+                                'msg' => "Anúncio incluído, porém tivemos um Erro na Gravação das imagens no Banco"
+                            ]);
+                            http_response_code(500); // Internal Server Error
+                            exit;
+                        endif;
+                    else:
+                        echo json_encode([
+                            'error' => false ,
+                            'msg' => "Anúncio incluído mas não encontrado para relacionar imagens!"
+                        ]);
+                        http_response_code(500); // Internal Server Error
+                        exit;
+                    endif;
+                else:                
+                    echo json_encode([
+                        'error' => true ,
+                        'msg'   => 'Anúncio incluído, porém tivemos um Erro no Upload da(s) imagem(ns) ao Servidor'
+                    ]);
+                    http_response_code(500); // Internal Server Error
+                    exit;
+                endif;
+            }
+
+        // Desired Goal
+        echo json_encode([
+            'error' => false ,
+            'msg' => "Anúncio incluído com êxito!"
+        ]);
+        http_response_code(201); // Created
+        exit;
+
+        else:            
+            echo json_encode([
+                'error' => false ,
+                'msg' => "Anúncio incluído com êxito!"
+            ]);
+            http_response_code(201); // Created
+            exit;        
+        endif;
+
+    else:                    
         echo json_encode([
             'error' => true ,
-            'msg' => 'Erro: Informe Todos os Parâmetros!'
+            'msg'   => 'Erro ao Inserir Anúncio no Banco de Dados'
         ]);
-        http_response_code(406);
+        http_response_code(500); // Internal Server Error
         exit;
     endif;
 
+endif;
+
+
+
+#############################################################################################
+
+// **************** PUT (ALTERAÇÃO)
+if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
+    
+    // Utilizar "FORM URL Encoded" (application/x-www-form-urlencoded)
+
+    echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    exit;
+
+    parse_str(file_get_contents('php://input'), $_PUT);
+
+    // Token Validation
+    if (!($_DELETE['token'] === '16663056-351e723be15750d1cc90b4fcd')):
+        echo json_encode([
+            'error' => true ,
+            'msg' => 'Erro: Token is not Valid!'
+        ]);
+        http_response_code(401); // Unauthorized
+        exit;
+    endif;
+
+    // Variables
+    $title          = (isset($_PUT['title']))          ? $_PUT['title'] : ''              ;
+    $category_id    = (isset($_PUT['category']))       ? intval($_PUT['category']) : 0    ;
+    $price          = (isset($_PUT['price']))          ? floatval($_PUT['price']) : 0     ;
+    $pCondition_id  = (isset($_PUT['p_condition']))    ? intval($_PUT['p_condition']) : 0 ;
+    $possuiNF       = (isset($_PUT['possuiNF']))       ? intval($_PUT['possuiNF']) : 3    ;
+    $user_id        = (isset($_PUT['user_id']))        ? intval($_PUT['user_id']) : 0     ;
+
+    $brand_id       = (isset($_PUT['brand'])) ? intval($_PUT['brand']) : 0                ;
+    $model_id       = (isset($_PUT['model'])) ? intval($_PUT['model']) : 0                ;
+    $description    = (isset($_PUT['description'])) ? $_PUT['description'] : ''           ;
+    $color_id       = (isset($_PUT['color'])) ? intval($_PUT['color']) : 0                ;
+    
+    $imageUpload    = false; // By default, image upload will not happen
+
+    // Check Recieved Data
+    // echo json_encode([
+    //     'error' => true ,
+    //     'msg'   => 'Teste' ,
+    //     'dados' => $_PUT
+    // ]);
+    // exit;
+
+    // if (empty($title) or
+    //     $category_id    == 0 or
+    //     $price          == 0 or
+    //     $pCondition_id  == 0 or
+    //     $user_id        == 0 or
+    //     $possuiNF       == 3
+    //     ):
+        
+    //     echo json_encode([
+    //         'error' => true ,
+    //         'msg' => 'Erro: Informe Todos os Parâmetros!'
+    //     ]);
+    //     http_response_code(406);
+    //     exit;
+    // endif;
+
+    $count = count($_FILES['files']['name']);
+    
+    for ($i = 0; $i < $count; $i++) {
+    //     echo 'Name: '.$_FILES['fileToUpload']['name'][$i].'<br/>';
+    }
+    
+    echo json_encode([
+        'error' => true ,
+        'Arquivos' => $_FILES
+    ]);
+    http_response_code(200);
+    exit;  
+    
     // Checks IMAGES to UPLOAD
-    if(isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])){    
+    if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name'])){
         
         // Check recieved values
         // echo var_dump($_FILES); // Doesn't work with JS
         // echo json_encode( ['Arquivos' => $_FILES] );
 
         // Extension
-        $imageFileType  = strrchr($_FILES['file']['name'], ".");
+        $imageFileType  = strrchr($_FILES['files']['name'][$i], ".");
         $imageFileType  = strtolower($imageFileType);
 
         // Getting and Defining file name
@@ -565,155 +814,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         endif;
 
         $imageUpload = true;
-    }
-
-    CrudDB::setTabela('trade_posts');
-        
-    // $dbReturn = true;
-    $dbReturn = CrudDB::insert([
-        'title'             => "'" . $title . "'" ,
-        'description'       => "'" . $description . "'" ,
-        'category_id'       => "'" . $category_id . "'" ,
-        'brand_id'          => "'" . $brand_id . "'" ,
-        'model_id'          => "'" . $model_id . "'" ,
-        'color_id'          => "'" . $color_id . "'" , 
-        'condition_id'      => "'" . $pCondition_id. "'" ,
-        'user_id'           => "'" . $user_id . "'" ,
-        'price'             => "'" . $price . "'" ,
-        'eletronic_invoice' => "'" . $possuiNF . "'" ,
-    ]);
-
-    if ($dbReturn):
-        // Upload file
-        if ($imageUpload):
-            if (move_uploaded_file($tmpLocation, $newLocation)):
-                
-                // TradePost ID
-                $dados = CrudDB::select('SELECT post_id FROM trade_posts WHERE user_id =:USER_ID  ORDER BY created_on DESC LIMIT 1'
-                            ,['USER_ID' => $user_id]
-                            ,TRUE);
-                
-                if (!Empty($dados)):
-                    CrudDB::setTabela('images_trade_posts');
-
-                    $dbReturnTwo = CrudDB::insert ([
-                        'image_name'    => "'" . $fileName . "'" ,
-                        'trade_post_id' => "'" . intval($dados[0]->post_id) . "'" ,
-                    ]);
-        
-                    if ($dbReturnTwo):                        
-                        echo json_encode([
-                            'error' => false ,
-                            'msg' => "Anúncio incluído com êxito!"
-                        ]);
-                        http_response_code(201); // Created
-                        exit;
-                    else:                        
-                        echo json_encode([
-                            'error' => false ,
-                            'msg' => "Anúncio incluído, porém tivemos um Erro na Gravação das imagens no Banco"
-                        ]);
-                        http_response_code(500); // Internal Server Error
-                        exit;
-                    endif;            
-                else:                     
-                    echo json_encode([
-                        'error' => false ,
-                        'msg' => "Anúncio incluído mas não encontrado para relacionar imagens!"
-                    ]);
-                    http_response_code(500); // Internal Server Error
-                    exit;
-                endif;
-            else:                
-                echo json_encode([
-                    'error' => true ,
-                    'msg'   => 'Anúncio incluído, porém tivemos um Erro no Upload da(s) imagem(ns) ao Servidor'
-                ]);
-                http_response_code(500); // Internal Server Error
-                exit;
-            endif;
-        else:            
-            echo json_encode([
-                'error' => false ,
-                'msg' => "Anúncio incluído com êxito!"
-            ]);
-            http_response_code(201); // Created
-            exit;        
-        endif;
-
-    else:                    
-        echo json_encode([
-            'error' => true ,
-            'msg'   => 'Erro ao Inserir Anúncio no Banco de Dados'
-        ]);
-        http_response_code(500); // Internal Server Error
-        exit;
-    endif;
-
-endif;
-
-
-
-#############################################################################################
-
-// **************** PUT (ALTERAÇÃO)
-if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
-    
-    // Utilizar "FORM URL Encoded" (application/x-www-form-urlencoded)
-
-    // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
-    // exit;
-
-    parse_str(file_get_contents('php://input'), $_PUT);
-
-    // Token Validation
-    if (!($_DELETE['token'] === '16663056-351e723be15750d1cc90b4fcd')):
-        echo json_encode([
-            'error' => true ,
-            'msg' => 'Erro: Token is not Valid!'
-        ]);
-        http_response_code(401); // Unauthorized
-        exit;
-    endif;
-
-    // Variables
-    $title          = (isset($_PUT['title']))          ? $_PUT['title'] : ''              ;
-    $category_id    = (isset($_PUT['category']))       ? intval($_PUT['category']) : 0    ;
-    $price          = (isset($_PUT['price']))          ? floatval($_PUT['price']) : 0     ;
-    $pCondition_id  = (isset($_PUT['p_condition']))    ? intval($_PUT['p_condition']) : 0 ;
-    $possuiNF       = (isset($_PUT['possuiNF']))       ? intval($_PUT['possuiNF']) : 3    ;
-    $user_id        = (isset($_PUT['user_id']))        ? intval($_PUT['user_id']) : 0     ;
-
-    $brand_id       = (isset($_PUT['brand'])) ? intval($_PUT['brand']) : 0                ;
-    $model_id       = (isset($_PUT['model'])) ? intval($_PUT['model']) : 0                ;
-    $description    = (isset($_PUT['description'])) ? $_PUT['description'] : ''           ;
-    $color_id       = (isset($_PUT['color'])) ? intval($_PUT['color']) : 0                ;
-    
-    $imageUpload    = false; // By default, image upload will not happen
-
-    // Check Recieved Data
-    // echo json_encode([
-    //     'error' => true ,
-    //     'msg'   => 'Teste' ,
-    //     'dados' => $_PUT
-    // ]);
-    // exit;
-
-    if (empty($title) or
-        $category_id    == 0 or
-        $price          == 0 or
-        $pCondition_id  == 0 or
-        $user_id        == 0 or
-        $possuiNF       == 3
-        ):
-        
-        echo json_encode([
-            'error' => true ,
-            'msg' => 'Erro: Informe Todos os Parâmetros!'
-        ]);
-        http_response_code(406);
-        exit;
-    endif;    
+    }    
 
 endif;
 

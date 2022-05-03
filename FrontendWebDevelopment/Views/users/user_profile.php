@@ -200,7 +200,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
               <div class="col-12 text-center mb-3 mt-1 p-2">
                 <span id="msgAlertErroProfile" class="d-flex justify-content-center"></span>
                 <h4><strong><?php echo $_SESSION['user_name'] ?></strong></h4>
-                <h5 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?> </h5>
+                <h5 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?></h5>
               </div>
             </div>
           </div>        
@@ -389,19 +389,26 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                               </div>
                             <? else: ?>
                             
-                              <?php foreach ($a_userTradePosts["data"] as $a_tpItem) { ?>
+                              <?php 
+                                $lastId = 0;
+                                foreach ( $a_userTradePosts["data"] as $a_tpItem ) { 
+                                  if ( $lastId == $a_tpItem['post_id'] ):
+                                    continue; // Skip Iteration
+                                  endif;
+                                  $lastId = $a_tpItem['post_id'];
+                              ?>
                                 <div class="row my-3 mx-2 p-2 zeroMargin-Padding-mobile">
                                     
                                   <!-- Image -->                              
                                   <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
                                     <!-- Blur -->
-                                    <div class="img-default-content img_tp_background " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
                                     </div>
 
                                     <!-- Image -->
                                     <div class="img-default-content img_tp">
                                       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
+                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
                                       </a>
                                     </div>
                                   </div>
@@ -743,13 +750,13 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   <!-- Image -->                              
                                   <div class="col-12 col-sm-3 p-0 image-container-new" style="height: 230px;">
                                     <!-- Blur -->
-                                    <div class="img_tp_background " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    <div class="img_background_blur " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
                                     </div>
 
                                     <!-- Image -->
                                     <div class="img_tp" style="transform: translate(0px, -229px);">
                                       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="testtwo" alt="" style="">
+                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
                                       </a>
                                     </div>
                                   </div>

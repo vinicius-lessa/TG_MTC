@@ -7,6 +7,7 @@
  *  - Vinícius Lessa - 13/04/2022: Inclusão da documentação de cabeçalho do arquivo. Mudanças inicias baseadas no antigo arquivo "Anunciar.php";
  *  - Vinícius Lessa - 16/04/2022: Mudanças importantes na implementação do envio do formulário;
  *  - Vinícius Lessa - 01/05/2022: Implementação da Atualização do Anúncio utilizando a mesma estrutura com condicionais.
+ *  - Vinícius Lessa - 02/05/2022: Continuação da Implementação do CRUD para atualizar o Anúncio, porém no mesmo processo, estou adicionando a opção de Colocar até 3 fotos por Anúncio.
  * 
  * @ Notes: 
  * 
@@ -20,10 +21,13 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
+include_once '../../defaultFunctions.php';
+
 // Vars
 
-$isLoggedUser   = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
-$tradePostAction = $_GET["action"];
+$isLoggedUser     = (isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ? true : false;
+$tradePostAction  = $_GET["action"];
+$isUpdate         = false; // Default is False
 
 // Only Logged In
 if ( !$isLoggedUser ):  
@@ -48,8 +52,9 @@ if ( isset($post_id) && isset($tpDetails) ):
   $isUpdate     = true;
 
   if ( !$isOwnPost ):
-    $requestError = true;
+    $requestError = true; // Do Not suppose to be here
   endif;
+
 endif;
 
 $titlePage = isset($tpDetails['data'][0]['title']) ? $tpDetails['data'][0]['title'] : "Novo Anúncio";
@@ -61,6 +66,7 @@ if (
 
   $requestError = true; // *** Tratar Depois
 endif;
+
 
 ?>
 
@@ -89,7 +95,7 @@ endif;
 
       // These vars are called in 'profile.js'
       var user_id   = <?php echo $_SESSION['user_id']; ?>;
-      var isUpdate  = <?php echo $tradePostAction == "update" ? true : false ?>;
+      var isUpdate  = <?php echo ( $isUpdate ? "true" : "false" ); ?>;
 
     </script>
 
@@ -113,7 +119,7 @@ endif;
       <?php if ( !$requestError ): ?>        
           
         <div class="text-center mt-4">          
-          <h2 class="text-white"><?php echo $tradePostAction == "update" ? "Novo Anúncio" : "Atualizar Anúncio" ?></h2>
+          <h2 class="text-white"><?php echo $isUpdate ? "Atualizar Anúncio" : "Novo Anúncio" ?></h2>
         </div>
 
         <div class="row justify-content-md-center text-white mt-4">
@@ -345,16 +351,211 @@ endif;
 
               <!-- Image Upload -->
               <div class="form-group">
-                <label class="mb-2" for="image-upload">Imagem do Item</label>
-                <input class="form-control" type="file" name="image-upload" id="image-upload">
-                <!-- <input class="form-control" type="file" name="image-upload" id="image-upload" onchange="readURL(this);"> -->
+
+                <p class="mb-2" for="">Fotos do Item/Produto</p>
+                <!-- <input class="form-control" accept="image/*" type="file" name="image-upload" id="image-upload"> -->
                 
-                <!-- Image Preview 
-                <img id="imagePreview1" src="#" /> -->
+                <!-- Image Preview -->
+                <div class="row mt-4 px-3">
+
+                  <!-- 1 -->
+                  <div class="col-12 col-sm-4 text-center px-2">
+                    <div class="image-preview-box row p-1" id="image-preview-box-one">
+                      
+                      <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][0]['image_name']))  ): ?>
+
+                        <!-- Default Text -->
+                        <div class="image-preview-text m-0" style="margin: auto;">
+                          <button type="button" class="tradePostImage-Button">
+                            <label for="image-upload-one" class="label-default">
+                              <div class="m-0">
+                                Image Upload
+                              </div>
+
+                              <div class="m-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                              </div>
+                            </label>
+                          </button>
+                          <input type="file" name="image-upload-one" id="image-upload-one" style="display: none;">
+                        </div> 
+
+                      <?php else: ?>
+
+                        <?php if ( validateImageSource($tpDetails['data'][0]['image_name']) ): ?>
+
+                          <!-- Image ifself -->
+                          <div class="img-newTP-upload position-relative h-100 p-0">
+
+                            <!-- Blur -->
+                            <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
+                            </div>
+
+                            <!-- Image  -->
+                            <div class="img-default-content m-0">
+                              <img
+                              src="<?php echo $tpDetails['data'][0]['image_name'] ; ?>" 
+                              class="img-tag-tp-default" 
+                              alt=""
+                              >
+                            </div>
+                          </div>
+
+                        <?php else: ?>
+
+                          <!-- Image ifself -->
+                          <div class="img-newTP-upload position-relative h-100 m-0 p-0">
+
+                            <!-- Image  -->
+                            <div class="img-default-content m-0">
+                              <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="img-tag-tp-default" alt="" style="">
+                            </div>
+                          </div>
+
+                        <?php endif; ?>
+
+                      <?php endif; ?>
+
+                    </div>
+                  </div>
+
+                  <!-- 2 -->
+                  <div class="col-12 col-sm-4 text-center px-2">
+                    <div class="image-preview-box row p-1" id="image-preview-box-two">
+
+                      <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][1]['image_name']))  ): ?>
+
+                        <!-- Default Text -->
+                        <div class="image-preview-text m-0" style="margin: auto;">
+                          <button type="button" class="tradePostImage-Button">
+                            <label for="image-upload-two" class="label-default">
+                              <div class="m-0">
+                                Image Upload
+                              </div>
+
+                              <div class="m-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                              </div>
+                            </label>
+                          </button>
+                          <input type="file" name="image-upload-two" id="image-upload-two" style="display: none;">
+                        </div> 
+
+                      <?php else: ?>
+
+                        <?php if ( validateImageSource($tpDetails['data'][1]['image_name']) ): ?>
+
+                          <!-- Image ifself -->
+                          <div class="img-newTP-upload position-relative h-100 p-0">
+
+                            <!-- Blur -->
+                            <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][1]["image_name"] ?>');">
+                            </div>
+
+                            <!-- Image  -->
+                            <div class="img-default-content m-0">
+                              <img
+                              src="<?php echo $tpDetails['data'][1]['image_name'] ; ?>"
+                              class="img-tag-tp-default" 
+                              alt=""
+                              >
+                            </div>
+                          </div>
+
+                        <?php else: ?>
+
+                          <!-- Image ifself -->
+                          <div class="img-newTP-upload position-relative h-100 p-0">
+
+                            <!-- Image  -->
+                            <div class="img-default-content m-0">
+                              <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="img-tag-tp-default" alt="" style="">
+                            </div>
+                          </div>
+
+                        <?php endif; ?>
+
+                      <?php endif; ?>
+
+                    </div>
+                  </div>
+
+                  <!-- 3 -->
+                  <div class="col-12 col-sm-4 text-center px-3">
+                    <div class="image-preview-box row p-0" id="image-preview-box-three">
+
+                      <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][2]['image_name']))  ): ?>
+
+                        <!-- Default Text -->
+                        <div class="image-preview-text m-0" style="margin: auto;">
+                          <button type="button" class="tradePostImage-Button">
+                            <label for="image-upload-three" class="label-default">
+                              <div class="m-0">
+                                Image Upload
+                              </div>
+
+                              <div class="m-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                              </div>
+                            </label>
+                          </button>
+                          <input type="file" name="image-upload-three" id="image-upload-three" style="display: none;">
+                        </div> 
+
+                      <?php else: ?>
+
+                        <?php if ( validateImageSource($tpDetails['data'][2]['image_name']) ): ?>
+
+                          <!-- Image ifself -->
+                          <div class="img-newTP-upload position-relative h-100 p-0">
+
+                            <!-- Blur -->
+                            <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][2]["image_name"] ?>');">
+                            </div>
+
+                            <!-- Image  -->
+                            <div class="img-default-content m-0">
+                              <img
+                              src="<?php echo $tpDetails['data'][2]['image_name'] ; ?>" 
+                              class="img-tag-tp-default" 
+                              alt=""
+                              >
+                            </div>
+                          </div>
+
+                        <?php else: ?>
+
+                          <!-- Image ifself -->
+                          <div class="img-newTP-upload position-relative h-100 m-0 p-0">
+
+                            <!-- Image  -->
+                            <div class="img-default-content m-0">
+                              <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="img-tag-tp-default" alt="" style="">
+                            </div>
+                          </div>
+
+                        <?php endif; ?>
+
+                      <?php endif; ?>
+
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
+              <!-- Submit Button -->
               <div class="d-flex justify-content-center mt-5">
-                <input class="btn btn-default btn-block btn-adm mx-2 col-3" type="submit" value="Anunciar!" name="newTradePost" id="newTradePost">
+                <input class="btn btn-default btn-block btn-adm mx-2 col-3" type="submit" value=<?php echo ($isUpdate ? "Atualizar" : "Anunciar!"); ?> name="newTradePost" id="newTradePost">
                 <!-- <input class="btn btn-default btn-block btn-adm mx-2 col-3" type="reset" value="Limpar" id="limpar"> -->
               </div>
             </form>
@@ -394,11 +595,7 @@ endif;
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->    
-    <script src="<?php echo SITE_URL ?>/js/tradepost.js"></script>
-
-    <script type="text/javascript">
-      
-    </script>
+    <script src="<?php echo SITE_URL ?>/js/tradepost.js"></script>    
 
   </body>
 

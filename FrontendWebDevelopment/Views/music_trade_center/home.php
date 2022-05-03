@@ -147,7 +147,7 @@ endif;
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
-                    <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong><?php echo $user['age'] ?></p>
+                    <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong><?php echo ($user['age'] > 100 ? "Não informado" : $user['age'] . " Anos"); ?></p>
                   </div>
               </div>       
             <?php } ?>

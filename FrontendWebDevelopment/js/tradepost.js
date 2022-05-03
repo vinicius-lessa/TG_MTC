@@ -4,7 +4,7 @@
  * Description Arquivo .js criado a parte para tratar da Inclusão de Novos Anúncios ao sistema.
  * ChangeLog 
  *  - Vinícius Lessa - 28/04/2022: Criação do arquivo a partir do antigo "main.js" e início da implementação da tratativa dos campos 'Categoria', 'Marca', 'Modelo' e 'Cores'.
- * 
+ *  - Vinícius Lessa - 01/05/2022: Implementação do CRUD de ALTERAÇÃO/UPDADE de um anúncio Existente.
  * @ Notes: 
  * 
  */
@@ -14,39 +14,117 @@ $(document).ready(function(){
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
 });
 
-// NewTradePost Image Preview
-// function readURL(imgInput) {
-//     if (imgInput.files && imgInput.files[0]) {
-//       var reader = new FileReader();
-//       reader.onload = function (e) {
-//         $('#imagePreview1')
-//           .attr('src', e.target.result)
-//           .width(150)
-//           .height(200);
-//       };
-//       reader.readAsDataURL(imgInput.files[0]);
-//     }
-// }
 
 // Vars
 const newTradePostForm  = $("#newTradePost-form");
 const msgAlertErroPost  = $("#msgAlertErroPost");
 
-const brandSelector     = $("#brand");
-const modelSelector     = $("#model");
+const brandSelector = $("#brand");
+const modelSelector = $("#model");
 
-var title               = $("#title");
-var category            = $("#category");
-var brand               = $("#brand");
-var model               = $("#model");
-var color               = $("#color");
-var price               = $("#price");
-var description         = $("#description");
-var p_condition         = $('input[name=p_condition]:checked', newTradePostForm);
-var possuiNF            = $('input[name=possuiNF]:checked', newTradePostForm);
+var title           = $("#title");
+var category        = $("#category");
+var brand           = $("#brand");
+var model           = $("#model");
+var color           = $("#color");
+var price           = $("#price");
+var description     = $("#description");
+var p_condition     = $('input[name=p_condition]:checked', newTradePostForm);
+var possuiNF        = $('input[name=possuiNF]:checked', newTradePostForm);
+
+var imageOne        = $("#image-upload-one");
+var imageTwo        = $("#image-upload-two");
+var imageThree      = $("#image-upload-three");
 
 // Generic
 let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
+
+
+// if ( isUpdate ){
+    // $("#img").attr("src",response);
+
+    // document.querySelector("#image-preview-box-one .image-preview-text").style.setProperty("display", "none", "important");
+    // document.querySelector("#image-preview-box-two .image-preview-text").style.setProperty("display", "none", "important");
+
+    // $("#image-preview-box-one .img-newTP-upload").show();
+    // $("#image-preview-box-two .img-newTP-upload").show();
+// };
+
+
+// Events
+
+imageOne.change(function(event) {
+    imageOne.src = URL.createObjectURL(event.target.files[0]);
+
+    var newHtml = 
+    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
+        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageOne.src + ");'>" +
+        "</div>" +
+        "<div class='img-default-content m-0'>" +
+            "<img src='" + imageOne.src + "' class='img-tag-tp-default' alt=''>" +
+        "</div>" +
+    "</div>";
+
+    document.querySelector("#image-preview-box-one .image-preview-text").style.setProperty("display", "none", "important");
+
+    $("#image-preview-box-one").append( function() {
+        return newHtml;
+    });
+
+    imageOne.onload = function() {
+        URL.revokeObjectURL(imageOne.src) // free memory
+    }
+});
+
+imageTwo.change(function(event) {
+    imageTwo.src = URL.createObjectURL(event.target.files[0]);
+
+    var newHtml =
+    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
+        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageTwo.src + ");'>" +
+        "</div>" +
+        "<div class='img-default-content m-0'>" +
+            "<img src='" + imageTwo.src + "' class='img-tag-tp-default' alt=''>" +
+        "</div>" +
+    "</div>";
+
+    document.querySelector("#image-preview-box-two .image-preview-text").style.setProperty("display", "none", "important");
+
+    $("#image-preview-box-two").append( function() {
+        return newHtml;
+    });
+
+    imageTwo.onload = function() {
+        URL.revokeObjectURL(imageTwo.src) // free memory
+    }
+});
+
+imageThree.change(function(event) {
+    imageThree.src = URL.createObjectURL(event.target.files[0]);
+
+    var newHtml = 
+    "<div class='img-newTP-upload position-relative h-100 p-0'>" +
+        "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageThree.src + ");'>" +
+        "</div>" +
+        "<div class='img-default-content m-0'>" +
+            "<img src='" + imageThree.src + "' class='img-tag-tp-default' alt=''>" +
+        "</div>" +
+    "</div>";
+
+    document.querySelector("#image-preview-box-three .image-preview-text").style.setProperty("display", "none", "important");
+
+    $("#image-preview-box-three").append( function() {
+        return newHtml;
+    });
+
+    imageThree.onload = function() {
+        URL.revokeObjectURL(imageThree.src) // free memory
+    }
+});
+
+// ************************************************ CONTINUE
+// To remove File:
+// document.getElementById('multifile').value = "";
 
 
 // Functions
@@ -161,84 +239,84 @@ function changeModel() {
 
 // New Post Submit
 newTradePostForm.submit(async function( event ){
-    event.preventDefault();    
+    event.preventDefault();      
 
     // Validations
-    if ( title.val() === "" || title.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
-        $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( title.val() === "" || title.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
+    //     $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(title).removeAttr("style");
-    }
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(title).removeAttr("style");
+    // }
 
-    if ( category.val() === "default" || category.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
-        $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( category.val() === "default" || category.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
+    //     $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(category).removeAttr("style");
-    }
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(category).removeAttr("style");
+    // }
 
-    if ( brand.val() === "default" || brand.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
-        $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( brand.val() === "default" || brand.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
+    //     $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(brand).removeAttr("style");
-    }    
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(brand).removeAttr("style");
+    // }    
 
-    if ( model.val() === "default" || model.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
-        $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( model.val() === "default" || model.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
+    //     $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(model).removeAttr("style");
-    }
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(model).removeAttr("style");
+    // }
 
-    if ( p_condition.val() === "" || p_condition.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
-        $(p_condition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( p_condition.val() === "" || p_condition.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
+    //     $(p_condition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(p_condition).removeAttr("style");
-    }
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(p_condition).removeAttr("style");
+    // }
 
-    if ( price.val() === "" || price.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
-        $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( price.val() === "" || price.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
+    //     $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(price).removeAttr("style");
-    }
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(price).removeAttr("style");
+    // }
 
-    if ( possuiNF.val() === "" || possuiNF.val() === null ) {
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
-        $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    // if ( possuiNF.val() === "" || possuiNF.val() === null ) {
+    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
+    //     $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-        return false;
-    } else {
-        msgAlertErroPost.html("");
-        $(possuiNF).removeAttr("style");
-    }
+    //     return false;
+    // } else {
+    //     msgAlertErroPost.html("");
+    //     $(possuiNF).removeAttr("style");
+    // }
 
     // Start Loading Icon
-    spinnerWrapper.style.display = 'flex';
+    // spinnerWrapper.style.display = 'flex';
     
     // Send Form to REST API
-    const formData = new FormData(event.target); // All Form Values
+    const formData = new FormData(event.target); // All Form Values    
 
     formData.append('token', '16663056-351e723be15750d1cc90b4fcd');
     formData.append('user_id', user_id);
@@ -249,11 +327,15 @@ newTradePostForm.submit(async function( event ){
     formData.set( "price", newPrice );    
 
     // Images
-    var files = $('#image-upload')[0].files;
+    var imageOne    = $('#image-upload-one')[0].files;
+    var imageTwo    = $('#image-upload-two')[0].files;
+    var imageThree  = $('#image-upload-three')[0].files;
     
-    if(files.length > 0 ){
-        formData.append('file', files[0]);
-    }    
+    if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
+    if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
+    if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
+    
+    var methodText = (isUpdate) ? "PUT" : "POST";
 
     // Read FormData
     // for (var p of formData) {
@@ -261,11 +343,12 @@ newTradePostForm.submit(async function( event ){
     //     let value = p[1];
     
     //     console.log(name, value);
-    // }
+    // }    
+    // return;
 
     // Send Post via POST to PHP
     const response = await fetch('http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/upload.php', {
-        method: "POST",
+        method: methodText,
         body: formData
     });
 
@@ -273,22 +356,22 @@ newTradePostForm.submit(async function( event ){
 
     console.log(j_Response);
 
-    setTimeout(function () {
+    // setTimeout(function () {
 
-        if(j_Response['error']){        
-            msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
-            spinnerWrapper.style.display = 'none';
-        } else {
-            // window.alert("Anúncio incluído com sucesso!");
-            window.alert("Sucesso: " + j_Response['msg']);
+    //     if(j_Response['error']){        
+    //         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
+    //         spinnerWrapper.style.display = 'none';
+    //     } else {
+    //         // window.alert("Anúncio incluído com sucesso!");
+    //         window.alert("Sucesso: " + j_Response['msg']);
 
-            // Desabilita Loading
-            spinnerWrapper.style.display = 'none';
-            // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+    //         // Desabilita Loading
+    //         spinnerWrapper.style.display = 'none';
+    //         // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
     
-            // window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/trade_posts/home.php");
-            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
-        }
-    }, 2000);    
+    //         // window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/trade_posts/home.php");
+    //         window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
+    //     }
+    // }, 2000);
 
 });
