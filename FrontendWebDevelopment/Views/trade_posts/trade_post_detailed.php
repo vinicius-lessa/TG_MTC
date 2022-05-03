@@ -115,7 +115,7 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
   <input type="radio" name="position" />
   <input type="radio" name="position" />
   <main id="carousel">
-    <div class="item"><img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="img-tag-tp-default" alt=""></div>
+    <div class="item"></div>
     <div class="item"></div>
     <div class="item"></div>
     <div class="item"></div>
