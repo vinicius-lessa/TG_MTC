@@ -140,7 +140,7 @@ $('#confirm-delete').on('click', '#deleteButton', async function(e) {
             document.location.reload();
     
         }, 2000);        
-    }    
+    }
 
   });
   

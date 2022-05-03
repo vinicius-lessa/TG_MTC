@@ -47,9 +47,8 @@ $selectColor    = [];
 require SITE_PATH . '/Controllers/c_trade_posts.php';
 
 if ( isset($post_id) && isset($tpDetails) ):
-  
-  $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
   $isUpdate     = true;
+  $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];  
 
   if ( !$isOwnPost ):
     $requestError = true; // Do Not suppose to be here
@@ -95,7 +94,12 @@ endif;
 
       // These vars are called in 'profile.js'
       var user_id   = <?php echo $_SESSION['user_id']; ?>;
-      var isUpdate  = <?php echo ( $isUpdate ? "true" : "false" ); ?>;
+      var isUpdate  = <?php echo ( $isUpdate ? "true" : "false" ); ?>;      
+
+      if ( isUpdate ) {
+        var post_id         = <?php echo $post_id; ?>;
+        var imgExistsCount  = <?php echo count($tpDetails['data']); ?>;
+      }
 
     </script>
 
@@ -381,9 +385,28 @@ endif;
                             </label>
                           </button>
                           <input type="file" name="image-upload-one" id="image-upload-one" style="display: none;">
-                        </div> 
+                        </div>
 
                       <?php else: ?>
+
+                        <!-- Default Text -->
+                        <div class="image-preview-text m-0" style="margin: auto; display: none;">
+                          <button type="button" class="insertImage-btn">
+                            <label for="image-upload-one" class="label-default">
+                              <div class="m-0">
+                                Image Upload
+                              </div>
+
+                              <div class="m-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                              </div>
+                            </label>
+                          </button>
+                          <input type="file" name="image-upload-one" id="image-upload-one" style="display: none;">
+                        </div>                        
 
                         <?php if ( validateImageSource($tpDetails['data'][0]['image_name']) ): ?>
 
@@ -394,7 +417,7 @@ endif;
                             <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
                             </div>
                             
-                            <button type="button" class="deleteImage-btn p-0">
+                            <button type="button" class="deleteImage-btn p-0" onClick="deleteTmpImage(1);">
                               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                               </svg>
@@ -405,6 +428,7 @@ endif;
                               <img
                               src="<?php echo $tpDetails['data'][0]['image_name'] ; ?>" 
                               class="img-tag-tp-default" 
+                              id="img-tag-tp-default-one"
                               alt=""
                               >
                             </div>
@@ -414,6 +438,12 @@ endif;
 
                           <!-- Image ifself -->
                           <div class="img-newTP-upload position-relative h-100 m-0 p-0">
+
+                            <button type="button" class="deleteImage-btn p-0" onClick="deleteTmpImage(1);">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                            </button>
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">
@@ -455,6 +485,25 @@ endif;
 
                       <?php else: ?>
 
+                        <!-- Default Text -->
+                        <div class="image-preview-text m-0" style="margin: auto; display: none;">
+                          <button type="button" class="insertImage-btn">
+                            <label for="image-upload-two" class="label-default">
+                              <div class="m-0">
+                                Image Upload
+                              </div>
+
+                              <div class="m-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                              </div>
+                            </label>
+                          </button>
+                          <input type="file" name="image-upload-two" id="image-upload-two" style="display: none;">
+                        </div>
+
                         <?php if ( validateImageSource($tpDetails['data'][1]['image_name']) ): ?>
 
                           <!-- Image ifself -->
@@ -464,7 +513,7 @@ endif;
                             <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][1]["image_name"] ?>');">
                             </div>
 
-                            <button type="button" class="deleteImage-btn p-0">
+                            <button type="button" class="deleteImage-btn p-0" onClick="deleteTmpImage(2);">
                               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                               </svg>
@@ -474,7 +523,8 @@ endif;
                             <div class="img-default-content m-0">
                               <img
                               src="<?php echo $tpDetails['data'][1]['image_name'] ; ?>"
-                              class="img-tag-tp-default" 
+                              class="img-tag-tp-default"
+                              id="img-tag-tp-default-two"
                               alt=""
                               >
                             </div>
@@ -484,6 +534,12 @@ endif;
 
                           <!-- Image ifself -->
                           <div class="img-newTP-upload position-relative h-100 p-0">
+
+                            <button type="button" class="deleteImage-btn p-0" onClick="deleteTmpImage(2);">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                            </button>
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">
@@ -525,7 +581,26 @@ endif;
 
                       <?php else: ?>
 
-                        <?php if ( validateImageSource($tpDetails['data'][2]['image_name']) ): ?>
+                        <!-- Default Text -->
+                        <div class="image-preview-text m-0" style="margin: auto; display: none;">
+                          <button type="button" class="insertImage-btn">
+                            <label for="image-upload-three" class="label-default">
+                              <div class="m-0">
+                                Image Upload
+                              </div>
+
+                              <div class="m-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                </svg>
+                              </div>
+                            </label>
+                          </button>
+                          <input type="file" name="image-upload-three" id="image-upload-three" style="display: none;">
+                        </div>
+
+                        <?php if ( validateImageSource($tpDetails['data'][2]['image_name']) ): ?>                        
 
                           <!-- Image ifself -->
                           <div class="img-newTP-upload position-relative h-100 p-0">
@@ -534,17 +609,18 @@ endif;
                             <div class="img-default-content img_background_blur m-0" style="background-image: url('<?php echo $tpDetails["data"][2]["image_name"] ?>');">
                             </div>
 
-                            <button type="button" class="deleteImage-btn p-0">
+                            <button type="button" class="deleteImage-btn p-0" onClick="deleteTmpImage(3);">
                               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                               </svg>
-                            </button>                            
+                            </button>
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">
                               <img
                               src="<?php echo $tpDetails['data'][2]['image_name'] ; ?>" 
-                              class="img-tag-tp-default" 
+                              class="img-tag-tp-default"
+                              id="img-tag-tp-default-three"
                               alt=""
                               >
                             </div>
@@ -554,6 +630,12 @@ endif;
 
                           <!-- Image ifself -->
                           <div class="img-newTP-upload position-relative h-100 m-0 p-0">
+                            
+                            <button type="button" class="deleteImage-btn p-0" onClick="deleteTmpImage(3);">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                              </svg>
+                            </button>
 
                             <!-- Image  -->
                             <div class="img-default-content m-0">

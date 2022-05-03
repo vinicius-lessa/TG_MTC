@@ -44,6 +44,8 @@ var imageOne        = $("#image-upload-one");
 var imageTwo        = $("#image-upload-two");
 var imageThree      = $("#image-upload-three");
 
+var imgsToDelete    = [];
+
 
 // Generic
 let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
@@ -214,7 +216,7 @@ function changeModel() {
 
 // New Post Submit
 newTradePostForm.submit(async function( event ){
-    event.preventDefault();      
+    event.preventDefault();    
 
     // Validations
     // if ( title.val() === "" || title.val() === null ) {
@@ -287,51 +289,75 @@ newTradePostForm.submit(async function( event ){
     //     $(possuiNF).removeAttr("style");
     // }
 
-    // Start Loading Icon
-    // spinnerWrapper.style.display = 'flex';
-    
-    // Send Form to REST API
-    const formData = new FormData(event.target); // All Form Values    
-
-    formData.append('token', '16663056-351e723be15750d1cc90b4fcd');
-    formData.append('user_id', user_id);
-    
+    // Vars
     var newPrice = price.val().replace('.', '');
     newPrice = newPrice.replace(',', '.');
-
-    formData.set( "price", newPrice );
 
     // Images
     var imageOne    = $('#image-upload-one')[0].files;
     var imageTwo    = $('#image-upload-two')[0].files;
     var imageThree  = $('#image-upload-three')[0].files;
+    var action      = 0;
 
-    // 1 image minumum required
-    if ( typeof imageOne[0] == "undefined" && typeof imageTwo[0] == "undefined" && typeof imageThree[0] == "undefined") {        
-        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Adicione ao menos 1 imagem!</div>");
-        $('html, body').animate({ scrollTop: 0 }, 'fast');
+    if ( isUpdate ) {
+        action = 1; // 0 = Create, 1 = Update
 
-        return false;
-    } else {
-        if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
-        if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
-        if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
-    }
+        // 1 image required
+        if ( imgsToDelete.length == imgExistsCount ) {
+            if ( typeof imageOne[0] == "undefined" && typeof imageTwo[0] == "undefined" && typeof imageThree[0] == "undefined") {
+                msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Adicione ao menos 1 imagem!</div>");
+                $('html, body').animate({ scrollTop: 0 }, 'fast');
     
-    var methodText = (isUpdate) ? "PUT" : "POST";
+                return false;
+            } else {
+                if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
+                if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
+                if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
+            }
+        }        
+    } else {        
+
+        // 1 image required
+        if ( typeof imageOne[0] == "undefined" && typeof imageTwo[0] == "undefined" && typeof imageThree[0] == "undefined") {
+            msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Adicione ao menos 1 imagem!</div>");
+            $('html, body').animate({ scrollTop: 0 }, 'fast');
+
+            return false;
+        } else {
+            if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
+            if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
+            if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
+        }
+    }
+
+    // Start Loading Icon
+    // spinnerWrapper.style.display = 'flex';    
+    
+    // Send Form to REST API
+    const formData = new FormData(event.target); // All Form Values        
+
+    formData.append('action', action); // 0 = Create, 1 = Update
+    formData.append('token', '16663056-351e723be15750d1cc90b4fcd');
+    formData.append('user_id', user_id);
+    formData.append('post_id', post_id);
+    formData.set( "price", newPrice );
+
+    if ( imgsToDelete.length > 0 ) {
+        formData.append('images-delete', imgsToDelete);
+    }
 
     // Read FormData
-    for (var p of formData) {
-        let name = p[0];
-        let value = p[1];
-    
-        console.log(name, value);
-    }
-    return;
+    // for (var p of formData) {
+    //     let name = p[0];
+    //     let value = p[1];
+
+    //     console.log(name, value);
+    // }
+    // return;
 
     // Send Post via POST to PHP
-    const response = await fetch('http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/upload.php', {
-        method: methodText,
+    const response = await fetch('http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/', {
+        method: 'POST',
         body: formData
     });
 
@@ -339,27 +365,31 @@ newTradePostForm.submit(async function( event ){
 
     console.log(j_Response);
 
-    setTimeout(function () {
+    // setTimeout(function () {
 
-        if(j_Response['error']){        
-            msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
-            spinnerWrapper.style.display = 'none';
-        } else {
-            // window.alert("Anúncio incluído com sucesso!");
-            window.alert("Sucesso: " + j_Response['msg']);
+    //     if(j_Response['error']){        
+    //         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
+    //         spinnerWrapper.style.display = 'none';
+    //     } else {
+    //         // window.alert("Anúncio incluído com sucesso!");
+    //         window.alert("Sucesso: " + j_Response['msg']);
 
-            // Desabilita Loading
-            spinnerWrapper.style.display = 'none';
-            // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+    //         // Desabilita Loading
+    //         spinnerWrapper.style.display = 'none';
+    //         // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
                 
-            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
-        }
-    }, 2000);
+    //         window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
+    //     }
+    // }, 2000);
 
 });
 
 function deleteTmpImage(imgNumber) {
     if ( imgNumber == 1 ) {
+        if ( isUpdate && imgsToDelete.length < imgExistsCount ) {
+            addImgsToDelete($("#img-tag-tp-default-one").attr('src'));
+        }
+        
         // Remove Image Div
         var child  = document.querySelector("#image-preview-box-one .img-newTP-upload");
         child.parentNode.removeChild(child);
@@ -367,11 +397,13 @@ function deleteTmpImage(imgNumber) {
         // Show Button Again
         textBtnOne.style.removeProperty('display');
 
-        imageOne.val(""); // Limpa Input
-
-        console.log( "Imagem 1 apagada!" );
+        imageOne.val(""); // Limpa Input        
         
     } else if ( imgNumber == 2 ) {
+        if ( isUpdate && imgsToDelete.length < imgExistsCount ) {        
+            addImgsToDelete($("#img-tag-tp-default-two").attr('src'));
+        }
+
         // Remove Image Div
         var child  = document.querySelector("#image-preview-box-two .img-newTP-upload");
         child.parentNode.removeChild(child);
@@ -379,11 +411,13 @@ function deleteTmpImage(imgNumber) {
         // Show Button Again
         textBtnTwo.style.removeProperty('display');
 
-        imageTwo.val(""); // Limpa Input
-
-        console.log( "Imagem 2 apagada!" );
+        imageTwo.val(""); // Limpa Input        
 
     } else if(  imgNumber == 3  ) {
+        if ( isUpdate && imgsToDelete.length < imgExistsCount ) {
+            addImgsToDelete($("#img-tag-tp-default-three").attr('src'));
+        }
+
         // Remove Image Div
         var child  = document.querySelector("#image-preview-box-three .img-newTP-upload");
         child.parentNode.removeChild(child);
@@ -391,14 +425,15 @@ function deleteTmpImage(imgNumber) {
         // Show Button Again
         textBtnThree.style.removeProperty('display');
 
-        imageThree.val(""); // Limpa Input
+        imageThree.val(""); // Limpa Input        
+    }
 
-        console.log( "Imagem 3 apagada!" );
-    }        
+    console.log( "Imagem " + imgNumber + " apagada!" );
 
 };
 
 function insertImageHtml(imageUrl, imgNumber) {
+
     var newHtml =
     "<div class='img-newTP-upload position-relative h-100 p-0'>" +
         "<div class='img-default-content img_background_blur m-0' style='background-image: url(" + imageUrl + ");'>" +
@@ -415,5 +450,8 @@ function insertImageHtml(imageUrl, imgNumber) {
     return newHtml;
 };
 
-function deleteImageHtml() {    
+function addImgsToDelete(url) {    
+            
+    imgsToDelete.push( url.slice(url.lastIndexOf('/') + 1 ) );
+
 };
