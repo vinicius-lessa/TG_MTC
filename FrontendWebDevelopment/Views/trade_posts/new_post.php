@@ -96,9 +96,14 @@ endif;
       var user_id   = <?php echo $_SESSION['user_id']; ?>;
       var isUpdate  = <?php echo ( $isUpdate ? "true" : "false" ); ?>;      
 
-      if ( isUpdate ) {
-        var post_id         = <?php echo $post_id; ?>;
-        var imgExistsCount  = <?php echo count($tpDetails['data']); ?>;
+      if ( !isUpdate ) {
+        var action = 0; // 0 = Create, 1 = Update
+
+      } else {
+        var action          = 1; // 0 = Create, 1 = Update
+        var post_id         = <?php echo (isset($post_id) ? $post_id : "null")  ?>;
+        var imgExistsCount  = <?php echo count($tpDetails['data']); ?>;        
+
       }
 
     </script>
@@ -273,7 +278,19 @@ endif;
                   </div>
                   <div class="col-sm m-0">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="p_condition" id="p_condition2" value="2">
+                      <?php if ( !$isUpdate ): ?>                        
+                        <input class="form-check-input" type="radio" name="p_condition" id="p_condition2" value="2">
+                      <?php else: ?>
+                        <input 
+                          class="form-check-input" 
+                          type="radio" 
+                          name="p_condition" 
+                          id="p_condition2" 
+                          value="2" 
+                          <?php echo ($tpDetails['data'][0]['condition_id'] == "2" ? "checked" : "") ; ?>
+                        >
+                      <?php endif; ?>
+                      
                       <label class="form-check-label" for="p_condition2">
                         Usado, estado de Novo
                       </label>

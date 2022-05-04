@@ -219,119 +219,109 @@ newTradePostForm.submit(async function( event ){
     event.preventDefault();    
 
     // Validations
-    // if ( title.val() === "" || title.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
-    //     $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( title.val() === "" || title.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo Título!</div>");
+        $(title).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(title).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(title).removeAttr("style");
+    }
 
-    // if ( category.val() === "default" || category.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
-    //     $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( category.val() === "default" || category.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Categoria do Item!</div>");
+        $(category).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(category).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(category).removeAttr("style");
+    }
 
-    // if ( brand.val() === "default" || brand.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
-    //     $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( brand.val() === "default" || brand.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Marca do Item!</div>");
+        $(brand).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(brand).removeAttr("style");
-    // }    
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(brand).removeAttr("style");
+    }    
 
-    // if ( model.val() === "default" || model.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
-    //     $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( model.val() === "default" || model.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Modelo do Item!</div>");
+        $(model).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(model).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(model).removeAttr("style");
+    }
 
-    // if ( p_condition.val() === "" || p_condition.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
-    //     $(p_condition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( p_condition.val() === "" || p_condition.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário selecionar a Condição de Uso!</div>");
+        $(p_condition).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(p_condition).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(p_condition).removeAttr("style");
+    }
 
-    // if ( price.val() === "" || price.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
-    //     $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( price.val() === "" || price.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário o Valor do Item!</div>");
+        $(price).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(price).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(price).removeAttr("style");
+    }
 
-    // if ( possuiNF.val() === "" || possuiNF.val() === null ) {
-    //     msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
-    //     $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
+    if ( possuiNF.val() === "" || possuiNF.val() === null ) {
+        msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Necessário informar se possui NF!</div>");
+        $(possuiNF).css({'margin-bottom': '-15px','border': '2px solid #f64141'});
 
-    //     return false;
-    // } else {
-    //     msgAlertErroPost.html("");
-    //     $(possuiNF).removeAttr("style");
-    // }
-
-    // Vars
-    var newPrice = price.val().replace('.', '');
-    newPrice = newPrice.replace(',', '.');
+        return false;
+    } else {
+        msgAlertErroPost.html("");
+        $(possuiNF).removeAttr("style");
+    }
 
     // Images
-    var imageOne    = $('#image-upload-one')[0].files;
-    var imageTwo    = $('#image-upload-two')[0].files;
-    var imageThree  = $('#image-upload-three')[0].files;
-    var action      = 0;
+    var inputImageOne   = $('#image-upload-one')[0].files;
+    var inputImageTwo   = $('#image-upload-two')[0].files;
+    var inputImageThree = $('#image-upload-three')[0].files;
 
-    if ( isUpdate ) {
-        action = 1; // 0 = Create, 1 = Update
-
+    if ( isUpdate ) {        
+        
         // 1 image required
         if ( imgsToDelete.length == imgExistsCount ) {
-            if ( typeof imageOne[0] == "undefined" && typeof imageTwo[0] == "undefined" && typeof imageThree[0] == "undefined") {
+            if ( typeof inputImageOne[0] == "undefined" && typeof inputImageTwo[0] == "undefined" && typeof inputImageThree[0] == "undefined") {
                 msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Adicione ao menos 1 imagem!</div>");
                 $('html, body').animate({ scrollTop: 0 }, 'fast');
-    
+
                 return false;
-            } else {
-                if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
-                if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
-                if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
             }
-        }        
+        }
     } else {        
 
         // 1 image required
-        if ( typeof imageOne[0] == "undefined" && typeof imageTwo[0] == "undefined" && typeof imageThree[0] == "undefined") {
+        if ( typeof inputImageOne[0] == "undefined" && typeof inputImageTwo[0] == "undefined" && typeof inputImageThree[0] == "undefined") {
             msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: Adicione ao menos 1 imagem!</div>");
             $('html, body').animate({ scrollTop: 0 }, 'fast');
 
             return false;
-        } else {
-            if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
-            if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
-            if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
         }
     }
 
     // Start Loading Icon
-    // spinnerWrapper.style.display = 'flex';    
+    // spinnerWrapper.style.display = 'flex';
+
+    // Vars
+    var newPrice = price.val().replace('.', '');
+    newPrice = newPrice.replace(',', '.');     
     
     // Send Form to REST API
     const formData = new FormData(event.target); // All Form Values        
@@ -339,12 +329,22 @@ newTradePostForm.submit(async function( event ){
     formData.append('action', action); // 0 = Create, 1 = Update
     formData.append('token', '16663056-351e723be15750d1cc90b4fcd');
     formData.append('user_id', user_id);
-    formData.append('post_id', post_id);
     formData.set( "price", newPrice );
 
-    if ( imgsToDelete.length > 0 ) {
-        formData.append('images-delete', imgsToDelete);
+    
+    
+    if ( isUpdate ) { 
+        formData.append('post_id', post_id);        
+        
+        if ( imgsToDelete.length > 0 ) { 
+            formData.append('images-delete', imgsToDelete); 
+        }
     }
+
+    if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
+    if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
+    if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
+ 
 
     // Read FormData
     // for (var p of formData) {
@@ -397,7 +397,7 @@ function deleteTmpImage(imgNumber) {
         // Show Button Again
         textBtnOne.style.removeProperty('display');
 
-        imageOne.val(""); // Limpa Input        
+        imageOne.val(""); // Limpa Input
         
     } else if ( imgNumber == 2 ) {
         if ( isUpdate && imgsToDelete.length < imgExistsCount ) {        
@@ -446,7 +446,7 @@ function insertImageHtml(imageUrl, imgNumber) {
         "<div class='img-default-content m-0'>" +
             "<img src='" + imageUrl + "' class='img-tag-tp-default' alt=''>" +
         "</div>" +
-    "</div>";    
+    "</div>";
     return newHtml;
 };
 

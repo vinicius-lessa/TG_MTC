@@ -104,16 +104,16 @@ class CrudDB {
     # SQL UPDATE
     public static function update($arrayDados, $arrayCondicoes){
         try{
-            $sql = self::montaSQLUpdate($arrayDados, $arrayCondicoes);            
+            $sql = self::montaSQLUpdate($arrayDados, $arrayCondicoes);
             $stm = self::$conexao->prepare($sql);
 
-            // foreach($arrayDados as $key => $value):
-            //     $stm->bindValue(':' . $key, $value);
-            // endforeach;
+            foreach($arrayDados as $key => $value):
+                $stm->bindValue(':' . $key, $value);
+            endforeach;
 
-            // foreach($arrayCondicoes as $key => $value):
-            //     $stm->bindValue(':' . $key, $value);
-            // endforeach;
+            foreach($arrayCondicoes as $key => $value):
+                $stm->bindValue(':' . $key, $value);
+            endforeach;
 
             $retorno = $stm->execute();
             return $retorno;
