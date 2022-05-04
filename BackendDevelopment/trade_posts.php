@@ -715,7 +715,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             
             // Check recieved values
             // echo var_dump($_FILES); // Doesn't work with JS
-            // echo json_encode( ['Arquivos' => $_FILES] );
+            // echo json_encode( ['Arquivos' => $_FILES] );            
     
             for ($i = 0; $i < $count; $i++) {
         
@@ -772,16 +772,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                     exit;
                 endif;
             }
-        endif;
+        endif;        
 
-        // echo json_encode([
-        //     'error'     => false ,
-        //     'Data'     => $_POST ,
-        //     'Files'     => $_FILES['files'] ,
-        // ]);
-        // http_response_code(200); // Not Acceptable
-        // exit;
-    
         CrudDB::setTabela('trade_posts');
             
         // $dbReturn = true;
@@ -799,15 +791,83 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         [
             'post_id' => $post_id ,
             'user_id' => $user_id 
-        ]);        
+        ]);
     
-        if ($dbReturn):
+        if ($dbReturn):            
+            
+            // Has Images to Delete ?
+            if ( !empty($a_ImgDelete) ):                                
+                
+                foreach ($a_ImgDelete as $imageToDelete) {
 
-            // CONTINUAR
-            // Verificar se Existem Imagens a serem Deletadas ($a_ImgDelete)
-            // Se sim, faz For para Deletar as Images da tabela image_trade_posts
+                    // Check if Image Exists
+                    $dados = CrudDB::select(
+                        "SELECT itp.image_name 
+                        FROM images_trade_posts itp 
+                        WHERE itp.activity_status = 1 AND 
+                              itp.trade_post_id = :POST_ID AND
+                                itp.image_name = :IMAGE_NAME
+                        ORDER BY itp.created_on DESC LIMIT 1;"
+                        , [
+                            "POST_ID"       => $post_id ,
+                            "IMAGE_NAME"    => $imageToDelete
+                          ] 
+                        , TRUE);
 
-            // Upload file
+                    if (!empty($dados)):                        
+
+                        $file = "uploads/".$imageToDelete;
+                    
+                        if( is_file($file) ):
+
+                            // delete file
+                            if ( !(unlink($file)) ): 
+    
+                                http_response_code(500); // Internal Server Error
+                                echo json_encode([
+                                    'error' => true ,
+                                    'mensagem' => "Problema na Deleção do Arquivo físico '" . $imageToDelete . "' no Servidor!"
+                                ]);
+                                exit;
+    
+                            else:
+                                // Delete Image Name from DB
+                                CrudDB::setTabela('images_trade_posts');
+                                $retorno = CrudDB::delete([
+                                    'trade_post_id' => $post_id ,
+                                    'image_name' => $imageToDelete
+                                ]);
+    
+                                if (!$retorno):
+                                    http_response_code(500); // Internal Server Error
+                                    echo json_encode([
+                                        'error' => true ,
+                                        'mensagem' => "O arquivo '" . $imageToDelete . "' não pode ser deletado do Banco de dados!"
+                                    ]);
+                                    exit;
+                                endif;
+    
+                            endif;
+                        else:
+                            http_response_code(500); // Internal Server Error
+                            echo json_encode([
+                                'error' => true ,
+                                'msg' => "O arquivo '" . $imageToDelete . "' não foi encontrado no Servidor!"
+                            ]);
+                            exit;
+                        endif;                        
+                    else:
+                        http_response_code(500); // Internal Server Error
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => "Não foi possível Encontrar as Imagens para Deleção!"
+                        ]);
+                        exit;
+                    endif;                    
+                }            
+            endif;         
+
+            // Upload New files (if exists)
             if ($imageUpload):
     
                 $count = count($a_TmpLocations);
@@ -815,67 +875,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                 for ($i = 0; $i < $count; $i++) {                
     
                     if (move_uploaded_file($a_TmpLocations[$i], $a_NewLocations[$i])):                    
-                        
-                        // TradePost ID
-                        $dados = CrudDB::select('SELECT post_id FROM trade_posts WHERE user_id =:USER_ID  ORDER BY created_on DESC LIMIT 1'
-                                    ,['USER_ID' => $user_id]
-                                    ,TRUE);
-                        
-                        if (!Empty($dados)):
-                            CrudDB::setTabela('images_trade_posts');
-        
-                            $dbReturnTwo = CrudDB::insert ([
-                                'image_name'    => "'" . $a_FileNames[$i] . "'" ,
-                                'trade_post_id' => "'" . intval($dados[0]->post_id) . "'" ,
-                            ]);
-                
-                            if ( !$dbReturnTwo ):       
-                                echo json_encode([
-                                    'error' => false ,
-                                    'msg' => "Anúncio incluído, porém tivemos um Erro na Gravação das imagens no Banco"
-                                ]);
-                                http_response_code(500); // Internal Server Error
-                                exit;
-                            endif;
-                        else:
+
+                        CrudDB::setTabela('images_trade_posts');
+    
+                        $dbReturnTwo = CrudDB::insert ([
+                            'image_name'    => "'" . $a_FileNames[$i] . "'" ,
+                            'trade_post_id' => "'" . $post_id . "'" ,
+                        ]);
+            
+                        if ( !$dbReturnTwo ):       
                             echo json_encode([
                                 'error' => false ,
-                                'msg' => "Anúncio incluído mas não encontrado para relacionar imagens!"
+                                'msg' => "Anúncio Atualizado e Imagem(ns) movida(s) ao Servidor, porém tivemos um Erro na Gravação das imagens no Banco de Dados!"
                             ]);
                             http_response_code(500); // Internal Server Error
                             exit;
-                        endif;
+                        endif;                        
                     else:                
                         echo json_encode([
                             'error' => true ,
-                            'msg'   => 'Anúncio incluído, porém tivemos um Erro no Upload da(s) imagem(ns) ao Servidor'
+                            'msg'   => 'Anúncio Atualizado com Sucesso, porém um dos Arquivos não pode ser copiado ao Servidor com Sucesso!'
                         ]);
                         http_response_code(500); // Internal Server Error
                         exit;
                     endif;
                 }
     
-            // Desired Goal
-            echo json_encode([
-                'error' => false ,
-                'msg' => "Anúncio incluído com êxito!"
-            ]);
-            http_response_code(201); // Created
-            exit;
+                // Desired Goal
+                echo json_encode([
+                    'error' => false ,
+                    'msg' => "Anúncio Atualizado com êxito!"
+                ]);
+                http_response_code(202); // Accepted
+                exit;
     
             else:            
                 echo json_encode([
                     'error' => false ,
-                    'msg' => "Anúncio incluído com êxito!"
+                    'msg' => "Anúncio Atualizado com êxito!"
                 ]);
-                http_response_code(201); // Created
+                http_response_code(202); // Accepted
                 exit;        
             endif;
     
         else:                    
             echo json_encode([
                 'error' => true ,
-                'msg'   => 'Erro ao Inserir Anúncio no Banco de Dados'
+                'msg'   => 'Erro ao ATUALIZAR Anúncio no Banco de Dados'
             ]);
             http_response_code(500); // Internal Server Error
             exit;
@@ -941,7 +987,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
 
             if (!empty($dados)):
 
-                foreach ($dados as $image) {                     
+                foreach ($dados as $image) {
                     $file = "uploads/".$image->image_name;
                     
                     if( is_file($file) ) {
@@ -986,7 +1032,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
                         'error' => false ,
                         'mensagem' => "Anúncio e Imagem(ens) deletados com Sucesso!"
                     ]);
-                    exit;                    
+                    exit;
     
                 else:
                     http_response_code(500); // Internal Server Error

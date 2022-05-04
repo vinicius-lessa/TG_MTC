@@ -5,6 +5,8 @@
  * ChangeLog 
  *  - Vinícius Lessa - 28/04/2022: Criação do arquivo a partir do antigo "main.js" e início da implementação da tratativa dos campos 'Categoria', 'Marca', 'Modelo' e 'Cores'.
  *  - Vinícius Lessa - 01/05/2022: Implementação do CRUD de ALTERAÇÃO/UPDADE de um anúncio Existente.
+ *  - Vinícius Lessa - 04/05/2022: Conclusão da implementação do Processo de Inclusão e Alteração de Anúncios com Mais de 1 foto.
+ * 
  * @ Notes: 
  * 
  */
@@ -73,7 +75,7 @@ imageOne.change(function(event) {
 
 imageTwo.change(function(event) {
     imageTwo.src = URL.createObjectURL(event.target.files[0]);
-
+            
     var newHtml = insertImageHtml(imageTwo.src, 2);
 
     textBtnTwo.style.setProperty("display", "none");
@@ -317,7 +319,7 @@ newTradePostForm.submit(async function( event ){
     }
 
     // Start Loading Icon
-    // spinnerWrapper.style.display = 'flex';
+    spinnerWrapper.style.display = 'flex';
 
     // Vars
     var newPrice = price.val().replace('.', '');
@@ -331,8 +333,7 @@ newTradePostForm.submit(async function( event ){
     formData.append('user_id', user_id);
     formData.set( "price", newPrice );
 
-    
-    
+        
     if ( isUpdate ) { 
         formData.append('post_id', post_id);        
         
@@ -341,11 +342,10 @@ newTradePostForm.submit(async function( event ){
         }
     }
 
-    if(imageOne.length > 0 ){ formData.append('files[]', imageOne[0]); }
-    if(imageTwo.length > 0 ){ formData.append('files[]', imageTwo[0]); }
-    if(imageThree.length > 0 ){ formData.append('files[]', imageThree[0]); }
+    if(inputImageOne.length > 0 ){ formData.append('files[]', inputImageOne[0]); }
+    if(inputImageTwo.length > 0 ){ formData.append('files[]', inputImageTwo[0]); }
+    if(inputImageThree.length > 0 ){ formData.append('files[]', inputImageThree[0]); }
  
-
     // Read FormData
     // for (var p of formData) {
     //     let name = p[0];
@@ -365,28 +365,29 @@ newTradePostForm.submit(async function( event ){
 
     console.log(j_Response);
 
-    // setTimeout(function () {
+    setTimeout(function () {
 
-    //     if(j_Response['error']){        
-    //         msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
-    //         spinnerWrapper.style.display = 'none';
-    //     } else {
-    //         // window.alert("Anúncio incluído com sucesso!");
-    //         window.alert("Sucesso: " + j_Response['msg']);
+        if(j_Response['error']){        
+            msgAlertErroPost.html("<div class='alert alert-danger' role='alert'>Erro: " + j_Response['msg'] + "</div>");
+            spinnerWrapper.style.display = 'none';
+        } else {
+            // window.alert("Anúncio incluído com sucesso!");
+            window.alert("Sucesso: " + j_Response['msg']);
 
-    //         // Desabilita Loading
-    //         spinnerWrapper.style.display = 'none';
-    //         // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+            // Desabilita Loading
+            spinnerWrapper.style.display = 'none';
+            // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
                 
-    //         window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
-    //     }
-    // }, 2000);
+            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
+        }
+    }, 2000);
 
 });
 
 function deleteTmpImage(imgNumber) {
     if ( imgNumber == 1 ) {
-        if ( isUpdate && imgsToDelete.length < imgExistsCount ) {
+        
+        if ( isUpdate && imgsToDelete.length < imgExistsCount && typeof $("#img-tag-tp-default-one").attr('src') != 'undefined' ) {
             addImgsToDelete($("#img-tag-tp-default-one").attr('src'));
         }
         
@@ -400,7 +401,8 @@ function deleteTmpImage(imgNumber) {
         imageOne.val(""); // Limpa Input
         
     } else if ( imgNumber == 2 ) {
-        if ( isUpdate && imgsToDelete.length < imgExistsCount ) {        
+        
+        if ( isUpdate && imgsToDelete.length < imgExistsCount && typeof $("#img-tag-tp-default-two").attr('src') != 'undefined' ) {
             addImgsToDelete($("#img-tag-tp-default-two").attr('src'));
         }
 
@@ -414,7 +416,8 @@ function deleteTmpImage(imgNumber) {
         imageTwo.val(""); // Limpa Input        
 
     } else if(  imgNumber == 3  ) {
-        if ( isUpdate && imgsToDelete.length < imgExistsCount ) {
+        
+        if ( isUpdate && imgsToDelete.length < imgExistsCount && typeof $("#img-tag-tp-default-three").attr('src') != 'undefined' ) {
             addImgsToDelete($("#img-tag-tp-default-three").attr('src'));
         }
 

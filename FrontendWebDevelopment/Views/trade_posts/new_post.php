@@ -573,7 +573,7 @@ endif;
 
                   <!-- 3 -->
                   <div class="col-12 col-sm-6 text-center px-2">
-                    <div class="image-preview-box row p-0" id="image-preview-box-three">
+                    <div class="image-preview-box row p-1" id="image-preview-box-three">
 
                       <?php if ( !$isUpdate || ($isUpdate && !isset($tpDetails['data'][2]['image_name']))  ): ?>
 
