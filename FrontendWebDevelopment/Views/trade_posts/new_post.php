@@ -387,7 +387,7 @@ endif;
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto;">
-                          <button type="button" class="insertImage-btn">
+                          <button type="button" class="btn-NoFill-default btn-insertImage">
                             <label for="image-upload-one" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -408,7 +408,7 @@ endif;
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto; display: none;">
-                          <button type="button" class="insertImage-btn">
+                          <button type="button" class="btn-NoFill-default btn-insertImage">
                             <label for="image-upload-one" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -483,7 +483,7 @@ endif;
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto;">
-                          <button type="button" class="insertImage-btn">
+                          <button type="button" class="btn-NoFill-default btn-insertImage">
                             <label for="image-upload-two" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -504,7 +504,7 @@ endif;
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto; display: none;">
-                          <button type="button" class="insertImage-btn">
+                          <button type="button" class="btn-NoFill-default btn-insertImage">
                             <label for="image-upload-two" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -579,7 +579,7 @@ endif;
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto;">
-                          <button type="button" class="insertImage-btn">
+                          <button type="button" class="btn-NoFill-default btn-insertImage">
                             <label for="image-upload-three" class="label-default">
                               <div class="m-0">
                                 Image Upload
@@ -600,7 +600,7 @@ endif;
 
                         <!-- Default Text -->
                         <div class="image-preview-text m-0" style="margin: auto; display: none;">
-                          <button type="button" class="insertImage-btn">
+                          <button type="button" class="btn-NoFill-default btn-insertImage">
                             <label for="image-upload-three" class="label-default">
                               <div class="m-0">
                                 Image Upload

@@ -141,12 +141,12 @@ endif;
                   </div>
                   <div class="col-6 col-sm-3 mt-3 bk-gray">
                     <div class="card-body text-white size-14">
-                      <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $user["user_id"] ?>">
-                      <h5 class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $user["user_name"] ?></strong></h5>
-                    </a>
+                      <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $user["user_id"] ?>">
+                        <h5 class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $user["user_name"] ?></strong></h5>
+                      </a>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
-                    <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong>São Roque - SP</p>
+                    <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong><?php echo $user["city"] . " - " . $user["state"] ; ?></p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong><?php echo ($user['age'] > 100 ? "Não informado" : $user['age'] . " Anos"); ?></p>
                   </div>
               </div>       

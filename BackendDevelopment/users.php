@@ -21,6 +21,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Content-type: application/json; charset=UTF-8');
 
 require_once 'classes/Class.Crud.php';
+require_once 'classes/WebServices/Class.ViaCEP.php';
 
 if (!defined('SITE_URL')) {
     include_once 'config.php';
@@ -86,12 +87,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     WHERE u.activity_status = 1
                     order by u.created_on desc limit 12;', [], TRUE);
                 if (!empty($dados)):
-                    foreach ($dados as $user) {
-                        if ( !empty($user->image_name) ):
-                            $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
-                        endif;
-                    }
                     
+                    for ($i = 0; $i < count($dados); $i++) {
+                    
+                        if ( !empty($dados[$i]->image_name) ):
+                            $dados[$i]->image_name = SITE_URL . "/uploads/user-profile/" . $dados[$i]->image_name;
+                        endif;
+
+                        // Consulta Cep e Adicina no Retorno
+                        if ( !empty($dados[$i]->cep) ):
+
+                            $dadosCEP = ViaCEP::consultarCEP($dados[$i]->cep);
+
+                            if ( $dadosCEP != null ):
+                                // Adiciona nova Propriedade ao Objeto
+                                $dados[$i] = (array)$dados[$i];
+                                $dados[$i]['state'] = $dadosCEP["uf"];
+                                $dados[$i]['city'] = $dadosCEP["localidade"];
+                                $dados[$i]['district'] = $dadosCEP["bairro"];
+                                $dados[$i] = (object)$dados[$i];
+                            endif;
+                        endif;
+                        
+                    }
+
                     http_response_code(200);
                     echo json_encode([
                         'error' => false ,
@@ -134,11 +153,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ,TRUE);
                     
                     if (!empty($dados)):
-                        foreach ($dados as $user) {
-                            if ( !empty($user->image_name) ):
-                                $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
+                        for ($i = 0; $i < count($dados); $i++) {
+                    
+                            if ( !empty($dados[$i]->image_name) ):
+                                $dados[$i]->image_name = SITE_URL . "/uploads/user-profile/" . $dados[$i]->image_name;
+                            endif;
+
+                            // Consulta Cep e Adicina no Retorno
+                            if ( !empty($dados[$i]->cep) ):
+
+                                $dadosCEP = ViaCEP::consultarCEP($dados[$i]->cep);
+
+                                if ( $dadosCEP != null ):
+                                    // Adiciona nova Propriedade ao Objeto
+                                    $dados[$i] = (array)$dados[$i];
+                                    $dados[$i]['state'] = $dadosCEP["uf"];
+                                    $dados[$i]['city'] = $dadosCEP["localidade"];
+                                    $dados[$i]['district'] = $dadosCEP["bairro"];
+                                    $dados[$i] = (object)$dados[$i];
+                                endif;
                             endif;
                         }
+                        
                         http_response_code(200);
                         echo json_encode([
                             'error' => false ,

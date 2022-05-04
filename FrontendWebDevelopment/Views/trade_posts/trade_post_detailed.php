@@ -26,6 +26,8 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
+include_once '../../defaultFunctions.php';
+
 $post_id = $_GET['trade_post']; // usado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';
 
@@ -105,17 +107,23 @@ $imagesCount  = count($tpDetails["data"]);
                   </div>
                   <div class="carousel-inner">
                     <?php for ($i = 0; $i < $imagesCount; $i++) {  ?>
-                                            
+                      
                       <div class="carousel-item <?php echo $i == 0 ? 'active' : '' ; ?>" data-bs-interval="100000">
                         <div class="col-12 p-0 image-container-new" id="tradepost-img-container">
-                          <!-- Blur -->
-                          <div class="img-default-content img_background_blur" style="background-image: url('<?php echo $tpDetails["data"][$i]["image_name"] ?>');">
-                          </div>
+                          <?php if ( isset($tpDetails["data"][$i]["image_name"]) && $tpDetails["data"][$i]["image_name"] != null && validateImageSource($tpDetails["data"][$i]["image_name"]) ): ?>
+                            <!-- Blur -->
+                            <div class="img-default-content img_background_blur" style="background-image: url('<?php echo $tpDetails["data"][$i]["image_name"] ?>');">
+                            </div>
 
-                          <!-- Image  -->
-                          <div class="img-default-content">
-                            <img src="<?php echo $tpDetails["data"][$i]["image_name"] ?>" class="img-tag-tp-default" alt="">
-                          </div>
+                            <!-- Image  -->
+                            <div class="img-default-content">
+                              <img src="<?php echo $tpDetails["data"][$i]["image_name"] ?>" class="img-tag-tp-default" alt="">
+                            </div>
+                          <?php else: ?>
+                            <div class="img-default-content">
+                              <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="img-tag-tp-default" alt="Imagem ilustrativa de um produto voltado ao meio musical.">                              
+                            </div>
+                          <?php endif; ?>
                         </div>
                       </div>
 
@@ -191,7 +199,7 @@ $imagesCount  = count($tpDetails["data"]);
                         <div class="row">
                           <div class="col-12 d-flex align-items-center justify-content-center">
                             <span>
-                              <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                              <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                               class="text-decoration-none text-white">
                                 <strong>
                                   <?php echo $tpDetails["data"][0]["user_name"] ; ?>
@@ -199,8 +207,8 @@ $imagesCount  = count($tpDetails["data"]);
                                 <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
                               </a>
                             </span>
-                            <a 
-                              href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                            <a
+                              href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                               class="nav-link px-4 link-secondary">
                                 <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) ): ?>
                                   <img src="<?php echo $tpDetails["data"][0]["img_profile_name"] ?>" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">

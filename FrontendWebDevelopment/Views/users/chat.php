@@ -201,7 +201,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             <span><?php echo $category; ?></span>
                           </div>
                           <div class="col-12 mt-1">
-                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $userCreator; ?>" class="linkdefault">
+                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $userCreator; ?>" class="linkdefault">
                               <span>
                                 <?php echo $userCreatorName ?>
                               </span>
@@ -327,6 +327,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                     
                   <?php if ( !empty($a_OtherChats["data"]) ): ?>
                     
+                    <!-- ANÚNCIOS PRÓPRIOS -->
                     <div class="row mt-2 mb-4">
                       <div class="col-12 text-center text-red stroke-one">
                         <h5>SEUS ANÚNCIOS</h5>
@@ -335,7 +336,12 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
 
                     <?php 
                       $countChatRows = 0;
-                      foreach ($a_OtherChats["data"] as $chat) {                      
+                      $lastId = 0;
+                      foreach ($a_OtherChats["data"] as $chat) {
+                        if ( $lastId == $chat['post_id'] ):
+                          continue; // Skip Iteration
+                        endif;
+                        $lastId = $chat['post_id'];
                     ?>                      
                       <?php if ( $chat["userid_tp_creator"] == $userLogged ):
                         $countChatRows += 1;
@@ -392,11 +398,11 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
 
                     <?php if ( $countChatRows == 0 ): ?>
                       <div class="col-12 text-center mb-5">
-                        <h6>Nenhuma Conversa encontrada.</h6>
+                        <h6>Nenhuma mensagem recebida :(</h6>
                       </div>
                     <?php endif; ?>
 
-
+                    <!-- ANÚNCIOS INTERESSADOS -->
                     <div class="row mt-4 mb-4">
                       <div class="col-12 text-center text-red stroke-one">
                         <h5>SEUS INTERESSES</h5>
@@ -404,8 +410,15 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                     </div>
 
                     <?php 
-                      $countChatRows = 0;
-                      foreach ($a_OtherChats["data"] as $chat) {                        
+                      $countChatRows  = 0;
+                      $lastId         = 0;
+
+                      foreach ($a_OtherChats["data"] as $chat) {
+                        
+                        if ( $lastId == $chat['post_id'] ):
+                          continue; // Skip Iteration
+                        endif;
+                        $lastId = $chat['post_id'];                                              
                     ?>
                       <?php if ( !($chat["userid_tp_creator"] == $userLogged) ): 
                         $countChatRows += 1;
@@ -466,13 +479,13 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                     
                     <?php if ( $countChatRows == 0 ): ?>
                       <div class="col-12 text-center">
-                        <h6>Nenhuma Conversa encontrada.</h6>
+                        <h6>Você ainda não Mandou nenhuma Mensagem :(</h6>
                       </div>
                     <?php endif; ?>                                                                   
 
                   <?php else: ?>
                     <div class="col-12 text-center">
-                      <h3>Nenhuma Conversa encontrada!</h3> <!-- Fazer depois -->
+                      <h3>Você Não possui nenhum Chat Ativo!</h3> <!-- Fazer depois -->
                     </div>
                   <?php endif; ?>
 

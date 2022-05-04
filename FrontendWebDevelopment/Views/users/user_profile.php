@@ -21,6 +21,8 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';      
 }
 
+include_once '../../defaultFunctions.php';
+
 // Vars
 $defaultContent = $_GET["key"];
 $userState = null; // 0 = Não Logado - 1 = Perfil Próprio - 2 = Perfil Público
@@ -145,19 +147,21 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           // Perfil Próprio        
           elseif ( $userState === 1 ):
         ?>
-          <div class="row">
-            <div class="col-12 col-sm-6 mt-5">
-              <h1 class="text-white"><strong>Seu Perfil</strong></h1>
-            </div>
-            
-            <div class="col-12">
-              <div class="text-gray">
-                <span>Profile #<?php echo $profileDetails['data'][0]['user_id'] ?></span>
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-sm-6 mt-5">
+                <h1 class="text-white"><strong>Seu Perfil</strong></h1>
               </div>
-            </div>
               
-            <div class="col-12">
-              <hr class="hr-default">
+              <div class="col-12">
+                <div class="text-gray">
+                  <span>Profile #<?php echo $profileDetails['data'][0]['user_id'] ?></span>
+                </div>
+              </div>
+                
+              <div class="col-12">
+                <hr class="hr-default">
+              </div>
             </div>
           </div>
 
@@ -173,8 +177,6 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                     <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
                   <?php endif; ?>
                 </div>             
-              </div>
-              <div class="col-12 d-flex justify-content-center">              
               </div>
             </div>
 
@@ -241,124 +243,170 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                         </div>
 
                         <div class="row mx-1">
-                        <div class="col-6">
-                          <h6 class="text-red"><strong>Habilidades</strong></h6>
-                          <p class="text-white">Guitarra</p>
-                          <p class="text-white">Violão</p>
-                          <p class="text-white">Baixo</p>
-                          
-                          <div class="form-group mb-3">
-                          <select class="custom-select" id="inputGroupSelect02">
-                            <option selected>Escolha...</option>
-                            <option value="1">Guitarra</option>
-                            <option value="2">Violão</option>
-                            <option value="3">Baixo</option>
-                            <option value="4">Bateria</option>
-                            <option value="5">Piano</option>
-                          </select>
-                          <div class="input-group-append">
-                            <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
+                          <div class="col-12 col-sm-6">
+                            <div class="text-center">
+                              <h5 class="text-red">Informações Artísticas</h5>
+                            </div>
+
+                            <!-- Habilidades -->
+                            <div class="row mb-3">
+                              <div class="col-12 m-0">
+                                <p><strong>Principais Habilidades:</strong></p>
+                                <p class="text-white">Canto, Guitarra Solo, Bateria Básica</p>
+                              </div>
+                              <div class="col-10 m-0">                                
+                                <select class="form-select" aria-label="Default select example">
+                                  <option selected>Adicionar Habilidades</option>
+                                  <option value="1">Guitarra Base</option>
+                                  <option value="1">Guitarra Solo</option>
+                                  <option value="1">Violão Clássico</option>
+                                  <option value="1">Contrabaixo Elétrico</option>
+                                  <option value="1">Contrabaixo Acústico</option>
+                                  <option value="1">Bateria</option>
+                                  <option value="1">Percussão</option>
+                                  <option value="2">Metais (Sopro)</option>
+                                  <option value="2">Metais (Madeira)</option>
+                                  <option value="2">Violino</option>
+                                  <option value="2">Violoncelo</option>
+                                  <option value="2">Harpa</option>
+                                  <option value="4">DJ</option>
+                                  <option value="5">Produtor</option>
+                                  <option value="6">Engenheiro de Áudio</option>
+                                </select>
+                              </div>
+                              <div class="col-2 m-0">
+                                <buttom class="btn btn-NoFill-default text-lightred" type="button">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                  </svg>
+                                </buttom>
+                              </div>
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- Gênero -->
+                            <div class="row mb-3">
+                              <div class="col-12 m-0">
+                                <p><strong>Gêneros Preferidos:</strong></p>
+                                <p class="text-white">Rock & Roll, Blues, Bossa Nova</p>
+                              </div>
+                              <div class="col-10 m-0">                                
+                                <select class="form-select" aria-label="Default select example">
+                                  <option selected>Adicionar Gêneros</option>
+                                  <option value="1">Hard Rock</option>
+                                  <option value="1">Heavy Metal</option>
+                                  <option value="1">Death Metal</option>
+                                  <option value="1">Black Metal</option>
+                                  <option value="1">Grunge</option>
+                                  <option value="1">Glam Rock</option>
+                                  <option value="1">Opera Rock</option>
+                                  <option value="2">Blues</option>
+                                  <option value="3">Folk</option>
+                                  <option value="4">Bossa Nova</option>
+                                  <option value="5">Sertanejo</option>
+                                  <option value="6">EDM</option>
+                                  <option value="7">Tours</option>
+                                  <option value="8">Funk</option>
+                                  <option value="9">Funk (Carioca)</option>
+                                </select>
+                              </div>
+                              <div class="col-2 m-0">
+                                <buttom class="btn btn-NoFill-default text-lightred" type="button">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                  </svg>
+                                </buttom>
+                              </div>
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- Bio -->
+                            <h6 class="text-red mt-4"><strong>Biografia</strong></h6>
+                            <!-- <div class="form-group">
+                            <textarea class="form-control" type="text" name="description" id="description" rows="3">
+                              <?php // echo $profileDetails['data'][0]['bio'] ?>
+                            </textarea>
+                            </div> -->
+
+                            <p class="text-white mt-2" style="font-size:14px;">
+                              <?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Não Informado") ; ?>
+                            </p>
+
+                          </div>          
+
+                          <!-- OUTRAS INFORMAÇÕES -->
+                          <div class="col-12 col-sm-6 mb-5">
+                            <div class="text-center">
+                              <h5 class="text-red">Outras Informações</h5>
+                            </div>
+
+                            <!-- E-mail -->
+                            <div class="form-group text-white mt-3">
+                              <label for="userEmail"><strong>E-mail:</strong></label>
+                              <input type="email" class="form-control" placeholder="Informe seu E-mail" id="userEmail" name="email" value="<?php echo $profileDetails['data'][0]['email'] ; ?>">
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="form-group text-white mt-3">
+                              <label for="userPhone">Telefone/Celular</label>
+                              <input type="tel" class="form-control" placeholder="Informe seu Telefone" id="userPhone" name="phone" value="<?php echo $profileDetails['data'][0]['phone'] ; ?>">
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- CEP (editable) -->
+                            <div class="form-group mt-3">
+                              <label for="userZipCode"><strong>Código Postal (CEP):</strong></label>
+                              <input 
+                                type="text" 
+                                class="form-control"
+                                placeholder="Preencha seu CEP"
+                                id="userZipCode"
+                                name="cep"
+                                value="<?php echo $profileDetails['data'][0]['cep'] ; ?>"
+                              >
+                            </div>                            
+
+                            <!-- Estado -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Estado:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['state']) && !empty($profileDetails['data'][0]['state']) ? $profileDetails['data'][0]['state'] : "Não Informado") ?>
+                              </p>
+                            </div>
+
+                            <!-- Cidade -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Cidade:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['city']) && !empty($profileDetails['data'][0]['city']) ? $profileDetails['data'][0]['city'] : "Não Informado") ?>
+                              </p>
+                            </div>
+                            
+                            <!-- Bairro -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Bairro:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['district']) && !empty($profileDetails['data'][0]['district']) ? $profileDetails['data'][0]['district'] : "Não Informado") ?>
+                              </p>
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- Birthday -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Data de Nascimento:</strong>
+                                <?php echo ($age > 100 ? "Não Informado" : str_replace("-", "/", date('d-m-Y' , strtotime( $profileDetails['data'][0]['birthday'] ))) . " (" . $age . " Anos)" ); ?>
+                              </p>
+                            </div>
+
                           </div>
-                          </div>
 
-                          <!-- BIOGRAFIA -->
-                          <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
-                          <!-- <div class="form-group">
-                          <textarea class="form-control" type="text" name="description" id="description" rows="3">
-                            <?php echo $profileDetails['data'][0]['bio'] ?>
-                          </textarea>
-                          </div> -->
-
-                          <p class="text-white mt-2" style="font-size:14px;">
-                          <?php echo $profileDetails['data'][0]['bio'] ?>
-                          </p>
-
-                        </div>          
-
-                        <!-- OUTRAS INFORMAÇÕES -->
-                        <div class="col-6 mb-5 text-white">
-                          <h6 class="text-red"><strong>Outras Informações</strong></h6>
-
-                          <!-- GÊNERO -->
-                          <label><strong>Gênero(s):</strong></label>
-                          <p class="text-white">Guitarra</p>
-                          <p class="text-white">Violão</p>
-                          <p class="text-white">Baixo</p>
-
-                          <div class="input-group mb-3">
-                          <select class="custom-select" id="inputGroupSelect02">
-                            <option selected>Escolha...</option>
-                            <option value="1">Guitarra</option>
-                            <option value="2">Violão</option>
-                            <option value="3">Baixo</option>
-                            <option value="4">Bateria</option>
-                            <option value="5">Piano</option>
-                          </select>
-                          <div class="input-group-append">
-                            <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                          </div>
-                          </div>
-
-                          <!-- CIDADE -->
-                          <div class="form-group mt-3">
-                          <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
-                          <select class="form-select" name="brand" id="brand">
-                            <option selected>Escolha...</option>
-                            <option value="1">São Paulo</option>
-                            <option value="2">São Roque</option>
-                            <?php foreach ($selectBrand as $itemBrand) {?>
-                            <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                            <?php };?>
-                          </select>
-                          </div>
-
-                          <!-- ESTADO -->
-                          <div class="form-group mt-3">
-                          <label class="mb-2" for="brand"><strong>Estado:</strong></label>
-                            <select class="form-select" name="brand" id="brand">
-                            <option selected>Escolha...</option>
-                            <option value="1">São Paulo</option>
-                            <option value="2">Rio de Janeiro</option>
-                            <?php foreach ($selectBrand as $itemBrand) {?>
-                              <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                            <?php };?>
-                            </select>
-                          </div>
-
-                          <!-- DATA DE NASCIMENTO -->
-                          <div class="form-group mt-3">
-                          <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
-                            <p><?php echo $profileDetails['data'][0]['birthday'] ?></p>
-                            <!-- <select class="form-select" name="brand" id="brand">
-                            <option selected>Escolha...</option>
-                            <option value="1">São Paulo</option>
-                            <option value="3">São Roque</option>
-                            <?php foreach ($selectBrand as $itemBrand) {?>
-                              <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                            <?php };?>                  
-                            </select> -->
-                          </div>
-
-                          <!-- E-MAIL -->
-                          <div class="form-group text-white mt-3">
-                          <label for="userEmail"><strong>E-mail:</strong></label>
-                          <input type="email" class="form-control" placeholder="<?php echo $profileDetails['data'][0]['email'] ?>" id="userEmail" name="email">
-                          </div>                
-                          
-                          <!-- BIOGRAFIA -->
-                          <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
-
-                          <!-- <div class="form-group">
-                          <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
-                          </div>
-                          <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                          eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                          enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                          primis in faucibus orci luctus et ultrices posuere cubilia curae.
-                          </p> -->
                         </div>
-                        </div>
-                      </div>                    
+                      </div>
 
                       <!-- Self User Trade Posts -->
                       <div class="tab-pane fade <?php echo $defaultContent == "trade_posts" ? "show active" : "" ; ?>" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
@@ -398,21 +446,29 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   $lastId = $a_tpItem['post_id'];
                               ?>
                                 <div class="row my-3 mx-2 p-2 zeroMargin-Padding-mobile">
-                                    
-                                  <!-- Image -->                              
+                                                                      
+                                  <!-- Image -->
                                   <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
-                                    <!-- Blur -->
-                                    <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
-                                    </div>
+                                    <?php if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null && validateImageSource($a_tpItem['image_name']) ): ?>
 
-                                    <!-- Image -->
-                                    <div class="img-default-content img_tp">
-                                      <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                                        <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
-                                      </a>
-                                    </div>
-                                  </div>
-                                  
+                                      <!-- Blur -->
+                                      <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                      </div>
+
+                                      <!-- Image -->
+                                      <div class="img-default-content img_tp">
+                                        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                                          <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
+                                        </a>
+                                      </div>
+                                    <?php else: ?>
+                                      <div class="img-default-content">
+                                        <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                                          <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" alt="Imagem ilustrativa de um produto voltado ao meio musical.">
+                                        </a>
+                                      </div>
+                                    <?php endif; ?>
+                                  </div>                                  
 
                                   <!-- Trade Post Info -->
                                   <div class="col-12 col-sm-9 tp-card px-3 py-3">
@@ -422,7 +478,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                       
                                       <!-- Título + Preço -->
                                       <div class="col-12 col-sm-10 text-center-mobile">
-                                          <h3 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h3>
+                                          <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
+                                            <h3 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h3>
+                                          </a>
                                           <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>
                                       </div>
                                       
@@ -534,18 +592,22 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
               <div class="col-12 col-sm-6 mt-5">
                 <h1 class="text-white"><strong>Perfil Público</strong></h1>
               </div>
+              
               <div class="text-gray">
                 <span>Profile #<?php echo $profileDetails['data'][0]['user_id'] ?></span>
               </div>              
-              <hr>
+              
+              <div class="col-12">
+                <hr class="hr-default">
+              </div>              
             </div>
           </div>
           
           <!-- Profile Header -->
           <div class="container bk-gray text-white rounded">
             <div class="row">
-              <div class="col-2"></div>
-              <div class="col-8 mt-3 mb-3 text-center p-2">
+              
+              <div class="col-12 mt-3 mb-3 text-center p-2">
                 <?php if ( isset($profileDetails['data'][0]['image_name']) ): ?>
                   <img src="<?php echo $profileDetails['data'][0]['image_name'] ; ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
                 <?php else: ?>
@@ -558,7 +620,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                   <h5 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?> </h5>
                 </div>
               </div>
-              <div class="col-2"></div>
+              
             </div>
           </div>
 
@@ -587,147 +649,139 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                     <div class="tab-content" id="myTabContent">
                       
                       <!-- Public User Info -->
-                      <div class="tab-pane fade <?php echo $defaultContent == "about" ? "show active" : "" ; ?>" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
+                      <div class="tab-pane fade <?php echo $defaultContent == "about" ? "show active" : "" ; ?>" id="dados" role="tabpanel" aria-labelledby="dados-tab">
+
                         <div class="row">
                           <div class="col-12 mt-5 mb-5 text-center">
-                            <h5 class="text-red"><strong>Mais Sobre <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h5>
+                            <h4 class="text-red"><strong>Mais Sobre <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h4>
                           </div>
                         </div>
 
                         <div class="row mx-1">
-
-                          <div class="col-6">
-                            <h6 class="text-red"><strong>Habilidades</strong></h6>
-                            <p class="text-white">Guitarra</p>
-                            <p class="text-white">Violão</p>
-                            <p class="text-white">Baixo</p>
-                            
-                            <!--
-                            <div class="form-group mb-3">
-                              <select class="custom-select" id="inputGroupSelect02">
-                                <option selected>Escolha...</option>
-                                <option value="1">Guitarra</option>
-                                <option value="2">Violão</option>
-                                <option value="3">Baixo</option>
-                                <option value="4">Bateria</option>
-                                <option value="5">Piano</option>
-                              </select>
-                              <div class="input-group-append">
-                                <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                              </div> 
+                          <div class="col-12 col-sm-6">
+                            <div class="text-center">
+                              <h5 class="text-red">Informações Artísticas</h5>
                             </div>
-                            -->
 
-                            <!-- BIOGRAFIA -->
-                            <h6 class="text-red mt-5"><strong>Biografia</strong></h6>
+                            <!-- Habilidades -->
+                            <div class="row mb-3">
+                              <div class="col-12 m-0">
+                                <p><strong>Principais Habilidades:</strong></p>
+                                <p class="text-white">Canto, Guitarra Solo, Bateria Básica</p>
+                              </div>                              
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- Gênero -->
+                            <div class="row mb-3">
+                              <div class="col-12 m-0">
+                                <p><strong>Gêneros Preferidos:</strong></p>
+                                <p class="text-white">Rock & Roll, Blues, Bossa Nova</p>
+                              </div>                              
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- Bio -->
+                            <h6 class="text-red mt-4"><strong>Biografia</strong></h6>
                             <!-- <div class="form-group">
-                              <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea>
+                            <textarea class="form-control" type="text" name="description" id="description" rows="3">
+                              <?php // echo $profileDetails['data'][0]['bio'] ?>
+                            </textarea>
                             </div> -->
+
                             <p class="text-white mt-2" style="font-size:14px;">
-                              <?php echo $profileDetails['data'][0]['bio'] ?>
-                            </p>            
-                          </div>                                   
+                              <?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Não Informado") ; ?>
+                            </p>
+
+                          </div>          
 
                           <!-- OUTRAS INFORMAÇÕES -->
-                          <div class="col-6 text-white mb-4">
-                            <h6 class="text-red"><strong>Outras Informações</strong></h6>
+                          <div class="col-12 col-sm-6 mb-5">                            
+                            <div class="text-center">
+                              <h5 class="text-red">Outras Informações</h5>
+                            </div>                            
 
-                            <!-- GÊNERO -->
-                            <label><strong>Gênero(s):</strong></label>
-                            <p class="text-white">Guitarra</p>
-                            <p class="text-white">Violão</p>
-                            <p class="text-white">Baixo</p>
-
-                            <div class="input-group mb-3">
-                              <!-- <select class="custom-select" id="inputGroupSelect02">
-                                <option selected>Escolha...</option>
-                                <option value="1">Guitarra</option>
-                                <option value="2">Violão</option>
-                                <option value="3">Baixo</option>
-                                <option value="4">Bateria</option>
-                                <option value="5">Piano</option>
-                              </select> -->
-                              <!-- <div class="input-group-append">
-                                <buttom class="input-group-text btn" type="button" for="inputGroupSelect02"><img src="<?php echo SITE_URL ?>/images/IMAGENS/ÍCONES/MAIS.png" class="img-fluid" alt="" width="25px" height="25px"></buttom>
-                              </div> -->
-                            </div>
-
-                            <!-- CIDADE -->
-                            <div class="form-group mt-3">
-                              <label class="mb-2" for="brand"><strong>Cidade:</strong></label>
-                              <!-- <select class="form-select" name="brand" id="brand">
-                                <option selected>Escolha...</option>
-                                <option value="1">São Paulo</option>
-                                <option value="3">São Roque</option>
-                                <?php foreach ($selectBrand as $itemBrand) {?>
-                                  <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                                <?php };?>
-                              </select> -->
-                            </div>
-
-                            <!-- ESTADO -->
-                            <div class="form-group mt-3">
-                              <label class="mb-2" for="brand"><strong>Estado:</strong></label>
-                                <!-- <select class="form-select" name="brand" id="brand">
-                                  <option selected>Escolha...</option>
-                                  <option value="1">São Paulo</option>
-                                  <option value="3">Rio de Janeiro</option>
-                                  <?php foreach ($selectBrand as $itemBrand) {?>
-                                    <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                                  <?php };?>
-                                </select> -->
-                            </div>
-
-                            <!-- DATA DE NASCIMENTO -->
-                            <div class="form-group mt-3">
-                              <label class="mb-2" for="brand"><strong>Data de Nascimento:</strong></label>
-                              <p> <?php echo $profileDetails['data'][0]['birthday'] ?> </p>
-                            <!-- <select class="form-select" name="brand" id="brand">
-                                  <option selected>Escolha...</option>
-                                  <option value="1">São Paulo</option>
-                                  <option value="3">São Roque</option>
-                                  <?php foreach ($selectBrand as $itemBrand) {?>
-                                    <option value="<?php echo $itemBrand['brand_id'] ?>"><?php echo $itemBrand['description'] ?></option>
-                                  <?php };?>                  
-                                </select> -->
-                            </div>
-
-                            <!-- E-MAIL -->
+                            <!-- E-mail -->
                             <div class="form-group text-white mt-3">
-                              <label for="userEmail"><strong>E-mail:</strong></label>
-                              <p><?php echo $profileDetails['data'][0]['email'] ?></p>
-                              <!-- <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email"> -->
+                              <p class="mb-2">
+                                <strong>E-mail:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['email']) && !empty($profileDetails['data'][0]['email']) ? $profileDetails['data'][0]['email'] : "Não Informado") ?>
+                              </p>
                             </div>
 
-                            <!-- <h6 class="text-red mt-5"><strong>Experiência</strong></h6> -->
+                            <!-- Phone -->
+                            <div class="form-group text-white mt-3">
+                              <p class="mb-2">
+                                <strong>Telefone/Celular:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['phone']) && !empty($profileDetails['data'][0]['phone']) ? $profileDetails['data'][0]['phone'] : "Não Informado") ?>
+                              </p>
+                            </div>
 
-                            <!-- BIOGRAFIA -->
-                            <!-- <div class="form-group"> -->
-                              <!-- <textarea class="form-control" type="text" name="description" id="description" rows="3"></textarea> -->
-                            <!-- </div> -->
-                            <!-- <p class="text-white mt-2" style="font-size:14px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
-                              eu facilisis orci, cursus luctus arcu. Vivamus venenatis ultrices vem
-                              enatis. Sed consectetur at tellus id placerat. Vestibulum ante ipsu
-                              primis in faucibus orci luctus et ultrices posuere cubilia curae.
-                            </p> -->
+                            <hr class="hr-default">
+
+                            <!-- CEP (editable) -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>CEP:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['cep']) && !empty($profileDetails['data'][0]['cep']) ? $profileDetails['data'][0]['cep'] : "Não Informado") ?>
+                              </p>
+                            </div>
+
+                            <!-- Estado -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Estado:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['state']) && !empty($profileDetails['data'][0]['state']) ? $profileDetails['data'][0]['state'] : "Não Informado") ?>
+                              </p>
+                            </div>
+
+                            <!-- Cidade -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Cidade:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['city']) && !empty($profileDetails['data'][0]['city']) ? $profileDetails['data'][0]['city'] : "Não Informado") ?>
+                              </p>
+                            </div>
+                            
+                            <!-- Bairro -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Bairro:</strong>
+                                <?php echo (isset($profileDetails['data'][0]['district']) && !empty($profileDetails['data'][0]['district']) ? $profileDetails['data'][0]['district'] : "Não Informado") ?>
+                              </p>
+                            </div>
+
+                            <hr class="hr-default">
+
+                            <!-- Birthday -->
+                            <div class="form-group mt-3">
+                              <p class="mb-2">
+                                <strong>Data de Nascimento:</strong>
+                                <?php echo ($age > 100 ? "Não Informado" : str_replace("-", "/", date('d-m-Y' , strtotime( $profileDetails['data'][0]['birthday'] ))) . " (" . $age . " Anos)" ); ?>
+                              </p>
+                            </div>
+
                           </div>
-                       
-                        </div>                                                  
+
+                        </div>                        
+                        
                       </div>
 
                       <!-- Public User Trade Posts -->
-                      <div class="tab-pane fade <?php echo $defaultContent == "trade_post" ? "show active" : "" ; ?>" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">                    
+                      <div class="tab-pane fade <?php echo $defaultContent == "trade_post" ? "show active" : "" ; ?>" id="anuncios" role="tabpanel" aria-labelledby="anuncios-tab">
+
                         <div class="row mt-5">
                           <div class="col-12 text-center p-0">
-                            <h4 class="text-red"><strong>Meus Anúncios</strong></h4>
+                            <h4 class="text-red"><strong>Anúncios de <?php echo $profileDetails['data'][0]['user_name'] ?></strong></h4>
                           </div>
                         </div>
 
                         <div class="row">
-                          <div class="col-12 mt-0 mb-4 p-4">
-                            
+                          <div class="col-12 mt-0 mb-4 p-4 zeroMargin-Padding-mobile">
                             <? if ( empty($a_userTradePosts["data"]) ): ?>
-                                <div class="row text-center">
+                              <div class="row text-center">
                                   <div class="col-12 my-3">
                                     <h5>
                                       Este usuário não possui 
@@ -743,60 +797,66 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                     <h3>¯\_(ツ)_/¯</h3>
                                   </div>
                                 </div>
-                            <? else: ?>
-                              <?php foreach ($a_userTradePosts["data"] as $a_tpItem) { ?>
-                                <div class="row my-3 mx-2 p-2">
-                                    
-                                  <!-- Image -->                              
-                                  <div class="col-12 col-sm-3 p-0 image-container-new" style="height: 230px;">
+                            <? else: ?>                            
+                              <?php 
+                                $lastId = 0;
+                                foreach ($a_userTradePosts["data"] as $a_tpItem) {            
+                                  if ( $lastId == $a_tpItem['post_id'] ):
+                                    continue; // Skip Iteration
+                                  endif;
+                                  $lastId = $a_tpItem['post_id'];              
+                              ?>
+                                <div class="row my-3 mx-2 p-2 zeroMargin-Padding-mobile">
+                                
+                                  <!-- Image -->
+                                  <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
                                     <!-- Blur -->
-                                    <div class="img_background_blur " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
+                                    <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $a_tpItem['image_name'] ?>');">
                                     </div>
 
-                                    <!-- Image -->
-                                    <div class="img_tp" style="transform: translate(0px, -229px);">
+                                    <!-- Image -->                                    
+                                    <div class="img-default-content img_tp">
                                       <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
                                         <img src="<?php echo $a_tpItem['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
-                                      </a>
+                                      </a>                                      
                                     </div>
                                   </div>
-                                  
 
                                   <!-- Trade Post Info -->
-                                  <div class="col-12 col-sm-9 tp-card">
+                                  <div class="col-12 col-sm-9 tp-card px-3 py-3">
+
                                     <!-- Detalhes -->  
-                                    <div class="row mt-2">
-                                      <div class="col-8">
-                                        <div class="col-8">
-                                          <h5 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h5>
-                                          <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>                                      
-                                        </div>
-                                      </div>
+                                    <div class="row">                                      
+                                      <!-- Título + Preço -->
+                                      <div class="col-12 col-sm-10 text-center-mobile">
+                                          <h3 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h3>
+                                          <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>
+                                      </div>                                                                        
                                     </div>
-                                                                          
+                                       
+                                    <!-- Descrição -->
                                     <div class="row">
-                                      <div class="col-8">
-                                        <span class="card-title text-white ">
-                                          Sobre: <?php echo $a_tpItem['tp_desc'] ?>
+                                      <div class="col-12 text-white">
+                                        <span class="card-title">
+                                          Descrição do Anúncio:
                                         </span>
+                                        <p><?php echo $a_tpItem['tp_desc'] ?></p>
                                       </div>
 
                                       <!-- Link -->
-                                      <!-- <div class="col-4 d-flex flex-row-reverse">
+                                      <div class="col-12 d-flex flex-row-reverse">
                                         <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
                                         class="card-title text-white">Detalhes</a>
-                                      </div> -->                                  
+                                      </div>                                  
                                     </div>
 
                                   </div>
                                 </div>
                               <?php } ?>
-                            <? endif; ?>
-                            
+                            <? endif; ?>                            
                           </div>
-                        </div>                      
+                        </div>                                            
                       </div>
-
                     </div>
                   </div>
                 </div>

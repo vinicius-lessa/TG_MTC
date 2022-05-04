@@ -105,7 +105,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                   <div class="image_container">
                     <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
                       <?php
-                        if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ): 
+                        if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ):
                           if ( validateImageSource($a_tpItem['image_name']) ):?>
                         
                           <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
@@ -130,7 +130,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       <div class="col-8">
                         <span class="card-title text-white ">Por:
                           <strong>
-                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $a_tpItem['user_id'] ?>"
+                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $a_tpItem['user_id'] ?>"
                               class="text-decoration-none text-white">
                               <?php echo $a_tpItem['user_name'] ?>
                             </a>

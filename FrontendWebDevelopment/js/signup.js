@@ -65,6 +65,17 @@ signUpForm.submit(async function( event ){
     } else {
         msgAlertErroSignUp.html("");
         $(userType).removeAttr("style");
+    }
+
+    // Input: CEP
+    if ( userZipCode.val() === "" || userZipCode.val() === null || userZipCode.val() === "Tipo Pessoa") {
+        msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o CEP!</div>");
+        $(userZipCode).css({'border': '2px solid #f64141'});
+
+        return false;
+    } else {
+        msgAlertErroSignUp.html("");
+        $(userZipCode).removeAttr("style");
     }    
 
     spinnerWrapper.style.display = 'flex';    

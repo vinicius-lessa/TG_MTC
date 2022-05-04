@@ -81,6 +81,16 @@ footer{
   border: 0px;
 }
 
+.btn-NoFill-default {
+  background-color: transparent;
+  border: 0px;
+  color: #e22121b7;
+}
+
+.btn-NoFill-default:hover {
+  color: #e22121b7;  
+}
+
 .btn-default:hover {  
   color: rgb(0, 0, 0);
 }
@@ -132,6 +142,7 @@ footer{
 }
 
 /* User Profile */
+
 .default-tabs {
   color: white !important; 
   border: 0px !important;
@@ -156,14 +167,9 @@ footer{
 }
 
 /* New Trade Post */
-.insertImage-btn {
-  background-color: transparent;
-  border: 0px;
-  color: #e22121b7;
-}
 
-.insertImage-btn:hover {
-  font-size: 1.1em;   
+.btn-insertImage:hover {
+  font-size: 1.1em;
 }
 
 .label-default:hover {
@@ -410,7 +416,6 @@ a.link-none:link {
   height: 100%;
   filter: contrast(105%) brightness(1.1);
 }
-
 
 /* ################################ JavaScript
 */

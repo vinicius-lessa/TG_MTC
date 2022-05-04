@@ -9,6 +9,7 @@
  *  - Vinícius Lessa - 28/04/2022: Implementação das consultas das tabelas de 'PRODUCT_CATEGORY', 'PRODUCT_BRANDS', 'PRODUCT_MODELS' e 'COLORS'.
  *  - Vinícius Lessa - 01/05/2022: Implementação do método DELETE.
  *  - Vinícius Lessa - 02/05/2022: Implementação da Criação de Anúncios com 3 imagens.
+ *  - Vinícius Lessa - 04/05/2022: Finalização da implementação da ATUALIZAÇÃO (via Post) dos anúncios.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -119,12 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     INNER JOIN colors c ON tp.color_id  = c.color_id
                     INNER JOIN product_conditions pc2 ON tp.condition_id = pc2.condition_id 
                     INNER JOIN users u ON tp.user_id = u.user_id
-                    -- INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
-                    CROSS join images_trade_posts itp 
+                    LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
+                    -- CROSS JOIN images_trade_posts itp 
                     INNER JOIN images_profile ip ON ip.user_id = u.user_id 
                     WHERE 
-                        tp.post_id          =:POST_ID and
-                        itp.trade_post_id = `post_id` and
+                        tp.post_id          =:POST_ID and                        
                         tp.activity_status  = 1
                     ORDER BY tp.created_on DESC',
                     [
@@ -133,7 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 
                 if (!empty($dados)):                    
                     foreach ($dados as $tradePost) {
-                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name ;
+                        if ( !empty($tradePost->image_name) ):
+                            $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name ;
+                        endif;
 
                         if ( !empty($tradePost->img_profile_name) ):
                             $tradePost->img_profile_name = SITE_URL . "/uploads/user-profile/" . $tradePost->img_profile_name ;
@@ -172,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     FROM trade_posts tp 
                     INNER JOIN users u ON tp.user_id = u.user_id
                     INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
-                    INNER JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id                    
+                    LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id                    
                     where tp.activity_status = 1 ' . (!empty($user_id) ? 'and tp.user_id =:USER_ID ' : '') .
                     'ORDER BY tp.created_on DESC LIMIT 12;',
                     [
@@ -181,7 +183,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
                 if (!empty($dados)):
                     foreach ($dados as $tradePost) {
-                        $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
+                        if ( $tradePost->image_name != null ):
+                            $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name;
+                        endif;
                     }
                     
                     echo json_encode([
@@ -872,7 +876,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
                 $count = count($a_TmpLocations);
     
-                for ($i = 0; $i < $count; $i++) {                
+                for ($i = 0; $i < $count; $i++) {
     
                     if (move_uploaded_file($a_TmpLocations[$i], $a_NewLocations[$i])):                    
 

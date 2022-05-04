@@ -316,7 +316,7 @@ newTradePostForm.submit(async function( event ){
 
             return false;
         }
-    }
+    }    
 
     // Start Loading Icon
     spinnerWrapper.style.display = 'flex';
@@ -345,7 +345,7 @@ newTradePostForm.submit(async function( event ){
     if(inputImageOne.length > 0 ){ formData.append('files[]', inputImageOne[0]); }
     if(inputImageTwo.length > 0 ){ formData.append('files[]', inputImageTwo[0]); }
     if(inputImageThree.length > 0 ){ formData.append('files[]', inputImageThree[0]); }
- 
+     
     // Read FormData
     // for (var p of formData) {
     //     let name = p[0];
