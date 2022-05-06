@@ -8,14 +8,19 @@
  *  - Vinícius Lessa - 19/04/2022: Início dos trabalhos para tornar o chat funcional.
  *  - Vinícius Lessa - 23/04/2022: Implementação da mensagem imediata do usuário + ajustes visuais.
  *  - Vinícius Lessa - 27/04/2022: Implementação de "Outras Conversas".
+ *  - Vinícius Lessa - 06/05/2022: Correção dos Bugs na Disposição das Imagens.
  * 
  * @ Notes: 
  * 
  */
 
+date_default_timezone_set('America/Sao_Paulo');
+
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
+
+include_once '../../defaultFunctions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -165,37 +170,52 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
         </div>
 
         <!-- Chat Boxes -->
-        <div class="container text-white">
+        <div class="container text-white zeroMargin-Padding-mobile">
           <div class="row chat_panel">
             
             <!-- Main Window -->
-            <div class="col-12 col-sm-8 p-2">
+            <div class="col-12 col-sm-8 p-2 zeroMargin-Padding-mobile">
               <div class="shadow bk-gray px-3 py-2 rounded h-100">                
 
                 <div class="row px-2 h-100">
                   <div class="col-12 bk-chat h-100 rounded pl-2 pr-1 py-1">  
                     
                     <!-- Chat Topic -->
-                    <div class="row chat-topic p-0 m-0">
-                      
+                    <div class="row chat-topic p-0 m-0">                      
                       <!-- TP Image -->
-                      <div class="col-4 col-sm-2 p-0">
-                        <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $post_id ?>">
-                          <img src="<?php echo $imgUrl ?>" class="rounded" alt="" style="width:190px; height:106px; object-fit:cover;">
-                        </a>
-                      </div>
+                      <div class="col-5 col-sm-2 p-0 image-container-new" id="chatTP-img-container">
+                        <?php if ( isset($imgUrl) && $imgUrl != null && validateImageSource($imgUrl) ): ?>
 
-                      <div class="col-8 col-sm-10 py-2 pl-2 pr-1">
+                          <!-- Blur -->
+                          <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $imgUrl ?>');">
+                          </div>
+
+                          <!-- Image -->
+                          <div class="img-default-content img_tp">
+                            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $post_id ?>">
+                              <img src="<?php echo $imgUrl ?>" class="img-tag-tp-default" alt="" style="">
+                            </a>
+                          </div>
+                        <?php else: ?>
+                          <div class="img-default-content">
+                            <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $post_id ?>">
+                              <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" alt="Imagem ilustrativa de um produto voltado ao meio musical.">
+                            </a>
+                          </div>
+                        <?php endif; ?>
+                      </div>                      
+
+                      <div class="col-7 col-sm-10 py-2 pl-2 pr-1">
                         <!-- TP Info -->
                         <div class="row p-0">
-                          <div class="col-12">                            
+                          <div class="col-12">
                             <h5>
                               <strong>
                                 <a class="linkdefault" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $post_id ?>">
                                   <?php echo $title ?>
                                 </a>
                               </strong>
-                          </h5>      
+                          </h5>
                           </div>
                           <div class="col-12">
                             <span><?php echo $category; ?></span>
@@ -205,7 +225,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                               <span>
                                 <?php echo $userCreatorName ?>
                               </span>
-                              <?php if ($isOwnPost) : echo "<small> (Você)</small>" ;  endif; ?>                              
+                              <?php if ($isOwnPost) : echo "<small> (Você)</small>" ;  endif; ?>
                             </a>
                           </div>                          
                         </div>
@@ -229,8 +249,8 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                               <!-- Hidden Values -->
                               <input type="hidden" id="userLogged" name="userLogged"  value="<?php echo $userLogged; ?>">
                               <input type="hidden" id="userTwo" name="userTwo"        value="<?php echo $userTwo; ?>">
-                              <input type="hidden" id="post_id" name="post_id"        value="<?php echo $post_id; ?>">
-                              <!-- <input type="hidden" id="chat_id" name="chat_id"        value="<?php // echo $chat_id ?>"> -->
+                              <input type="hidden" id="post_id" name="post_id"        value="<?php echo $post_id; ?>">                              
+                              <input type="hidden" id="current_time" name="current_time" value="<?php echo date("h:i"); ?>">
 
                               <input type="submit" value="Enviar" class="btn-send" name="messageSubmit" id="messageSubmit">
 
@@ -266,7 +286,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                           </div>
                         </div>
 
-                        <div class="col-12 scrollbar h-100 reverse-vertical-direction px-0" id="chat" style="display: none;">
+                        <div class="col-12 scrollbar h-100 reverse-vertical-direction px-0" id="chat" style="display: none;">                          
                           
                           <!-- Not Functional Messages Example -->                                                    
 
@@ -312,7 +332,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
             </div>
             
             <!-- Other Chats -->
-            <div class="col-12 col-sm-4 p-2">
+            <div class="col-12 col-sm-4 p-2 zeroMargin-Padding-mobile">
               <div class="shadow bk-gray p-3 rounded h-100">
                 <div class="row">
                   <div class="col-12">                    
@@ -335,6 +355,8 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                     </div>
 
                     <?php 
+                      print_r($chatRow);
+                      
                       $countChatRows = 0;
                       $lastId = 0;
                       foreach ($a_OtherChats["data"] as $chat) {
@@ -349,7 +371,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
 
                         <div class="col-12">                          
                           <div class="row mb-1">                            
-                            <div class="col-10">
+                            <div class="col-9">
                               
                               <a class="linkdefault" 
                                  href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
@@ -370,23 +392,32 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                                     echo "<strong>" . $chat["username_lastmessage"] . "</strong>: " .  $chat["last_message"] ;
 
                                   endif;
-                                ?> <span class="text-gray size-12"> - <?php echo $chat["message_date"] ?> </span>
+                                ?> <span class="text-gray size-12"> - <?php echo date("H:i", strtotime($chat['message_date'])  ) ; ?> </span>
                               </small>
                             </div>
                             
-                            <!-- Image -->                              
-                            <div class="col-2 p-0 image-container-new" style="height: 55px;">
-                              <!-- Blur -->
-                              <div class="img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
-                              </div>
+                            <!-- TP Image -->
+                            <div class="col-3 p-0 image-container-new" style="height: 70px;">
+                              <?php if ( isset($chat['image_name']) && $chat['image_name'] != null && validateImageSource($chat['image_name']) ): ?>
 
-                              <!-- Image -->
-                              <div class="img_tp" style="transform: translate(0px, -53px);">
-                                <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
-                                  <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
-                                </a>
-                              </div>
-                            </div>                            
+                                <!-- Blur -->
+                                <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                                </div>
+
+                                <!-- Image -->
+                                <div class="img-default-content img_tp">
+                                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
+                                    <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
+                                  </a>
+                                </div>
+                              <?php else: ?>
+                                <div class="img-default-content">
+                                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
+                                    <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" alt="Imagem ilustrativa de um produto voltado ao meio musical.">
+                                  </a>
+                                </div>
+                              <?php endif; ?>
+                            </div>                                                     
 
                           </div>                          
                         </div>
@@ -426,7 +457,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
 
                         <div class="col-12">
                           <div class="row mb-1">
-                            <div class="col-10">
+                            <div class="col-9">
                               <a  class="linkdefault" 
                                   href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
                               >                                                              
@@ -450,24 +481,33 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                                     echo "<strong>" . $chat["username_lastmessage"] . "</strong>: " .  $chat["last_message"] ;
 
                                   endif;
-                                ?> <span class="text-gray size-12"> - <?php echo $chat["message_date"] ?> </span> 
+                                ?> <span class="text-gray size-12"> - <?php echo date("H:i", strtotime($chat['message_date'])  ) ; ?> </span> 
                               </small>
 
                             </div>
                             
-                            <!-- Image -->                              
-                            <div class="col-2 p-0 image-container-new" style="height: 55px;">
-                              <!-- Blur -->
-                              <div class="img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
-                              </div>
+                            <!-- TP Image -->
+                            <div class="col-3 p-0 image-container-new" style="height: 70px;">
+                              <?php if ( isset($chat['image_name']) && $chat['image_name'] != null && validateImageSource($chat['image_name']) ): ?>
 
-                              <!-- Image -->
-                              <div class="img_tp" style="transform: translate(0px, -53px);">
-                                <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
-                                  <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
-                                </a>
-                              </div>
-                            </div>
+                                <!-- Blur -->
+                                <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                                </div>
+
+                                <!-- Image -->
+                                <div class="img-default-content img_tp">
+                                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
+                                    <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
+                                  </a>
+                                </div>
+                              <?php else: ?>
+                                <div class="img-default-content">
+                                  <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
+                                    <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" alt="Imagem ilustrativa de um produto voltado ao meio musical.">
+                                  </a>
+                                </div>
+                              <?php endif; ?>
+                            </div>                            
 
                           </div>                          
                         </div>

@@ -30,7 +30,8 @@
   } 
 
   #tradepost-img-container{height: 500px;}
-  #profileTP-img-container{height: 210px;}  
+  #profileTP-img-container{height: 210px;}
+  #chatTP-img-container{height: 105px;}
 }
 
 /* Mobile */
@@ -41,6 +42,7 @@
 
   #tradepost-img-container{height: 300px;}
   #profileTP-img-container{height: 210px;}  
+  #chatTP-img-container{height: 105px;}
 
   .zeroMargin-Padding-mobile {
     padding-left: 0px !important;

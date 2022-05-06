@@ -19,6 +19,7 @@
 const newMessageForm = $("#newMessageForm");
 
 var message         = $("#newMessage");
+var currentTime     = $("#current_time");
 var requestServer   = true;
 
 // Functions
@@ -54,12 +55,11 @@ function refreshChat(){
 // Repeat - 10 seconds
 setInterval(function(){refreshChat();}, 4000);
 
-
 // Events
 // Insert New Message
 newMessageForm.submit(async function( event ){
-    event.preventDefault();
-    
+    event.preventDefault();        
+
     requestServer = false;
 
     if ( message.val() === "" || message.val() === null ) {
@@ -79,7 +79,7 @@ newMessageForm.submit(async function( event ){
                     "</div> " +
                 "</div> " +
                 "<div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>" +
-                "<span>10:41</span> " +
+                "<span>" + currentTime.val() + "</span> " +
                     "</div> " +
                 "</div> " +
             "</div> " +
@@ -107,10 +107,7 @@ newMessageForm.submit(async function( event ){
     //     console.log(name, value);
     // }
 
-    // Send Post via POST to PHP
-
-    // *******
-    
+    // Send Post via POST to PHP    
     const response = await fetch('http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php', {
         method: "POST",
         body: formData

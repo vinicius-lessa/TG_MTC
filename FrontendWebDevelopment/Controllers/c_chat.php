@@ -11,6 +11,8 @@
  * 
  */
 
+date_default_timezone_set('America/Sao_Paulo');
+
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -85,8 +87,8 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
 
     // print_r($response);
 
-    if ( !$response['error'] ):            
-        
+    if ( !$response['error'] ):                
+
         foreach ($response['data'] as $chatRow) {
 
             if ( $chatRow['message_user_id'] == $_SESSION['user_id'] ):
@@ -103,7 +105,7 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
                                     </div>
                                 </div>
                                 <div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>
-                                    <span>10:41</span>
+                                    <span>" . date("H:i", strtotime($chatRow['created_on']) ) ."</span>
                                 </div>
                             </div>
                         </div>
@@ -122,14 +124,26 @@ if ( isset($_GET['userLogged']) && isset($_GET['userTwo']) && isset($_GET['post_
                                     </div>                                
                                 </div>
                                 <div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>
-                                    <span>10:41</span>
+                                    <span>" . date("H:i", strtotime($chatRow['created_on']) ) . "</span>
                                 </div>
                             </div>
                         </div>
                     </div>";
-            endif;
+            endif;                                                      
         }
-    else:
+
+        // Dia da Conversa
+        $chatDate = ( date("Y-m-d") == date("Y-m-d", strtotime($chatRow['created_on'])) ? "Hoje" : str_replace("-", "/", date('d-m-Y', strtotime( $chatRow['created_on'] ))) );
+
+        echo "<div class='col-12 my-3'>
+                <div class='d-flex justify-content-center'>
+                    <div class='py-2 px-4' style='background-color: black; border-radius: 10px;'>
+                        <span>" . $chatDate . "</span>
+                    </div>
+                </div>
+            </div>";
+    else:            
+            
         echo 200; // nenhuma conversa encontrada        
         exit;
         
