@@ -1,4 +1,14 @@
 <?php
+/**
+ * File DOC
+ * 
+ * @Description Model dos usuários, aqui são criadas funções chamadas pelo Controller de Usuários.
+ * @ChangeLog 
+ *  - Vinícius Lessa - 05/05/2022: Implementação da Função 'userUpdate' para a Atualização dos Dados dos Usúrarios.
+ * 
+ * @ Notes:
+ * 
+ */
 
 // INSERT / POST
 function userCreation($data) {
@@ -79,12 +89,7 @@ function userValidation($email, $password)
     $returnJson = file_get_contents($url, false, $context);
     
     // Tranforms Json in Array
-    $aData = json_decode($returnJson, true); // Trasnforma em Array
-
-    // Servers Problems // ***************** VERIFICAR STATUS DO SERVER NO INÍCIO DE CADA PÁGINA **********************
-    // if (count($aData) == 0 || $aData == false):
-    //     $aData = array("erro" => true , "msg" => "A requisição ao Servidor falhou! Tente Novamente" );
-    // endif;
+    $aData = json_decode($returnJson, true); // Trasnforma em Array    
 
     if (count($aData) == 0 || $aData == false):        
         $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Usuário ou a senha inválida!</div>"];
@@ -103,12 +108,12 @@ function userValidation($email, $password)
 
     // if ($status !== "200") {
     //     $aResult = array("mensagem" => $aResult['mensagem'], 'retorno' => false );
-    // }    
+    // }
     
     return $retorna;
 }
 
-
+// Unique Profile Data
 function loadProfileDetails($profileID){
     $token  = "16663056-351e723be15750d1cc90b4fcd";
     
@@ -136,25 +141,45 @@ function loadProfileDetails($profileID){
     $aData = json_decode($returnJson, true); // Trasnforma em Array
   
     if (count($aData) == 0 || $aData == false):
-      $aData = ['erro'=> true, 'msg' => $url];
+        $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problema ao Conectar ao Servidor!</div>"];            
     endif;
     
     return $aData;
-  }
-
-// ################################################# ANALISAR
-
-/* FUNÇÃO PARA LISTAR CLIENTES (usuários) */
-function listarClientes($conn)
-{
-    $sql = 'SELECT cod_cliente, nome_cliente, email FROM cliente';
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-
-    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return $result;
-    // print_r($result);
 }
 
-?>
+// Update User Info (POST)
+function userUpdate($data) {
+    
+    // Variables
+    $token      = "16663056-351e723be15750d1cc90b4fcd";
+    $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/?key=updateUser';
+    
+    $data       += ["token" => $token];
+
+    $postdata = http_build_query(
+        $data
+    );
+    
+    $opts = array('http' =>
+        array(
+            'method'        => 'POST',
+            'header'        => 'Content-Type: application/x-www-form-urlencoded',
+            'ignore_errors' => true,
+            'content'       => $postdata
+        )
+    );
+    
+    $context  = stream_context_create($opts);
+    
+    // file_get_contents
+    $returnJson = file_get_contents($url, false, $context);
+    
+    // Tranforms Json in Array
+    $aData = json_decode($returnJson, true); // Trasnforma em Array    
+
+    if (count($aData) == 0 || $aData == false):        
+        $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problema ao Conectar ao Servidor!</div>"];
+    endif;
+
+    return $aData;
+}

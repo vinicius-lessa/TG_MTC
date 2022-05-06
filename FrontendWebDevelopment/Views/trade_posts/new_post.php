@@ -401,7 +401,7 @@ endif;
                               </div>
                             </label>
                           </button>
-                          <input type="file" name="image-upload-one" id="image-upload-one" style="display: none;">
+                          <input type="file" accept="image/*" name="image-upload-one" id="image-upload-one" style="display: none;">
                         </div>
 
                       <?php else: ?>
@@ -422,7 +422,7 @@ endif;
                               </div>
                             </label>
                           </button>
-                          <input type="file" name="image-upload-one" id="image-upload-one" style="display: none;">
+                          <input type="file" accept="image/*" name="image-upload-one" id="image-upload-one" style="display: none;">
                         </div>                        
 
                         <?php if ( validateImageSource($tpDetails['data'][0]['image_name']) ): ?>
@@ -497,7 +497,7 @@ endif;
                               </div>
                             </label>
                           </button>
-                          <input type="file" name="image-upload-two" id="image-upload-two" style="display: none;">
+                          <input type="file" accept="image/*" name="image-upload-two" id="image-upload-two" style="display: none;">
                         </div> 
 
                       <?php else: ?>
@@ -518,7 +518,7 @@ endif;
                               </div>
                             </label>
                           </button>
-                          <input type="file" name="image-upload-two" id="image-upload-two" style="display: none;">
+                          <input type="file" accept="image/*" name="image-upload-two" id="image-upload-two" style="display: none;">
                         </div>
 
                         <?php if ( validateImageSource($tpDetails['data'][1]['image_name']) ): ?>
@@ -593,7 +593,7 @@ endif;
                               </div>
                             </label>
                           </button>
-                          <input type="file" name="image-upload-three" id="image-upload-three" style="display: none;">
+                          <input type="file" accept="image/*" name="image-upload-three" id="image-upload-three" style="display: none;">
                         </div> 
 
                       <?php else: ?>
@@ -614,7 +614,7 @@ endif;
                               </div>
                             </label>
                           </button>
-                          <input type="file" name="image-upload-three" id="image-upload-three" style="display: none;">
+                          <input type="file" accept="image/*" name="image-upload-three" id="image-upload-three" style="display: none;">
                         </div>
 
                         <?php if ( validateImageSource($tpDetails['data'][2]['image_name']) ): ?>                        

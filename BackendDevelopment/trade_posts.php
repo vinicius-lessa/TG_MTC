@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     INNER JOIN users u ON tp.user_id = u.user_id
                     LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id
                     -- CROSS JOIN images_trade_posts itp 
-                    INNER JOIN images_profile ip ON ip.user_id = u.user_id 
+                    LEFT JOIN images_profile ip ON ip.user_id = u.user_id 
                     WHERE 
                         tp.post_id          =:POST_ID and                        
                         tp.activity_status  = 1
@@ -994,7 +994,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
                 foreach ($dados as $image) {
                     $file = "uploads/".$image->image_name;
                     
-                    if( is_file($file) ) {
+                    if( is_file($file) ):
                         // delete file
                         if ( !(unlink($file)) ): 
 
@@ -1017,13 +1017,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
                                 http_response_code(500); // Internal Server Error
                                 echo json_encode([
                                     'error' => true ,
-                                    'mensagem' => "Anúncio NÃO DELETADO. Imagem(ens) DELETADA(s) do SERVER, porém não encontradas no BANCO (" . $image->image_name . ")."
+                                    'mensagem' => "Anúncio NÃO DELETADO. Imagem(ens) DELETADA(s) do Servidor, porém não encontradas no BANCO (" . $image->image_name . ")."
                                 ]);
                                 exit;
                             endif;
 
                         endif;
-                    }
+                    else:
+                        http_response_code(500); // Internal Server Error
+                        echo json_encode([
+                            'error' => true ,
+                            'mensagem' => "Arquivo '" . $file . "' não encontrado no Servidor!"
+                        ]);
+                        exit;
+                    endif;
                 }                                
 
                 // Deletes TRADE POST

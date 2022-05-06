@@ -83,6 +83,7 @@ $titlePage = "MTC | Cadastro";
               
                 <h3 class="text-white"><strong>Criar Conta</strong></h3>
                 <p class="text-white" style="font-size:14px;">Faça seu cadastro de forma rápida e gratuíta!</p>
+                
                 <div class="form-floating">
                   <input type="text" class="form-control test-input" placeholder="Nome" id="userName" name="username">
                   <label for="userName">Nome</label>

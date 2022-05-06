@@ -1,4 +1,7 @@
 <?php
+
+    error_reporting(0);
+    
     // Definir abaixo a partir do caminho do ROOT do Apache Server até a ROOT do projeto. Ex.: htdocs -> /TG_MTC/FrontEndWebDevelopment
     $dir = "/TG_MTC/FrontEndWebDevelopment";
 

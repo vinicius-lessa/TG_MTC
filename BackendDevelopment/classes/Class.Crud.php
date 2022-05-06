@@ -104,7 +104,8 @@ class CrudDB {
     # SQL UPDATE
     public static function update($arrayDados, $arrayCondicoes){
         try{
-            $sql = self::montaSQLUpdate($arrayDados, $arrayCondicoes);
+            $sql = self::montaSQLUpdate($arrayDados, $arrayCondicoes);            
+
             $stm = self::$conexao->prepare($sql);
 
             foreach($arrayDados as $key => $value):

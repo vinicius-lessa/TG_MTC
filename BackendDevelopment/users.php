@@ -7,6 +7,7 @@
  *  - Vinícius Lessa - 16/03/2022: Mudanças importantes para requisições utilizando o método GET. Agora, o servidor irá tratar parâmetros na URL.
  *  - Vinícius Lessa - 28/03/2022: Impletementação e testes na inserção de usuários via POST.
  *  - Vinícius Lessa - 14/04/2022: Diversos ajustes nos últimos dias, referentes a Consulta e Inclusão de usuários. Função 'ServerRespose()' removida.
+ *  - Vinícius Lessa - 05/05/2022: Melhoria no processo de troca de fotos de perfil, onde a última foto utiliza é deletada Físicamente e do Banco de Dados.
  * 
  * @ Tips & Tricks: 
  *      - Use this to check the method type: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -46,7 +47,8 @@ $uri = basename($_SERVER['REQUEST_URI']);
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
     // For example:  .../users.php/?token=...&key=allUsers
-    // For example: .../users.php/?token=...&key=id&value=7    
+    // For example: .../users.php/?token=...&key=id&value=7
+    // For example: .../users.php/?token=...&key=email&value=vinicius@gmail.com
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
@@ -70,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         else:
             // All Users
             if ( $keySearch == 'allUsers' ):
-                $dados = CrudDB::select(
+                $dbReturn = CrudDB::select(
                     'SELECT u.user_id,
                             u.user_name, 
                             u.birthday,
@@ -86,26 +88,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     FROM users u
                     WHERE u.activity_status = 1
                     order by u.created_on desc limit 12;', [], TRUE);
-                if (!empty($dados)):
+                if (!empty($dbReturn)):
                     
-                    for ($i = 0; $i < count($dados); $i++) {
+                    for ($i = 0; $i < count($dbReturn); $i++) {
                     
-                        if ( !empty($dados[$i]->image_name) ):
-                            $dados[$i]->image_name = SITE_URL . "/uploads/user-profile/" . $dados[$i]->image_name;
+                        if ( !empty($dbReturn[$i]->image_name) ):
+                            $dbReturn[$i]->image_name = SITE_URL . "/uploads/user-profile/" . $dbReturn[$i]->image_name;
                         endif;
 
                         // Consulta Cep e Adicina no Retorno
-                        if ( !empty($dados[$i]->cep) ):
+                        if ( !empty($dbReturn[$i]->cep) ):
 
-                            $dadosCEP = ViaCEP::consultarCEP($dados[$i]->cep);
+                            $dadosCEP = ViaCEP::consultarCEP($dbReturn[$i]->cep);
 
                             if ( $dadosCEP != null ):
                                 // Adiciona nova Propriedade ao Objeto
-                                $dados[$i] = (array)$dados[$i];
-                                $dados[$i]['state'] = $dadosCEP["uf"];
-                                $dados[$i]['city'] = $dadosCEP["localidade"];
-                                $dados[$i]['district'] = $dadosCEP["bairro"];
-                                $dados[$i] = (object)$dados[$i];
+                                $dbReturn[$i] = (array)$dbReturn[$i];
+                                $dbReturn[$i]['state'] = $dadosCEP["uf"];
+                                $dbReturn[$i]['city'] = $dadosCEP["localidade"];
+                                $dbReturn[$i]['district'] = $dadosCEP["bairro"];
+                                $dbReturn[$i] = (object)$dbReturn[$i];
                             endif;
                         endif;
                         
@@ -114,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     http_response_code(200);
                     echo json_encode([
                         'error' => false ,
-                        'data'  => $dados
+                        'data'  => $dbReturn
                     ]);
                     exit;
                 else:
@@ -132,9 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $userId = $valueSearch;
 
                 if (is_numeric($userId)):
-                    $dados = CrudDB::select(
+                    $dbReturn = CrudDB::select(
                         'SELECT u.user_id,
-                                u.user_name, 
+                                u.user_name,
+                                u.password,
                                 u.birthday, 
                                 u.phone, 
                                 u.tipo_pessoa, 
@@ -152,25 +155,107 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ,['USER_ID' => $userId]
                         ,TRUE);
                     
-                    if (!empty($dados)):
-                        for ($i = 0; $i < count($dados); $i++) {
+                    if (!empty($dbReturn)):
+                        for ($i = 0; $i < count($dbReturn); $i++) {
                     
-                            if ( !empty($dados[$i]->image_name) ):
-                                $dados[$i]->image_name = SITE_URL . "/uploads/user-profile/" . $dados[$i]->image_name;
+                            if ( !empty($dbReturn[$i]->image_name) ):
+                                $dbReturn[$i]->image_name = SITE_URL . "/uploads/user-profile/" . $dbReturn[$i]->image_name;
                             endif;
 
                             // Consulta Cep e Adicina no Retorno
-                            if ( !empty($dados[$i]->cep) ):
+                            if ( !empty($dbReturn[$i]->cep) ):
 
-                                $dadosCEP = ViaCEP::consultarCEP($dados[$i]->cep);
+                                $dadosCEP = ViaCEP::consultarCEP($dbReturn[$i]->cep);
 
                                 if ( $dadosCEP != null ):
                                     // Adiciona nova Propriedade ao Objeto
-                                    $dados[$i] = (array)$dados[$i];
-                                    $dados[$i]['state'] = $dadosCEP["uf"];
-                                    $dados[$i]['city'] = $dadosCEP["localidade"];
-                                    $dados[$i]['district'] = $dadosCEP["bairro"];
-                                    $dados[$i] = (object)$dados[$i];
+                                    $dbReturn[$i] = (array)$dbReturn[$i];
+                                    switch ($dadosCEP["uf"]) {
+                                        case 'AC':
+                                            $dbReturn[$i]['state'] = 'AC - Acre';
+                                            break;
+                                        case 'AL':
+                                            $dbReturn[$i]['state'] = 'AL - Alagoas';
+                                            break;
+                                        case 'AM':
+                                            $dbReturn[$i]['state'] = 'AM - Amazonas';
+                                            break;
+                                        case 'AP':
+                                            $dbReturn[$i]['state'] = 'AP - Amapá';    
+                                            break;
+                                        case 'BA':
+                                            $dbReturn[$i]['state'] = 'BA - Bahia';
+                                            break;
+                                        case 'CE':
+                                            $dbReturn[$i]['state'] = 'CE - Ceará';
+                                            break;
+                                        case 'DF':
+                                            $dbReturn[$i]['state'] = 'DF - Distrito Federal';
+                                            break;
+                                        case 'ES':
+                                            $dbReturn[$i]['state'] = 'ES - Espírito Santo';
+                                            break;
+                                        case 'GO':
+                                            $dbReturn[$i]['state'] = 'GO - Goiás';
+                                            break;
+                                        case 'MA':
+                                            $dbReturn[$i]['state'] = 'MA - Maranhão';
+                                            break;
+                                        case 'MT':
+                                            $dbReturn[$i]['state'] = 'MT - Mato Grosso ';
+                                            break;
+                                        case 'MS':
+                                            $dbReturn[$i]['state'] = 'MS - Mato Grosso do Sul';
+                                            break;
+                                        case 'MG':
+                                            $dbReturn[$i]['state'] = 'MG - Minas Gerais';
+                                            break;
+                                        case 'PA':
+                                            $dbReturn[$i]['state'] = 'PA - Pará';
+                                            break;
+                                        case 'PB':
+                                            $dbReturn[$i]['state'] = 'PB - Paraíba';
+                                            break;
+                                        case 'PR':
+                                            $dbReturn[$i]['state'] = 'PR - Paraná';
+                                            break;
+                                        case 'PE':
+                                            $dbReturn[$i]['state'] = 'PE - Pernambuco';
+                                            break;
+                                        case 'PI':
+                                            $dbReturn[$i]['state'] = 'PI - Piauí';
+                                            break;
+                                        case 'RJ':
+                                            $dbReturn[$i]['state'] = 'RJ - Rio de Janeiro';
+                                            break;
+                                        case 'RN':
+                                            $dbReturn[$i]['state'] = 'RN - Rio Grande do Norte';
+                                            break;
+                                        case 'RS':
+                                            $dbReturn[$i]['state'] = 'RS - Rio Grande do Sul';
+                                            break;
+                                        case 'RO':
+                                            $dbReturn[$i]['state'] = 'RO - Rondônia';
+                                            break;
+                                        case 'RR':
+                                            $dbReturn[$i]['state'] = 'RR - Roraima';
+                                            break;
+                                        case 'SC':
+                                            $dbReturn[$i]['state'] = 'SC - Santa Catarina';
+                                            break;
+                                        case 'SP':
+                                            $dbReturn[$i]['state'] = 'SP - São Paulo';
+                                            break;
+                                        case 'SE':
+                                            $dbReturn[$i]['state'] = 'SE - Sergipe';
+                                            break;
+                                        case 'TO':
+                                            $dbReturn[$i]['state'] = 'TO - Tocantins';
+                                            break;
+                                    }
+                                    $dbReturn[$i]['city'] = $dadosCEP["localidade"];
+                                    $dbReturn[$i]['district'] = $dadosCEP["bairro"];
+                                    $dbReturn[$i] = (object)$dbReturn[$i];
                                 endif;
                             endif;
                         }
@@ -178,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         http_response_code(200);
                         echo json_encode([
                             'error' => false ,
-                            'data'  => $dados
+                            'data'  => $dbReturn
                         ]);
                         exit;
                     else:
@@ -203,7 +288,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 $userEmail = $valueSearch;
 
                 if (!is_numeric($userEmail)):
-                    $dados = CrudDB::select('SELECT 
+                    $dbReturn = CrudDB::select('SELECT 
                                                 u.user_id, 
                                                 u.user_name, 
                                                 u.email, 
@@ -220,8 +305,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ,TRUE);
                     
                     // Se possuir Imagem de Perfil                    
-                    if ( !empty($dados) && !empty($dados[0]->image_name) ):
-                        foreach ($dados as $user) {
+                    if ( !empty($dbReturn) && !empty($dbReturn[0]->image_name) ):
+                        foreach ($dbReturn as $user) {
                             if ( !empty($user->image_name) ):
                                 $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
                             endif;
@@ -242,9 +327,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         endif;
 
         // Final DATA
-        // if (!Empty($dados)):
+        // if (!Empty($dbReturn)):
             http_response_code(200);
-            echo json_encode($dados);
+            echo json_encode($dbReturn);
             exit;
         // else:    
             // http_response_code(404); // Not Found
@@ -262,7 +347,7 @@ endif;
 
 #############################################################################################
 
-// # POST (INCLUSÃO)
+// # POST (CREATE e UPDATE)
 // No INSOMINIA, utilizar o "MULTIPART FORM" (Structured)
 if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
@@ -271,6 +356,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // - Alteração da Foto de Perfil: 'users.php/?key=profilePic'
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
 
     // Token Validation
     if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
@@ -282,23 +368,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         exit;
     endif;
 
+    // Vars
+    $userName       = (isset($_POST['userName'])) ? $_POST['userName'] : '' ;
+    $userBirthday   = (isset($_POST['userBirthday'])) ? $_POST['userBirthday'] : '' ;
+    $userPhone      = (isset($_POST['userPhone'])) ? $_POST['userPhone'] : '' ;
+    $userType       = (isset($_POST['userType'])) ? $_POST['userType'] : '' ;
+    $userEmail      = (isset($_POST['userEmail'])) ? $_POST['userEmail'] : '' ;
+    $userZipCode    = (isset($_POST['userZipCode'])) ? $_POST['userZipCode'] : '' ;
+    $userPassword   = (isset($_POST['userPassword'])) ? $_POST['userPassword'] : '' ;
+    $bioText        = (isset($_POST['bioText'])) ? $_POST['bioText'] : '' ;
+    
+
+
     if ( !Empty($uri) && $uri <> 'index.php' ):        
         $keySearch      = (isset($_GET["key"])) ? $_GET["key"] : ""        ;
     endif;
 
     // New User
-    if ( $keySearch == "newUser" ):
-        
-        // Variables
-        $userName           = (isset($_POST['userName'])) ? $_POST['userName'] : ''                 ;
-        $userBirthday       = (isset($_POST['userBirthday'])) ? $_POST['userBirthday'] : ''         ;
-        $userPhone          = (isset($_POST['userPhone'])) ? $_POST['userPhone'] : ''               ;
-        $userType           = (isset($_POST['userType'])) ? $_POST['userType'] : ''                 ;
-        $userEmail          = (isset($_POST['userEmail'])) ? $_POST['userEmail'] : ''               ;    
-        $userZipCode        = (isset($_POST['userZipCode'])) ? $_POST['userZipCode'] : ''           ;    
-        $userPassword       = (isset($_POST['userPassword'])) ? $_POST['userPassword'] : ''         ;
-        // $cpf_cnpj           = (isset($_POST['cpf_cnpj'])) ? $_POST['cpf_cnpj'] : ''                 ;
-        // $bio                = (isset($_POST['bio'])) ? $_POST['bio'] : ''                           ;
+    if ( $keySearch == "newUser" ):       
 
         if (empty($userName) or
             empty($userType) or 
@@ -314,15 +401,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         endif;
         
         // Verifica se USER já existe
-        $dados = CrudDB::select(
+        $dbReturn = CrudDB::select(
             "SELECT email FROM users WHERE email LIKE(:EMAIL) and activity_status = 1",
             ['EMAIL' => $userEmail],
             TRUE
         );
 
-        if (!Empty($dados)):        
+        if (!Empty($dbReturn)):        
             http_response_code(406);
             echo json_encode([
+                'error'     => true ,
                 'msg'       => 'Usuário já existe!' ,
                 'cod_erro'  => 1
             ]);
@@ -339,39 +427,115 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                 'birthday'          => "'" . $userBirthday . "'"    ,
                 'phone'             => "'" . $userPhone . "'"       ,
                 'cep'               => "'" . $userZipCode . "'"     ,
-                // 'cpf_cnpj'          => "'" . $cpf_cnpj . "'"        ,
-                // 'bio'               => "'" . $bio . "'"
             ]);
 
             if ($retorno):
                 // Consulta a inclusão feita para devolver dados de login automático
-                $dados = CrudDB::select('SELECT user_id, user_name, email FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
+                $dbReturn = CrudDB::select('SELECT user_id, user_name, email FROM users WHERE email =:USER_EMAIL AND activity_status = 1 LIMIT 1'
                     ,['USER_EMAIL' => $userEmail]
                     ,TRUE);
 
-                if (!Empty($dados)):
+                if (!empty($dbReturn)):
                     http_response_code(201);
                     echo json_encode([
+                        'error' => false ,
                         'msg'   => 'Usuário inserido com Sucesso!' ,
-                        'dados' => $dados 
-                    ]);                
+                        'dados' => $dbReturn 
+                    ]);
                 else:
                     http_response_code(500);
-                    echo json_encode(['msg' => 'Usuário inserido com sucesso, porém não encontrado para realizar login automático!']);
+                    echo json_encode([
+                        'error' => true ,
+                        'msg' => 'Usuário inserido com sucesso, porém não encontrado para realizar login automático!'
+                    ]);
                 endif;
                 exit;
-            else:            
+            else:
                 http_response_code(500);
-                echo json_encode(['msg' => 'Erro ao inserir novo Usuário!']);
+                echo json_encode([
+                    'error' => true ,
+                    'msg' => 'Erro ao inserir novo Usuário!'
+                ]);
             endif;
-        endif;        
+        endif;
+
+    // Update Profile
+    elseif ( $keySearch == "updateUser" ):
+
+        $user_id = (isset($_POST['user_id']) ? intval($_POST['user_id']) : 0 ) ;
+
+        if (empty($userEmail) or
+            empty($userZipCode) or
+            $user_id == 0 || !is_numeric($user_id)
+            ):
+            http_response_code(406); // Not Acceptable
+            echo json_encode([
+                'error' => true , 
+                'msg' => 'Informe Todos os Parâmetros!'
+            ]);
+            exit;
+        endif;
+
+        // Check If Another User Already Has This E-mail
+        $dbReturn = CrudDB::select(
+            "SELECT user_id FROM users WHERE email LIKE(:EMAIL) AND user_id <> :USER_ID AND activity_status = 1;",
+            [
+                'EMAIL'     => $userEmail ,
+                'USER_ID'   => $user_id
+            ],
+            TRUE
+        );
+
+        if (!Empty($dbReturn)):
+            http_response_code(406); // Unacceptable
+            echo json_encode([
+                'error'     => true ,
+                'msg'       => 'Este e-mail já foi Cadastrado!' ,
+                'cod_erro'  => 1
+            ]);
+            exit;
+        else:  
+
+            CrudDB::setTabela('users');
+                
+            // $dbReturn = true;
+            $dbReturn = CrudDB::update([
+                // 'user_name'         => "'" . $userName . "'" ,
+                'email'             => "'" . $userEmail . "'" ,
+                // 'password'          => "'" . $userPassword . "'" ,
+                // 'tipo_pessoa'       => "'" . $userType. "'" ,
+                'birthday'          => "'" . $userBirthday . "'" ,
+                'phone'             => "'" . $userPhone . "'" ,
+                'cep'               => "'" . $userZipCode . "'" ,
+                'bio'               => "'" . $bioText . "'" ,
+            ],
+            [            
+                'user_id' => $user_id 
+            ]);
+        
+            if ($dbReturn):
+                http_response_code(202); // Acccepted
+                echo json_encode([
+                    'error' => false , 
+                    'msg' => 'Perfil Atualizado com Sucesso!'
+                ]);
+                exit;
+            else:
+                http_response_code(500); // Internal Error
+                echo json_encode([
+                    'error' => false , 
+                    'msg' => 'Problema ao realizar Atualização no Banco de Dados!'
+                ]);
+                exit;
+            endif;
+        endif;
 
     // New Profile Photo
-    elseif ( $keySearch == "profilePic" ):        
+    elseif ( $keySearch == "profilePic" ):
     
-        $user_id = (isset($_POST['user_id']))        ? intval($_POST['user_id']) : 0 ;
+        $user_id = (isset($_POST['user_id']) ? intval($_POST['user_id']) : 0 ) ;
 
-        if ( empty($user_id) ):         
+        if ( $user_id == 0 || !is_numeric($user_id) ):
             http_response_code(406); // Not Acceptable
             echo json_encode([
                 'error' => true ,
@@ -380,13 +544,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             exit;
         else:
             // Verifica se o USER existe        
-            $dados = CrudDB::select(
+            $dbReturn = CrudDB::select(
                 "SELECT u.user_id FROM users u WHERE u.user_id =:USER_ID and activity_status = 1",
                 ['USER_ID' => $user_id],
                 TRUE
             );
 
-            if ( empty($dados) ):
+            if ( empty($dbReturn) ):
                 http_response_code(406);
                 echo json_encode([
                     'error' => true ,
@@ -395,6 +559,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                 exit;
             endif;
 
+        endif;
+
+        // Check Profile Last Photo(s)        
+        $dbReturn = CrudDB::select(
+            "SELECT ip.image_id , ip.image_name, ip.user_id
+            FROM images_profile ip
+            INNER JOIN users u ON u.user_id = ip.user_id 
+            WHERE ip.activity_status = 1 AND
+                  ip.user_id =:USER_ID AND
+                  u.activity_status = 1;",
+            ['USER_ID' => $user_id],
+            TRUE
+        );
+
+        if ( !empty($dbReturn) ):
+            foreach ($dbReturn as $image) {                
+                
+                // Deletes File within SERVER
+                $file = "uploads/user-profile/".$image->image_name;                
+                    
+                if( is_file($file) ):
+
+                    // delete file
+                    if ( !(unlink($file)) ): 
+
+                        http_response_code(500); // Internal Server Error
+                        echo json_encode([
+                            'error' => true ,
+                            'msg' => "Anúncio NÃO Deletado. Problema na Deleção do(s) Arquivo(s) '". $file . "' do SERVER!"
+                        ]);
+                        exit;
+                    else:
+                        // Deletes Image in `image_profile` Table
+                        CrudDB::setTabela('images_profile');
+                        $retorno = CrudDB::delete([
+                            'user_id' => $image->user_id ,
+                            'image_id' => $image->image_id               
+                        ]);
+
+                        // Failed
+                        if ( !$retorno ):
+                            http_response_code(500); // Internal Server Error
+                            echo json_encode([
+                                'error' => true ,
+                                'msg' => "Problemas para Deletar a imagem Atual de Perfil! ('" . $image->image_name . "')"
+                            ]);
+                            exit;
+                        endif;  
+                    endif;
+                else:
+                    http_response_code(500); // Internal Server Error
+                    echo json_encode([
+                        'error' => true ,
+                        'msg' => "Arquivo '" . $file . "' não encontrado no Servidor!"
+                    ]);
+                    exit;
+                endif;                              
+            }
         endif;
 
         // Checks IMAGES to UPLOAD
@@ -535,7 +757,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
         empty($bio) or
         empty($password)
         ):
-        echo json_encode(['mensagem' => 'Informe Todos os Parâmetros!']);
+        echo json_encode(['msg' => 'Informe Todos os Parâmetros!']);
         http_response_code(406);
         exit;
     endif;
@@ -562,10 +784,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
 
     if ($retorno):
         http_response_code(202);
-        echo json_encode(['mensagem' => 'Usuário atualizado com sucesso!']);
+        echo json_encode(['msg' => 'Usuário atualizado com sucesso!']);
     else:
         http_response_code(500);
-        echo json_encode(['mensagem' => 'Erro ao atualizar Usuário!']);
+        echo json_encode(['msg' => 'Erro ao atualizar Usuário!']);
     endif;
 endif;
 
@@ -578,12 +800,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
 
     // if (!is_numeric($uri)):
-    //     echo json_encode(['mensagem' => 'O parâmetro não é numérico']);
+    //     echo json_encode(['msg' => 'O parâmetro não é numérico']);
     //     http_response_code(406);
     //     exit;
     // else:
-    //     $dados = CrudDB::select('SELECT id FROM estoque WHERE id = :id', ['id' => $uri], FALSE);
-    //     if (!empty($dados)):
+    //     $dbReturn = CrudDB::select('SELECT id FROM estoque WHERE id = :id', ['id' => $uri], FALSE);
+    //     if (!empty($dbReturn)):
     //         // Exclui da Tabela ESTOQUE
     //         CrudDB::setTabela('estoque');
     //         $retorno = CrudDB::delete(['id' => $uri]);
@@ -594,16 +816,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
 
     //         if ($retorno):
     //             http_response_code(202);
-    //             echo json_encode(['mensagem' => 'Deletado com sucesso!']);
+    //             echo json_encode(['msg' => 'Deletado com sucesso!']);
     //             exit;
     //         else:
     //             http_response_code(500);
-    //             echo json_encode(['mensagem' => 'Problema na deleção do cliente!']);
+    //             echo json_encode(['msg' => 'Problema na deleção do cliente!']);
     //             exit;
     //         endif;
     //     else:
     //         http_response_code(404);
-    //         echo json_encode(['mensagem' => 'O parâmetro informado não foi encontrado']);
+    //         echo json_encode(['msg' => 'O parâmetro informado não foi encontrado']);
     //         exit;
     //     endif;
     // endif;

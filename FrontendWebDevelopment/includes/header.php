@@ -85,8 +85,11 @@
             <li class="nav-link active d-flex justify-content-center btn-navbar"><a href="<?php echo SITE_URL ?>/Views/users/sign_in.php" class="border-button nav-link text-white" aria-current="page">Entrar</a></li>
           </li>
           <li class="nav-item mx-1">
-            <li class="nav-link active d-flex justify-content-center btn-signUp"><a href="<?php echo SITE_URL ?>/Views/users/sign_up.php" class="border-button nav-link text-white" aria-current="page">Comerçar</a></li>          
-          </li>
+            <li class="nav-link active d-flex justify-content-center btn-navbar btn-signUp"><a href="<?php echo SITE_URL ?>/Views/users/sign_up.php" class="border-button nav-link text-white" aria-current="page">Começar</a></li>
+          </li>          
+          <!-- <li class="nav-item mx-1">
+            <li class="nav-link active d-flex justify-content-center btn-signUp"><a href="<?php echo SITE_URL ?>/Views/users/sign_up.php" class="border-button nav-link text-white" aria-current="page"><strong>Começar</strong></a></li>
+          </li> -->
         <?php endif; ?>        
 
       </ul>

@@ -105,6 +105,8 @@ signUpForm.submit(async function( event ){
 
         if(resposta['erro']){
             msgAlertErroSignUp.html(resposta['msg']);
+            
+            // User Already Exists
             if (resposta['cod_erro'] == 1) {
                 $(userEmail).css({'border': '2px solid #f64141'});
             }
@@ -112,11 +114,6 @@ signUpForm.submit(async function( event ){
         } else {
             // Recarrega PHP
             document.location.reload();
-            
-            // Review at "examples":
-            // document.getElementById("dados-usuario").innerHTML = "Bem vindo " + resposta['dados'].nome + "<br><a href='sair.php'>Sair</a><br>";
-            // loginForm.reset();
-            // loginModal.hide();
         }
 
         // Desabilita Loading

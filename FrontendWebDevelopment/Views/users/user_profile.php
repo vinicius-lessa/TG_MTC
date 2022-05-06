@@ -135,7 +135,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <!-- Error on User Search ? No -->
       <?php else: ?>
       
-        <div class="container zeroMargin-Padding-mobile">
+        <div class="container ">
           
         <!-- Não Logado -->
         <?php
@@ -191,7 +191,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                         </svg>
                       </label>
                     </button>                  
-                    <input type="file" name="profile-image" id="profile-image" style="display: none;">
+                    <input type="file" accept="image/*" name="profile-image" id="profile-image" style="display: none;">
                   </div>
                   <!-- <input type="submit" value="Send"> -->
                 </form>
@@ -201,8 +201,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <div class="row">
               <div class="col-12 text-center mb-3 mt-1 p-2">
                 <span id="msgAlertErroProfile" class="d-flex justify-content-center"></span>
-                <h4><strong><?php echo $_SESSION['user_name'] ?></strong></h4>
-                <h5 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?></h5>
+                <h3><strong><?php echo $_SESSION['user_name'] ?></strong></h3>
+                <h4 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?></h4>
               </div>
             </div>
           </div>        
@@ -236,176 +236,372 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       
                       <!-- Self User Data -->
                       <div class="tab-pane fade <?php echo $defaultContent == "about" ? "show active" : "" ; ?>" id="dados" role="tabpanel" aria-labelledby="dados-tab">                                            
-                        <div class="row">
-                          <div class="col-12 mt-5 mb-5 text-center">
-                            <h4 class="text-red"><strong>Minhas Informações</strong></h4>
-                          </div>
-                        </div>
-
-                        <div class="row mx-1">
-                          <div class="col-12 col-sm-6">
-                            <div class="text-center">
-                              <h5 class="text-red">Informações Artísticas</h5>
-                            </div>
-
-                            <!-- Habilidades -->
-                            <div class="row mb-3">
-                              <div class="col-12 m-0">
-                                <p><strong>Principais Habilidades:</strong></p>
-                                <p class="text-white">Canto, Guitarra Solo, Bateria Básica</p>
-                              </div>
-                              <div class="col-10 m-0">                                
-                                <select class="form-select" aria-label="Default select example">
-                                  <option selected>Adicionar Habilidades</option>
-                                  <option value="1">Guitarra Base</option>
-                                  <option value="1">Guitarra Solo</option>
-                                  <option value="1">Violão Clássico</option>
-                                  <option value="1">Contrabaixo Elétrico</option>
-                                  <option value="1">Contrabaixo Acústico</option>
-                                  <option value="1">Bateria</option>
-                                  <option value="1">Percussão</option>
-                                  <option value="2">Metais (Sopro)</option>
-                                  <option value="2">Metais (Madeira)</option>
-                                  <option value="2">Violino</option>
-                                  <option value="2">Violoncelo</option>
-                                  <option value="2">Harpa</option>
-                                  <option value="4">DJ</option>
-                                  <option value="5">Produtor</option>
-                                  <option value="6">Engenheiro de Áudio</option>
-                                </select>
-                              </div>
-                              <div class="col-2 m-0">
-                                <buttom class="btn btn-NoFill-default text-lightred" type="button">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                  </svg>
-                                </buttom>
+                        
+                        <article class="px-3 zeroMargin-Padding-mobile">
+                          
+                          <!-- Form -->
+                          <form id="profileUpdate-form">
+                            <div class="row">
+                              <div class="col-12 mt-5 mb-4 text-center">
+                                <h3 class="text-red"><strong>Minhas Informações</strong></h3>
                               </div>
                             </div>
-
-                            <hr class="hr-default">
-
-                            <!-- Gênero -->
-                            <div class="row mb-3">
-                              <div class="col-12 m-0">
-                                <p><strong>Gêneros Preferidos:</strong></p>
-                                <p class="text-white">Rock & Roll, Blues, Bossa Nova</p>
-                              </div>
-                              <div class="col-10 m-0">                                
-                                <select class="form-select" aria-label="Default select example">
-                                  <option selected>Adicionar Gêneros</option>
-                                  <option value="1">Hard Rock</option>
-                                  <option value="1">Heavy Metal</option>
-                                  <option value="1">Death Metal</option>
-                                  <option value="1">Black Metal</option>
-                                  <option value="1">Grunge</option>
-                                  <option value="1">Glam Rock</option>
-                                  <option value="1">Opera Rock</option>
-                                  <option value="2">Blues</option>
-                                  <option value="3">Folk</option>
-                                  <option value="4">Bossa Nova</option>
-                                  <option value="5">Sertanejo</option>
-                                  <option value="6">EDM</option>
-                                  <option value="7">Tours</option>
-                                  <option value="8">Funk</option>
-                                  <option value="9">Funk (Carioca)</option>
-                                </select>
-                              </div>
-                              <div class="col-2 m-0">
-                                <buttom class="btn btn-NoFill-default text-lightred" type="button">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                  </svg>
-                                </buttom>
-                              </div>
-                            </div>
-
-                            <hr class="hr-default">
-
-                            <!-- Bio -->
-                            <h6 class="text-red mt-4"><strong>Biografia</strong></h6>
-                            <!-- <div class="form-group">
-                            <textarea class="form-control" type="text" name="description" id="description" rows="3">
-                              <?php // echo $profileDetails['data'][0]['bio'] ?>
-                            </textarea>
-                            </div> -->
-
-                            <p class="text-white mt-2" style="font-size:14px;">
-                              <?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Não Informado") ; ?>
-                            </p>
-
-                          </div>          
-
-                          <!-- OUTRAS INFORMAÇÕES -->
-                          <div class="col-12 col-sm-6 mb-5">
-                            <div class="text-center">
-                              <h5 class="text-red">Outras Informações</h5>
-                            </div>
-
-                            <!-- E-mail -->
-                            <div class="form-group text-white mt-3">
-                              <label for="userEmail"><strong>E-mail:</strong></label>
-                              <input type="email" class="form-control" placeholder="Informe seu E-mail" id="userEmail" name="email" value="<?php echo $profileDetails['data'][0]['email'] ; ?>">
-                            </div>
-
-                            <!-- Phone -->
-                            <div class="form-group text-white mt-3">
-                              <label for="userPhone">Telefone/Celular</label>
-                              <input type="tel" class="form-control" placeholder="Informe seu Telefone" id="userPhone" name="phone" value="<?php echo $profileDetails['data'][0]['phone'] ; ?>">
-                            </div>
-
-                            <hr class="hr-default">
-
-                            <!-- CEP (editable) -->
-                            <div class="form-group mt-3">
-                              <label for="userZipCode"><strong>Código Postal (CEP):</strong></label>
-                              <input 
-                                type="text" 
-                                class="form-control"
-                                placeholder="Preencha seu CEP"
-                                id="userZipCode"
-                                name="cep"
-                                value="<?php echo $profileDetails['data'][0]['cep'] ; ?>"
-                              >
-                            </div>                            
-
-                            <!-- Estado -->
-                            <div class="form-group mt-3">
-                              <p class="mb-2">
-                                <strong>Estado:</strong>
-                                <?php echo (isset($profileDetails['data'][0]['state']) && !empty($profileDetails['data'][0]['state']) ? $profileDetails['data'][0]['state'] : "Não Informado") ?>
-                              </p>
-                            </div>
-
-                            <!-- Cidade -->
-                            <div class="form-group mt-3">
-                              <p class="mb-2">
-                                <strong>Cidade:</strong>
-                                <?php echo (isset($profileDetails['data'][0]['city']) && !empty($profileDetails['data'][0]['city']) ? $profileDetails['data'][0]['city'] : "Não Informado") ?>
-                              </p>
+                              
+                            <!-- Submit Error Message -->
+                            <div class="col-12 text-center my-2 mx-0">
+                              <span id="msgAlertErroUpdate" class="d-flex justify-content-center"></span>
                             </div>
                             
-                            <!-- Bairro -->
-                            <div class="form-group mt-3">
-                              <p class="mb-2">
-                                <strong>Bairro:</strong>
-                                <?php echo (isset($profileDetails['data'][0]['district']) && !empty($profileDetails['data'][0]['district']) ? $profileDetails['data'][0]['district'] : "Não Informado") ?>
-                              </p>
+                            <!-- Infomrações Artíticas -->
+                            <div class="container">
+
+                              <div class="row m-0">
+                                <!-- Main Info -->
+                                <div class="col-12">
+                                  <div class="text-center">
+                                    <h5 class="text-red"><strong>Informações Artísticas</strong></h5>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row mx-1">
+                                <!-- Habilidades -->
+                                <div class="col-12 col-sm-6 my-0 py-0">
+                                  <div class="row my-0">
+                                    <p><strong>Principais Habilidades:</strong></p>
+                                    <p class="text-white" id="userHabilty-text">Canto, Guitarra Solo, Bateria Básica</p>  <!-- Caso nao tenha nada: "Adicione Novas Habilidades!" -->
+                                  </div>
+
+                                  <div class="row my-0">
+                                    <div class="col-11 my-0">
+                                      <select class="form-select" aria-label="Default select example" id="hability-list">
+                                        <option value="" selected>Adicionar Habilidades</option>
+                                        <option value="1">Guitarra Base</option>
+                                        <option value="2">Guitarra Solo</option>
+                                        <option value="3">Violão Clássico</option>
+                                        <option value="4">Contrabaixo Elétrico</option>
+                                        <option value="5">Contrabaixo Acústico</option>
+                                        <option value="6">Bateria</option>
+                                        <option value="7">Percussão</option>
+                                        <option value="8">Metais (Sopro)</option>
+                                        <option value="9">Metais (Madeira)</option>
+                                        <option value="10">Violino</option>
+                                        <option value="11">Violoncelo</option>
+                                        <option value="12">Harpa</option>
+                                        <option value="13">DJ</option>
+                                        <option value="14">Produtor</option>
+                                        <option value="15">Engenheiro de Áudio</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-1 d-flex flex-row-reverse ">
+                                      <buttom class="btn edit-btn addThing-btn" type="button" name="addHabilty" id="addHabilty">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                        </svg>
+                                      </buttom>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- Gênero -->         
+                                <div class="col-12 col-sm-6 my-0 py-0">                   
+                                  <div class="row my-0 py-0">
+                                    <p><strong>Gêneros Preferidos:</strong></p>
+                                    <p class="text-white" id="userStyles-text">Rock & Roll, Blues</p> <!-- Caso nao tenha nada: "Adicione Novos Gêneros!" -->
+                                  </div>
+                                  <div class="row my-0 py-0">
+                                    <div class="col-11 my-0">
+                                      <select class="form-select" aria-label="Default select example" id="style-list">
+                                        <option value="" selected>Adicionar Gêneros</option>
+                                        <option value="1">Hard Rock</option>
+                                        <option value="2">Heavy Metal</option>
+                                        <option value="3">Death Metal</option>
+                                        <option value="4">Black Metal</option>
+                                        <option value="5">Grunge</option>
+                                        <option value="6">Glam Rock</option>
+                                        <option value="7">Opera Rock</option>
+                                        <option value="8">Blues</option>
+                                        <option value="9">Folk</option>
+                                        <option value="10">Bossa Nova</option>
+                                        <option value="11">Sertanejo</option>
+                                        <option value="12">EDM</option>
+                                        <option value="13">Tours</option>
+                                        <option value="14">Funk</option>
+                                        <option value="15">Funk (Carioca)</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-1 d-flex flex-row-reverse my-0 py-0">
+                                      <buttom class="btn edit-btn addThing-btn" type="button" name="addMusicStyle" id="addMusicStyle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                                        </svg>
+                                      </buttom>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row mx-1">                                  
+
+                                <!-- Bio -->
+                                <div class="col-12 col-sm-6 my-0 py-0">
+                                  <div class="row my-0 py-0">
+                                    <div class="col-12 my-1 py-0">
+                                      <h5 class="text-red"><strong>Biografia</strong></h5>
+                                    </div>
+                                    <div class="col-12 my-1">
+                                      <div class="input-group my-0 py-0">
+                                        <textarea
+                                          class="form-control textAreaDefault"
+                                          name="bioText"
+                                          id="bio-text"
+                                          aria-label="With textarea"
+                                          autocapitalize="none"
+                                          autocomplete="off"
+                                          maxlength="500"
+                                          minlength="10"
+                                          spellcheck="true"
+                                          rows="5"
+                                          disabled
+                                          ><?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Não Informado") ; ?>
+                                        </textarea>
+                                      </div>
+                                    </div>                                  
+                                  </div>
+                                  <div class="row my-0 py-0">
+                                    <div class="col-12 d-flex flex-row-reverse my-0 py-0">
+                                      <buttom class="btn edit-btn text-lightred" type="button" name="edit-bio" id="edit-bio">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                      </buttom>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>                              
+
                             </div>
 
-                            <hr class="hr-default">
-
-                            <!-- Birthday -->
-                            <div class="form-group mt-3">
-                              <p class="mb-2">
-                                <strong>Data de Nascimento:</strong>
-                                <?php echo ($age > 100 ? "Não Informado" : str_replace("-", "/", date('d-m-Y' , strtotime( $profileDetails['data'][0]['birthday'] ))) . " (" . $age . " Anos)" ); ?>
-                              </p>
+                            <div class="row m-3">
+                              <hr class="hr-default">
                             </div>
 
-                          </div>
+                            <!-- Other Infos -->
+                            <div class="container">
 
-                        </div>
+                              <div class="row">
+                                <!-- Main Info -->
+                                <div class="col-12 p-0 m-0">
+                                  <div class="text-center">
+                                    <h5 class="text-red"><strong>Outras Informações</strong></h5>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                
+                                <!-- Nome Usuário -->
+                                <div class="col-12 col-sm-6" py-0>
+                                  <div class="form-group m-0">
+                                    <p class="mb-1"><strong>Nome Usuário</strong></p>
+                                  </div>
+                                  <div class="input-group m-0">
+                                    <input 
+                                      type="text"
+                                      class="form-control"
+                                      placeholder="Nome"
+                                      id="userName"
+                                      name="username"
+                                      disabled
+                                      value="<?php echo $profileDetails['data'][0]['user_name'] ; ?>"
+                                    >
+                                    <button class="btn btn-outline-danger" type="button" name="edit-userName" id="edit-userName">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <!-- Senha -->
+                                <div class="col-12 col-sm-6 py-0">                                  
+                                  <div class="form-group m-0">
+                                    <p class="mb-1"><strong>Senha</strong></p>
+                                  </div>
+                                  <div class="input-group m-0">
+                                    <input
+                                      type="password"
+                                      class="form-control"
+                                      placeholder="Senha"
+                                      id="userPassword"
+                                      name="password"
+                                      disabled
+                                      value="<?php echo $_SESSION['user_password'] ; ?>"
+                                    >
+                                    <button class="btn btn-outline-danger" type="button" name="edit-password" id="edit-password">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                    </button>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <div class="row">
+                                
+                                <!-- E-mail -->
+                                <div class="col-12 col-sm-6" py-0>
+                                  <div class="form-group m-0">
+                                    <p class="mb-1"><strong>E-mail</strong></p>
+                                  </div>
+                                  <div class="input-group m-0">
+                                    <input 
+                                      type="email" 
+                                      class="form-control" 
+                                      placeholder="Informe seu E-mail" 
+                                      id="userEmail" 
+                                      name="email"
+                                      disabled
+                                      value="<?php echo $profileDetails['data'][0]['email'] ; ?>"
+                                    >
+                                    <button class="btn btn-outline-danger" type="button" name="edit-email" id="edit-email">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-12 col-sm-6 py-0">                                  
+                                  <div class="form-group m-0">
+                                    <p class="mb-1"><strong>Telefone/Celular</strong></p>
+                                  </div>
+                                  <div class="input-group m-0">
+                                    <input 
+                                      type="tel" 
+                                      class="form-control" 
+                                      placeholder="Informe seu Telefone" 
+                                      id="userPhone" 
+                                      name="phone" 
+                                      disabled
+                                      value="<?php echo $profileDetails['data'][0]['phone'] ; ?>"
+                                    >
+                                    <button class="btn btn-outline-danger" type="button" name="edit-phone" id="edit-phone">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                    </button>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <div class="row mt-3 mb-0">
+                                
+                                <!-- CEP -->
+                                <div class="col-12 col-sm-6 my-0">
+                                  <div class="form-group mb-0">
+                                    <p class="mb-1"><strong>Código Postal (CEP)</strong></p>
+                                  </div>
+                                  <div class="input-group m-0">
+                                    <input 
+                                      type="text" 
+                                      class="form-control"
+                                      placeholder="Preencha seu CEP"
+                                      id="userZipCode"
+                                      name="cep"
+                                      disabled
+                                      value="<?php echo $profileDetails['data'][0]['cep'] ; ?>"
+                                    >
+                                    <button class="btn btn-outline-danger" type="button" name="edit-cep" id="edit-cep">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                    </button>
+                                  </div>                                  
+                                </div>
+
+                                <div class="col-12 col-sm-6 my-0">
+                                  <div class="row m-0">
+                                    <div class="col-12 col-lg-4">
+                                      <!-- Estado -->
+                                      <p>
+                                        <strong>Estado:</strong>
+                                        <?php echo (isset($profileDetails['data'][0]['state']) && !empty($profileDetails['data'][0]['state']) ? $profileDetails['data'][0]['state'] : "Não Informado") ?>
+                                      </p>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                      <!-- Cidade -->
+                                      <p>
+                                        <strong>Cidade:</strong>
+                                        <?php echo (isset($profileDetails['data'][0]['city']) && !empty($profileDetails['data'][0]['city']) ? $profileDetails['data'][0]['city'] : "Não Informado") ?>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div class="row m-0">
+                                    <div class="col-12 col-lg-4">
+                                      <!-- Bairro -->
+                                      <p>
+                                        <strong>Bairro:</strong>
+                                        <?php echo (isset($profileDetails['data'][0]['district']) && !empty($profileDetails['data'][0]['district']) ? $profileDetails['data'][0]['district'] : "Não Informado") ?>
+                                      </p>
+                                    </div>
+                                  </div>
+                                                                                                                                        
+                                </div>
+                                
+                              </div>
+
+                              <div class="row my-0 mb-5">
+
+                                <!-- Birthday -->
+                                <div class="col-12 col-sm-6 my-0 p-2">
+                                  <div class="form-group m-0">
+                                    <p class="mb-0">
+                                      <strong>Data de Nascimento</strong>
+                                      <small><?php echo ($age > 100 ? "Não Informado" : str_replace("-", "/", date('d-m-Y' , strtotime( $profileDetails['data'][0]['birthday'] ))) . " (" . $age . " Anos)" ); ?></small>
+                                    </p>
+                                  </div>                                
+                                  <div class="input-group m-0">
+                                    <input 
+                                      type="date" 
+                                      class="form-control" 
+                                      placeholder="Informe sua Data de Nascimento" 
+                                      value="<?php echo $profileDetails['data'][0]['birthday'] ; ?>"
+                                      id="userBirthday"
+                                      name="birthday"
+                                      aria-label="User's Birthday" 
+                                      aria-describedby="edit-birthday"
+                                      disabled
+                                    >
+                                    <button class="btn btn-outline-danger" type="button" name="edit-birthday" id="edit-birthday">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                        </svg>
+                                    </button>                                  
+                                  </div>
+                                </div>
+
+                                <div class="col-12 col-sm-6 m-0">
+                                  <!-- Empty -->
+                                </div>
+                                
+                              </div>
+
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="row">
+                              <div class="col-12 d-flex justify-content-center m-0 p-0">
+                                <input class="btn btn-default p-2" type="submit" value="Atualizar Informações" name="profileUpdateSubimit" id="profileUpdateSubimit">
+                                <!-- <input class="btn btn-default btn-block btn-adm mx-2 col-3" type="reset" value="Limpar" id="limpar"> -->
+                              </div>
+                            </div>
+
+                          </form>
+                        </article>
                       </div>
 
                       <!-- Self User Trade Posts -->
@@ -417,7 +613,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                         </div>
 
                         <div class="row">
-                          <div class="col-12 mt-0 mb-4 p-4 zeroMargin-Padding-mobile">
+                          <div class="col-12 mt-0 mb-4 p-4 ">
                             <? if ( empty($a_userTradePosts["data"]) ): ?>
                               <div class="row text-center">
                                 <div class="col-12 my-3">
@@ -445,7 +641,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   endif;
                                   $lastId = $a_tpItem['post_id'];
                               ?>
-                                <div class="row my-3 mx-2 p-2 zeroMargin-Padding-mobile">
+                                <div class="row my-3 mx-2 p-2 ">
                                                                       
                                   <!-- Image -->
                                   <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
@@ -616,8 +812,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
                 
                 <div class="mt-4">
-                  <h4><strong><?php echo $profileDetails['data'][0]['user_name'] ?></strong></h4>
-                  <h5 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?> </h5>
+                  <h3><strong><?php echo $profileDetails['data'][0]['user_name'] ?></strong></h3>
+                  <h4 style="font-weight: bold;"><?php echo ($age > 100 ? "Idade: não informado" : $age . " Anos"); ?> </h4>
                 </div>
               </div>
               
@@ -658,6 +854,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                         </div>
 
                         <div class="row mx-1">
+                          <!-- Main Info -->
                           <div class="col-12 col-sm-6">
                             <div class="text-center">
                               <h5 class="text-red">Informações Artísticas</h5>
@@ -684,20 +881,20 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                             <hr class="hr-default">
 
                             <!-- Bio -->
-                            <h6 class="text-red mt-4"><strong>Biografia</strong></h6>
-                            <!-- <div class="form-group">
-                            <textarea class="form-control" type="text" name="description" id="description" rows="3">
-                              <?php // echo $profileDetails['data'][0]['bio'] ?>
-                            </textarea>
-                            </div> -->
-
-                            <p class="text-white mt-2" style="font-size:14px;">
-                              <?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Não Informado") ; ?>
-                            </p>
+                            <div class="row mb-3">
+                              <div class="col-12 m-0">
+                                <h5 class="text-red mt-4"><strong>Biografia</strong></h5>
+                              </div>
+                              <div class="col-12 m-0">
+                                <p class="size-16">
+                                  <?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Não Informado") ; ?>
+                                </p>
+                              </div>
+                            </div>
 
                           </div>          
 
-                          <!-- OUTRAS INFORMAÇÕES -->
+                          <!-- Other Infos -->
                           <div class="col-12 col-sm-6 mb-5">                            
                             <div class="text-center">
                               <h5 class="text-red">Outras Informações</h5>
@@ -779,7 +976,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                         </div>
 
                         <div class="row">
-                          <div class="col-12 mt-0 mb-4 p-4 zeroMargin-Padding-mobile">
+                          <div class="col-12 mt-0 mb-4 p-4 ">
                             <? if ( empty($a_userTradePosts["data"]) ): ?>
                               <div class="row text-center">
                                   <div class="col-12 my-3">
@@ -806,7 +1003,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   endif;
                                   $lastId = $a_tpItem['post_id'];              
                               ?>
-                                <div class="row my-3 mx-2 p-2 zeroMargin-Padding-mobile">
+                                <div class="row my-3 mx-2 p-2 ">
                                 
                                   <!-- Image -->
                                   <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
@@ -880,8 +1077,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <!-- footer site -->
     <?php include SITE_PATH.'/includes/footer.php'; ?>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Scripts -->    
+    <script src="<?php echo SITE_URL ?>/js/jquery/jquery-3.6.0.js"></script>
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
     <script src="<?php echo SITE_URL ?>/js/profile.js"></script>
   </body>

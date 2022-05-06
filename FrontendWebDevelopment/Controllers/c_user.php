@@ -7,6 +7,7 @@
  *  - Vinícius Lessa - 29/03/2022: Início da documentação do arquivo. Mudanças gerais nas Controllers de SIGN IN e SIGN UP.
  *  - Vinícius Lessa - 13/04/2022: Correção simples do botão sair + identação.
  *  - Vinícius Lessa - 2022/04/16: Implementação da função de retorno das informações do usuário (ID, Email e Nome.
+ *  - Vinícius Lessa - 05/05/2022: Implementação do 'if' para Atualização do Cadastro de Usuários.
  * 
  * @ Notes: As requisições nesta página vem através de JavaScript, pela função FETCH, enviando requisições POST.
  * 
@@ -58,9 +59,10 @@ if ($dados['action'] === "SignUp"):
         $retorna = userCreation($data);
 
         if(!$retorna["erro"]):
-            $_SESSION['user_id']    =  $retorna["dados"]["user_id"];
-            $_SESSION['user_name']  =  $retorna["dados"]["user_name"];
-            $_SESSION['user_email'] = $retorna["dados"]["email"];            
+            $_SESSION['user_id']        =  $retorna["dados"]["user_id"];
+            $_SESSION['user_name']      =  $retorna["dados"]["user_name"];
+            $_SESSION['user_email']     =  $retorna["dados"]["email"];
+            $_SESSION['user_password']  =  $data["userPassword"];
         endif;
     endif;
 
@@ -83,12 +85,61 @@ if ($dados['action'] === "SignIn"):
         if(!$retorna["erro"]):            
             $_SESSION['user_id']        =  $retorna["dados"]["user_id"];
             $_SESSION['user_name']      =  $retorna["dados"]["user_name"];
-            $_SESSION['user_email']     =  $retorna["dados"]["email"]; 
+            $_SESSION['user_email']     =  $retorna["dados"]["email"];
+            $_SESSION['user_password']  =  $dados["userPassword"];
             $_SESSION['profile-pic']    =  $retorna["dados"]["image_name"];
         endif;
     }
 
     echo json_encode($retorna);
+    exit;
+endif;
+
+
+// Update User's Info
+if ($dados['action'] === "UpdateProfile"):    
+
+    // $encripted_password = (isset($dados["userPassword"]))  ? password_hash($dados["userPassword"], PASSWORD_DEFAULT) : '';
+
+    $data = [        
+        "userEmail"     => (isset($dados["userEmail"]))     ? $dados["userEmail"] : ''      ,
+        "userBirthday"  => (isset($dados["userBirthday"]))  ? $dados["userBirthday"] : ''   ,
+        "userPhone"     => (isset($dados["userPhone"]))     ? $dados["userPhone"] : ''      ,
+        "userZipCode"   => (isset($dados["userZipCode"]))   ? $dados["userZipCode"] : ''    ,
+        "user_id"       => (isset($dados["user_id"]))       ? $dados["user_id"] : ''    ,
+        "bioText"       => (isset($dados["bioText"]))       ? $dados["bioText"] : ''            ,
+    ];
+
+    // "userName"      => (isset($dados["userName"]))      ? $dados["userName"] : ''       ,
+    // "userPassword"  => $encripted_password                                              ,
+    // "userType"      => (isset($dados["userType"]))      ? $dados["userType"] : ''       ,    
+    
+    // if(empty($data["userName"])):
+    //     $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome do Usuário!</div>"];    
+    
+    // elseif(empty($data["userPassword"])):
+    //     $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>"];
+    
+    // elseif(empty($data["userType"])):
+    //     $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Tipo de Pessoa!</div>"];    
+
+    if (empty($data["userEmail"])):
+        $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o E-mail!</div>"];
+
+    elseif(empty($data["userZipCode"])):
+        $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo CEP!</div>"];
+
+    else:        
+        $serverReturn = userUpdate($data); // Model
+
+        // if(!$serverReturn["erro"]):
+        //     $_SESSION['user_id']    =  $serverReturn["dados"]["user_id"];
+        //     $_SESSION['user_name']  =  $serverReturn["dados"]["user_name"];
+        //     $_SESSION['user_email'] = $serverReturn["dados"]["email"];            
+        // endif;
+    endif;    
+
+    echo json_encode($serverReturn);
     exit;
 endif;
 
