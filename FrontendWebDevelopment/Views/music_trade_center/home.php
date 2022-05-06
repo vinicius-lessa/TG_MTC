@@ -146,7 +146,7 @@ endif;
                       </a>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Genêro(s): </strong>Rock, Pop</p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Habilidades: </strong>Violão / Bateria / Guitarra</p>
-                    <p class="card-title" style="text-align:left;"><strong class="text-red">Cidade: </strong><?php echo $user["city"] . " - " . $user["state"] ; ?></p>
+                    <p class="card-title" style="text-align:left;"><strong class="text-red">Local: </strong><?php echo $user["city"] . " - " . $user["state"] ; ?></p>
                     <p class="card-title" style="text-align:left;"><strong class="text-red">Idade: </strong><?php echo ($user['age'] > 100 ? "Não informado" : $user['age'] . " Anos"); ?></p>
                   </div>
               </div>       
@@ -187,7 +187,7 @@ endif;
           </div>
         </main>
 
-        <!-- ENCONTRE ARTISTAS -->
+        <!-- Encontre Outros Artistas -->
         <section>
           <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
             <div class="row mt-3 mb-3">
@@ -196,7 +196,7 @@ endif;
                 <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
               </div>
               <div class="col-12 col-sm-4 mt-1">
-                <a class="text-white ms-4" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+                <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
               </div>
             </div>
           </div>

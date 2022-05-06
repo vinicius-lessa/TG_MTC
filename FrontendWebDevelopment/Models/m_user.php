@@ -178,7 +178,7 @@ function userUpdate($data) {
     $aData = json_decode($returnJson, true); // Trasnforma em Array    
 
     if (count($aData) == 0 || $aData == false):        
-        $aData = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Problema ao Conectar ao Servidor!</div>"];
+        $aData = ['erro'=> true, 'msg' => "Problema ao Conectar ao Servidor!"];
     endif;
 
     return $aData;

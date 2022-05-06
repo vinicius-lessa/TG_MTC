@@ -99,44 +99,56 @@ endif;
 // Update User's Info
 if ($dados['action'] === "UpdateProfile"):    
 
-    // $encripted_password = (isset($dados["userPassword"]))  ? password_hash($dados["userPassword"], PASSWORD_DEFAULT) : '';
+    $newName            = ( isset($dados["userName"])   ? $dados["userName"] : '' ) ;
+    $newEmail           = ( isset($dados["userEmail"])  ? $dados["userEmail"] : '' ) ;
+    $newPass            = $dados["userPassword"] ;
+    
+    $encripted_password = ( (isset($newPass) && !empty($newPass)) ? password_hash($newPass, PASSWORD_DEFAULT) : '' );
 
-    $data = [        
-        "userEmail"     => (isset($dados["userEmail"]))     ? $dados["userEmail"] : ''      ,
-        "userBirthday"  => (isset($dados["userBirthday"]))  ? $dados["userBirthday"] : ''   ,
-        "userPhone"     => (isset($dados["userPhone"]))     ? $dados["userPhone"] : ''      ,
-        "userZipCode"   => (isset($dados["userZipCode"]))   ? $dados["userZipCode"] : ''    ,
-        "user_id"       => (isset($dados["user_id"]))       ? $dados["user_id"] : ''    ,
-        "bioText"       => (isset($dados["bioText"]))       ? $dados["bioText"] : ''            ,
+    $data = [
+        "userEmail"     => $newEmail ,
+        "userName"      => $newName ,
+        "userPassword"  => $encripted_password ,
+        "userBirthday"  => (isset($dados["userBirthday"]))  ? $dados["userBirthday"] : '' ,
+        "userPhone"     => (isset($dados["userPhone"]))     ? $dados["userPhone"] : '' ,
+        "userZipCode"   => (isset($dados["userZipCode"]))   ? $dados["userZipCode"] : '' ,
+        "user_id"       => (isset($dados["user_id"]))       ? $dados["user_id"] : '' ,
+        "bioText"       => (isset($dados["bioText"]))       ? $dados["bioText"] : '' ,        
+        "userType"      => (isset($dados["userType"]))      ? $dados["userType"] : '' ,        
     ];
+    
+    if(empty($data["userName"])):
+        $serverReturn = ['error'=> true, 'msg' => "Necessário preencher o Nome do Usuário!"];
+    
+    elseif( strlen($data["userPassword"]) < 6 ):
+        if (empty($data["userPassword"])):
+            $serverReturn = ['error'=> true, 'msg' => "Necessário preencher a Senha!"];
+        else:
+            $serverReturn = ['error'=> true, 'msg' => "A Senha deve ter pelo menos 6 Caracteres!"];
+        endif;
+    
+    elseif(empty($data["userType"])):
+        $serverReturn = ['error'=> true, 'msg' => "Necessário preencher o Tipo de Pessoa!"];
 
-    // "userName"      => (isset($dados["userName"]))      ? $dados["userName"] : ''       ,
-    // "userPassword"  => $encripted_password                                              ,
-    // "userType"      => (isset($dados["userType"]))      ? $dados["userType"] : ''       ,    
-    
-    // if(empty($data["userName"])):
-    //     $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome do Usuário!</div>"];    
-    
-    // elseif(empty($data["userPassword"])):
-    //     $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>"];
-    
-    // elseif(empty($data["userType"])):
-    //     $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Tipo de Pessoa!</div>"];    
-
-    if (empty($data["userEmail"])):
-        $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o E-mail!</div>"];
+    elseif(empty($data["userEmail"])):
+        $serverReturn = ['error'=> true, 'msg' => "Necessário preencher o E-mail!"];
 
     elseif(empty($data["userZipCode"])):
-        $serverReturn = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo CEP!</div>"];
+        $serverReturn = ['error'=> true, 'msg' => "Necessário preencher o campo CEP!"];
 
-    else:        
+    else:
         $serverReturn = userUpdate($data); // Model
 
-        // if(!$serverReturn["erro"]):
-        //     $_SESSION['user_id']    =  $serverReturn["dados"]["user_id"];
-        //     $_SESSION['user_name']  =  $serverReturn["dados"]["user_name"];
-        //     $_SESSION['user_email'] = $serverReturn["dados"]["email"];            
-        // endif;
+        if(!$serverReturn["erro"]):
+            if ( $newName != $_SESSION['user_name'] || 
+                 $newEmail != $_SESSION['user_email'] || 
+                 $newPass != $_SESSION['user_password']):
+
+                $_SESSION['user_name']      = $serverReturn["dados"]["user_name"];
+                $_SESSION['user_email']     = $serverReturn["dados"]["email"];            
+                $_SESSION['user_password']  = $newPass;            
+            endif;
+        endif;
     endif;    
 
     echo json_encode($serverReturn);

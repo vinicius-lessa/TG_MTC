@@ -325,7 +325,7 @@ $imagesCount  = count($tpDetails["data"]);
       </section>
 
       <section>
-      <!-- ENCONTRE ARTISTAS -->
+      <!-- Encontre Outros Artistas -->
       <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row mt-3 mb-3">
           <div class="col-12 col-sm-8">
@@ -333,7 +333,7 @@ $imagesCount  = count($tpDetails["data"]);
             <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           </div>
           <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white ms-4" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+            <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>
       </div>

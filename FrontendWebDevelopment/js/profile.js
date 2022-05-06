@@ -1,5 +1,7 @@
 $(document).ready(function(){    
-
+    // Input Masks
+    $('.cep').mask('00000-000');
+    $('.phone_with_ddd').mask('(00) 00000-0000');
 });
 
 // Vars
@@ -8,16 +10,16 @@ const profileUpdateForm     = $('#profileUpdate-form');
 const msgAlertErroProfile   = $("#msgAlertErroProfile");
 const msgAlertErroUpdate    = $("#msgAlertErroUpdate");
 
-var userBirthday    = $("#userBirthday");
+var userName        = $("#userName");
+var userPassword    = $("#userPassword");
+var bioText         = $("#bio-text");
 var userEmail       = $("#userEmail");
 var userPhone       = $("#userPhone");
 var userZipCode     = $("#userZipCode");
-var bioText         = $("#bio-text");
+var userBirthday    = $("#userBirthday");
+var userType        = $("#persontype");
 
-// Do later
-// var userName            = $("#userName");
-// var userType            = $("#userType");
-// var userPassword    = $("#userPassword"); 
+const passLenghtMin = 6;
 
 let spinnerWrapper          = document.querySelector('.spinner-wrapper'); // Loading Icon
 
@@ -82,63 +84,99 @@ profileImgForm.submit(async function( event ){
 
 // Update User's Info
 profileUpdateForm.submit(async function( event ){
-    event.preventDefault();    
+    event.preventDefault();
 
-    // Validations (Do this later, about Formats, Lenght and Characters)
-    // Input: Email
-    if ( userEmail.val() === "" || userEmail.val() === null ) {
-        msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo E-mail!</div>");
-        $(userEmail).css({'border': '2px solid #f64141'});
+    $('.cep').unmask();
+    $('.phone_with_ddd').unmask();    
+
+    var newZipCode = userZipCode.val();
+    var newPhone = userPhone.val();
+
+    $('.cep').mask('00000-000');
+    $('.phone_with_ddd').mask('(00) 00000-0000');
+    
+
+
+    // Input: Nome
+    if ( userName.val() === "" || userName.val() === null ) {
+        msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome!</div>");        
+        userName.addClass('is-invalid');
 
         return false;
     } else {
         msgAlertErroUpdate.html("");
-        $(userEmail).removeAttr("style");
+        userName.removeClass('is-invalid');
+        userName.addClass('is-valid');
+    }
+
+    // Input: Senha    
+    if ( userPassword.val().length < passLenghtMin ) {
+        if ( userPassword.val() === "" || userPassword.val() === null ) {
+            msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>");            
+        } else {
+            msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>A Senha deve ter pelo menos " + passLenghtMin + " Caracteres!</div>");            
+        }
+        userPassword.addClass('is-invalid');
+
+        return false;
+    } else {
+        msgAlertErroUpdate.html("");
+        userPassword.removeClass('is-invalid');
+        userPassword.addClass('is-valid');        
+    }
+
+    // Input: Email
+    if ( userEmail.val() === "" || userEmail.val() === null ) {
+        msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo E-mail!</div>");        
+        userEmail.addClass('is-invalid');
+
+        return false;
+    } else {
+        msgAlertErroUpdate.html("");
+        userEmail.removeClass('is-invalid');      
+        userEmail.addClass('is-valid');
     }
 
     // Input: CEP
-    if ( userZipCode.val() === "" || userZipCode.val() === null ) {
-        msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo CEP!</div>");
-        $(userEmail).css({'border': '2px solid #f64141'});
+    if ( newZipCode.length != 8 ) {
+        if ( newZipCode === "" || newZipCode === null ) {
+            msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo CEP!</div>");
+        } else {
+            msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: CEP Incorreto!</div>");
+        }
+        userZipCode.addClass('is-invalid');
 
         return false;
     } else {
         msgAlertErroUpdate.html("");
-        $(userZipCode).removeAttr("style");
+        userZipCode.removeClass('is-invalid');
+        userZipCode.addClass('is-valid');
     }
 
-    // // Input: Nome
-    // if ( userName.val() === "" || userName.val() === null ) {
-    //     msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome!</div>");        
-    //     $(userName).css({'border': '2px solid #f64141'});
+    // Input: Tipo Pessoa
+    if ( userType.val() === "" || userType.val() === null || userType.val() === "Tipo Pessoa") {
+        msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Tipo de Pessoa!</div>");
+        userType.addClass('is-invalid');
 
-    //     return false;
-    // } else {
-    //     msgAlertErroSignUp.html("");
-    //     $(userName).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroUpdate.html("");
+        userType.removeClass('is-invalid');
+        userType.addClass('is-valid');        
+    }
 
-    // // Input: Senha
-    // if ( userPassword.val() === "" || userPassword.val() === null ) {
-    //     msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>");
-    //     $(userPassword).css({'border': '2px solid #f64141'});
+    // Input: CEP
+    if ( newPhone.length < 10 || newPhone.length > 11 ) {
 
-    //     return false;
-    // } else {
-    //     msgAlertErroSignUp.html("");
-    //     $(userPassword).removeAttr("style");
-    // }
+        msgAlertErroUpdate.html("<div class='alert alert-danger' role='alert'>Erro: Telefone Inválido!</div>");
+        userPhone.addClass('is-invalid');
 
-    // // Input: Tipo Pessoa
-    // if ( userType.val() === "" || userType.val() === null || userType.val() === "Tipo Pessoa") {
-    //     msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Tipo de Pessoa!</div>");
-    //     $(userType).css({'border': '2px solid #f64141'});
-
-    //     return false;
-    // } else {
-    //     msgAlertErroSignUp.html("");
-    //     $(userType).removeAttr("style");
-    // }
+        return false;
+    } else {
+        msgAlertErroUpdate.html("");
+        userPhone.removeClass('is-invalid');
+        userPhone.addClass('is-valid');
+    }
 
     // Start Loading Icon
     spinnerWrapper.style.display = 'flex';
@@ -148,13 +186,13 @@ profileUpdateForm.submit(async function( event ){
     formData.append("action"        , "UpdateProfile");    
     formData.append("user_id"       , user_id);        
     formData.append("userEmail"     , userEmail.val());
-    formData.append("userZipCode"   , userZipCode.val());
-    // formData.append("userPassword" , userPassword.val());
-    // formData.append("userType"     , userType.val());
-    // formData.append("userName"     , userName.val());
+    formData.append("userZipCode"   , newZipCode);
+    formData.append("userPassword" , userPassword.val());
+    formData.append("userType"     , userType.val());
+    formData.append("userName"     , userName.val());
 
     userBirthday.val()  != "" && formData.append("userBirthday" , userBirthday.val());
-    userPhone.val()     != "" && formData.append("userPhone" , userPhone.val());
+    userPhone.val()     != "" && formData.append("userPhone" , newPhone);
     bioText.val()       != "" && formData.append("bioText" , bioText.val());
 
     // Read formData
@@ -166,7 +204,7 @@ profileUpdateForm.submit(async function( event ){
     // return;
 
     // Send Post via POST to PHP
-    const dados = await fetch("../../../Controllers/c_user.php", {
+    const dados = await fetch("../../Controllers/c_user.php", {
         method: "POST",
         body: formData
     });
@@ -181,7 +219,7 @@ profileUpdateForm.submit(async function( event ){
             
             // E-mail Already Registered
             if (j_Response['cod_erro'] == 1) {
-                $(userEmail).css({'border': '2px solid #f64141'});
+                userEmail.addClass('is-invalid');
             }
             spinnerWrapper.style.display = 'none';
             return false;
@@ -279,6 +317,16 @@ $("#addMusicStyle").click(function(e) {
     }
 });
 
+$("#edit-userName").click(function(e) {
+    $("#userName").prop('disabled', false);
+    $("#userName").focus();
+});
+
+$("#edit-password").click(function(e) {
+    $("#userPassword").prop('disabled', false);
+    $("#userPassword").focus();
+});
+
 $("#edit-bio").click(function(e) {
     $("#bio-text").prop('disabled', false);
     $("#bio-text").focus();
@@ -303,3 +351,19 @@ $("#edit-birthday").click(function(e) {
     $("#userBirthday").prop('disabled', false);
     $("#userBirthday").focus();
 });
+
+$("#edit-PersonType").click(function(e) {
+    $("#persontype").prop('disabled', false);
+    $("#persontype").focus();
+});
+
+
+function formatarCep(campo){
+
+    var v=campo.value.replace(/D/g,"")                
+  
+    v=v.replace(/^(d{5})(d)/,"$1-$2") 
+  
+    campo.value = v;
+  
+}

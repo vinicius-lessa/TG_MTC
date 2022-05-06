@@ -104,7 +104,89 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             if ( $dadosCEP != null ):
                                 // Adiciona nova Propriedade ao Objeto
                                 $dbReturn[$i] = (array)$dbReturn[$i];
-                                $dbReturn[$i]['state'] = $dadosCEP["uf"];
+                                switch ($dadosCEP["uf"]) {
+                                    case 'AC':
+                                        $dbReturn[$i]['state'] = 'AC - Acre';
+                                        break;
+                                    case 'AL':
+                                        $dbReturn[$i]['state'] = 'AL - Alagoas';
+                                        break;
+                                    case 'AM':
+                                        $dbReturn[$i]['state'] = 'AM - Amazonas';
+                                        break;
+                                    case 'AP':
+                                        $dbReturn[$i]['state'] = 'AP - Amapá';    
+                                        break;
+                                    case 'BA':
+                                        $dbReturn[$i]['state'] = 'BA - Bahia';
+                                        break;
+                                    case 'CE':
+                                        $dbReturn[$i]['state'] = 'CE - Ceará';
+                                        break;
+                                    case 'DF':
+                                        $dbReturn[$i]['state'] = 'DF - Distrito Federal';
+                                        break;
+                                    case 'ES':
+                                        $dbReturn[$i]['state'] = 'ES - Espírito Santo';
+                                        break;
+                                    case 'GO':
+                                        $dbReturn[$i]['state'] = 'GO - Goiás';
+                                        break;
+                                    case 'MA':
+                                        $dbReturn[$i]['state'] = 'MA - Maranhão';
+                                        break;
+                                    case 'MT':
+                                        $dbReturn[$i]['state'] = 'MT - Mato Grosso ';
+                                        break;
+                                    case 'MS':
+                                        $dbReturn[$i]['state'] = 'MS - Mato Grosso do Sul';
+                                        break;
+                                    case 'MG':
+                                        $dbReturn[$i]['state'] = 'MG - Minas Gerais';
+                                        break;
+                                    case 'PA':
+                                        $dbReturn[$i]['state'] = 'PA - Pará';
+                                        break;
+                                    case 'PB':
+                                        $dbReturn[$i]['state'] = 'PB - Paraíba';
+                                        break;
+                                    case 'PR':
+                                        $dbReturn[$i]['state'] = 'PR - Paraná';
+                                        break;
+                                    case 'PE':
+                                        $dbReturn[$i]['state'] = 'PE - Pernambuco';
+                                        break;
+                                    case 'PI':
+                                        $dbReturn[$i]['state'] = 'PI - Piauí';
+                                        break;
+                                    case 'RJ':
+                                        $dbReturn[$i]['state'] = 'RJ - Rio de Janeiro';
+                                        break;
+                                    case 'RN':
+                                        $dbReturn[$i]['state'] = 'RN - Rio Grande do Norte';
+                                        break;
+                                    case 'RS':
+                                        $dbReturn[$i]['state'] = 'RS - Rio Grande do Sul';
+                                        break;
+                                    case 'RO':
+                                        $dbReturn[$i]['state'] = 'RO - Rondônia';
+                                        break;
+                                    case 'RR':
+                                        $dbReturn[$i]['state'] = 'RR - Roraima';
+                                        break;
+                                    case 'SC':
+                                        $dbReturn[$i]['state'] = 'SC - Santa Catarina';
+                                        break;
+                                    case 'SP':
+                                        $dbReturn[$i]['state'] = 'SP - São Paulo';
+                                        break;
+                                    case 'SE':
+                                        $dbReturn[$i]['state'] = 'SE - Sergipe';
+                                        break;
+                                    case 'TO':
+                                        $dbReturn[$i]['state'] = 'TO - Tocantins';
+                                        break;
+                                }                                
                                 $dbReturn[$i]['city'] = $dadosCEP["localidade"];
                                 $dbReturn[$i]['district'] = $dadosCEP["bairro"];
                                 $dbReturn[$i] = (object)$dbReturn[$i];
@@ -353,6 +435,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
     // Possíveis Requisições:
     // - Inclusão de novos Usuários: 'users.php/?key=newUser'
+    // - Update de Perfil: 'users.php/?key=updateUser'
     // - Alteração da Foto de Perfil: 'users.php/?key=profilePic'
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -465,7 +548,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $user_id = (isset($_POST['user_id']) ? intval($_POST['user_id']) : 0 ) ;
 
         if (empty($userEmail) or
+            empty($userName) or
+            empty($userPassword) or
             empty($userZipCode) or
+            empty($userType) or
             $user_id == 0 || !is_numeric($user_id)
             ):
             http_response_code(406); // Not Acceptable
@@ -500,10 +586,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                 
             // $dbReturn = true;
             $dbReturn = CrudDB::update([
-                // 'user_name'         => "'" . $userName . "'" ,
+                'user_name'         => "'" . $userName . "'" ,
                 'email'             => "'" . $userEmail . "'" ,
-                // 'password'          => "'" . $userPassword . "'" ,
-                // 'tipo_pessoa'       => "'" . $userType. "'" ,
+                'password'          => "'" . $userPassword . "'" ,
+                'tipo_pessoa'       => "'" . $userType. "'" ,
                 'birthday'          => "'" . $userBirthday . "'" ,
                 'phone'             => "'" . $userPhone . "'" ,
                 'cep'               => "'" . $userZipCode . "'" ,

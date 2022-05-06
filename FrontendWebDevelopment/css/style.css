@@ -288,6 +288,16 @@ form div {
   border: 1px solid rgba(232, 24, 24, 0.669);
 }
 
+.textAreaDefault:placeholder-shown{
+  color:#fff;
+}
+
+.list-group, .list-group-item {
+  border-color: #fff;
+  background-color: transparent !important;
+  color: #fff !important;
+}
+
 /* ################################ Colors
 */
 
@@ -455,11 +465,11 @@ form div {
 /* Generic Loader */
 .spinner-wrapper{
   /* display: flex; - Ativado via Js*/
-  display: none;
+  display: none;  
   width: 100%;
   height: 100%;
-  background-color: #1515158a;
-  position: absolute;
+  background-color: #0000005f;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
