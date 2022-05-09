@@ -57,8 +57,7 @@ profileImgForm.submit(async function( event ){
     // }
 
     // Send Post via POST to PHP
-	//const response = await fetch('http://localhost/TG_MTC/BackendDevelopment/users.php/?key=profilePic', {
-    const response = await fetch('https://mtc-backend.herokuapp.com/users.php/?key=profilePic', {
+    const response = await fetch( backEndURL + "/users.php/?key=profilePic", {
         method: "POST",
         body: formData
     });
@@ -205,7 +204,7 @@ profileUpdateForm.submit(async function( event ){
     // return;
 
     // Send Post via POST to PHP
-    const dados = await fetch("../../Controllers/c_user.php", {
+    const dados = await fetch( frontEndURL + "/Controllers/c_user.php", {
         method: "POST",
         body: formData
     });
@@ -273,9 +272,8 @@ $('#confirm-delete').on('click', '#deleteButton', async function(e) {
          'Content-type': 'application/x-www-form-urlencoded' // Indicates the content 
         }        
        }
-
-	// const response = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/", deleteMethod );
-    const response = await fetch("https://mtc-backend.herokuapp.com/trade_posts.php/", deleteMethod );
+	
+    const response = await fetch( backEndURL + "/trade_posts.php/", deleteMethod );
 
     const j_Response = await response.json();
 

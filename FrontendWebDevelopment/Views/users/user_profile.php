@@ -1189,9 +1189,14 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
     <!-- Scripts -->    
     <script src="<?php echo SITE_URL ?>/js/jquery/jquery-3.6.0.js"></script>
+
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/profile.js"></script>    
+
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/profile.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->
+    
   </body>
 
 </html>

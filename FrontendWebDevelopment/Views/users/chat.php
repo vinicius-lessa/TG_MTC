@@ -104,8 +104,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
     <script type="text/javascript">
       
       // Used in 'chat.js'
-      url = '<?php echo SITE_URL ?>/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';
-      console.log(url);
+      url = '<?php echo SITE_URL ?>/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';      
 
     </script>
 
@@ -547,9 +546,13 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
+
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
     <script src="<?php echo SITE_URL ?>/js/chat.js"></script>
+    
   </body>
 
 </html>

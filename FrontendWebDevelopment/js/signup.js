@@ -92,7 +92,7 @@ signUpForm.submit(async function( event ){
     dadosForm.append("userZipCode"  , userZipCode.val());
 
     // Send Post via POST to PHP
-    const dados = await fetch("../../Controllers/c_user.php", {
+    const dados = await fetch( frontEndURL + "/Controllers/c_user.php", {
         method: "POST",
         body: dadosForm
     });

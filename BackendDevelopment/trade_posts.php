@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
                     $dados = CrudDB::select(
                         'SELECT 
-                            tp.post_id , 
+                            tp.post_id as `post_id`,
                             tp.title ,
                             tp.description as tp_desc 	,
                             tp.user_id ,
@@ -173,16 +173,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             tp.category_id ,
                             pc.description , 
                             tp.price , 
-                            itp.image_name as image_name 
+                            (SELECT image_name FROM images_trade_posts itp 
+                            WHERE 	itp.activity_status = 1 AND
+                                    itp.trade_post_id = `post_id`
+                            ORDER BY created_on LIMIT 1) AS image_name
                         FROM trade_posts tp 
                         INNER JOIN users u ON tp.user_id = u.user_id
                         INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
-                        LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id                    
                         where tp.activity_status = 1
                         ORDER BY tp.created_on DESC LIMIT 12;',
-                        [
-                            'USER_ID' => $user_id
-                        ], TRUE);
+                        [], TRUE);
                 // TP Per User
                 else:
 
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
                     $dados = CrudDB::select(
                         'SELECT 
-                            tp.post_id , 
+                            tp.post_id as `post_id`,
                             tp.title ,
                             tp.description as tp_desc 	,
                             tp.user_id ,
@@ -205,11 +205,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             tp.category_id ,
                             pc.description , 
                             tp.price , 
-                            itp.image_name as image_name 
+                            (SELECT image_name FROM images_trade_posts itp 
+                            WHERE 	itp.activity_status = 1 AND
+                                    itp.trade_post_id = `post_id`
+                            ORDER BY created_on LIMIT 1) AS image_name
                         FROM trade_posts tp 
                         INNER JOIN users u ON tp.user_id = u.user_id
                         INNER JOIN product_categorys pc ON tp.category_id  = pc.category_id
-                        LEFT JOIN images_trade_posts itp ON tp.post_id  = itp.trade_post_id                    
                         where tp.activity_status = 1 and tp.user_id =:USER_ID
                         ORDER BY tp.created_on DESC LIMIT 12;',
                         [

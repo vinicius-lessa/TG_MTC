@@ -124,9 +124,8 @@ async function changeCategory() {
             mode: 'cors',
             cache: 'default'
         };
-
-		// const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
-        const r_TPinfo = await fetch("https://mtc-backend.herokuapp.com/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
+		
+        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
 
         const j_TPinfo = await r_TPinfo.json();    
         // console.log(j_TPinfo.data);
@@ -173,9 +172,8 @@ async function changeBrand() {
             mode: 'cors',
             cache: 'default'
         };
-
-		// const r_TPinfo = await fetch("http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
-        const r_TPinfo = await fetch("https://mtc-backend.herokuapp.com/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
+		
+        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
         
         const j_TPinfo = await r_TPinfo.json();    
         // console.log(j_TPinfo.data);    
@@ -357,9 +355,8 @@ newTradePostForm.submit(async function( event ){
     // }
     // return;
 
-    // Send Post via POST to PHP	
-	// const response = await fetch('http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/', {
-    const response = await fetch('https://mtc-backend.herokuapp.com/trade_posts.php/', {
+    // Send Post via POST to PHP		
+    const response = await fetch( backEndURL + "/trade_posts.php/", {
         method: 'POST',
         body: formData
     });
@@ -381,7 +378,7 @@ newTradePostForm.submit(async function( event ){
             spinnerWrapper.style.display = 'none';
             // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
                 
-            window.location.replace("http://localhost/TG_MTC/FrontEndWebDevelopment/Views/users/user_profile.php/?key=trade_posts");
+            window.location.replace( frontEndURL + "/Views/users/user_profile.php/?key=trade_posts");
         }
     }, 2000);
 

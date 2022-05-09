@@ -710,9 +710,13 @@ endif;
   
     <!-- Scripts -->    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->    
-    <script src="<?php echo SITE_URL ?>/js/tradepost.js"></script>    
+    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>        
+
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/tradepost.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->
 
   </body>
 

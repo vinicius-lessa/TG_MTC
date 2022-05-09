@@ -46,7 +46,7 @@ loginForm.submit(async function( event ){
     dadosForm.append("userPassword", userPassword.val());
 
     // Send Post via POST to PHP
-    const dados = await fetch("../../Controllers/c_user.php", {
+    const dados = await fetch( frontEndURL + "/Controllers/c_user.php", {
         method: "POST",
         body: dadosForm
     });
@@ -62,15 +62,8 @@ loginForm.submit(async function( event ){
         } else {
             // Recarrega PHP
             document.location.reload();
-            
-            // Review at "examples":
-            // document.getElementById("dados-usuario").innerHTML = "Bem vindo " + resposta['dados'].nome + "<br><a href='sair.php'>Sair</a><br>";
-            // loginForm.reset();
-            // loginModal.hide();
         }
-
-        // Desabilita Loading
-        spinnerWrapper.style.display = 'none';
-        // spinnerWrapper.parentElement.removeChild(spinnerWrapper);
+        
+        spinnerWrapper.style.display = 'none';        
     }, 2000);    
 });

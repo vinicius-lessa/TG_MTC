@@ -107,8 +107,8 @@ newMessageForm.submit(async function( event ){
     //     console.log(name, value);
     // }
 
-    // Send Post via POST to PHP    
-    const response = await fetch('http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php', {
+    // Send Post via POST to PHP
+    const response = await fetch( frontEndURL + "/Controllers/c_chat.php", {
         method: "POST",
         body: formData
     });

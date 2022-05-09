@@ -346,8 +346,7 @@ $imagesCount  = count($tpDetails["data"]);
     <!-- Scripts -->    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-    
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>    
     
   </body>
 
