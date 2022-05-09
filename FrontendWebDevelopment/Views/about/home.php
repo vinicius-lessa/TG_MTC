@@ -16,6 +16,8 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
+include_once '../../defaultFunctions.php';
+
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }

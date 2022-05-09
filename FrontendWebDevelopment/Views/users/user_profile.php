@@ -175,7 +175,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <div class="row">
               <div class="col-12 d-flex justify-content-center my-3 p-2">
                 <div>
-                  <?php if ( isset($_SESSION['profile-pic']) ): ?>
+                  <?php if ( isset($_SESSION['profile-pic']) && validateImageSource($_SESSION['profile-pic']) ): ?>
                     <img src="<?php echo $_SESSION['profile-pic'] ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
                   <?php else: ?>
                     <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">

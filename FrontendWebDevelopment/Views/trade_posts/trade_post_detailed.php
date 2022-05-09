@@ -210,7 +210,7 @@ $imagesCount  = count($tpDetails["data"]);
                             <a
                               href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                               class="nav-link px-4 link-secondary">
-                                <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) ): ?>
+                                <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) && validateImageSource($tpDetails["data"][0]["img_profile_name"]) ): ?>
                                   <img src="<?php echo $tpDetails["data"][0]["img_profile_name"] ?>" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
                                 <?php else: ?>
                                   <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">

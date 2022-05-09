@@ -5,11 +5,10 @@
         // Definir abaixo a partir do caminho do ROOT do Apache Server até a ROOT do projeto. Ex.: htdocs -> /TG_MTC/BackendDevelopment
         $dir = "/TG_MTC/BackendDevelopment";
         
-        define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST'].$dir); // http://localhost/TG_MCT/BackendDevelopment
-    else:
-        $dir = "/";
+        define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST'].$dir); // http://localhost/TG_MCT/BackendDevelopment/
+    else:        
         
-        define('SITE_URL', 'https://'.$_SERVER['HTTP_HOST'].$dir); // https://www.musictradecenter.com/
+        define('SITE_URL', 'https://'.$_SERVER['HTTP_HOST']); // https://www.musictradecenter.com/
     endif;    
 
     define('DS', DIRECTORY_SEPARATOR);

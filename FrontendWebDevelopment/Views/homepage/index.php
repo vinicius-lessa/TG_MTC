@@ -19,6 +19,8 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
+include_once '../../defaultFunctions.php';
+
 $titlePage = 'MTC | Início';
 $a_tpList   = [];
 

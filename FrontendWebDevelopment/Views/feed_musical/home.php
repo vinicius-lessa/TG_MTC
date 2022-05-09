@@ -11,18 +11,21 @@
  * @ Notes: 
  * 
  */
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  $titlePage = 'Feed Musical';
-  $data_slide = 0;
+include_once '../../defaultFunctions.php';
 
-  // require SITE_PATH . '/Controllers/c_trade_posts.php';
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+$titlePage = 'Feed Musical';
+$data_slide = 0;
+
+// require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>
