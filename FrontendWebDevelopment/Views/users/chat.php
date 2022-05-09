@@ -104,7 +104,8 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
     <script type="text/javascript">
       
       // Used in 'chat.js'
-      url = 'http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';
+      url = '<?php echo SITE_URL ?>/Controllers/c_chat.php/?userLogged=<?php echo $userLogged ?>&userTwo=<?php echo $userTwo ?>&post_id=<?php echo $post_id ?>';
+      console.log(url);
 
     </script>
 

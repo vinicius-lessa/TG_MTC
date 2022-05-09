@@ -27,9 +27,9 @@ function loadTradePosts($userID){
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
     if ( $userID == null ):
-      $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all"; // All TP
+      $url    = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=all"; // All TP
     else:
-      $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=all&user_id=" . $userID; // All TP from Especic User
+      $url    = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=all&user_id=" . $userID; // All TP from Especic User
     endif;
 
     $opts = array('http' =>
@@ -58,7 +58,7 @@ function loadTradePosts($userID){
 
 function loadTradePostDetails($tradePostID){
   $token  = "16663056-351e723be15750d1cc90b4fcd";
-  $url    = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=". $tradePostID;
+  $url    = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=". $tradePostID;
 
   $opts = array('http' =>
       array(
@@ -90,19 +90,19 @@ function loadNewTPOptions($type){
 
   switch( $type ){
     case "categorys":
-      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=categorys"; // All Categorys;
+      $url = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=categorys"; // All Categorys;
       break;
 
     case "brands":
-      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=brands"; // All Brands;
+      $url = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=brands"; // All Brands;
       break;
 
     case "models":
-      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=models"; // All Models;
+      $url = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=models"; // All Models;
       break;
 
     case "colors":
-      $url = "http://localhost/TG_MTC/BackendDevelopment/trade_posts.php/?token=" . $token . "&key=colors"; // All Colors;
+      $url = BACKEND_URL . "/trade_posts.php/?token=" . $token . "&key=colors"; // All Colors;
       break;
   }  
 

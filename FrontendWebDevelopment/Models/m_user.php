@@ -15,7 +15,7 @@ function userCreation($data) {
     
     // Variables
     $token      = "16663056-351e723be15750d1cc90b4fcd";
-    $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/?key=newUser';
+    $url        = BACKEND_URL . "/users.php/?key=newUser";
     
     $data       += ["token" => $token];
 
@@ -73,7 +73,7 @@ function userCreation($data) {
 function userValidation($email, $password)
 {
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=email&value=" . $email;
+    $url    = BACKEND_URL . "/users.php/?token=" . $token . "&key=email&value=" . $email;
 
     $opts = array('http' =>
         array(
@@ -118,9 +118,9 @@ function loadProfileDetails($profileID){
     $token  = "16663056-351e723be15750d1cc90b4fcd";
     
     if ( $profileID == null ):
-        $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=allUsers"; // All Users (Music Trade Center)
+        $url    = BACKEND_URL . "/users.php/?token=" . $token . "&key=allUsers"; // All Users (Music Trade Center)
     else:
-        $url    = "http://localhost/TG_MTC/BackendDevelopment/users.php/?token=" . $token . "&key=id&value=". $profileID; // Especific User (Profile)
+        $url    = BACKEND_URL . "/users.php/?token=" . $token . "&key=id&value=". $profileID; // Especific User (Profile)
     endif;
     
   
@@ -152,7 +152,7 @@ function userUpdate($data) {
     
     // Variables
     $token      = "16663056-351e723be15750d1cc90b4fcd";
-    $url        = 'http://localhost/TG_MTC/BackendDevelopment/users.php/?key=updateUser';
+    $url        = BACKEND_URL . "/users.php/?key=updateUser";
     
     $data       += ["token" => $token];
 
