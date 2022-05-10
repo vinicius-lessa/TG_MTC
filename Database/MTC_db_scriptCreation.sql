@@ -5,6 +5,7 @@
 *   2022/03/22 - Vinícius Lessa: Ajustes e melhorias na tabela `users`
 *   2022/03/23 - Vinícius Lessa: Inserção do Script para a criação e estruturação das tabelas `TradePosts`, `ProductConditions`, `Category`, `Models` , `Colors`
 *   2022/04/16 - Vinícius Lessa: Inserção da tabela 'images_trade_posts', suas colunas, constraits e Insert
+*   2022/04/29 - Vinícius Lessa: Inserção da tabela 'category_brand', suas colunas, constraits e Insert
 *
 */
 
@@ -92,18 +93,19 @@ INSERT INTO `product_categorys`
 ( `description`, `activity_status` )
 VALUES
 ( 'Guitarras'             , true	) ,
-( 'Violões'               , true	) ,
-( 'Contrabaixos'          , true	) ,
 ( 'Baterias'              , true  ) ,
-( 'Amplificadores'        , true  ) ,
-( 'Mesas de Som'          , true  ) ,
-( 'Microfones'            , true  ) ,
-( 'Cabos e Adaptadores'   , true  ) ,
-( 'Baixolões'             , true  ) ,
-( 'Capas e Cases'         , true  ) ,
-( 'Interfaces de Som'     , true  ) ,
-( 'Pedaleiras'            , true  ) ,
-( 'Instrumentos de Sopro' , true  ) ;
+( 'Outra Categoria'       , true  ) ;
+-- ( 'Violões'               , true	) ,
+-- ( 'Contrabaixos'          , true	) ,
+-- ( 'Amplificadores'        , true  ) ,
+-- ( 'Mesas de Som'          , true  ) ,
+-- ( 'Microfones'            , true  ) ,
+-- ( 'Cabos e Adaptadores'   , true  ) ,
+-- ( 'Baixolões'             , true  ) ,
+-- ( 'Capas e Cases'         , true  ) ,
+-- ( 'Interfaces de Som'     , true  ) ,
+-- ( 'Pedaleiras'            , true  ) ,
+-- ( 'Instrumentos de Sopro' , true  ) ;
 
 
 -- ## 7º - Criar tabela `product_brands`, referente as MARCAS de produtos
@@ -125,60 +127,46 @@ INSERT INTO `product_brands`
 VALUES
 ( 'Ibanez'    , true ) ,
 ( 'Michael'   , true ) ,
-( 'Dean'      , true ) ,
-( 'Tagima'    , true ) ,
-( 'Strinberg' , true ) ,
 ( 'Pearl'     , true ) ,
 ( 'Ludwig'    , true ) ,
-( 'Mapex'     , true ) ,
-( 'Shelter'   , true ) ,
-( 'Woodwinds' , true ) ,
-( 'SML'       , true ) ,
-( 'Shure'     , true ) ,
-( 'Sennheiser', true ) ,
-( 'Lyco'      , true ) ,
-( 'Behringer' , true ) ;
+( 'Outra Marca' , true  ) ;
+-- ( 'Dean'      , true ) ,
+-- ( 'Tagima'    , true ) ,
+-- ( 'Strinberg' , true ) ,
+-- ( 'Pearl'     , true ) ,
+-- ( 'Ludwig'    , true ) ,
+-- ( 'Mapex'     , true ) ,
+-- ( 'Shelter'   , true ) ,
+-- ( 'Woodwinds' , true ) ,
+-- ( 'SML'       , true ) ,
+-- ( 'Shure'     , true ) ,
+-- ( 'Sennheiser', true ) ,
+-- ( 'Lyco'      , true ) ,
+-- ( 'Behringer' , true ) ;
 
 
--- ## 9º - Criar tabela `categorys_x_brands`, referente a relação de N para N de Categoria de Produtos e Marcas
-DROP TABLE IF EXISTS `categorys_x_brands`;
-CREATE TABLE IF NOT EXISTS `categorys_x_brands`
+-- ## 9º - Criar tabela `category_brand`, referente a relação entre Múltiplas CATEGORIAS e Multiplas MARCAS
+DROP TABLE IF EXISTS `  `;
+CREATE TABLE IF NOT EXISTS `category_brand`
 (
-  `relation_id`           int(11)       NOT NULL auto_increment ,
-  `category_id`           int(11)       NOT NULL                ,
-  `brand_id`              int(11)       NOT NULL                ,  
-  `description`           varchar(50)   NOT NULL                ,
-  `activity_status`       boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
-  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT PK_categorys_x_brands PRIMARY KEY (relation_id),
-  CONSTRAINT FK_product_categorys FOREIGN KEY (category_id) REFERENCES product_categorys(category_id),
-  CONSTRAINT FK_product_brands FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id)
+  `category_brand_category_id`  int(11)       NOT NULL                ,
+  `category_brand_brand_id`     int(11)       NOT NULL                ,  
+  `activity_status`             boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`                  timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`                 timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT FK_product_categorys_category_brand  FOREIGN KEY (category_brand_category_id) REFERENCES product_categorys(category_id) ,
+  CONSTRAINT FK_product_brands_category_brand     FOREIGN KEY (category_brand_brand_id) REFERENCES product_brands(brand_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
-
--- ## 10º - Insere Dados na tabela `categorys_x_brands`
-INSERT INTO `categorys_x_brands`
-( `category_id`, `brand_id`, `description`, `activity_status` )
+-- ## 10º - Insere Dados na tabela `category_brand`
+INSERT INTO `category_brand`
+( `category_brand_category_id` , `category_brand_brand_id` )
 VALUES
-( '1' , '1', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '1'), true ) ,
-( '1' , '2', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '2'), true ) ,
-( '1' , '3', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '3'), true ) ,
-( '1' , '4', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '4'), true ) ,
-( '1' , '5', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '5'), true ) ,
-( '4' , '6', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '4' and pb.brand_id = '6'), true ) ,
-( '4' , '7', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '4' and pb.brand_id = '7'), true ) ,
-( '4' , '8', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '4' and pb.brand_id = '8'), true ) ,
-( '13' , '9', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '13' and pb.brand_id = '9'), true ) ,
-( '13' , '10', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '13' and pb.brand_id = '10'), true ) ,
-( '13' , '11', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '13' and pb.brand_id = '11'), true ) ,
-( '7' , '12', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '12'), true ) ,
-( '7' , '13', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '13'), true ) ,
-( '7' , '14', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '14'), true ) ,
-( '7' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '7' and pb.brand_id = '15'), true ) ,
-( '11' , '15', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '11' and pb.brand_id = '15'), true ) ;
---( '1' , '16', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '16'), true ) ,
--- ( '1' , '17', (SELECT CONCAT(pc.description,' x ',pb.description) from product_categorys pc, product_brands pb where pc.category_id = '1' and pb.brand_id = '17'), true ) ;
+( 14 , 4 ) ,
+( 14 , 14 ) ,
+( 24 , 24 ) ,
+( 24 , 34 ) ,
+( 34 , 44  ) ;
 
 
 -- ## 11º - Criar tabela `product_models`, referente ao Modelo de produtos
@@ -199,17 +187,15 @@ CREATE TABLE IF NOT EXISTS `product_models`
 INSERT INTO `product_models`
 ( `description`, `brand_id`, `activity_status` )
 VALUES
-( 'Aad170ce'              , '1', true	) ,
-( 'Tube Screamer Ts9'     , '1', true	) ,
-( 'Rg470mbafm'            , '1', true	) ,
-( 'Ts808 Dx'              , '1', true  ) ,
-( 'Es 3 Echo Shifter'     , '1', true  ) ,
-( 'Rg420hpfm'             , '1', true  ) ,
-( 'Mahogany Series'       , '7', true  ) ,
-( 'Legacy Maple Series'   , '7', true  ) ,
-( 'Vistalite Series'      , '7', true  ) ,
-( 'NeuSonic Series'       , '7', true  ) ,
-( 'Classic Maple Series'  , '7', true  ) ;
+( 'Ibanez 1'              , '4', true	) , -- Ibanez
+( 'Ibanez 2'     , '4', true	) , -- Ibanez
+( 'Michael 1'     , '14', true	) , -- Michael
+( 'Michael 2'     , '14', true	) , -- Michael
+( 'Pearl 1'     , '24', true	) , -- Pearl
+( 'Pearl 2'     , '24', true	) , -- Pearl
+( 'Ludwig 1'     , '34', true	) , -- Ludwig
+( 'Ludwig 2'     , '34', true	) , -- Ludwig
+( 'Outro Modelo' , '44', true	);
 
 
 -- ## 13º - Criar tabela `product_conditions`, referente as Condições do Produtos no anúncio
@@ -364,6 +350,25 @@ CREATE TABLE IF NOT EXISTS `messages`
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 
+-- ## 24º - Criar tabela `images_profile`, referente as IMAGENS utilizadas nos anúncios do sistema
+DROP TABLE IF EXISTS `images_profile`;
+CREATE TABLE IF NOT EXISTS `images_profile`
+(
+  `image_id`              int(11)       NOT NULL auto_increment ,
+  `image_name`            varchar(255)  NOT NULL                ,
+  `user_id`               int(11)       NOT NULL                ,  
+  `activity_status`       boolean       NOT NULL DEFAULT 1      , -- 0 is false, 1 is true
+  `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT PK_images PRIMARY KEY (image_id) ,
+  CONSTRAINT FK_users_images FOREIGN KEY (user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET = utf8;
+
+-- ## 25º - Insere Dados na tabela `images_profile`
+INSERT INTO `images_profile`
+( `image_name`, `user_id`, `activity_status`)
+VALUES
+( 'img-001.jpg', '4', DEFAULT ) ;
 
 
 -- ############################################################### ANALISAR ###############################################################

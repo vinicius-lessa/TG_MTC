@@ -11,18 +11,21 @@
  * @ Notes: 
  * 
  */
-  if (!defined('SITE_URL')) {
-    include_once '../../config.php';
-  }
 
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
 
-  $titlePage = 'Feed Musical';
-  $data_slide = 0;
+include_once '../../defaultFunctions.php';
 
-  // require SITE_PATH . '/Controllers/c_trade_posts.php';
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+$titlePage = 'Feed Musical';
+$data_slide = 0;
+
+// require SITE_PATH . '/Controllers/c_trade_posts.php';
 ?>
 
 <!DOCTYPE html>
@@ -36,11 +39,11 @@
     <meta name="author" content="Vinícius Lessa / Renata Carrillo">
     <meta name="description" content="Página de criação de cadastro por parte do usuário do sistema.">
     <title> <?php echo $titlePage; ?> </title>
-    
+        
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     
@@ -420,7 +423,7 @@
 
 </main>
 
-    <!-- ENCONTRE ARTISTAS -->
+    <!-- Encontre Outros Artistas -->
     <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row mt-3 mb-3">
           <div class="col-12 col-sm-8">
@@ -428,7 +431,7 @@
             <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           </div>
           <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white ms-4" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+            <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>
       </div>
@@ -437,9 +440,9 @@
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
   </body>
 
 </html>

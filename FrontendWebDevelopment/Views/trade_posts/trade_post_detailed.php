@@ -7,10 +7,10 @@
  *  - Renata Carrillo - 12/04/2022: Padronização do <head> e titlePage;
  *  - Vinícius Lessa - 18/04/2022: Mudanças do nome do arquivo de "trade_post_view.php" para "trade_post_detailed.php".
  *                                 Mudanças nas estruturas html do anúncio. Implementação do consumo de informações do Banco de dados (de acordo com o anúncio clicado).
- *  - Renata Carrillo - 18/04/22: Inclusão dos "outros anúncios"
- *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos produtos;
- *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap.
- *  - Vinícius Lessa - 26/04/2022: Início da implementação da visualização do Anúncio pelo criador (meu perfil > meus anúncios).
+ *  - Renata Carrillo - 18/04/22: Inclusão dos "outros anúncios".
+ *  - Renata Carrillo - 20/04/2022: Mudança na disposição das imagens do anúncio + inserção de bk-gray nas especificações dos produtos.
+ *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap. 
+ *  - Vinícius Lessa - 03/05/2022: Inclusão da Lógica de Carrossel das imagens baseado na quantidade de imagens.
  * 
  * @ Notes: 
  * 
@@ -20,11 +20,13 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-$a_tpList   = [];
+$a_tpList   = []; // Other Trade Posts
 
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
+
+include_once '../../defaultFunctions.php';
 
 $post_id = $_GET['trade_post']; // usado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';
@@ -34,6 +36,7 @@ $userCreator  = $tpDetails["data"][0]["user_id"];
 $titlePage    = $tpDetails['data'][0]['title'];
 
 $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
+$imagesCount  = count($tpDetails["data"]);
 
 ?>
 
@@ -51,10 +54,9 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
-    
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
@@ -86,26 +88,62 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
               <hr class="hr-default">
             </div>
           </div>
-                  
+
           <!-- Main Content -->          
-          <article>              
-            <div class="row tradepost_container">
+          <article>
+            <div class="row">
 
-              <!-- Image Carrousel -->              
-              <div class="col-12 col-sm-8 p-0 blur-container">
-                <!-- Blur -->
-                <div class="blur_background" style="background-image: url('<?php echo $tpDetails["data"][0]["image_name"] ?>');">
-                </div>
+              <!-- Image Carrousel -->
+              <div class="col-12 col-lg-8 p-0">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-indicators" style="z-index: 12 ;">
+                    <?php for ($i = 0; $i < $imagesCount; $i++) {  
+                      if ( $i == 0 ):?>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $i?>" class="active" aria-current="true" aria-label="Slide <?php echo $i?>"></button>
+                      <?php else: ?>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $i?>" aria-label="Slide <?php echo $i?>"></button>
+                      <?php endif; ?>
+                    <?php }  ?>
+                  </div>
+                  <div class="carousel-inner">
+                    <?php for ($i = 0; $i < $imagesCount; $i++) {  ?>
+                      
+                      <div class="carousel-item <?php echo $i == 0 ? 'active' : '' ; ?>" data-bs-interval="100000">
+                        <div class="col-12 p-0 image-container-new" id="tradepost-img-container">
+                          <?php if ( isset($tpDetails["data"][$i]["image_name"]) && $tpDetails["data"][$i]["image_name"] != null && validateImageSource($tpDetails["data"][$i]["image_name"]) ): ?>
+                            <!-- Blur -->
+                            <div class="img-default-content img_background_blur" style="background-image: url('<?php echo $tpDetails["data"][$i]["image_name"] ?>');">
+                            </div>
 
-                <!-- Image  -->
-                <div class="image_container_test" style="transform: translate(0px, -498px);">
-                  <img src="<?php echo $tpDetails["data"][0]["image_name"] ?>" class="testtwo" alt="">
+                            <!-- Image  -->
+                            <div class="img-default-content">
+                              <img src="<?php echo $tpDetails["data"][$i]["image_name"] ?>" class="img-tag-tp-default" alt="">
+                            </div>
+                          <?php else: ?>
+                            <div class="img-default-content">
+                              <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="img-tag-tp-default" alt="Imagem ilustrativa de um produto voltado ao meio musical.">                              
+                            </div>
+                          <?php endif; ?>
+                        </div>
+                      </div>
+
+                    <?php }  ?>
+                  </div>
+
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="z-index: 12 ;">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="z-index: 12 ;">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
-              </div>
-                                                    
+              </div>              
+
 
               <!-- Trade Post Info -->
-              <div class="col-12 col-sm-4 h-100">
+              <div class="col-12 col-lg-4 h-100">
 
                 <!-- Title -->
                 <div class="row my-3 mx-0">
@@ -115,7 +153,7 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
                 </div>
                 <div class="row my-2 mx-0">
                   <div class="col-12">
-                    <h3 class="text-red" style="font-weight: bold;">R$ <?php echo $tpDetails["data"][0]["price"] ?></h3>
+                    <h3 class="text-red" style="font-weight: bold;">R$ <?php echo number_format($tpDetails["data"][0]["price"], 2, ',', '.') ?></h3>
                   </div>
                 </div>                  
 
@@ -161,7 +199,7 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
                         <div class="row">
                           <div class="col-12 d-flex align-items-center justify-content-center">
                             <span>
-                              <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                              <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                               class="text-decoration-none text-white">
                                 <strong>
                                   <?php echo $tpDetails["data"][0]["user_name"] ; ?>
@@ -169,13 +207,16 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
                                 <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
                               </a>
                             </span>
-                            <a 
-                              href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                            <a
+                              href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
                               class="nav-link px-4 link-secondary">
-                                <!-- <img src="<?php echo SITE_URL ?>/images/icons/profile.png" class="img-fluid" alt="" width="70px" height="70px"> -->
-                                <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
-                            </a>                              
-                          </div>                                                          
+                                <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) && validateImageSource($tpDetails["data"][0]["img_profile_name"]) ): ?>
+                                  <img src="<?php echo $tpDetails["data"][0]["img_profile_name"] ?>" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                                <?php else: ?>
+                                  <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                                <?php endif; ?>
+                            </a>
+                          </div>
                         </div>
 
                       </div>              
@@ -252,7 +293,14 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
           if ( isset($a_tpList) && !$a_tpList["error"] ) :
         ?>          
           <div class="row">          
-            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
+            <?php 
+              $lastId = 0;
+              foreach ($a_tpList["data"] as $a_tpItem) { 
+              if ( $lastId == $a_tpItem['post_id'] ):
+                continue; // Skip Iteration
+              endif;
+              $lastId = $a_tpItem['post_id'];                
+            ?>
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="image_container">
                   <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
@@ -277,7 +325,7 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
       </section>
 
       <section>
-      <!-- ENCONTRE ARTISTAS -->
+      <!-- Encontre Outros Artistas -->
       <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row mt-3 mb-3">
           <div class="col-12 col-sm-8">
@@ -285,7 +333,7 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
             <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           </div>
           <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white ms-4" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+            <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>
       </div>
@@ -296,14 +344,9 @@ $isOwnPost    = $tpDetails["data"][0]["user_id"] === $_SESSION['user_id'];
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    
-    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
-
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>    
     
   </body>
 

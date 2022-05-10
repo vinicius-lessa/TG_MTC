@@ -16,8 +16,8 @@
 
 function newMessage($data) {
     // Variables
-    $token      = "16663056-351e723be15750d1cc90b4fcd";
-    $url        = 'http://localhost/TG_MTC/BackendDevelopment/chat.php/';
+    $token      = "16663056-351e723be15750d1cc90b4fcd";	
+    $url        = BACKEND_URL . "/chat.php/";
     
     $data       += ["token" => $token];
 
@@ -69,7 +69,7 @@ function newMessage($data) {
 function refreshChat($userLogged, $userTwo, $post_id){
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/chat.php/?token=" . $token . "&userLogged=" . $userLogged . "&userTwo=" . $userTwo . "&post_id=" . $post_id . "&key=refreshChat";
+    $url    = BACKEND_URL . "/chat.php/?token=" . $token . "&userLogged=" . $userLogged . "&userTwo=" . $userTwo . "&post_id=" . $post_id . "&key=refreshChat";
 
     $opts = array('http' =>
         array(
@@ -105,7 +105,7 @@ function refreshChat($userLogged, $userTwo, $post_id){
 function getOtherChats($userLogged){
 
     $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = "http://localhost/TG_MTC/BackendDevelopment/chat.php/?token=" . $token . "&userLogged=" . $userLogged . "&key=chatList";
+    $url    = BACKEND_URL . "/chat.php/?token=" . $token . "&userLogged=" . $userLogged . "&key=chatList";
 
     $opts = array('http' =>
         array(

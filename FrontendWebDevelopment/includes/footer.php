@@ -13,7 +13,7 @@
 
 ?>
 
-<footer>
+<footer class="">
   <div class="container mt-5 py-3">
     <div class="py-2">
       <ul class="nav col-12 col-md-auto justify-content-center mb-md-0">

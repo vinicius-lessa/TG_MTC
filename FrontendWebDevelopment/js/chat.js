@@ -5,6 +5,7 @@
  * ChangeLog 
  *  - Vinícius Lessa - 21/04/2022: Criação do arquivo e inclusão da documentação inicial. Início da Implementação da função 
  *  - Vinícius Lessa - 23/04/2022: Implementação da mensagem instantanea, e adição de um "Loading" antes que a consulta no banco possa ser feita.
+ * 
  * @ Notes: 
  * 
  */
@@ -18,6 +19,7 @@
 const newMessageForm = $("#newMessageForm");
 
 var message         = $("#newMessage");
+var currentTime     = $("#current_time");
 var requestServer   = true;
 
 // Functions
@@ -51,14 +53,13 @@ function refreshChat(){
 }
       
 // Repeat - 10 seconds
-setInterval(function(){refreshChat();}, 20000);
-
+setInterval(function(){refreshChat();}, 4000);
 
 // Events
 // Insert New Message
 newMessageForm.submit(async function( event ){
-    event.preventDefault();
-    
+    event.preventDefault();        
+
     requestServer = false;
 
     if ( message.val() === "" || message.val() === null ) {
@@ -78,7 +79,7 @@ newMessageForm.submit(async function( event ){
                     "</div> " +
                 "</div> " +
                 "<div class='d-flex flex-row-reverse mx-1 mb-0 p-0 size-12 text-gray' style='transform: translate(0px, -2px);'>" +
-                "<span>10:41</span> " +
+                "<span>" + currentTime.val() + "</span> " +
                     "</div> " +
                 "</div> " +
             "</div> " +
@@ -107,10 +108,7 @@ newMessageForm.submit(async function( event ){
     // }
 
     // Send Post via POST to PHP
-
-    // *******
-    
-    const response = await fetch('http://localhost/TG_MTC/FrontendWebDevelopment/Controllers/c_chat.php', {
+    const response = await fetch( frontEndURL + "/Controllers/c_chat.php", {
         method: "POST",
         body: formData
     });

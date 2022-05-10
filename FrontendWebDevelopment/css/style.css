@@ -17,6 +17,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap'); /* Mukta */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap'); /* Oswald */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap'); /* Bebas Neue */
 
 
 /* ################################ Media Query
@@ -26,22 +27,34 @@
 @media (max-width: 2560px) {
   .chat_panel {
     height: 650px;
-  }
+  } 
 
-  .tradepost_container {
-    height: 500px;
-  }
+  #tradepost-img-container{height: 500px;}
+  #profileTP-img-container{height: 210px;}
+  #chatTP-img-container{height: 105px;}
 }
 
 /* Mobile */
 @media (max-width: 1010px) {
   .chat_panel {
     height: 1300px;
+  }  
+
+  #tradepost-img-container{height: 300px;}
+  #profileTP-img-container{height: 210px;}  
+  #chatTP-img-container{height: 105px;}
+
+  .zeroMargin-Padding-mobile {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    width: 100% !important;
   }
 
-  .tradepost_container {
-    height: 1000px;
-  }  
+  .text-center-mobile {
+    text-align: center !important;
+  }
 }
 
 
@@ -51,27 +64,93 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;  
+  /* min-height: 1080px; */
 }
 
 footer{
+  position: relative !important;
   width: 100%;
   bottom: 0;
   left: 0;
 }
 
-/* ################################ BOTÕES
+
+/* ################################ Fonts
+*/
+
+/* Called on Body */
+/* .font-main  { 
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family:'Helvetica', sans-serif;
+}
+
+.title-default{
+  font-family: 'Oswald', sans-serif;
+}
+
+.message-default{  
+  font-family: 'Mukta', sans-serif;
+} */
+
+.size-12 {font-size:12px;}
+.size-14 {font-size:14px;}
+.size-16 {font-size:16px;}
+.size-18 {font-size:18px;}
+
+/* Font Color */
+
+.text-white {color: #ffffff;}
+.text-black {color: #000;}
+.text-red {color: #eb1f36;}
+.text-lightred {color: #e73b4f;}
+.text-blue-link {color: #1cb7e6;}
+.text-lightgray {color: #d3d1d1;}
+.text-gray {color: #868484;}
+.text-DeepGray {color: #545252;}
+
+.stroke-one {
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #434344;
+}
+
+/* Text Links */
+
+a.link-none:link {
+  text-decoration: none;
+}
+
+.linkdefault {
+  text-decoration: none;
+  color: white;
+}
+.linkdefault:hover {
+  text-decoration: none;
+  color: #eb3535;
+}
+
+/* ################################ Buttons
 */
 
 .btn-default {
   color: #fff;
-  background-color: #dc1919;
+  background-color: #eb1f36;
   border: 0px;
 }
 
-.btn-default:hover {
-  background-color: #f63f3f;
+.btn-default:hover {  
+  color: rgb(0, 0, 0);
 }
+
+.btn-NoFill-default {
+  background-color: transparent;
+  border: 0px;
+  color: #e22121b7;
+}
+
+.btn-NoFill-default:hover {
+  color: #e22121b7;  
+}
+
+/* Chat */
 
 .btn-send {
   color: #fff;
@@ -83,9 +162,27 @@ footer{
   background-color: #2e8fa0;
 }
 
+/* Header, Navbar */
+
 .btn-navbar{
   color: white !important;  
   padding: 2px !important;
+}
+
+.btn-navbar:hover {
+  background-color: #eb1f36 !important;
+  border-radius: 15px !important;
+}
+
+.btn-signUp {
+  color: white;
+  padding: 2px !important;
+  background-color: #eb1f36;
+  border-radius: 15px;
+}
+
+.btn-signUp:hover {
+  background-color: #e70f28 !important;  
 }
 
 .dropdown-toggle {
@@ -99,40 +196,15 @@ footer{
   border-radius: 15px !important;
 }
 
-.btn-navbar:hover {
-  background-color: #ec3232d7 !important;
-  border-radius: 15px !important;
-}
-
-.btn-signUp {
-  color: white;
-  background-color: rgb(226, 39, 39);
-  border-radius: 15px;
-  height: 50px;
-  padding: 0px;
-  vertical-align: middle;
-  align-items: center;  
-}
-
-.btn-signUp:hover {
-  background-color: #f70000d7;
-  border-radius: 15px;  
-}
-
-.profile-btn {
-  position: absolute; 
-  transform: translate(90px, 250px);  
-}
-
-/* Mudanças no BOOTSTRAP */
+/* User Profile */
 
 .default-tabs {
   color: white !important; 
   border: 0px !important;
 }
 
-.default-tabs:hover {  
-  color: #ea4646 !important;
+.default-tabs:hover {
+  color: #eb1f37b7 !important;
 }.nav-tabs
 
 .default-tabs.active:hover {  
@@ -140,8 +212,53 @@ footer{
 }.nav-tabs
 
 .default-tabs.active{  
-  background-color: #ed3737 !important;  
+  background-color: #eb1f36 !important;
 }.nav-tabs
+
+.profileImage-label {  
+  width: 30px;
+  height: 27px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: transparent;
+  color: #eb1f36;
+}
+
+.edit-btn:hover {
+  background-color: #eb1f36;
+  color: #fff;
+}
+
+.addThing-btn:hover {
+  background-color: transparent !important;
+  color: #fff;
+}
+
+/* New Trade Post */
+
+.btn-insertImage:hover {
+  font-size: 1.1em;
+}
+
+.label-default:hover {
+  cursor: pointer;
+}
+
+.deleteImage-btn {
+  position: absolute;
+  color: #ffffffa4;
+  z-index: 10; 
+  background-color: transparent; 
+  border: 0px; 
+  transform: translate(0px, -22px);
+  right: 5%;
+}
+
+.deleteImage-btn:hover {
+  color: #ffffffc4;
+}
 
 
 /* ################################ Forms
@@ -156,6 +273,31 @@ footer{
 
 form div {
   margin: 10px 0 20px 0;
+}
+
+/* User Profile */
+.textAreaDefault:disabled {
+  color: #fff;
+  resize: none;
+  background-color: #00000000;
+  border: 1px solid rgba(232, 24, 24, 0.669);
+}
+
+.textAreaDefault:enabled {
+  color: #fff;
+  resize: none;
+  background-color: #00000000;
+  border: 1px solid rgba(232, 24, 24, 0.669);
+}
+
+.textAreaDefault:placeholder-shown{
+  color:#fff;
+}
+
+.list-group, .list-group-item {
+  border-color: #fff;
+  background-color: transparent !important;
+  color: #fff !important;
 }
 
 /* ################################ Colors
@@ -212,72 +354,6 @@ form div {
 }
 
 
-/* ################################ Fonts
-*/
-
-.font-main  {
-  /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
-  font-family:'Helvetica', sans-serif;
-}
-
-.title-default{
-  font-family: 'Oswald', sans-serif;
-}
-
-.message-default{  
-  font-family: 'Mukta', sans-serif;
-}
-
-.size-12 {font-size:12px;}
-.size-14 {font-size:14px;}
-.size-16 {font-size:16px;}
-.size-18 {font-size:18px;}
-
-/* Font Color */
-
-.text-white {
-  color: #ffffff;
-}
-
-.text-red {
-  color: #d21b1b;
-}
-
-.text-lightred {
-  color: #f64141;
-}
-
-.text-blue-link {
-  color: #1cb7e6;
-}
-
-.text-lightgray {
-  color: #d3d1d1;
-}
-
-.text-gray {
-  color: #868484;
-}
-
-.stroke-one {
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #434344;
-}
-
-/*remover sublinhado*/
-a.link-none:link {
-  text-decoration: none;
-}
-
-.linkdefault {
-  text-decoration: none;
-  color: white;
-}
-.linkdefault:hover {
-  text-decoration: none;
-  color: #eb3535;
-}
-
-
 /* ################################ SignIn - SignUp
 */ 
 .body-login {
@@ -292,14 +368,14 @@ a.link-none:link {
   background-size: cover;
 }
 
-/* ################################ My Profile
+/* ################################ User Profile
 */
 
 .tp-card {
   background-color: rgb(43, 49, 50) ;
   border-right-style: solid;
   border-width: 8px;
-  border-color: #eb3535;
+  border-color: #eb3535;  
 }
 
 /* ################################ Images */
@@ -326,38 +402,55 @@ a.link-none:link {
   position: absolute;
 }
 
+/* New Trade Post */
 
-/* Vinícius - 26/04/2022 */
-.image_container_test {
-  width: 100%;
-  height: 100%;
-  vertical-align: middle;
-  text-align: center;  
+.image-preview-box {
+  height: 240px;
+  padding: 3px;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: #e2212171;
+  border-radius: 10px;
+  color: #e2212171;
+  margin: auto;
+  align-items: center;
+  vertical-align: middle;  
 }
 
-.blur-container {
+
+/* Background Image TP Detailed + User Profile (BLUR) + New Post */
+
+.image-container-new {
+  position: relative;
   border-style: solid;
   border-width: 1px;
   border-color: #85858597;
-  max-height: 100%;
 }
 
-.blur_background {
+.img-default-content { /* Called in Background Blur, as such in the Image itself */
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;  
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 9;
+}
+
+.img_background_blur  {
   background-position: center center;
   background-repeat: no-repeat; 
   background-size: cover;  
-  filter: blur(4px) brightness(0.6);
+  filter: blur(2px) brightness(0.4);
   /* background-color: #59595ab6; */
 }
 
-.testtwo{
+.img-tag-tp-default {
   max-width: 100%;
   height: 100%;
-  filter: contrast(110%) brightness(1.2);
+  filter: contrast(105%) brightness(1.1);
 }
-
 
 /* ################################ JavaScript
 */
@@ -374,11 +467,11 @@ a.link-none:link {
 /* Generic Loader */
 .spinner-wrapper{
   /* display: flex; - Ativado via Js*/
-  display: none;
+  display: none;  
   width: 100%;
   height: 100%;
-  background-color: #1515158a;
-  position: absolute;
+  background-color: #0000005f;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
@@ -525,4 +618,58 @@ a.link-none:link {
 .chat-box {
   height: 76%;
   margin-top: 20px;
+}
+
+/* ################################ QUEM SOMOS
+*/
+
+.showcase{
+  /* width: 100%; */
+  /* height: 100vh; */
+  position: relative;
+}
+
+.showcase video{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.title{
+  width: 100%;
+  /* height: 100%; */
+  background-color: rgb(0, 0, 0);
+  font-size: 100px;
+  color: #fff;
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 576px) {
+
+  .showcase{
+    /* width: 100%; */
+    /* height: 28vh; */
+    position: relative;
+  }
+
+  .showcase video{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+
+  .title{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    font-size: 50px;
+    color: #fff;
+    mix-blend-mode: multiply;
+  }
 }

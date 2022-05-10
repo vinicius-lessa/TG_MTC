@@ -23,6 +23,9 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
+include_once '../../defaultFunctions.php';
+
+// Vars
 $titlePage  = 'MTC | Anúncios';
 $a_tpList   = [];
 
@@ -44,8 +47,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> <!-- Icons -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">--> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     
@@ -72,8 +75,10 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
           <div class="form-outline col-10 col-sm-6">
             <input id="search-input" type="search" id="form1" class="form-control" />
           </div>
-            <button id="search-button" type="button" class="btn btn-default">
-              <i class="bi bi-search"></i>
+          <button id="search-button" type="button" class="btn btn-default">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
           </button>
         </div>
 
@@ -87,17 +92,31 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       ?>
         <div class="container mb-5">
           <div class="row">
-            <?php foreach ($a_tpList["data"] as $a_tpItem) { ?>
-              <!--
-                > 990 (lg)= 3 
-                < 990 (md)= 2
-                > 575 (sm)= 1 
-              -->
+            <?php
+              $lastId = 0;
+              foreach ($a_tpList["data"] as $a_tpItem) { 
+                if ( $lastId == $a_tpItem['post_id'] ):
+                  continue; // Skip Iteration
+                endif;
+                $lastId = $a_tpItem['post_id'];
+            ?>              
               <div class="col-12 col-sm-6 col-lg-4 mt-4 mb-4">
                 <div class="p-3">
                   <div class="image_container">
                     <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
+                      <?php
+                        if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ):
+                          if ( validateImageSource($a_tpItem['image_name']) ):?>
+                        
+                          <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="" style="">
+                        <?php
+                          else: ?>
+                            <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
+                        <?php endif; ?>
+                      <?php 
+                        else: ?>  
+                        <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
+                      <?php endif; ?>
                     </a>
                   </div>
                   <div class="p-2 bk-gray">
@@ -111,7 +130,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                       <div class="col-8">
                         <span class="card-title text-white ">Por:
                           <strong>
-                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?user_id=<?php echo $a_tpItem['user_id'] ?>"
+                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $a_tpItem['user_id'] ?>"
                               class="text-decoration-none text-white">
                               <?php echo $a_tpItem['user_name'] ?>
                             </a>
@@ -141,7 +160,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       <?php } ?>
     </section>
 
-    <!-- ENCONTRE ARTISTAS -->
+    <!-- Encontre Outros Artistas -->
     <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
         <div class="row mt-3 mb-3">
           <div class="col-12 col-sm-8">
@@ -149,7 +168,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
           </div>
           <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white ms-4" style="font-size:14px;" href="../produtos/MusicTradeCenter.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+            <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
           </div>
         </div>
       </div>
@@ -158,8 +177,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
         
   </body>

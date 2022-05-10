@@ -44,6 +44,7 @@ $uri = basename($_SERVER['REQUEST_URI']);
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
 
     // Token Validation
     if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):       

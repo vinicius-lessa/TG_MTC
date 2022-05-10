@@ -21,7 +21,13 @@ include SITE_PATH . '/Models/m_tradePosts.php';
 
 // Called in: 'trade_posts/home.php'
 if ( isset($a_tpList) ) {
-  $a_tpList = loadTradePosts($profileID);
+  $a_tpList = loadTradePosts(null);
+  // $itensCarrosel = carregarDestaques($conn);
+}
+
+// Called in: 'trade_posts/home.php'
+if ( isset($a_userTradePosts) ) {
+  $a_userTradePosts = loadTradePosts($profileID);
   // $itensCarrosel = carregarDestaques($conn);
 }
 
@@ -41,22 +47,35 @@ if ( isset($post_id) ) :
 endif;
 
 
-// ********************************************** ANALISAR ********************************************** //
-
-// Insert New TradePost / Inserir novo Anúncio
-if (isset($_POST['newTradePost'])) {
-  $dados = [];
+// Called in: 'trade_posts/new_post.php'
+if ( isset($selectCategory) ):
   
-  foreach ($_POST as $key => $value) {
-    if ($key != "newTradePost") {
-      $dados[$key] = ($value);
-    }
-  }
- 
-}
+  $selectCategory = loadNewTPOptions("categorys");
+endif;
+
+// Called in: 'trade_posts/new_post.php'
+if ( isset($selectBrand) ):
+  
+  $selectBrand = loadNewTPOptions("brands");
+endif;
+
+// Called in: 'trade_posts/new_post.php'
+if ( isset($selectModel) ):
+  
+  $selectModel = loadNewTPOptions("models");
+endif;
+
+// Called in: 'trade_posts/new_post.php'
+if ( isset($selectColor) ):
+  
+  $selectColor = loadNewTPOptions("colors");
+endif;
 
 
-// ******************************** ANALISAR
+
+
+
+// ********************************************** ANALISAR ********************************************** //
 
 /* ALTERAR PRODUTO NO BANCO  */
 if (isset($_GET['produto'])) {
@@ -85,13 +104,6 @@ if (isset($_POST['alterar-produto'])) {
   exit;
 }
 
-/*verificar se esta na pagina todos e se teve pesquisa*/
-if (isset($produtoPesquisa)) {
-    $listaTodosProdutos = pesquisarProduto($conn, $produtoPesquisa);
-} elseif (isset($listaTodosProdutos)) {
-    $listaTodosProdutos = carregarProdutos($conn, $limit, $offset);
-}
-
 /*Listar os violoes*/
 if (isset($listaVioloes)) {
     $listaVioloes = carregarProdutosCategoria($conn, $codCategoria, $limit, $offset);
@@ -107,28 +119,8 @@ if (isset($listaBaterias)) {
     $listaBaterias = carregarProdutosCategoria($conn, $codCategoria, $limit, $offset);
 }
 
-if (isset($itensProdHome)) {
-  $itensProdHome = carregarprodutos($conn);
-}
 
 /* ================================================================================ */
-
-/*  CADASTRAR CATEGORIA DO PRODUTO */
-if (isset($_POST['cadastrar-categoria'])) {
-  $dados = [];
-  foreach ($_POST as $key => $value) {
-    if ($key != "cadastrar-categoria") {
-      $dados[$key] = ($value);
-    }
-  }
-
-  if (cadastrarcategoria($dados, $conn)) {
-    header("location:" . SITE_URL . "/Views/produtos/categ-index.php");
-  } else {
-    echo 'Erro para cadastrar dado no Banco';
-  }
-  exit;
-}
 
 /* ALTERAR CATEGORIA NO BANCO */
 if (isset($_POST['alterar-categoria'])) {
@@ -144,16 +136,6 @@ if (isset($_POST['alterar-categoria'])) {
         echo 'Erro ao alterar o cadastro no banco';
     }
     exit;
-}
-
-/* FUNÇÃO LISTAR CATEGORIA NA INDEX */
-if (isset($categorias)) {
-  $categorias = listarcategoria($conn);
-}
-
-/* FUNÇÃO PARA LISTAR AS CATEGORIAS NA PAGINA DE CADASTRO DE PRODUTOS */
-if (isset($selectcategoria)) {
-  $selectcategoria = selectcategoria($conn);
 }
 
 /* DELETAR PRODUTOS NO BANCO */

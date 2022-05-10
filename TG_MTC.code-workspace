@@ -2,6 +2,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "..\\_Heroku\\mtc-backend"
+		},
+		{
+			"path": "..\\_Heroku\\mtc-frontend"
 		}
 	],
 	"settings": {}
