@@ -356,14 +356,3 @@ $("#edit-PersonType").click(function(e) {
     $("#persontype").prop('disabled', false);
     $("#persontype").focus();
 });
-
-
-function formatarCep(campo){
-
-    var v=campo.value.replace(/D/g,"")                
-  
-    v=v.replace(/^(d{5})(d)/,"$1-$2") 
-  
-    campo.value = v;
-  
-}

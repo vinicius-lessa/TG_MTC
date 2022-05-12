@@ -21,11 +21,11 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';      
 }
 
-include_once '../../defaultFunctions.php';
+include_once SITE_ROOT.'/defaultFunctions.php';
 
 // Vars
 $defaultContent = $_GET["key"]; // key=about, key=trade_posts, key=config
-$userState = null; // 0 = Não Logado - 1 = Perfil Próprio - 2 = Perfil Público
+$userState = 0; // 1 = Perfil Próprio - 2 = Perfil Público
 
 if ( empty($defaultContent) ):
   $defaultContent = "about";
@@ -33,8 +33,8 @@ endif;
 
 // User State Verify
 if ( !(isset($_SESSION['user_id']) && isset($_SESSION['user_name']) && isset($_SESSION['user_email'])) ):
-  $userState = 0; // Não logado
-  $titlePage = "Perfil | Bloqueado";
+  header("location:" . SITE_URL . "/Views/users/sign_in.php");
+  exit;
 
 else:  
   if ( !(isset($_GET['user_id'])) || $_GET['user_id'] === $_SESSION['user_id'] ):
@@ -44,7 +44,7 @@ else:
   else:
     $userState = 2; // Perfil Público
     $profileID = $_GET['user_id'];
-        
+
   endif;
   
   require SITE_PATH . '/Controllers/c_user.php';
@@ -99,9 +99,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
 
     <script type="text/javascript">
 
-      if ( $userState = 1 ) { // Perfil prórpio
-        var user_id = <?php echo $profileID ?>; // called in 'profile.js'
-      }      
+      if ( <?php echo $userState ; ?> == 1 ) { // Perfil prórpio
+        var user_id = <?php echo isset($profileID) ? $profileID : 0 ; ?>; // called in 'profile.js'        
+      }
 
     </script>
   </head>  
@@ -141,15 +141,10 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
       
         <div class="container ">
           
-        <!-- Não Logado -->
-        <?php
-          if ( $userState === 0 ):
-          
-            // Login necessário para acessar essa página
-            header("location:" . SITE_URL . "/Views/users/sign_in.php");
         
-          // Perfil Próprio        
-          elseif ( $userState === 1 ):
+        <?php
+          // Perfil Próprio
+          if ( $userState === 1 ):
         ?>
           <div class="container zeroMargin-Padding-mobile">
             <div class="row">
@@ -175,7 +170,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <div class="row">
               <div class="col-12 d-flex justify-content-center my-3 p-2">
                 <div>
-                  <?php if ( isset($_SESSION['profile-pic']) && validateImageSource($_SESSION['profile-pic']) ): ?>
+                  <?php if ( isset($_SESSION['profile-pic']) && $_SESSION['profile-pic'] != null && validateImageSource($_SESSION['profile-pic']) ): ?>
                     <img src="<?php echo $_SESSION['profile-pic'] ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
                   <?php else: ?>
                     <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
@@ -894,7 +889,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
             <div class="row">
               
               <div class="col-12 mt-3 mb-3 text-center p-2">
-                <?php if ( isset($profileDetails['data'][0]['image_name']) ): ?>
+                <?php if ( isset($profileDetails['data'][0]['image_name']) && $profileDetails['data'][0]['image_name'] != null && validateImageSource($profileDetails['data'][0]['image_name']) ): ?>
                   <img src="<?php echo $profileDetails['data'][0]['image_name'] ; ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">
                 <?php else: ?>
                   <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:300px;height:300px;object-fit:cover;">

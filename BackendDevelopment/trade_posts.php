@@ -511,8 +511,12 @@ endif;
 // No INSOMINIA, utilizar o "MULTIPART FORM" (Structured)
 if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
+    // Possíveis Requisições:
+    // - CREATE new Trade Post: .../tradepost.php/ + action == 0
+    // - UPDATE Trade Post: .../tradepost.php/ + action == 1
+
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
-    // exit;
+    // exit
 
     // Token Validation
     if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
@@ -848,7 +852,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                         FROM images_trade_posts itp 
                         WHERE itp.activity_status = 1 AND 
                               itp.trade_post_id = :POST_ID AND
-                                itp.image_name = :IMAGE_NAME
+                              itp.image_name = :IMAGE_NAME
                         ORDER BY itp.created_on DESC LIMIT 1;"
                         , [
                             "POST_ID"       => $post_id ,

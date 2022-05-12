@@ -26,7 +26,7 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-include_once '../../defaultFunctions.php';
+include_once SITE_ROOT.'/defaultFunctions.php';
 
 $post_id = $_GET['trade_post']; // usado em 'c_trade_posts.php'
 require SITE_PATH . '/Controllers/c_trade_posts.php';

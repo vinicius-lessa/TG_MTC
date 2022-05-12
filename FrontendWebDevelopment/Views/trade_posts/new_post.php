@@ -21,7 +21,7 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-include_once '../../defaultFunctions.php';
+include_once SITE_ROOT.'/defaultFunctions.php';
 
 // Vars
 

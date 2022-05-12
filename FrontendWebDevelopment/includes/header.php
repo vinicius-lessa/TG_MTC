@@ -12,6 +12,12 @@
  * 
  */
 
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
+
+include_once SITE_ROOT.'/defaultFunctions.php';
+
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -63,7 +69,7 @@
           <li class="nav-item dropdown mx-1">
             <a class="nav-link dropdown-toggle d-flex justify-content-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
               <?php echo $_SESSION['user_name']; ?>                            
-              <?php if ( isset($_SESSION['profile-pic']) && validateImageSource($_SESSION['profile-pic']) ): ?>
+              <?php if ( isset($_SESSION['profile-pic']) && $_SESSION['profile-pic'] != null && validateImageSource($_SESSION['profile-pic']) ): ?>
                 <img src="<?php echo $_SESSION['profile-pic'] ?>" class="img-fluid rounded-circle" alt="" style="margin-left:5px;max-width:100%;width:30px;height:30px;object-fit:cover;">
               <?php else: ?>
                 <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="margin-left:5px;max-width:100%;width:30px;height:30px;object-fit:cover;">
