@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "..\\_000webhost"
+		},
+		{
+			"path": "..\\_Heroku"
 		}
 	],
 	"settings": {}

@@ -92,20 +92,26 @@ CREATE TABLE IF NOT EXISTS `product_categorys`
 INSERT INTO `product_categorys` 
 ( `description`, `activity_status` )
 VALUES
-( 'Guitarras'             , true	) ,
-( 'Baterias'              , true  ) ,
-( 'Outra Categoria'       , true  ) ;
--- ( 'Violões'               , true	) ,
--- ( 'Contrabaixos'          , true	) ,
--- ( 'Amplificadores'        , true  ) ,
--- ( 'Mesas de Som'          , true  ) ,
--- ( 'Microfones'            , true  ) ,
--- ( 'Cabos e Adaptadores'   , true  ) ,
--- ( 'Baixolões'             , true  ) ,
--- ( 'Capas e Cases'         , true  ) ,
--- ( 'Interfaces de Som'     , true  ) ,
--- ( 'Pedaleiras'            , true  ) ,
--- ( 'Instrumentos de Sopro' , true  ) ;
+( 'Guitarras' , true	) ,
+( 'Baterias' , true	) ,
+( 'Violões' , true	) ,
+( 'Contrabaixos' , true	) ,
+( 'Baixolões' , true	) ,
+( 'Teclados/Pianos' , true	) ,
+( 'Amplificadores/Caixas' , true	) ,
+( 'Mesas de Som' , true	) ,
+( 'Acessórios/Equipamentos' , true	) ,
+( 'Interface de Áudio' , true	) ,
+( 'Microfones' , true	) ,
+( 'Cabos e Adaptadores' , true	) ,
+( 'Capas e Cases' , true	) ,
+( 'Pedais/Pedaleiras' , true	) ,
+( 'Instrumentos de Sopro' , true	) ,
+( 'Serviço - Loja' , true	) ,
+( 'Serviço - Banda' , true	) ,
+( 'Serviço - Aulas' , true	) ,
+( 'Serviço - Manutenção' , true	) ,
+( 'Outra Categoria' , true  ) ;
 
 
 -- ## 7º - Criar tabela `product_brands`, referente as MARCAS de produtos
@@ -125,28 +131,53 @@ CREATE TABLE IF NOT EXISTS `product_brands`
 INSERT INTO `product_brands`
 ( `description` , `activity_status` )
 VALUES
-( 'Ibanez'    , true ) ,
-( 'Michael'   , true ) ,
-( 'Pearl'     , true ) ,
-( 'Ludwig'    , true ) ,
-( 'Outra Marca' , true  ) ;
--- ( 'Dean'      , true ) ,
--- ( 'Tagima'    , true ) ,
--- ( 'Strinberg' , true ) ,
--- ( 'Pearl'     , true ) ,
--- ( 'Ludwig'    , true ) ,
--- ( 'Mapex'     , true ) ,
--- ( 'Shelter'   , true ) ,
--- ( 'Woodwinds' , true ) ,
--- ( 'SML'       , true ) ,
--- ( 'Shure'     , true ) ,
--- ( 'Sennheiser', true ) ,
--- ( 'Lyco'      , true ) ,
--- ( 'Behringer' , true ) ;
+( 'Ibanez' , true ) ,
+( 'Dean' , true ) ,
+( 'Tagima' , true ) ,
+( 'Strinberg' , true ) ,
+( 'Fender' , true ) ,
+( 'Gibson' , true ) ,
+( 'Pearl' , true ) ,
+( 'Ludwig' , true ) ,
+( 'Mapex' , true ) ,
+( 'Shelter' , true ) ,
+( 'Krest' , true ) ,
+( 'Giannini' , true ) ,
+( 'Condor' , true ) ,
+( 'Phoenix' , true ) ,
+( 'Eagle' , true ) ,
+( 'Casio' , true ) ,
+( 'Yamaha' , true ) ,
+( 'Dexibell' , true ) ,
+( 'Borne' , true ) ,
+( 'Line 6' , true ) ,
+( 'Randall' , true ) ,
+( 'Edifier' , true ) ,
+( 'Orange' , true ) ,
+( 'Vox' , true ) ,
+( 'Behringer' , true ) ,
+( 'Lelong' , true ) ,
+( 'Wattsom' , true ) ,
+( 'Oneal' , true ) ,
+( 'Sennheiser' , true ) ,
+( 'Focusrite' , true ) ,
+( 'Presonus' , true ) ,
+( 'SML' , true ) ,
+( 'Shure' , true ) ,
+( 'Lyco' , true ) ,
+( 'MXT' , true ) ,
+( 'Panther' , true ) ,
+( 'Hayonik' , true ) ,
+( 'Santo Angelo' , true ) ,
+( 'Boss' , true ) ,
+( 'Zoom' , true ) ,
+( 'MXR' , true ) ,
+( 'Woodwinds' , true ) ,
+( 'Outra Marca' , true ) ;
 
 
 -- ## 9º - Criar tabela `category_brand`, referente a relação entre Múltiplas CATEGORIAS e Multiplas MARCAS
-DROP TABLE IF EXISTS `  `;
+DROP TABLE IF EXISTS `category_brand`;
 CREATE TABLE IF NOT EXISTS `category_brand`
 (
   `category_brand_category_id`  int(11)       NOT NULL                ,
@@ -162,11 +193,47 @@ CREATE TABLE IF NOT EXISTS `category_brand`
 INSERT INTO `category_brand`
 ( `category_brand_category_id` , `category_brand_brand_id` )
 VALUES
-( 14 , 4 ) ,
-( 14 , 14 ) ,
-( 24 , 24 ) ,
-( 24 , 34 ) ,
-( 34 , 44  ) ;
+-- Guitarras
+( 44 , 944 ) , ( 44 , 954 ) , ( 44 , 964 ) , ( 44 , 974 ) ,	( 44 , 984 ) , ( 44 , 934 ) ,	( 44 , 1354 ) ,
+-- Baterias
+( 54 , 994 ) , ( 54 , 1004 ) , ( 54 , 1014 ) , ( 54 , 1024 ) , ( 54 , 1034 ) , ( 54 , 1354 ) ,
+-- Violões
+( 64	, 954	) , ( 64	, 964	) , ( 64	, 974	) , ( 64	, 1044	) , ( 64	, 1354	) ,
+-- Contrabaixos
+( 74	, 954 ) , ( 74	, 964 ) , ( 74	, 974 ) , ( 74	, 1054 ) , ( 74	, 1354 ) ,
+-- Baixolões
+( 84 , 964 ) , ( 84 , 954 ) , ( 84 , 1064 ) , ( 84 , 1054 ) , ( 84 , 1074 ) , ( 84 , 1354 ) ,
+-- Teclados/Pianos
+( 94 , 1084 ) , ( 94 , 1094 ) , ( 94 , 1104 ) , ( 94 , 1354 ) ,
+-- Amplificadores/Caixas
+( 104 , 1114 ) , ( 104 , 1124 ) , ( 104 , 1134 ) , ( 104 , 1144 ) , ( 104 , 1154 ) , ( 104 , 1164 ) , ( 104 , 1354 ) ,
+-- Mesas de Som
+( 114 ,	1174 ) , ( 114 ,	1184 ) , ( 114 ,	1194 ) , ( 114 ,	1204 ) , ( 114 ,	1354 ) ,
+-- Acessórios/Equipamentos
+( 124 ,	1214 ) , ( 124 ,	1144 ) , ( 124 ,	1174 ) , ( 124 ,	1354 ) ,
+-- Interface de Áudio
+( 134 ,	1174 ) , ( 134 ,	1224 ) , ( 134 ,	1234 ) , ( 134 ,	1354 ) ,
+-- Microfones
+( 144 ,	1244 ) , ( 144 ,	1254 ) , ( 144 ,	1264 ) , ( 144 ,	1274 ) , ( 144 ,	1354 ) ,
+-- Cabos e Adaptadores
+( 154 ,	1164 ) , ( 154 ,	1284 ) , ( 154 ,	1294 ) , ( 154 ,	1304 ) , ( 154 ,	1274 ) , ( 154 ,	1354 ) ,
+-- Capas e Cases
+( 164 ,	1354 ) ,
+-- Pedais/Pedaleiras
+( 174 ,	1314 ) , ( 174 ,	1324 ) , ( 174 ,	1334 ) , ( 174 ,	1124 ) , ( 174 ,	1354 ) , 
+-- Instrumentos de Sopro
+( 184 ,	1024 ) , ( 184 ,	1344 ) , ( 184 ,	1354 ) ,
+-- Serviço - Loja
+( 194 ,	1354 ) , 
+-- Serviço - Banda
+( 204 ,	1354 ) ,
+-- Serviço - Aulas
+( 214	, 1354 ) ,
+-- Serviço - Manutenção
+( 224 ,	1354 ) ,
+-- Outra Categoria
+( 234	, 1354 ) ;
+
 
 
 -- ## 11º - Criar tabela `product_models`, referente ao Modelo de produtos
@@ -175,27 +242,256 @@ CREATE TABLE IF NOT EXISTS `product_models`
 (
   `model_id`              int(11)       NOT NULL auto_increment ,
   `description`           varchar(50)   NOT NULL UNIQUE         ,
-  `brand_id`              int(11)       NOT NULL                ,
+  `category_id`              int(11)       NOT NULL             ,
+  `brand_id`              int(11)       NOT NULL                ,  
   `activity_status`       boolean NOT NULL DEFAULT 1            , -- 0 is false, 1 is true
   `created_on`            timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_on`           timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT PK_product_models PRIMARY KEY (model_id) ,
-  CONSTRAINT FK_brand_model FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id)
+  CONSTRAINT FK_brand_model FOREIGN KEY (brand_id) REFERENCES product_brands(brand_id) ,
+  CONSTRAINT FK_category_model FOREIGN KEY (category_id) REFERENCES product_categorys(category_id_id)
 ) ENGINE=InnoDB DEFAULT CHARSET = utf8;
 
 -- ## 12º - Insere Dados na tabela `product_models`
 INSERT INTO `product_models`
-( `description`, `brand_id`, `activity_status` )
+( `description`, `category_id`, `brand_id`, `activity_status` )
 VALUES
-( 'Ibanez 1'              , '4', true	) , -- Ibanez
-( 'Ibanez 2'     , '4', true	) , -- Ibanez
-( 'Michael 1'     , '14', true	) , -- Michael
-( 'Michael 2'     , '14', true	) , -- Michael
-( 'Pearl 1'     , '24', true	) , -- Pearl
-( 'Pearl 2'     , '24', true	) , -- Pearl
-( 'Ludwig 1'     , '34', true	) , -- Ludwig
-( 'Ludwig 2'     , '34', true	) , -- Ludwig
-( 'Outro Modelo' , '44', true	);
+-- Guitarras
+-- Dean
+( 'ML' , 44 , 944 , true ) ,
+( 'Cadillac' , 44 , 944 , true ) ,
+( 'EVO' , 44 , 944 , true ) ,
+-- Tagima
+( 'T-900' , 44 , 954 , true ) ,
+( 'T-550' , 44 , 954 , true ) ,
+( 'STELLA NTM' , 44 , 954 , true ) ,
+( 'MG-30' , 44 , 954 , true ) ,
+( 'TW-55' , 44 , 954 , true ) ,
+-- Strinberg
+( 'LPS230' , 44 , 964 , true ) ,
+( 'CLG 24' , 44 , 964 , true ) ,
+-- Fender
+( 'Telecaster' , 44 , 974 , true ) ,
+( 'Stratocaster' , 44 , 974 , true ) ,
+( 'Contemporary' , 44 , 974 , true ) ,
+-- Gibson
+( 'Les Paul' , 44 , 984 , true ) ,
+( 'SG' , 44 , 984 , true ) ,
+( 'Axcess' , 44 , 984 , true ) ,
+( 'Flying V' , 44 , 984 , true ) ,
+( 'Zakk Wylde' , 44 , 984 , true ) ,
+-- Ibanez
+( 'GIO Series' , 44 , 934 , true ) ,
+( 'RG Series' , 44 , 934 , true ) ,
+-- BATERIAS
+-- Pearl
+( 'Decade Maple' , 54 , 994 , true ) ,
+( 'Session Select' , 54 , 994 , true ) ,
+( 'Midtown Series' , 54 , 994 , true ) ,
+( 'Export' , 54 , 994 , true ) ,
+-- Ludwig
+( 'Rocker' , 54 , 1004 , true ) ,
+( 'Breakbeats' , 54 , 1004 , true ) ,
+( 'Vintage' , 54 , 1004 , true ) ,
+( 'Accent' , 54 , 1004 , true ) ,
+( 'Club Date' , 54 , 1004 , true ) ,
+-- Mapex
+( 'Saturn Series' , 54 , 1014 , true ) , 
+( 'Voyager' , 54 , 1014 , true ) , 
+( 'VX Series' , 54 , 1014 , true ) , 
+( 'Mars Series' , 54 , 1014 , true ) , 
+( 'Venus Seies' , 54 , 1014 , true ) ,
+-- Shelter
+( 'STD 36' , 54 , 1024 , true ) ,
+( 'STD 82' , 54 , 1024 , true ) ,
+-- Krest
+( 'Fusion' , 54 , 1034 , true ) ,
+( 'Brilliant' , 54 , 1034 , true ) ,
+( 'Rustic' , 54 , 1034 , true ) ,
+-- VIOLÕES
+-- Tagima
+( 'Paraty' , 64 , 954 , true ) ,
+( 'Maragogi' , 64 , 954 , true ) ,
+( 'Dallas' , 64 , 954 , true ) ,
+( 'Kansas' , 64 , 954 , true ) ,
+( 'California' , 64 , 954 , true ) ,				
+-- Strinberg
+( 'ANS95C' , 64 , 964 , true ) ,
+( 'ASF 62' , 64 , 964 , true ) ,
+( 'DE50SC' , 64 , 964 , true ) ,
+( 'AW51C' , 64 , 964 , true ) ,
+( 'SC200' , 64 , 964 , true ) ,
+( 'SA200' , 64 , 964 , true ) ,				
+-- Fender
+( 'FA-100' , 64 , 974 , true ) ,
+( 'FA-115' , 64 , 974 , true ) ,
+( 'CD60' , 64 , 974 , true ) ,
+( 'CD140' , 64 , 974 , true ) ,
+-- Giannini
+( 'Start' , 64 , 1044 , true ) ,
+( 'Performance' , 64 , 1044 , true ) ,
+( 'GN-15' , 64 , 1044 , true ) ,
+( 'GSX-15' , 64 , 1044 , true ) ,
+-- CONTRABAIXOS
+-- Tagima
+( 'Fusion' , 74 , 954 , true ) ,
+( 'TJB-535' , 74 , 954 , true ) ,
+( 'TJB-4' , 74 , 954 , true ) ,
+( 'TBM-5' , 74 , 954 , true ) ,
+( 'XB-21 6' , 74 , 954 , true ) ,				
+-- Strinberg
+( 'Precision' , 74 , 964 , true ) ,
+( 'CLB 25A' , 74 , 964 , true ) ,
+( 'PBS40' , 74 , 964 , true ) ,				
+-- Fender
+( 'Southern Cross' , 74 , 974 , true ) ,
+( 'Affinity' , 74 , 974 , true ) ,
+( 'Aerodyne' , 74 , 974 , true ) ,
+( 'American Deluxe' , 74 , 974 , true ) ,
+-- Condor
+( 'BX12' , 74 , 1054 , true ) ,
+( 'XB224' , 74 , 1054 , true ) ,
+( 'XB25' , 74 , 1054 , true ) ,
+( 'XB26A' , 74 , 1054 , true ) ,
+( 'FA5FDB' , 74 , 1054 , true ) ,		
+-- BAIXOLÕES
+-- Tagima
+( 'AB-400' , 84 , 954 , true ) ,
+( 'AC-400' , 84 , 954 , true ) ,		
+-- Strinberg
+( 'BA550' , 84 , 964 , true ) ,
+( 'SB240' , 84 , 964 , true ) ,
+( 'SB250' , 84 , 964 , true ) ,
+-- Phoenix
+( 'WJB160' , 84 , 1064 , true ) ,
+( 'WJB162' , 84 , 1064 , true ) ,				
+-- Condor
+( 'CB106' , 84 , 1054 , true ) ,				
+-- Eagle
+( '90 AEB' , 84 , 1074 , true ) ,		
+-- TECLADOS/PIANOS
+-- Casio
+( 'CT-X3000' , 94 , 1084 , true ) ,
+( 'CTK-3500' , 94 , 1084 , true ) ,
+( 'LK-S250' , 94 , 1084 , true ) ,
+( 'CT-S300' , 94 , 1084 , true ) ,
+( 'CT-S200' , 94 , 1084 , true ) ,
+( 'WK-7600' , 94 , 1084 , true ) ,				
+-- Yamaha
+( 'PSR-E353' , 94 , 1094 , true ) ,
+( 'PSR-185' , 94 , 1094 , true ) ,
+( 'PSR-E463' , 94 , 1094 , true ) ,
+( 'PSR-E443' , 94 , 1094 , true ) ,
+( 'DGX-530' , 94 , 1094 , true ) ,				
+-- Dexibell
+( 'VIVO S1' , 94 , 1104 , true ) ,
+( 'VIVO S3 PRO' , 94 , 1104 , true ) ,
+( 'VIVO S7 PRO' , 94 , 1104 , true ) ,
+( 'VIVO S9' , 94 , 1104 , true ) ,
+( 'VIVO H10' , 94 , 1104 , true ) ,
+( 'VIVO H5' , 94 , 1104 , true ) ,
+( 'VIVO H1' , 94 , 1104 , true ) ,
+( 'COMBO J7' , 94 , 1104 , true ) ,
+-- AMPLIFICADORES/CAIXAS
+-- Borne
+( 'STRIKE G30' , 104 , 1114 , true ) ,
+( 'BASS CB60' , 104 , 1114 , true ) ,
+( 'BASS CB 80' , 104 , 1114 , true ) ,
+( 'GB400' , 104 , 1114 , true ) ,
+( 'MOB T30' , 104 , 1114 , true ) ,
+( 'VORAX 1050' , 104 , 1114 , true ) ,
+-- Line 6
+( 'Spider' , 104 , 1124 , true ) ,
+( 'Dime' , 104 , 1124 , true ) ,
+-- Randall
+( 'RG-1503' , 104 , 1134 , true ) ,
+( 'RD-45' , 104 , 1134 , true ) ,
+( 'RX-120' , 104 , 1134 , true ) ,
+( 'Big Dog' , 104 , 1134 , true ) ,
+( 'RH-150' , 104 , 1134 , true ) ,
+-- Edifier
+( 'R1000T4' , 104 , 1144 , true ) ,
+( 'G2000' , 104 , 1144 , true ) ,
+( 'R33BT' , 104 , 1144 , true ) ,				
+-- Orange
+( 'V30' , 104 , 1154 , true ) ,
+( 'Micro Terror' , 104 , 1154 , true ) ,
+( 'Micro Dark' , 104 , 1154 , true ) ,
+( 'Jim Root' , 104 , 1154 , true ) ,
+( 'Crush 20' , 104 , 1154 , true ) ,
+( 'Crush 12' , 104 , 1154 , true ) ,
+( 'PPC 112' , 104 , 1154 , true ) ,
+-- Vox
+( 'AmPlug2' , 104 , 1164 , true ) ,
+( 'VC-D360' , 104 , 1164 , true ) ,
+( 'Storm' , 104 , 1164 , true ) ,
+( 'Pathfinder' , 104 , 1164 , true ) ,
+-- OUTRA CATEGORIA
+-- Outra Marca
+( 'Outros' , 234 , 1354 , true ) ;
+
+-- MESAS DE SOM
+-- Behringer
+-- Pesquisar Modelos
+
+-- Lelong
+-- Pesquisar Modelos
+
+-- Wattsom
+-- Pesquisar Modelos
+
+-- Oneal
+-- Pesquisar Modelos
+		
+-- ACESSÓRIOS/EQUIPAMENTOS
+-- Sennheiser
+-- Pesquisar Modelos
+
+-- Edifier
+-- Pesquisar Modelos
+
+-- Behringer
+-- Pesquisar Modelos
+		
+-- INTERFACES DE ÁUDIO
+-- Behringer
+-- Pesquisar Modelos
+
+-- Focusrite
+-- Pesquisar Modelos
+
+-- Presonus
+-- Pesquisar Modelos
+	
+-- MICROFONES
+-- SML
+-- Pesquisar Modelos
+
+-- Shure
+-- Pesquisar Modelos
+
+-- Lyco
+-- Pesquisar Modelos
+
+-- MXT
+-- Pesquisar Modelos
+		
+-- CABOS E ADAPTADORES
+-- Vox
+-- Panther
+-- Hayonik
+-- Santo Angelo
+-- MXT
+
+-- PEDAIS/PEDALEIRAS
+-- Boss
+-- Zoom
+-- MXR
+-- Line 6
+
+-- INSTRUMENTOS DE SOPRO
+-- Shelter
+-- Woodwinds
 
 
 -- ## 13º - Criar tabela `product_conditions`, referente as Condições do Produtos no anúncio

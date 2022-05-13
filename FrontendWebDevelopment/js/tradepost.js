@@ -173,10 +173,9 @@ async function changeBrand() {
             cache: 'default'
         };
 		
-        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + brand.val() , myInit);
+        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + category.val() + "&brand=" + brand.val() , myInit);        
         
-        const j_TPinfo = await r_TPinfo.json();    
-        // console.log(j_TPinfo.data);    
+        const j_TPinfo = await r_TPinfo.json();
         
         if ( j_TPinfo.error ){
             innerMessage = "<option value='84'>Outros</option>"; // Define Default (Código 84 no DB)

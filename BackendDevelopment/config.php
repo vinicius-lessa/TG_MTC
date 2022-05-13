@@ -7,8 +7,9 @@
         
         define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST'].$dir); // http://localhost/TG_MCT/BackendDevelopment/
     else:        
-        
-        define('SITE_URL', 'https://'.$_SERVER['HTTP_HOST']); // https://www.musictradecenter.com/
+        $dir = "/BackendDevelopment";
+
+        define('SITE_URL', 'https://'.$_SERVER['HTTP_HOST'].$dir);
     endif;    
 
     define('DS', DIRECTORY_SEPARATOR);
