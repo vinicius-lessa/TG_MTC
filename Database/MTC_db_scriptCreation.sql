@@ -214,7 +214,7 @@ VALUES
 -- Interface de Áudio
 ( 134 ,	1174 ) , ( 134 ,	1224 ) , ( 134 ,	1234 ) , ( 134 ,	1354 ) ,
 -- Microfones
-( 144 ,	1244 ) , ( 144 ,	1254 ) , ( 144 ,	1264 ) , ( 144 ,	1274 ) , ( 144 ,	1354 ) ,
+( 144 ,	1244 ) , ( 144 ,	1254 ) , ( 144 ,	1264 ) , ( 144 ,	1274 ) , ( 144 ,	1354 ) , ( 144 ,	1214 ) , ( 144 ,	1174 ) 
 -- Cabos e Adaptadores
 ( 154 ,	1164 ) , ( 154 ,	1284 ) , ( 154 ,	1294 ) , ( 154 ,	1304 ) , ( 154 ,	1274 ) , ( 154 ,	1354 ) ,
 -- Capas e Cases
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `product_models`
 INSERT INTO `product_models`
 ( `description`, `category_id`, `brand_id`, `activity_status` )
 VALUES
--- Guitarras
+-- GUITARRAS
 -- Dean
 ( 'ML' , 44 , 944 , true ) ,
 ( 'Cadillac' , 44 , 944 , true ) ,
@@ -283,6 +283,7 @@ VALUES
 -- Ibanez
 ( 'GIO Series' , 44 , 934 , true ) ,
 ( 'RG Series' , 44 , 934 , true ) ,
+
 -- BATERIAS
 -- Pearl
 ( 'Decade Maple' , 54 , 994 , true ) ,
@@ -308,6 +309,7 @@ VALUES
 ( 'Fusion' , 54 , 1034 , true ) ,
 ( 'Brilliant' , 54 , 1034 , true ) ,
 ( 'Rustic' , 54 , 1034 , true ) ,
+
 -- VIOLÕES
 -- Tagima
 ( 'Paraty' , 64 , 954 , true ) ,
@@ -332,6 +334,7 @@ VALUES
 ( 'Performance' , 64 , 1044 , true ) ,
 ( 'GN-15' , 64 , 1044 , true ) ,
 ( 'GSX-15' , 64 , 1044 , true ) ,
+
 -- CONTRABAIXOS
 -- Tagima
 ( 'Fusion' , 74 , 954 , true ) ,
@@ -354,6 +357,7 @@ VALUES
 ( 'XB25' , 74 , 1054 , true ) ,
 ( 'XB26A' , 74 , 1054 , true ) ,
 ( 'FA5FDB' , 74 , 1054 , true ) ,		
+
 -- BAIXOLÕES
 -- Tagima
 ( 'AB-400' , 84 , 954 , true ) ,
@@ -369,6 +373,7 @@ VALUES
 ( 'CB106' , 84 , 1054 , true ) ,				
 -- Eagle
 ( '90 AEB' , 84 , 1074 , true ) ,		
+
 -- TECLADOS/PIANOS
 -- Casio
 ( 'CT-X3000' , 94 , 1084 , true ) ,
@@ -392,6 +397,7 @@ VALUES
 ( 'VIVO H5' , 94 , 1104 , true ) ,
 ( 'VIVO H1' , 94 , 1104 , true ) ,
 ( 'COMBO J7' , 94 , 1104 , true ) ,
+
 -- AMPLIFICADORES/CAIXAS
 -- Borne
 ( 'STRIKE G30' , 104 , 1114 , true ) ,
@@ -426,72 +432,164 @@ VALUES
 ( 'VC-D360' , 104 , 1164 , true ) ,
 ( 'Storm' , 104 , 1164 , true ) ,
 ( 'Pathfinder' , 104 , 1164 , true ) ,
--- OUTRA CATEGORIA
--- Outra Marca
-( 'Outros' , 234 , 1354 , true ) ;
 
 -- MESAS DE SOM
 -- Behringer
--- Pesquisar Modelos
+( 'XENYX 2442 FX1' , 114 , 1174 , true ) ,
+( 'XENYX 2104 FX' , 114 , 1174 , true ) ,
+( 'XENYX 2222' , 114 , 1174 , true ) ,
+( 'XENYX 1202' , 114 , 1174 , true ) ,
+( 'Eurodesk SX3242' , 114 , 1174 , true ) ,
+( 'Eurorack MX 2642' , 114 , 1174 , true ) ,
 
 -- Lelong
--- Pesquisar Modelos
+( 'LE-709' , 114 , 1184 , true ) ,
+( 'LE-708' , 114 , 1184 , true ) ,
+( 'LE-716' , 114 , 1184 , true ) ,
+( 'LE-710' , 114 , 1184 , true ) ,
 
 -- Wattsom
--- Pesquisar Modelos
+( 'MXS 8' , 114 , 1194 , true ) ,
+( 'MXS 4' , 114 , 1194 , true ) ,
+( 'MXS 12' , 114 , 1194 , true ) ,
+( 'AMBW 12' , 114 , 1194 , true ) ,
 
 -- Oneal
--- Pesquisar Modelos
+( 'OMX 800' , 114 , 1204 , true ) ,
+( 'OMX 12' , 114 , 1204 , true ) ,
+( 'OMX 400' , 114 , 1204 , true ) ,
+( 'OMX 802' , 114 , 1204 , true ) ,
+( 'OMX 4' , 114 , 1204 , true ) ,
 		
 -- ACESSÓRIOS/EQUIPAMENTOS
 -- Sennheiser
--- Pesquisar Modelos
+( 'HD 25' , 124 , 1214 , true ) ,
+( 'HD 206' , 124 , 1214 , true ) ,
+( 'HD 280' , 124 , 1214 , true ) ,
+( 'HD 599' , 124 , 1214 , true ) ,
+( 'HD 200 PRO' , 124 , 1214 , true ) ,
+( 'MX 250' , 124 , 1214 , true ) ,
 
 -- Edifier
--- Pesquisar Modelos
+( 'W820NB' , 124 , 1144 , true ) ,
+( 'W820BT' , 124 , 1144 , true ) ,
+( 'W830BT' , 124 , 1144 , true ) ,
+( 'X5' , 124 , 1144 , true ) ,
+( 'X3' , 124 , 1144 , true ) ,
+( 'H840' , 124 , 1144 , true ) ,
 
 -- Behringer
--- Pesquisar Modelos
+( 'FBQ 1502' , 124 , 1174 , true ) ,
+( 'Direct Box Di 20' , 124 , 1174 , true ) ,
+( 'Mixer MX400' , 124 , 1174 , true ) ,
+( 'Amplificador Fone HA400' , 124 , 1174 , true ) ,
 		
 -- INTERFACES DE ÁUDIO
 -- Behringer
--- Pesquisar Modelos
+( 'UCA-222' , 134 , 1174 , true ) ,
+( 'UM2' , 134 , 1174 , true ) ,
+( 'UMC-404' , 134 , 1174 , true ) ,
+( 'UMC-204' , 134 , 1174 , true ) ,
+( 'UMC-1820' , 134 , 1174 , true ) ,
 
 -- Focusrite
--- Pesquisar Modelos
+( 'Scarlett Solo' , 134 , 1224 , true ) ,
+( '18i8' , 134 , 1224 , true ) ,
+( 'Clarett 8 PreX' , 134 , 1224 , true ) ,
+( '6i6' , 134 , 1224 , true ) ,
+( '2i4' , 134 , 1224 , true ) ,
 
 -- Presonus
--- Pesquisar Modelos
+( 'Studio 26c' , 134 , 1234 , true ) ,
+( 'Studio 68c' , 134 , 1234 , true ) ,
+( 'AUDIOBOX USB 96' , 134 , 1234 , true ) ,
+( 'AUDIOBOX iTwo' , 134 , 1234 , true ) ,
 	
 -- MICROFONES
--- SML
--- Pesquisar Modelos
+-- Sennheiser
+( 'Condensador ME 2-II' , 144 , 1214 , true ) ,
+( 'Condensador MK 4' , 144 , 1214 , true ) ,
+( 'Dinâmico E604' , 144 , 1214 , true ) ,
+( 'Lapela XSW' , 144 , 1214 , true ) ,
+
+-- Behringer
+( 'C-1U' , 144 , 1174 , true ) ,
+( 'C-1' , 144 , 1174 , true ) ,
+( 'XM 8500' , 144 , 1174 , true ) ,
+( 'B1' , 144 , 1174 , true ) ,
 
 -- Shure
--- Pesquisar Modelos
+( 'SM57' , 144 , 1254 , true ) ,
+( 'SM58' , 144 , 1254 , true ) ,
+( 'GLXD4' , 144 , 1254 , true ) ,
+( 'SV100' , 144 , 1254 , true ) ,
 
 -- Lyco
--- Pesquisar Modelos
+( 'UH-01' , 144 , 1264 , true ) ,
+( 'UH-02' , 144 , 1264 , true ) ,
+( 'UH-07' , 144 , 1264 , true ) ,
+( 'UHXPRO' , 144 , 1264 , true ) ,
 
 -- MXT
--- Pesquisar Modelos
+( 'M-1800B' , 144 , 1274 , true ) ,
+( 'M-58' , 144 , 1274 , true ) ,
+( 'MUD-515' , 144 , 1274 , true ) ,
+( 'BT-58' , 144 , 1274 , true ) ,
 		
--- CABOS E ADAPTADORES
--- Vox
--- Panther
--- Hayonik
--- Santo Angelo
--- MXT
-
 -- PEDAIS/PEDALEIRAS
 -- Boss
+( 'GT-1' , 174 , 1314 , true ) ,
+( 'GT-100' , 174 , 1314 , true ) ,
+( 'RC-500' , 174 , 1314 , true ) ,
+( 'ME-80' , 174 , 1314 , true ) ,
+( 'CS-3' , 174 , 1314 , true ) ,
+( 'GE-7' , 174 , 1314 , true ) ,
+( 'DS-1' , 174 , 1314 , true ) ,
+( 'VE-500' , 174 , 1314 , true ) ,
+( 'RC-5' , 174 , 1314 , true ) ,
+
 -- Zoom
+( '500 II' , 174 , 1324 , true ) ,
+( 'G2.1DM' , 174 , 1324 , true ) ,
+( '505' , 174 , 1324 , true ) ,
+( '3030' , 174 , 1324 , true ) ,
+( 'G9 2TT' , 174 , 1324 , true ) ,
+( 'G5n' , 174 , 1324 , true ) ,
+( 'G1' , 174 , 1324 , true ) ,
+
 -- MXR
+( 'phase 90' , 174 , 1334 , true ) ,
+( 'dyna comp' , 174 , 1334 , true ) ,
+( 'carbon copy' , 174 , 1334 , true ) ,
+( 'phase 45' , 174 , 1334 , true ) ,
+( 'tremolo' , 174 , 1334 , true ) ,
+( 'fullbore metal' , 174 , 1334 , true ) ,
+
 -- Line 6
+( 'Floor Pod' , 174 , 1124 , true ) ,
+( 'Pod HD 500' , 174 , 1124 , true ) ,
+( 'Stombox M13' , 174 , 1124 , true ) ,
+( 'Firehawk FX' , 174 , 1124 , true ) ,
+( 'Floot Pod Plus' , 174 , 1124 , true ) ,
+( 'Pod XT Live' , 174 , 1124 , true ) ,
+( 'Floor Pod Bass' , 174 , 1124 , true ) ,
 
 -- INSTRUMENTOS DE SOPRO
 -- Shelter
+( 'Saxofone' , 184 , 1024 , true ) ,
+( 'Clarinete' , 184 , 1024 , true ) ,
+( 'Trombone' , 184 , 1024 , true ) ,
+( 'Tuba' , 184 , 1024 , true ) ,
+
 -- Woodwinds
+( 'Saxofone' , 184 , 1344 , true ) ,
+( 'Clarinete' , 184 , 1344 , true ) ,
+( 'Trombone' , 184 , 1344 , true ) ,
+( 'Tuba' , 184 , 1344 , true ) ,
+
+-- OUTRA CATEGORIA
+-- Outra Marca
+( 'Outros' , 234 , 1354 , true ) ;
 
 
 -- ## 13º - Criar tabela `product_conditions`, referente as Condições do Produtos no anúncio

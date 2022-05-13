@@ -102,7 +102,7 @@ endif;
       } else {
         var action          = 1; // 0 = Create, 1 = Update
         var post_id         = <?php echo (isset($post_id) ? $post_id : "null")  ?>;
-        var imgExistsCount  = <?php echo count($tpDetails['data']); ?>;        
+        var imgExistsCount  = <?php echo (isset($tpDetails['data']) ? count($tpDetails['data']) : 0 ) ; ?>;
 
       }
 
