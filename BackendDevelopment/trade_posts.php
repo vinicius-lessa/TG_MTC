@@ -24,6 +24,7 @@ header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Content-type: application/json; application/x-www-form-urlencoded; charset=UTF-8');
 
 require_once 'classes/Class.Crud.php';
+require_once 'classes/WebServices/Class.ViaCEP.php';
 
 if (!defined('SITE_URL')) {
     include_once 'config.php';
@@ -92,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         else:
             // Unique Trade Post
             if (is_numeric($keySearch)):
-                $dados = CrudDB::select(
+                $dbReturn = CrudDB::select(
                     'SELECT 
                     tp.post_id as `post_id` 	,
                     tp.title					,
@@ -109,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     pc2.description as pc2_desc ,
                     tp.user_id					,
                     u.user_name 				,
+                    u.cep 				        ,
                     u.phone 					,
                     tp.price					,
                     tp.eletronic_invoice 		,
@@ -132,20 +134,117 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         'POST_ID' => $keySearch
                     ], TRUE);
                 
-                if (!empty($dados)):                    
-                    foreach ($dados as $tradePost) {
-                        if ( !empty($tradePost->image_name) ):
-                            $tradePost->image_name = SITE_URL . "/uploads/" . $tradePost->image_name ;
+                if (!empty($dbReturn)):
+                    for ($i = 0; $i < count($dbReturn); $i++) {                    
+                        if ( !empty($dbReturn[$i]->image_name) ):
+                            $dbReturn[$i]->image_name = SITE_URL . "/uploads/" . $dbReturn[$i]->image_name ;
                         endif;
 
-                        if ( !empty($tradePost->img_profile_name) ):
-                            $tradePost->img_profile_name = SITE_URL . "/uploads/user-profile/" . $tradePost->img_profile_name ;
+                        if ( !empty($dbReturn[$i]->img_profile_name) ):
+                            $dbReturn[$i]->img_profile_name = SITE_URL . "/uploads/user-profile/" . $dbReturn[$i]->img_profile_name ;
                         endif;
+
+                        // Consulta Cep e Adicina no Retorno
+                        if ( !empty($dbReturn[$i]->cep) ):
+
+                            $dadosCEP = ViaCEP::consultarCEP($dbReturn[$i]->cep);
+
+                            if ( $dadosCEP != null ):
+                                // Adiciona nova Propriedade ao Objeto
+                                $dbReturn[$i] = (array)$dbReturn[$i];
+                                switch ($dadosCEP["uf"]) {
+                                    case 'AC':
+                                        $dbReturn[$i]['state'] = 'AC - Acre';
+                                        break;
+                                    case 'AL':
+                                        $dbReturn[$i]['state'] = 'AL - Alagoas';
+                                        break;
+                                    case 'AM':
+                                        $dbReturn[$i]['state'] = 'AM - Amazonas';
+                                        break;
+                                    case 'AP':
+                                        $dbReturn[$i]['state'] = 'AP - Amapá';    
+                                        break;
+                                    case 'BA':
+                                        $dbReturn[$i]['state'] = 'BA - Bahia';
+                                        break;
+                                    case 'CE':
+                                        $dbReturn[$i]['state'] = 'CE - Ceará';
+                                        break;
+                                    case 'DF':
+                                        $dbReturn[$i]['state'] = 'DF - Distrito Federal';
+                                        break;
+                                    case 'ES':
+                                        $dbReturn[$i]['state'] = 'ES - Espírito Santo';
+                                        break;
+                                    case 'GO':
+                                        $dbReturn[$i]['state'] = 'GO - Goiás';
+                                        break;
+                                    case 'MA':
+                                        $dbReturn[$i]['state'] = 'MA - Maranhão';
+                                        break;
+                                    case 'MT':
+                                        $dbReturn[$i]['state'] = 'MT - Mato Grosso ';
+                                        break;
+                                    case 'MS':
+                                        $dbReturn[$i]['state'] = 'MS - Mato Grosso do Sul';
+                                        break;
+                                    case 'MG':
+                                        $dbReturn[$i]['state'] = 'MG - Minas Gerais';
+                                        break;
+                                    case 'PA':
+                                        $dbReturn[$i]['state'] = 'PA - Pará';
+                                        break;
+                                    case 'PB':
+                                        $dbReturn[$i]['state'] = 'PB - Paraíba';
+                                        break;
+                                    case 'PR':
+                                        $dbReturn[$i]['state'] = 'PR - Paraná';
+                                        break;
+                                    case 'PE':
+                                        $dbReturn[$i]['state'] = 'PE - Pernambuco';
+                                        break;
+                                    case 'PI':
+                                        $dbReturn[$i]['state'] = 'PI - Piauí';
+                                        break;
+                                    case 'RJ':
+                                        $dbReturn[$i]['state'] = 'RJ - Rio de Janeiro';
+                                        break;
+                                    case 'RN':
+                                        $dbReturn[$i]['state'] = 'RN - Rio Grande do Norte';
+                                        break;
+                                    case 'RS':
+                                        $dbReturn[$i]['state'] = 'RS - Rio Grande do Sul';
+                                        break;
+                                    case 'RO':
+                                        $dbReturn[$i]['state'] = 'RO - Rondônia';
+                                        break;
+                                    case 'RR':
+                                        $dbReturn[$i]['state'] = 'RR - Roraima';
+                                        break;
+                                    case 'SC':
+                                        $dbReturn[$i]['state'] = 'SC - Santa Catarina';
+                                        break;
+                                    case 'SP':
+                                        $dbReturn[$i]['state'] = 'SP - São Paulo';
+                                        break;
+                                    case 'SE':
+                                        $dbReturn[$i]['state'] = 'SE - Sergipe';
+                                        break;
+                                    case 'TO':
+                                        $dbReturn[$i]['state'] = 'TO - Tocantins';
+                                        break;
+                                }                                
+                                $dbReturn[$i]['city'] = $dadosCEP["localidade"];
+                                $dbReturn[$i]['district'] = $dadosCEP["bairro"];
+                                $dbReturn[$i] = (object)$dbReturn[$i];
+                            endif;
+                        endif;                        
                     }
                     
                     echo json_encode([
                         "error" => false ,
-                        'data' => $dados
+                        'data' => $dbReturn
                     ]);
                     http_response_code(200); // Success
                     exit;

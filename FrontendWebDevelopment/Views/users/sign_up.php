@@ -39,8 +39,8 @@ $titlePage = "MTC | Cadastro";
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">    
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png"> 
@@ -73,8 +73,7 @@ $titlePage = "MTC | Cadastro";
           <?php else:  ?>        
             <div class="form-default">
               <form id="singUp-form">
-                <span id="msgAlertErroSignUp"></span>
-                          
+
                 <div class="text-center">
                   <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
                   <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
@@ -85,18 +84,26 @@ $titlePage = "MTC | Cadastro";
                 <p class="text-white" style="font-size:14px;">Faça seu cadastro de forma rápida e gratuíta!</p>
                 
                 <div class="form-floating">
-                  <input type="text" class="form-control test-input" placeholder="Nome" id="userName" name="username">
+                  <input type="text" class="form-control" placeholder="Nome" id="userName" name="username">
                   <label for="userName">Nome</label>
                 </div>
 
                 <div class="form-floating">
-                  <input type="email" class="form-control test-input" placeholder="name@example.com" id="userEmail" name="email">
+                  <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
                   <label for="userEmail">E-mail</label>
                 </div>
 
-                <div class="form-floating">
-                  <input type="password" class="form-control test-input" placeholder="Senha" id="userPassword" name="password">
-                  <label for="userPassword">Senha</label>
+                <div class="input-group">
+                  <div class="form-floating flex-grow-1 m-0">
+                    <input type="password" class="form-control" placeholder="Senha" id="userPassword" name="password">
+                    <label for="userPassword">Senha</label>
+                  </div>
+                  <button class="btn btn-danger" type="button" onclick="password_show_hide();">
+                      <!-- Hide Eye -->
+                      <i class="bi bi-eye-slash-fill" id="showEye"></i>
+                      <!-- Show Eye -->
+                      <i class="bi bi-eye-fill d-none" id="hideEye"></i>
+                    </button>                  
                 </div>
 
                 <div class="form-floating">
@@ -117,14 +124,16 @@ $titlePage = "MTC | Cadastro";
                 </div>
 
                 <div class="form-floating">
-                  <input type="tel" class="form-control" placeholder="(11)XXXX-XXXX" id="userPhone" name="phone">
+                  <input type="tel" class="form-control phone_with_ddd" placeholder="(11)XXXX-XXXX" id="userPhone" name="phone">
                   <label for="userPhone">Telefone/Celular</label>
                 </div>
 
                 <div class="form-floating">
-                  <input type="text" class="form-control" placeholder="18100-000" id="userZipCode" name="cep">
+                  <input type="text" class="form-control cep" placeholder="18100-000" id="userZipCode" name="cep">
                   <label for="userZipCode">CEP</label>
                 </div>
+                
+                <span id="msgAlertErroSignUp"></span>
 
                 <div class="text-center mt-5">
                   <input class="btn-default btn btn-danger border-0" type="submit" value="CRIAR!" name="signUp" id="signUp-btn">
@@ -155,6 +164,7 @@ $titlePage = "MTC | Cadastro";
     <script src="<?php echo SITE_URL ?>/js/main.js"></script>
     <script src="<?php echo SITE_URL ?>/js/signup.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->
 
   </body>
 

@@ -19,8 +19,6 @@ var userZipCode     = $("#userZipCode");
 var userBirthday    = $("#userBirthday");
 var userType        = $("#persontype");
 
-const passLenghtMin = 6;
-
 let spinnerWrapper          = document.querySelector('.spinner-wrapper'); // Loading Icon
 
 

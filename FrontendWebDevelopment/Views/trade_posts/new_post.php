@@ -240,11 +240,12 @@ endif;
               </div>              
               
               <!-- Price / Valor do Produto -->
-              <div class="form-group">
+              <div class="form-group">                
                 <label class="mb-2" for="price">Valor do Produto</label>                
                 <input class="form-control money" type="text" name="price" id="price" placeholder="0,00" aria-label="Valor" aria-describedby="basic-addon1" value="<?php echo $isUpdate ? $tpDetails['data'][0]['price'] : ""  ?>">
               </div>
 
+              <!-- Description -->
               <div class="form-group">
                 <label class="mb-2" for="description">Descrição do Anúncio</label>
                 <textarea class="form-control" type="text" name="description" id="description" rows="3"><?php echo $isUpdate ? $tpDetails['data'][0]['tp_desc'] : "" ?></textarea>

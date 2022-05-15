@@ -91,7 +91,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
     <!-- StyleSheet -->
     <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     <!-- Favicon -->
@@ -475,6 +475,12 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                       disabled
                                       value="<?php echo $_SESSION['user_password'] ; ?>"
                                     >
+                                    <span role="button" class="input-group-text" onclick="password_show_hide();">
+                                      <!-- Hide Eye -->
+                                      <i class="bi bi-eye-slash-fill" id="showEye"></i>
+                                      <!-- Show Eye -->
+                                      <i class="bi bi-eye-fill d-none" id="hideEye"></i>
+                                    </span>
                                     <button class="btn btn-outline-danger" type="button" name="edit-password" id="edit-password">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                                           <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
@@ -539,7 +545,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                               <div class="row mt-3 mb-0">
                                 
                                 <!-- CEP -->
-                                <div class="col-12 col-sm-6 my-0">
+                                <div class="col-12 col-sm-6 mt-0 mb-2">
                                   <div class="form-group mb-0">
                                     <p class="mb-1"><strong>Código Postal (CEP)</strong></p>
                                   </div>
@@ -561,16 +567,16 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   </div>                                  
                                 </div>
 
-                                <div class="col-12 col-sm-6 my-0">
-                                  <div class="row m-0">
-                                    <div class="col-12 col-lg-4">
+                                <div class="col-12 col-sm-6 my-0 py-2">
+                                  <div class="row m-0 p-0">
+                                    <div class="col-12 col-lg-6 my-2 p-0">
                                       <!-- Estado -->
                                       <p>
                                         <strong>Estado:</strong>
                                         <?php echo (isset($profileDetails['data'][0]['state']) && !empty($profileDetails['data'][0]['state']) ? $profileDetails['data'][0]['state'] : "Não Informado") ?>
                                       </p>
                                     </div>
-                                    <div class="col-12 col-lg-4">
+                                    <div class="col-12 col-lg-6 my-2 p-0">
                                       <!-- Cidade -->
                                       <p>
                                         <strong>Cidade:</strong>
@@ -578,8 +584,8 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                       </p>
                                     </div>
                                   </div>
-                                  <div class="row m-0">
-                                    <div class="col-12 col-lg-4">
+                                  <div class="row m-0 p-0">
+                                    <div class="col-12 col-lg-12 my-2 p-0">
                                       <!-- Bairro -->
                                       <p>
                                         <strong>Bairro:</strong>
@@ -812,7 +818,15 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                         <span class="card-title">
                                           Descrição do Anúncio:
                                         </span>
-                                        <p><?php echo $a_tpItem['tp_desc'] ?></p>
+                                        <p>
+                                          <?php
+                                            if ( strlen($a_tpItem['tp_desc']) < 100 ):
+                                              echo $a_tpItem['tp_desc'] ;
+                                            else:
+                                              echo substr($a_tpItem['tp_desc'], 0 , 100 ) . "..." ;
+                                            endif;
+                                          ?>
+                                        </p>
                                       </div>
                                     </div>
 
@@ -1108,7 +1122,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   endif;
                                   $lastId = $a_tpItem['post_id'];              
                               ?>
-                                <div class="row my-3 mx-2 p-2 ">
+                                <div class="row my-3 mx-2 p-2">
                                 
                                   <!-- Image -->
                                   <div class="col-12 col-sm-3 p-0 image-container-new" id="profileTP-img-container">
@@ -1125,31 +1139,36 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                   </div>
 
                                   <!-- Trade Post Info -->
-                                  <div class="col-12 col-sm-9 tp-card px-3 py-3">
+                                  <div class="col-12 col-sm-9 tp-card py-1">
 
-                                    <!-- Detalhes -->  
-                                    <div class="row">                                      
-                                      <!-- Título + Preço -->
+                                    <!-- Título + Preço -->
+                                    <div class="row">
                                       <div class="col-12 col-sm-10 text-center-mobile">
                                           <h3 class="card-title text-white "><strong><?php echo $a_tpItem['title'] ?></strong></h3>
                                           <h4 class="card-title text-red"><strong><small>R$ </small><?php echo number_format($a_tpItem['price'], 2, ',', '.') ?></strong></h4>
                                       </div>                                                                        
                                     </div>
                                        
-                                    <!-- Descrição -->
-                                    <div class="row">
+                                    <!-- Descrição + Detalhes -->
+                                    <div class="row mt-3">
                                       <div class="col-12 text-white">
-                                        <span class="card-title">
-                                          Descrição do Anúncio:
-                                        </span>
-                                        <p><?php echo $a_tpItem['tp_desc'] ?></p>
+                                        <span class="card-title">Descrição do Anúncio:</span>
+                                        <p>
+                                          <?php                                            
+                                            if ( strlen($a_tpItem['tp_desc']) < 100 ):
+                                              echo $a_tpItem['tp_desc'] ;
+                                            else:
+                                              echo substr($a_tpItem['tp_desc'], 0 , 100 ) . "..." ;
+                                            endif;
+                                          ?>
+                                        </p>
                                       </div>
 
                                       <!-- Link -->
                                       <div class="col-12 d-flex flex-row-reverse">
                                         <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>"
                                         class="card-title text-white">Detalhes</a>
-                                      </div>                                  
+                                      </div>
                                     </div>
 
                                   </div>
@@ -1157,7 +1176,7 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                               <?php } ?>
                             <? endif; ?>                            
                           </div>
-                        </div>                                            
+                        </div>
                       </div>
                     </div>
                   </div>

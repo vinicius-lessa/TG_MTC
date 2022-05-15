@@ -69,7 +69,7 @@ $imagesCount  = count($tpDetails["data"]);
     
     <!-- Begin page content -->
     <div class="container">
-      <main class="">
+      <main>
         <?php       
           if ( isset($tpDetails) && !($tpDetails["error"]) ) :        
         ?>
@@ -160,7 +160,7 @@ $imagesCount  = count($tpDetails["data"]);
                 <!-- Outras Informações sobre o Anúncio -->
                 <div class="row my-3 mx-0">
                   <div class="col-12 text-white">
-                    <div class="row">
+                    <div class="row my-2">
                       <div class="col-6">
                         <p>Categoria: <strong class="size-18"><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></p>                          
                       </div>
@@ -169,95 +169,125 @@ $imagesCount  = count($tpDetails["data"]);
                       </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row my-2">
                       <div class="col-12">
                         <p>Modelo: <strong class="size-18"><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></p>
                       </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row my-2">
                       <div class="col-6">
-                        <p>Estado: <strong class="size-18">São Paulo</strong></p>                          
-                        <p>Cidade: <strong class="size-18">São Roque</strong></p>
+                        <p>Estado: <strong class="size-18"><?php echo (isset($tpDetails["data"][0]["state"]) && !empty($tpDetails["data"][0]["state"]) ? $tpDetails["data"][0]["state"] : "Não Informado" ) ; ?></strong></p>
+                        <p>Bairro: <strong class="size-18"><?php echo (isset($tpDetails["data"][0]["district"]) && !empty($tpDetails["data"][0]["district"]) ? $tpDetails["data"][0]["district"] : "Não Informado" ) ; ?></strong></p>
                       </div>
                       <div class="col-6">
-                      <p>Bairro: <strong class="size-18"></strong></p>
+                        <p>Cidade: <strong class="size-18"><?php echo (isset($tpDetails["data"][0]["city"]) && !empty($tpDetails["data"][0]["city"]) ? $tpDetails["data"][0]["city"] : "Não Informado" ) ; ?></strong></p>
+                      </div>
+                    </div>  
+                    
+                    <div class="row my-2">
+                      <div class="col-12">
                         <p>Telefone: <strong class="size-18"><?php echo $tpDetails["data"][0]["phone"] ?></strong></p>
                       </div>
                     </div>
 
-                    <!-- Autor do Anúncio -->
-                    <div class="row mt-2">
-                      <div class="col-12 text-white">
-
-                        <div class="row">
-                          <div class="col-12 d-flex justify-content-center">
-                            <p>Item anunciado por:</p>
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-12 d-flex align-items-center justify-content-center">
-                            <span>
-                              <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
-                              class="text-decoration-none text-white">
-                                <strong>
-                                  <?php echo $tpDetails["data"][0]["user_name"] ; ?>
-                                </strong>
-                                <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
-                              </a>
-                            </span>
-                            <a
-                              href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
-                              class="nav-link px-4 link-secondary">
-                                <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) && validateImageSource($tpDetails["data"][0]["img_profile_name"]) ): ?>
-                                  <img src="<?php echo $tpDetails["data"][0]["img_profile_name"] ?>" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
-                                <?php else: ?>
-                                  <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
-                                <?php endif; ?>
-                            </a>
-                          </div>
-                        </div>
-
-                      </div>              
-                    </div>                      
+                    <div class="row my-2">
+                      <div class="col-12">
+                        <?php 
+                          switch ($tpDetails['data'][0]['condition_id']):
+                            case "1":
+                              $conditionDesc = "Produto Novo";
+                              break;
+                            case "2":
+                              $conditionDesc = "Usado, estado de Novo";
+                              break;
+                            case "3":
+                              $conditionDesc = "Usado, com detalhes";
+                              break;
+                            case "4":
+                              $conditionDesc = "Pare restauração/reaproveitamento";
+                              break;
+                          endswitch;
+                        ?>
+                        <p>Condição do Item: <strong class="size-18"><?php echo $conditionDesc ; ?></strong></p>
+                      </div>
+                    </div>                    
 
                   </div>
-                </div>   
-                
-                <!-- Conversar/Chat -->
-                <div class="row mx-0">
-                  <div class="col-12 py-2 text-center">
-                    <!-- Validar com JS para exibir o botão, porém ao clicar e ser o mesmo usuário, cancelar a âncora -->
-                    <?php
-                      if ( !($isOwnPost) ) :
-                    ?>
-                        <a  class='text-white'
-                            href='<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $userCreator ; ?>&post_id=<?php echo $post_id ; ?>&img_url=<?php echo $tpDetails["data"][0]["image_name"] ; ?>'>
-                          <button type='button' class='btn btn-lg border-0 btn-default'>
-                            <strong>Conversar com <?php echo $tpDetails["data"][0]["user_name"] ; ?></strong>
-                          </button>
-                        </a>
-                    <?php
-                      endif;
-                    ?>
-                  </div>
-                </div>
+                </div>                
 
               </div>
             </div>
             
             <!-- Description -->
-            <div class="row">
-              <div class="col-12 mt-4 mb-5">
-                <div>
-                  <h5 class="card-title text-white mt-2" style="text-align:left;"><strong>Descrição do Anúncio:</strong></h5>
+            <div class="row my-4">
+              <div class="col-12 col-sm-9 p-0 my-2">
+                <div class="rounded bk-gray me-1 p-2 zeroMargin-Padding-mobile tp-detailed-desc">
+                  <div class="px-2">
+                    <h5 class="card-title text-white text-center mt-2" style="text-align:left;"><strong>Descrição do Anúncio</strong></h5>
+                  </div>
+                  <div class="my-4 px-2">
+                    <p class="card-title text-white size-18" style="text-align:left;"><?php echo nl2br($tpDetails["data"][0]["tp_desc"]) ; ?></p>
+                  </div>
                 </div>
-                <div class="mt-3">
-                  <p class="card-title text-white" style="text-align:left;"><?php echo $tpDetails["data"][0]["tp_desc"] ?></p>
+              </div>              
+              
+              <div class="col-12 col-sm-3 p-0 my-2">
+                <div class="rounded bk-gray ms-1 p-2 zeroMargin-Padding-mobile d-flex align-items-center tp-detailed-desc h-100">
+                  <div class="row">
+                    <!-- Autor do Anúncio -->
+                    <div class="col-12 text-white my-3">
+
+                      <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                          <p>Item anunciado por:</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 d-flex align-items-center justify-content-center">
+                          <span>
+                            <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                            class="text-decoration-none text-white">
+                              <strong>
+                                <?php echo $tpDetails["data"][0]["user_name"] ; ?>
+                              </strong>
+                              <?php if ($isOwnPost) : echo "<small>(Você)</small>" ;  endif; ?>
+                            </a>
+                          </span>
+                          <a
+                            href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $tpDetails["data"][0]["user_id"] ?>" 
+                            class="nav-link px-4 link-secondary">
+                              <?php if ( isset($tpDetails["data"][0]["img_profile_name"]) && validateImageSource($tpDetails["data"][0]["img_profile_name"]) ): ?>
+                                <img src="<?php echo $tpDetails["data"][0]["img_profile_name"] ?>" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                              <?php else: ?>
+                                <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle mx-1" alt="" style="max-width:100%;width:70px;height:70px;object-fit:cover;">
+                              <?php endif; ?>
+                          </a>
+                        </div>
+                      </div>
+
+                    </div>                              
+                  
+                    <!-- Conversar/Chat -->
+                    <div class="col-12 my-3 d-flex align-items-center justify-content-center">
+                      <?php
+                        if ( !($isOwnPost) ) :
+                      ?>
+                        <a  class='text-white'
+                            href='<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $userCreator ; ?>&post_id=<?php echo $post_id ; ?>&img_url=<?php echo $tpDetails["data"][0]["image_name"] ; ?>'>
+                          <button type='button' class='btn btn-lg btn-default'>
+                            <strong>Chat <?php echo $tpDetails["data"][0]["user_name"] ; ?></strong>
+                          </button>
+                        </a>
+                      <?php
+                      endif;
+                      ?>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>            
+            </div>
 
           </article>          
 
@@ -274,12 +304,8 @@ $imagesCount  = count($tpDetails["data"]);
       
       </main>
       
-      <div class="col-12">
-        <hr class="hr-default">
-      </div>
-
       <!-- OUTROS ANÚNCIOS-->
-      <section>      
+      <section class="mb-5">      
         <div class="row">
           <div class="col-12 col-sm-12 mt-5">
             <h1 class="text-white"><strong>OUTROS &nbsp;A N Ú N C I O S</strong></h1>
@@ -325,18 +351,18 @@ $imagesCount  = count($tpDetails["data"]);
       </section>
 
       <section>
-      <!-- Encontre Outros Artistas -->
-      <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
-        <div class="row mt-3 mb-3">
-          <div class="col-12 col-sm-8">
-            <h3 class="mt-2 ms-4"><strong>Encontre artistas de diversos genêros</strong></h3>
-            <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
-          </div>
-          <div class="col-12 col-sm-4 mt-1">
-            <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+        <!-- Encontre Outros Artistas -->
+        <div class="container bk-gray col-12 col-sm-8 text-white" style="border-style:solid;border-color:gray;">
+          <div class="row mt-3 mb-3">
+            <div class="col-12 col-sm-8">
+              <h3 class="mt-2 ms-4"><strong>Encontre artistas de diversos genêros</strong></h3>
+              <p class="ms-4">Você tem a possibilidade de divulgar o seu trabalho, e encontrar artistas próximos.</p>
+            </div>
+            <div class="col-12 col-sm-4 mt-1">
+              <a class="text-white ms-4 size-14" href="<?php echo SITE_URL ?>/Views/music_trade_center/home.php"><button type="button" class="btn btn-default btn-lg border-0 mt-3"><strong>VER MAIS</strong></button></a>  
+            </div>
           </div>
         </div>
-      </div>
       </section>
     </div>       
 
