@@ -14,6 +14,8 @@
 $(document).ready(function(){
     // Input Masks
     $('.money').mask('000.000.000.000.000,00', {reverse: true});
+    $('.phone_with_ddd').mask('(00) 00000-0000');
+    
 });
 
 
@@ -53,7 +55,7 @@ var imgsToDelete    = [];
 let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading Icon
 
 
-// Events
+// ###### Events
 
 // Insert Image
 imageOne.change(function(event) {    
@@ -104,116 +106,6 @@ imageThree.change(function(event) {
         URL.revokeObjectURL(imageThree.src) // free memory
     }
 });
-
-
-// Functions
-
-async function changeCategory() {
-    
-    if ( category.val() != "default" ) {
-        
-        // Start Loading Icon
-        spinnerWrapper.style.display = 'flex';
-            
-        var innerMessage = "";
-        var myHeaders = new Headers();
-
-        var myInit = { 
-            method: 'GET',
-            headers: myHeaders,
-            mode: 'cors',
-            cache: 'default'
-        };
-		
-        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
-
-        const j_TPinfo = await r_TPinfo.json();    
-        // console.log(j_TPinfo.data);
-
-        if ( j_TPinfo.error ){        
-            innerMessage = "<option value='44'>Outra</option>"; // Define Default (Código 44 no DB)
-        } else {
-            console.log("Marca: OK");
-            innerMessage = "<option value='default'>Selecione a Marca</option>"; // Permanece
-            
-            for (var p of j_TPinfo.data) {    
-                innerMessage += "<option value='" + p["brand_id"] + "'>" + p["brand_description"] + "</option>";
-            }
-        }        
-
-        brandSelector.html( function() {
-            return innerMessage;
-        });
-
-        // Desabilita Loading
-        spinnerWrapper.style.display = 'none';
-    }
-}
-
-async function changeBrand() {        
-
-    if ( brand.val() != "default" ) {
-
-        if ( category.val() == "default" ){
-            window.alert("Preencha a Categoria Primeiro!");
-            brand.val("default");
-            return;
-        }
-
-        // Start Loading Icon
-        spinnerWrapper.style.display = 'flex';
-        
-        var innerMessage = "";
-        
-        var myHeaders = new Headers();
-        var myInit = { 
-            method: 'GET',
-            headers: myHeaders,
-            mode: 'cors',
-            cache: 'default'
-        };
-		
-        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + category.val() + "&brand=" + brand.val() , myInit);        
-        
-        const j_TPinfo = await r_TPinfo.json();
-        
-        if ( j_TPinfo.error ){
-            innerMessage = "<option value='84'>Outros</option>"; // Define Default (Código 84 no DB)
-        } else {
-            console.log("Modelo: OK");
-            innerMessage = "<option value='default'>Selecione o Modelo</option>"; // Permanece
-            
-            for (var p of j_TPinfo.data) {        
-                innerMessage += "<option value='" + p["model_id"] + "'>" + p["description"] + "</option>";
-            }
-        }
-        
-
-        modelSelector.html( function() {
-            return innerMessage;
-        });
-        
-        // Desabilita Loading
-        spinnerWrapper.style.display = 'none';
-    }
-
-}
-
-function changeModel() {    
-
-    if ( category.val() == "default"){
-        window.alert("Preencha o Campo Categoria Primeiro!");
-        model.val("default");
-        return;
-    }
-
-    if ( brand.val() == "default"){
-        window.alert("Preencha o campo Marca Primeiro!");
-        model.val("default");
-        return;
-    }    
-}
-
 
 // New Post Submit
 newTradePostForm.submit(async function( event ){
@@ -315,7 +207,7 @@ newTradePostForm.submit(async function( event ){
 
             return false;
         }
-    }    
+    }
 
     // Start Loading Icon
     spinnerWrapper.style.display = 'flex';
@@ -382,6 +274,125 @@ newTradePostForm.submit(async function( event ){
     }, 2000);
 
 });
+
+// Image Preview
+$(".images img").click(function(){
+    $("#full-image").attr("src", $(this).attr("src"));
+    $('#image-viewer').show();
+});
+
+$("#image-viewer .close").click(function(){
+    $('#image-viewer').hide();
+});
+
+
+// ###### Functions
+
+async function changeCategory() {
+    
+    if ( category.val() != "default" ) {
+        
+        // Start Loading Icon
+        spinnerWrapper.style.display = 'flex';
+            
+        var innerMessage = "";
+        var myHeaders = new Headers();
+
+        var myInit = { 
+            method: 'GET',
+            headers: myHeaders,
+            mode: 'cors',
+            cache: 'default'
+        };
+		
+        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=brands&value=" + category.val() , myInit);
+
+        const j_TPinfo = await r_TPinfo.json();    
+        // console.log(j_TPinfo.data);
+
+        if ( j_TPinfo.error ){        
+            innerMessage = "<option value='44'>Outra</option>"; // Define Default (Código 44 no DB)
+        } else {
+            console.log("Marca: OK");
+            innerMessage = "<option value='default'>Selecione a Marca</option>"; // Permanece
+            
+            for (var p of j_TPinfo.data) {    
+                innerMessage += "<option value='" + p["brand_id"] + "'>" + p["brand_description"] + "</option>";
+            }
+        }
+
+        brandSelector.html( function() {
+            return innerMessage;
+        });
+
+        // Desabilita Loading
+        spinnerWrapper.style.display = 'none';
+    }
+}
+
+async function changeBrand() {        
+
+    if ( brand.val() != "default" ) {
+
+        if ( category.val() == "default" ){
+            window.alert("Preencha a Categoria Primeiro!");
+            brand.val("default");
+            return;
+        }
+
+        // Start Loading Icon
+        spinnerWrapper.style.display = 'flex';
+        
+        var innerMessage = "";
+        
+        var myHeaders = new Headers();
+        var myInit = { 
+            method: 'GET',
+            headers: myHeaders,
+            mode: 'cors',
+            cache: 'default'
+        };
+		
+        const r_TPinfo = await fetch( backEndURL + "/trade_posts.php/?token=16663056-351e723be15750d1cc90b4fcd&key=models&value=" + category.val() + "&brand=" + brand.val() , myInit);        
+        
+        const j_TPinfo = await r_TPinfo.json();
+        
+        if ( j_TPinfo.error ){
+            innerMessage = "<option value='84'>Outros</option>"; // Define Default (Código 84 no DB)
+        } else {
+            console.log("Modelo: OK");
+            innerMessage = "<option value='default'>Selecione o Modelo</option>"; // Permanece
+            
+            for (var p of j_TPinfo.data) {        
+                innerMessage += "<option value='" + p["model_id"] + "'>" + p["description"] + "</option>";
+            }
+        }
+        
+
+        modelSelector.html( function() {
+            return innerMessage;
+        });
+        
+        // Desabilita Loading
+        spinnerWrapper.style.display = 'none';
+    }
+
+}
+
+function changeModel() {    
+
+    if ( category.val() == "default"){
+        window.alert("Preencha o Campo Categoria Primeiro!");
+        model.val("default");
+        return;
+    }
+
+    if ( brand.val() == "default"){
+        window.alert("Preencha o campo Marca Primeiro!");
+        model.val("default");
+        return;
+    }    
+}
 
 function deleteTmpImage(imgNumber) {
     if ( imgNumber == 1 ) {

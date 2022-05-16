@@ -32,7 +32,7 @@ signUpForm.submit(async function( event ){
     var newPhone = userPhone.val();
 
     $('.cep').mask('00000-000');
-    $('.phone_with_ddd').mask('(00) 00000-0000');    
+    $('.phone_with_ddd').mask('(00) 00000-0000');
 
     // Input: Nome
     if ( userName.val() === "" || userName.val() === null ) {

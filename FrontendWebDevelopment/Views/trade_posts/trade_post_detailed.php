@@ -53,13 +53,13 @@ $imagesCount  = count($tpDetails["data"]);
     <title> <?php echo $titlePage; ?> </title>
     
     <!-- StyleSheet -->
-    <!-- <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.min.css"> --> <!-- Get Bootstrap -->
-    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Get Bootstrap -->    
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --> <!-- Icons -->
+    <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/bootstrap/bootstrap.css"> <!-- Bootstrap 5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css"> <!-- Icons -->
     <link rel="stylesheet" href="<?php echo SITE_URL ?>/css/style.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<?php echo SITE_URL ?>/images/icon.png">
+
   </head>
 
   <body class="d-flex flex-column h-100 bk-black font-main">
@@ -80,7 +80,7 @@ $imagesCount  = count($tpDetails["data"]);
             
             <div class="col-12">
               <div class="text-gray">
-                <span class="size-14">Anúncio #<?php echo $tpDetails['data'][0]['post_id']?></span>
+                <span class="size-14">Anúncio #<?php echo $tpDetails['data'][0]['post_id'] ; ?></span>
               </div>
             </div>
             
@@ -96,7 +96,7 @@ $imagesCount  = count($tpDetails["data"]);
               <!-- Image Carrousel -->
               <div class="col-12 col-lg-8 p-0">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                  <div class="carousel-indicators" style="z-index: 12 ;">
+                  <div class="carousel-indicators" style="z-index: 10 ;">
                     <?php for ($i = 0; $i < $imagesCount; $i++) {  
                       if ( $i == 0 ):?>
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $i?>" class="active" aria-current="true" aria-label="Slide <?php echo $i?>"></button>
@@ -116,7 +116,7 @@ $imagesCount  = count($tpDetails["data"]);
                             </div>
 
                             <!-- Image  -->
-                            <div class="img-default-content">
+                            <div class="img-default-content images">
                               <img src="<?php echo $tpDetails["data"][$i]["image_name"] ?>" class="img-tag-tp-default" alt="">
                             </div>
                           <?php else: ?>
@@ -130,16 +130,22 @@ $imagesCount  = count($tpDetails["data"]);
                     <?php }  ?>
                   </div>
 
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="z-index: 12 ;">
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="z-index: 10 ;">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                   </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="z-index: 12 ;">
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="z-index: 10 ;">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                   </button>
                 </div>
-              </div>              
+              </div>
+              
+              <!-- Image Viewer -->
+              <div id="image-viewer">
+                  <span class="close">&times;</span>
+                  <img class="modal-content" id="full-image">
+              </div>
 
 
               <!-- Trade Post Info -->
@@ -158,40 +164,45 @@ $imagesCount  = count($tpDetails["data"]);
                 </div>                  
 
                 <!-- Outras Informações sobre o Anúncio -->
-                <div class="row my-3 mx-0">
+                <div class="row my-2 mx-0">
                   <div class="col-12 text-white">
-                    <div class="row my-2">
+                    <div class="row my-2 pb-1 border-bottom border-dark">
                       <div class="col-6">
-                        <p>Categoria: <strong class="size-18"><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></p>                          
+                        <p class="my-0">Categoria</p>
+                        <p class="my-0"><strong class="size-18"><?php echo $tpDetails["data"][0]["pc_desc"] ?></strong></p>
                       </div>
                       <div class="col-6">
-                        <p>Marca: <strong class="size-18"><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></p>
+                        <p class="my-0">Marca</p>
+                        <p class="my-0"><strong class="size-18"><?php echo $tpDetails["data"][0]["pb_desc"] ?></strong></p>
                       </div>
                     </div>
 
-                    <div class="row my-2">
+                    <div class="row my-2 pb-1 border-bottom border-dark">
                       <div class="col-12">
-                        <p>Modelo: <strong class="size-18"><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></p>
+                        <p class="my-0">Modelo</p>
+                        <p class="my-0"><strong class="size-18"><?php echo $tpDetails["data"][0]["pm_desc"] ?></strong></p>
                       </div>
                     </div>
 
-                    <div class="row my-2">
+                    <div class="row my-2 pb-1 border-bottom border-dark">
                       <div class="col-6">
-                        <p>Estado: <strong class="size-18"><?php echo (isset($tpDetails["data"][0]["state"]) && !empty($tpDetails["data"][0]["state"]) ? $tpDetails["data"][0]["state"] : "Não Informado" ) ; ?></strong></p>
-                        <p>Bairro: <strong class="size-18"><?php echo (isset($tpDetails["data"][0]["district"]) && !empty($tpDetails["data"][0]["district"]) ? $tpDetails["data"][0]["district"] : "Não Informado" ) ; ?></strong></p>
+                        <p class="my-0">Estado</p>
+                        <p class="my-0"><strong class="size-18"><?php echo (isset($tpDetails["data"][0]["state"]) && !empty($tpDetails["data"][0]["state"]) ? $tpDetails["data"][0]["state"] : "Não Informado" ) ; ?></strong></p>
                       </div>
                       <div class="col-6">
-                        <p>Cidade: <strong class="size-18"><?php echo (isset($tpDetails["data"][0]["city"]) && !empty($tpDetails["data"][0]["city"]) ? $tpDetails["data"][0]["city"] : "Não Informado" ) ; ?></strong></p>
+                        <p class="my-0">Cidade</p>
+                        <p class="my-0"><strong class="size-18"><?php echo (isset($tpDetails["data"][0]["city"]) && !empty($tpDetails["data"][0]["city"]) ? $tpDetails["data"][0]["city"] : "Não Informado" ) ; ?></strong></p>
                       </div>
                     </div>  
                     
-                    <div class="row my-2">
+                    <div class="row my-2 pb-1 border-bottom border-dark">
                       <div class="col-12">
-                        <p>Telefone: <strong class="size-18"><?php echo $tpDetails["data"][0]["phone"] ?></strong></p>
+                        <p class="my-0">Bairro</p>
+                        <p class="my-0"><strong class="size-18"><?php echo (isset($tpDetails["data"][0]["district"]) && !empty($tpDetails["data"][0]["district"]) ? $tpDetails["data"][0]["district"] : "Não Informado" ) ; ?></strong></p>
                       </div>
                     </div>
 
-                    <div class="row my-2">
+                    <div class="row my-2 pb-1 border-bottom border-dark">
                       <div class="col-12">
                         <?php 
                           switch ($tpDetails['data'][0]['condition_id']):
@@ -209,9 +220,17 @@ $imagesCount  = count($tpDetails["data"]);
                               break;
                           endswitch;
                         ?>
-                        <p>Condição do Item: <strong class="size-18"><?php echo $conditionDesc ; ?></strong></p>
+                        <p class="my-0">Condição do Item</p>
+                        <p class="my-0"><strong class="size-18"><?php echo $conditionDesc ; ?></strong></p>
                       </div>
                     </div>                    
+
+                    <div class="row my-2">
+                      <div class="col-12">
+                        <p class="my-0">Possui NF ?</p>
+                        <p class="my-0"><strong class="size-18"><?php echo ( $tpDetails["data"][0]["eletronic_invoice"] === "0" ? " Não" : " Sim" ) ; ?></strong></p>
+                      </div>
+                    </div>
 
                   </div>
                 </div>                
@@ -222,7 +241,7 @@ $imagesCount  = count($tpDetails["data"]);
             <!-- Description -->
             <div class="row my-4">
               <div class="col-12 col-sm-9 p-0 my-2">
-                <div class="rounded bk-gray me-1 p-2 zeroMargin-Padding-mobile tp-detailed-desc">
+                <div class="rounded bk-gray me-1 p-2 zeroMargin-Padding-mobile tp-detailed-desc h-100">
                   <div class="px-2">
                     <h5 class="card-title text-white text-center mt-2" style="text-align:left;"><strong>Descrição do Anúncio</strong></h5>
                   </div>
@@ -233,10 +252,9 @@ $imagesCount  = count($tpDetails["data"]);
               </div>              
               
               <div class="col-12 col-sm-3 p-0 my-2">
-                <div class="rounded bk-gray ms-1 p-2 zeroMargin-Padding-mobile d-flex align-items-center tp-detailed-desc h-100">
-                  <div class="row">
+                <div class="rounded bk-gray ms-1 p-2 zeroMargin-Padding-mobile tp-detailed-desc h-100">
                     <!-- Autor do Anúncio -->
-                    <div class="col-12 text-white my-3">
+                    <div class="col-12 text-white my-4">
 
                       <div class="row">
                         <div class="col-12 d-flex justify-content-center">
@@ -267,10 +285,18 @@ $imagesCount  = count($tpDetails["data"]);
                         </div>
                       </div>
 
-                    </div>                              
+                      <!-- Phone -->
+                      <div class="row my-3">
+                        <div class="col-12 text-center">
+                          <strong class="phone_with_ddd"><?php echo $tpDetails["data"][0]["phone"] ?></strong>
+                          <span class="text-red size-18"><i class="bi bi-telephone"></i></span> <!-- Phone Icon -->
+                        </div>
+                      </div>
+
+                    </div>
                   
                     <!-- Conversar/Chat -->
-                    <div class="col-12 my-3 d-flex align-items-center justify-content-center">
+                    <div class="col-12 d-flex align-items-center justify-content-center" style="margin: 40px 0px 30px 0px;">
                       <?php
                         if ( !($isOwnPost) ) :
                       ?>
@@ -283,8 +309,7 @@ $imagesCount  = count($tpDetails["data"]);
                       <?php
                       endif;
                       ?>
-                    </div>
-                  </div>
+                    </div>                  
                 </div>
               </div>
             </div>
@@ -320,12 +345,22 @@ $imagesCount  = count($tpDetails["data"]);
         ?>          
           <div class="row">          
             <?php 
-              $lastId = 0;
+              // Vars
+              $tpTotal    = count($a_tpList["data"]);
+              $countPosts = 0;
+              $lastId     = 0;
+
               foreach ($a_tpList["data"] as $a_tpItem) { 
-              if ( $lastId == $a_tpItem['post_id'] ):
-                continue; // Skip Iteration
-              endif;
-              $lastId = $a_tpItem['post_id'];                
+                if ( $lastId == $a_tpItem['post_id'] || $a_tpItem['post_id'] == $tpDetails['data'][0]['post_id'] ):
+                  continue; // Skip Iteration
+                endif;
+              
+                if ( $countPosts > 5 ): // Max 6 Posts Visible Initially
+                  break;
+                endif;
+
+              $countPosts++;
+              $lastId = $a_tpItem['post_id'];              
             ?>
               <div class="col-12 col-sm-6 col-lg-4 mt-3">
                 <div class="image_container">
@@ -348,6 +383,14 @@ $imagesCount  = count($tpDetails["data"]);
             </div>
           </div>
         <?php endif; ?>
+
+        <!-- See More -->
+        <div class="row">
+          <div class="col-12 my-5 text-center">
+            <p class="text-white my-0"><a class="link-red" href="<?php echo SITE_URL ?>/Views/trade_posts/home.php">Veja mais Anúncios...</a></p>
+          </div>
+        </div>
+        
       </section>
 
       <section>
@@ -370,9 +413,14 @@ $imagesCount  = count($tpDetails["data"]);
     <?php include SITE_PATH . '/includes/footer.php'; ?>    
   
     <!-- Scripts -->    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
     <script src="<?php echo SITE_URL ?>/js/bootstrap.bundle.js"></script>
-    <script src="<?php echo SITE_URL ?>/js/main.js"></script>    
+
+    <script src="<?php echo SITE_URL ?>/js/main.js"></script>
+    <script src="<?php echo SITE_URL ?>/js/tradepost.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> <!-- jQuery - Máscara para Inputs -->
     
   </body>
 

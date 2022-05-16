@@ -74,6 +74,13 @@ footer{
   left: 0;
 }
 
+img {    
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+img:hover {filter: brightness(1.1);}
+
 
 /* ################################ Bootstrap 5 Changes
 */
@@ -131,7 +138,17 @@ a.link-none:link {
 }
 .linkdefault:hover {
   text-decoration: none;
-  color: #eb3535;
+  color: #eb1f36;
+}
+
+.link-red{
+  text-decoration: none;
+  color: #eb1f36;
+}
+
+.link-red:hover {
+  text-decoration: none;
+  color: #f6334a;
 }
 
 /* ################################ Buttons
@@ -550,7 +567,59 @@ form div {
 /* ################################ Visual Effects
 */
 
-/* Generic Loader */
+/* ########### Image Viewer */
+
+#image-viewer {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 60%;
+  max-width: 600px;
+}
+.modal-content { 
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+#image-viewer .close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+#image-viewer .close:hover,
+#image-viewer .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px){
+  .modal-content {
+      width: 100%;
+  }
+}
+
+/* ########### Generic Loader */
+
 .spinner-wrapper{
   /* display: flex; - Ativado via Js*/
   display: none;  

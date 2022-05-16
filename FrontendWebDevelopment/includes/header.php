@@ -77,11 +77,11 @@ include_once SITE_ROOT.'/defaultFunctions.php';
               <!-- <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="margin-left:5px;max-width:100%;width:30px;height:30px;object-fit:cover;"> -->
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about">Meu Pefil</a></li>
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=trade_posts">Meus Anúncios</a></li>
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=config">Configurações</a></li>
+              <li><a class="dropdown-item mb-2" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about">Meu Perfil</a></li>
+              <li><a class="dropdown-item my-2" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=trade_posts">Meus Anúncios</a></li>
+              <li><a class="dropdown-item my-2" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=config">Configurações</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true">Sair</a></li>
+              <li><a class="dropdown-item mt-2" href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true">Sair</a></li>
             </ul>
           </li>          
 
