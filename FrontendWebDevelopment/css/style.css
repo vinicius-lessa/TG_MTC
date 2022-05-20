@@ -74,6 +74,20 @@ footer{
   left: 0;
 }
 
+img {    
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+img:hover {filter: brightness(1.1);}
+
+
+/* ################################ Bootstrap 5 Changes
+*/
+#singUp-form .input-group { /*  PassWord */
+  height: calc(3.5rem + 2px) !important;  
+}
+
 
 /* ################################ Fonts
 */
@@ -124,7 +138,17 @@ a.link-none:link {
 }
 .linkdefault:hover {
   text-decoration: none;
-  color: #eb3535;
+  color: #eb1f36;
+}
+
+.link-red{
+  text-decoration: none;
+  color: #eb1f36;
+}
+
+.link-red:hover {
+  text-decoration: none;
+  color: #f6334a;
 }
 
 /* ################################ Buttons
@@ -303,9 +327,7 @@ form div {
 /* ################################ Colors
 */
 
-.fundohome  {
-  background-color: #70707010;
-}
+.fundohome{ background-color: #70707010; }
 
 .bk-black {
   /* background-color: #0d1011; */
@@ -313,70 +335,26 @@ form div {
   background-attachment: fixed;
 }
 
-.bk-gray {
-  background-color: #1C2124;  
-}
+.bk-gray{ background-color: #1C2124; }
 
-.bk-lightgray {
-  background-color: #5e5f60;  
-}
+.bk-lightgray{ background-color: #5e5f60; }
 
-.bk-red {
-  background-color: #af0b0b;
-}
+.bk-red{ background-color: #af0b0b; }
 
-.bk-white {
-  background-color: #edebeb;
-}
+.bk-white{ background-color: #edebeb; }
 
-.bk-yellow {
-  background-color: #ccd304;
-}
+.bk-yellow{ background-color: #ccd304; }
 
-.bk-orange {
-  background-color: #eb8d0b;
-}
+.bk-orange{ background-color: #eb8d0b; }
 
-.bk-blue {
-  background-color: #177bd9;
-}
+.bk-blue{ background-color: #177bd9; }
 
-.bk-purple {
-  background-color: #6f1fc0;
-}
+.bk-purple{ background-color: #6f1fc0; }
 
-.bk-green {
-  background-color: #29c418;
-}
+.bk-green{ background-color: #29c418; }
 
-.bk-chat {
-  background-color: #111415;  
-}
+.bk-chat{ background-color: #111415; }
 
-
-/* ################################ SignIn - SignUp
-*/ 
-.body-login {
-  height: 100vh;
-  width: 100%;
-}
-
-.banner-login {
-  background-color: var(--primary);
-  background: url("../images/IMAGENS/IMAGEMDELOGIN.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-/* ################################ User Profile
-*/
-
-.tp-card {
-  background-color: rgb(43, 49, 50) ;
-  border-right-style: solid;
-  border-width: 8px;
-  border-color: #eb3535;  
-}
 
 /* ################################ Images */
 
@@ -452,6 +430,131 @@ form div {
   filter: contrast(105%) brightness(1.1);
 }
 
+
+/* ################################ UNIQUE PAGES
+*/
+
+
+/* ################################ SignIn - SignUp
+*/ 
+.body-login {
+  height: 100vh;
+  width: 100%;
+}
+
+.banner-login {
+  background-color: var(--primary);
+  background: url("../images/IMAGENS/IMAGEMDELOGIN.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* ################################ User Profile
+*/
+
+.tp-card {
+  background-color: rgb(43, 49, 50) ;
+  border-right-style: solid;
+  border-width: 8px;
+  border-color: #eb3535;  
+}
+
+/* ################################ Trade Post Detailed
+*/
+
+.tp-detailed-desc {
+  min-height: 300px;
+}
+
+/* ################################ Chat
+*/
+
+.scrollbar {  
+  scrollbar-color: #8f8f8f #1C2124;    
+  overflow-y: scroll;
+}
+
+.reverse-vertical-direction {
+  flex-direction: column-reverse;
+}
+
+.reverse-horizontal-direction {
+  flex-direction: row-reverse;  
+}
+
+.msg-width {
+  max-width: 60%;  
+}
+
+.msg-user {  
+  background-color: #542020;
+}
+
+.hr-default {
+  background-color: rgb(118, 115, 115);  
+}
+
+.chat-topic {
+  height: 18%;
+}
+
+.chat-box {
+  height: 76%;
+  margin-top: 20px;
+}
+
+/* ################################ Quem Somos
+*/
+
+.showcase{
+  /* width: 100%; */
+  /* height: 100vh; */
+  position: relative;
+}
+
+.showcase video{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.title{
+  width: 100%;
+  /* height: 100%; */
+  background-color: rgb(0, 0, 0);
+  font-size: 100px;
+  color: #fff;
+  mix-blend-mode: multiply;
+}
+
+@media (max-width: 576px) {
+
+  .showcase{
+    position: relative;
+  }
+
+  .showcase video{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+
+  .title{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    font-size: 50px;
+    color: #fff;
+    mix-blend-mode: multiply;
+  }
+}
+
 /* ################################ JavaScript
 */
 
@@ -464,7 +567,59 @@ form div {
 /* ################################ Visual Effects
 */
 
-/* Generic Loader */
+/* ########### Image Viewer */
+
+#image-viewer {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 60%;
+  max-width: 600px;
+}
+.modal-content { 
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {transform:scale(0)} 
+  to {transform:scale(1)}
+}
+#image-viewer .close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+#image-viewer .close:hover,
+#image-viewer .close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 600px){
+  .modal-content {
+      width: 100%;
+  }
+}
+
+/* ########### Generic Loader */
+
 .spinner-wrapper{
   /* display: flex; - Ativado via Js*/
   display: none;  
@@ -539,137 +694,5 @@ form div {
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-/* ################################ Music Trade Center
-*/
-
-/* .zoom {
-	overflow: hidden;
-}
-
-.zoom img {
-	max-width: 100%;
-	-moz-transition: all 0.3s;
-	-webkit-transition: all 0.3s;
-	transition: all 0.3s;
-}
-
-.zoom:hover img {
-	-moz-transform: scale(1.1);
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
-} */
-
-/* OOOORRR */
-
-/* .zoom {
-  position: relative;
-  border: 10px solid rgb(51, 255, 0);
-  overflow: hidden;
-  width: 400px;
-  margin: 100px;
-}
-.zoom img {
-  max-width: 100%;
-  -moz-transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.zoom:hover img {
-  -moz-transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  transform: scale(1.2);
-} */
-
-/* ################################ Chats
-*/
-
-.scrollbar {  
-  scrollbar-color: #8f8f8f #1C2124;    
-  overflow-y: scroll;
-}
-
-.reverse-vertical-direction {
-  flex-direction: column-reverse;
-}
-
-.reverse-horizontal-direction {
-  flex-direction: row-reverse;  
-}
-
-.msg-width {
-  max-width: 60%;  
-}
-
-.msg-user {  
-  background-color: #542020;
-}
-
-.hr-default {
-  background-color: rgb(118, 115, 115);  
-}
-
-.chat-topic {
-  height: 18%;
-}
-
-.chat-box {
-  height: 76%;
-  margin-top: 20px;
-}
-
-/* ################################ QUEM SOMOS
-*/
-
-.showcase{
-  /* width: 100%; */
-  /* height: 100vh; */
-  position: relative;
-}
-
-.showcase video{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-}
-
-.title{
-  width: 100%;
-  /* height: 100%; */
-  background-color: rgb(0, 0, 0);
-  font-size: 100px;
-  color: #fff;
-  mix-blend-mode: multiply;
-}
-
-@media (max-width: 576px) {
-
-  .showcase{
-    /* width: 100%; */
-    /* height: 28vh; */
-    position: relative;
-  }
-
-  .showcase video{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit: cover;
-  }
-
-  .title{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 0, 0);
-    font-size: 50px;
-    color: #fff;
-    mix-blend-mode: multiply;
   }
 }

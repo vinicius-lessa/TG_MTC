@@ -4,10 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "..\\_Heroku\\mtc-backend"
+			"path": "..\\_000webhost"
 		},
 		{
-			"path": "..\\_Heroku\\mtc-frontend"
+			"path": "..\\_Heroku"
 		}
 	],
 	"settings": {}

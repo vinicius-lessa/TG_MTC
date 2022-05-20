@@ -15,7 +15,7 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-include_once '../../defaultFunctions.php';
+include_once SITE_ROOT.'/defaultFunctions.php';
 
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
@@ -134,7 +134,7 @@ endif;
             <?php foreach ($a_Users["data"] as $user) { ?>
                 <div class="col-6 col-sm-3 mt-3">
                   <a href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about&user_id=<?php echo $user["user_id"] ?>">
-                    <?php if ( isset($user["image_name"]) ): ?>
+                    <?php if ( isset($user["image_name"]) && $user["image_name"] != null && validateImageSource($user["image_name"]) ): ?>
                       <img src="<?php echo $user["image_name"] ?>" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">
                     <?php else: ?>
                       <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img-mtc-1.jpg" class="img-fluid rounded" alt="" style="width:100%;height:250px;object-fit:cover;">

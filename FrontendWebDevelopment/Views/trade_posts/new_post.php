@@ -21,7 +21,7 @@ if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
 
-include_once '../../defaultFunctions.php';
+include_once SITE_ROOT.'/defaultFunctions.php';
 
 // Vars
 
@@ -102,7 +102,7 @@ endif;
       } else {
         var action          = 1; // 0 = Create, 1 = Update
         var post_id         = <?php echo (isset($post_id) ? $post_id : "null")  ?>;
-        var imgExistsCount  = <?php echo count($tpDetails['data']); ?>;        
+        var imgExistsCount  = <?php echo (isset($tpDetails['data']) ? count($tpDetails['data']) : 0 ) ; ?>;
 
       }
 
@@ -240,11 +240,12 @@ endif;
               </div>              
               
               <!-- Price / Valor do Produto -->
-              <div class="form-group">
+              <div class="form-group">                
                 <label class="mb-2" for="price">Valor do Produto</label>                
                 <input class="form-control money" type="text" name="price" id="price" placeholder="0,00" aria-label="Valor" aria-describedby="basic-addon1" value="<?php echo $isUpdate ? $tpDetails['data'][0]['price'] : ""  ?>">
               </div>
 
+              <!-- Description -->
               <div class="form-group">
                 <label class="mb-2" for="description">Descrição do Anúncio</label>
                 <textarea class="form-control" type="text" name="description" id="description" rows="3"><?php echo $isUpdate ? $tpDetails['data'][0]['tp_desc'] : "" ?></textarea>

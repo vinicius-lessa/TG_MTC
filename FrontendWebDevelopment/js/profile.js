@@ -19,8 +19,6 @@ var userZipCode     = $("#userZipCode");
 var userBirthday    = $("#userBirthday");
 var userType        = $("#persontype");
 
-const passLenghtMin = 6;
-
 let spinnerWrapper          = document.querySelector('.spinner-wrapper'); // Loading Icon
 
 
@@ -356,14 +354,3 @@ $("#edit-PersonType").click(function(e) {
     $("#persontype").prop('disabled', false);
     $("#persontype").focus();
 });
-
-
-function formatarCep(campo){
-
-    var v=campo.value.replace(/D/g,"")                
-  
-    v=v.replace(/^(d{5})(d)/,"$1-$2") 
-  
-    campo.value = v;
-  
-}

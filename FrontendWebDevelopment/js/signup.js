@@ -1,9 +1,11 @@
-// $(document).ready(function(){
+$(document).ready(function(){    
+    // Input Masks
+    $('.cep').mask('00000-000');
+    $('.phone_with_ddd').mask('(00) 00000-0000');
+});
 
-// });
 
-
-// SignUp Page vars
+// Vars
 const signUpForm        = $("#singUp-form");
 const msgAlertErroSignUp= $("#msgAlertErroSignUp");
 
@@ -23,62 +25,80 @@ let spinnerWrapper      = document.querySelector('.spinner-wrapper'); // Loading
 signUpForm.submit(async function( event ){
     event.preventDefault();
 
+    $('.cep').unmask();
+    $('.phone_with_ddd').unmask();    
+
+    var newZipCode = userZipCode.val();
+    var newPhone = userPhone.val();
+
+    $('.cep').mask('00000-000');
+    $('.phone_with_ddd').mask('(00) 00000-0000');
+
     // Input: Nome
     if ( userName.val() === "" || userName.val() === null ) {
-        msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome!</div>");        
-        $(userName).css({'border': '2px solid #f64141'});
+        msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Nome!</div>");
+        userName.addClass('is-invalid');
 
         return false;
     } else {
         msgAlertErroSignUp.html("");
-        $(userName).removeAttr("style");
+        userName.removeClass('is-invalid');
+        userName.addClass('is-valid');
     }
 
     // Input: Email
     if ( userEmail.val() === "" || userEmail.val() === null ) {
-        msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o E-mail!</div>");
-        $(userEmail).css({'border': '2px solid #f64141'});
+        msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o E-mail!</div>");        
+        userEmail.addClass('is-invalid');
 
         return false;
     } else {
         msgAlertErroSignUp.html("");
-        $(userEmail).removeAttr("style");
+        userEmail.removeClass('is-invalid');
+        userEmail.addClass('is-valid');
     }
 
     // Input: Senha
-    if ( userPassword.val() === "" || userPassword.val() === null ) {
-        msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>");
-        $(userPassword).css({'border': '2px solid #f64141'});
+    if ( userPassword.val().length < passLenghtMin ) {
+        if ( userPassword.val() === "" || userPassword.val() === null ) {
+            msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher a Senha!</div>");
+        } else {
+            msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>A Senha deve ter pelo menos " + passLenghtMin + " Caracteres!</div>");
+        }
+        userPassword.addClass('is-invalid');
 
         return false;
     } else {
         msgAlertErroSignUp.html("");
-        $(userPassword).removeAttr("style");
+        userPassword.removeClass('is-invalid');
+        userPassword.addClass('is-valid');
     }
 
     // Input: Tipo Pessoa
     if ( userType.val() === "" || userType.val() === null || userType.val() === "Tipo Pessoa") {
         msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o Tipo de Pessoa!</div>");
-        $(userType).css({'border': '2px solid #f64141'});
+        userType.addClass('is-invalid');
 
         return false;
     } else {
         msgAlertErroSignUp.html("");
-        $(userType).removeAttr("style");
+        userType.removeClass('is-invalid');
+        userType.addClass('is-valid');
     }
 
     // Input: CEP
     if ( userZipCode.val() === "" || userZipCode.val() === null || userZipCode.val() === "Tipo Pessoa") {
         msgAlertErroSignUp.html("<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o CEP!</div>");
-        $(userZipCode).css({'border': '2px solid #f64141'});
+        userZipCode.addClass('is-invalid');
 
         return false;
     } else {
-        msgAlertErroSignUp.html("");
-        $(userZipCode).removeAttr("style");
-    }    
+        msgAlertErroSignUp.html("");        
+        userZipCode.removeClass('is-invalid');
+        userZipCode.addClass('is-valid');        
+    }
 
-    spinnerWrapper.style.display = 'flex';    
+    spinnerWrapper.style.display = 'flex';
     
     const dadosForm = new FormData();
 
@@ -88,8 +108,8 @@ signUpForm.submit(async function( event ){
     dadosForm.append("userPassword" , userPassword.val());
     dadosForm.append("userType"     , userType.val());
     dadosForm.append("userBirthday" , userBirthday.val());
-    dadosForm.append("userPhone"    , userPhone.val());
-    dadosForm.append("userZipCode"  , userZipCode.val());
+    dadosForm.append("userPhone"    , newPhone);
+    dadosForm.append("userZipCode"  , newZipCode);
 
     // Send Post via POST to PHP
     const dados = await fetch( frontEndURL + "/Controllers/c_user.php", {
@@ -100,6 +120,8 @@ signUpForm.submit(async function( event ){
     const resposta = await dados.json();
 
     console.log(resposta);
+
+    // return false;
 
     setTimeout(function () {
 

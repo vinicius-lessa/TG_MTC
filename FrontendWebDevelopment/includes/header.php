@@ -12,6 +12,12 @@
  * 
  */
 
+if (!defined('SITE_URL')) {
+  include_once '../../config.php';
+}
+
+include_once SITE_ROOT.'/defaultFunctions.php';
+
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-dark">
@@ -63,7 +69,7 @@
           <li class="nav-item dropdown mx-1">
             <a class="nav-link dropdown-toggle d-flex justify-content-center" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
               <?php echo $_SESSION['user_name']; ?>                            
-              <?php if ( isset($_SESSION['profile-pic']) && validateImageSource($_SESSION['profile-pic']) ): ?>
+              <?php if ( isset($_SESSION['profile-pic']) && $_SESSION['profile-pic'] != null && validateImageSource($_SESSION['profile-pic']) ): ?>
                 <img src="<?php echo $_SESSION['profile-pic'] ?>" class="img-fluid rounded-circle" alt="" style="margin-left:5px;max-width:100%;width:30px;height:30px;object-fit:cover;">
               <?php else: ?>
                 <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="margin-left:5px;max-width:100%;width:30px;height:30px;object-fit:cover;">
@@ -71,11 +77,11 @@
               <!-- <img src="<?php echo SITE_URL ?>/images/IMAGENS/ARTISTAS/ARTISTA3.jpg" class="img-fluid rounded-circle" alt="" style="margin-left:5px;max-width:100%;width:30px;height:30px;object-fit:cover;"> -->
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about">Meu Pefil</a></li>
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=trade_posts">Meus Anúncios</a></li>
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=config">Configurações</a></li>
+              <li><a class="dropdown-item mb-2" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=about">Meu Perfil</a></li>
+              <li><a class="dropdown-item my-2" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=trade_posts">Meus Anúncios</a></li>
+              <li><a class="dropdown-item my-2" href="<?php echo SITE_URL ?>/Views/users/user_profile.php/?key=config">Configurações</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true">Sair</a></li>
+              <li><a class="dropdown-item mt-2" href="<?php echo SITE_URL ?>/Controllers/c_user.php/?signOut=true">Sair</a></li>
             </ul>
           </li>          
 

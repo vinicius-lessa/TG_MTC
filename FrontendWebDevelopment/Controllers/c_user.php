@@ -62,7 +62,7 @@ if ($dados['action'] === "SignUp"):
             $_SESSION['user_id']        =  $retorna["dados"]["user_id"];
             $_SESSION['user_name']      =  $retorna["dados"]["user_name"];
             $_SESSION['user_email']     =  $retorna["dados"]["email"];
-            $_SESSION['user_password']  =  $data["userPassword"];
+            $_SESSION['user_password']  =  $dados["userPassword"];
         endif;
     endif;
 

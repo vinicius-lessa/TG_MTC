@@ -3,11 +3,13 @@
             
     // MAMP
     $backEndBaseURL = "http://localhost/TG_MTC/BackendDevelopment";
+
     $frontDir = "/TG_MTC/FrontEndWebDevelopment";
     define('SITE_URL', 'http://'.$_SERVER['HTTP_HOST'].$frontDir);
     
-    // HEROKU
-    // $backEndBaseURL = "https://mtc-backend.herokuapp.com";
+    // WEB
+    // $backEndBaseURL = "https://musictradecenter.000webhostapp.com/BackendDevelopment";
+
     // $frontDir = "";
     // define('SITE_URL', 'https://'.$_SERVER['HTTP_HOST'].$frontDir);
 

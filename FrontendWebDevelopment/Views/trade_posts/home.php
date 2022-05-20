@@ -23,7 +23,7 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-include_once '../../defaultFunctions.php';
+include_once SITE_ROOT.'/defaultFunctions.php';
 
 // Vars
 $titlePage  = 'MTC | Anúncios';
