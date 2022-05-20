@@ -92,9 +92,12 @@ export default function Home() {
         <Text style={styles.buttonText3}>Detalhes</Text>  
         </TouchableOpacity>
 
-
-
-        
+        <TouchableOpacity   
+                     style={styles.buttonRegister}
+                     onPress={() => navigation.navigate('CreateAd')} >
+                    <Text style={styles.registerText}>Criar anúncio</Text>
+                </TouchableOpacity>
+  
         </View>
     );
 }
@@ -309,32 +312,12 @@ const styles = StyleSheet.create({
       color: '#FFF',
       fontWeight: 'bold'
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    buttonRegister: {
+      marginTop: 650,
+      alignSelf: 'center'
+  },
+  registerText:{
+      color: 'red',
+      textAlign:'center',
+  }
 })
