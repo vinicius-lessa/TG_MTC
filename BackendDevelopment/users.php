@@ -365,6 +365,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 endif;
     
             // Used for LOGIN
+            // #################### MUDAR PARA POST - MUDAR VALIDAÇÃO DE SENHA PELO BACKEND ("/users.php/?token=" + token + "&key=SignIn")
             elseif ($_GET['key'] == 'email'):                
 
                 $userEmail = $valueSearch;

@@ -122,15 +122,11 @@ img:hover {filter: brightness(1.1);}
 .text-gray {color: #868484;}
 .text-DeepGray {color: #545252;}
 
-.stroke-one {
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #434344;
-}
+.stroke-one { text-shadow: 0 0 3px #FF0000, 0 0 5px #434344; }
 
 /* Text Links */
 
-a.link-none:link {
-  text-decoration: none;
-}
+a.link-none:link { text-decoration: none; }
 
 .linkdefault {
   text-decoration: none;
@@ -145,7 +141,6 @@ a.link-none:link {
   text-decoration: none;
   color: #eb1f36;
 }
-
 .link-red:hover {
   text-decoration: none;
   color: #f6334a;
@@ -491,7 +486,7 @@ form div {
 }
 
 .hr-default {
-  background-color: rgb(118, 115, 115);  
+  background-color: rgb(118, 115, 115);
 }
 
 .chat-topic {

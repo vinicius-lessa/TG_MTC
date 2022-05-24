@@ -1,13 +1,20 @@
-// Import das bibliotecas
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { 
+    View, 
+    Text, 
+    StyleSheet, 
+    TextInput, 
+    TouchableOpacity 
+} from 'react-native';
+
 import * as Animatable from 'react-native-animatable'
+
 import { useNavigation } from '@react-navigation/native';
 
+export default function NewTradePost() {
 
-export default function CreateAd() {
-   //Const navigation permite o uso da biblioteca navigation para navegação entre as paginas
     const navigation = useNavigation();
+
     return (
        //Criação do cabeçario da pagina e dos campos de input 
        <View style={styles.container}>
@@ -24,21 +31,19 @@ export default function CreateAd() {
                     placeholder="Nome do produto"
                     style={styles.input}
                 />
-                 <TextInput
+                <TextInput
                     placeholder="Valor do produto"
                     style={styles.input}
                 />
-                 <TextInput
+                <TextInput
                     placeholder="Estado de uso"
                     style={styles.input}
                 />
-                 <TextInput
+                <TextInput
                     placeholder="Descrição"
                     style={styles.input}
                 />
-
                 
-
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Publicar</Text>
                 </TouchableOpacity>
@@ -53,28 +58,31 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor: 'black'
-    },
+    } ,
+     
     containerHeader:{
         marginTop: '14%',
         marginBottom: '8%',
         paddingStart: '5%',
-    },
+    } ,
+
     message:{
         textAlign: 'center',
         fontSize: 35,
         fontWeight: 'bold',
         color:'#FFF'
-    },
+    } ,
+
     input:{
         textAlign: 'center', 
         alignContent: 'center',
         height: 50,
         marginTop: 20,
-         borderWidth: 3,
-         borderColor: 'black',
-         borderRadius: 20,
-         backgroundColor : "#FFFFFF" ,
-    },
+        borderWidth: 3,
+        borderColor: 'black',
+        borderRadius: 20,
+        backgroundColor : "#FFFFFF" ,
+    } ,
     button:{
         backgroundColor: 'red',
         width: '100%',
@@ -84,20 +92,11 @@ const styles = StyleSheet.create({
         marginTop: 200,
         justifyContent: 'center',
         alignItems: 'center'
-    },
+    } ,
     buttonText:{
         textAlign: 'center',
         color: '#FFF',
         fontSize: 18,
         fontWeight: 'bold',
-    },
-    buttonRegister: {
-        marginTop: 14,
-        alignSelf: 'center'
-    },
-    registerText:{
-        color:'#a1a1a1',
-        textAlign:'center',
-        marginBottom: 95,
-    }
+    } ,
 })

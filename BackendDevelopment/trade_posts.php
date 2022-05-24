@@ -68,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
     // Token Validation
     if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):
+        http_response_code(401); // Unauthorized
         echo json_encode([
             "error" => true ,
             "msg" => 'Erro: Token is not Valid!'
-        ]);
-        http_response_code(401); // Unauthorized
+        ]);        
         exit;
     endif;
 
@@ -83,12 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         $valueSearch    = (isset($_GET["value"]))   ? $_GET["value"] : "" ;        
         $user_id        = (isset($_GET['user_id'])) ? intval($_GET['user_id']) : '';
 
-        if (Empty($keySearch)):            
+        if (Empty($keySearch)):
+            http_response_code(404); // Not Found
             echo json_encode([
                 "error" => true ,
                 "msg" => 'Informe todos os parâmetros!'
-            ]);
-            http_response_code(404); // Not Found
+            ]);            
             exit;
         else:
             // Unique Trade Post
@@ -242,18 +242,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         endif;                        
                     }
                     
+                    http_response_code(200); // Success
                     echo json_encode([
                         "error" => false ,
                         'data' => $dbReturn
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;
-                else:                    
+                else:
+                    http_response_code(200); // Success                  
                     echo json_encode([
                         "error" => true ,
                         "msg" => 'Erro: O Anúncio solicitado não foi encontrado!'
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;
                 endif;
 
@@ -270,6 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             tp.user_id ,
                             u.user_name ,
                             tp.category_id ,
+                            pc.description as pc_desc ,
                             pc.description , 
                             tp.price , 
                             (SELECT image_name FROM images_trade_posts itp 
@@ -286,11 +287,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 else:
 
                     if (!is_numeric($user_id)):
+                        http_response_code(406); // Not Acceptable
                         echo json_encode([
                             "error" => true ,
                             "msg" => 'O Parâmetro "User Id" não é numérico!'
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;
 
@@ -325,18 +326,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         endif;
                     }
                     
+                    http_response_code(200); // Success
                     echo json_encode([
                         "error" => false ,
                         'data' => $dados
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;                  
-                else:                    
+                else:
+                    http_response_code(200); // Success                  
                     echo json_encode([
                         "error" => true ,
                         "msg" => 'Erro: Nenhum anúncio Encontrado!'            
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;
                 endif;
             
@@ -361,18 +362,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     [], TRUE);
 
                 if (!empty($dados)):
+                    http_response_code(200); // Success
                     echo json_encode([
                         "error" => false ,
                         'data' => $dados
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;
                 else:
+                    http_response_code(200); // Success
                     echo json_encode([
                         "error" => true ,
                         "msg" => 'Problema ao realizar a consulta da tabela `product_categorys` no Banco de Dados'            
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;
                 endif;            
 
@@ -399,19 +400,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ) b;",
                         [], TRUE);
     
-                    if (!empty($dados)):                        
+                    if (!empty($dados)):
+                        http_response_code(200); // Success
                         echo json_encode([
                             "error" => false ,
                             'data' => $dados
                         ]);
-                        http_response_code(200); // Success
                         exit;     
-                    else:                        
+                    else:
+                        http_response_code(200); // Success                      
                         echo json_encode([
                             "error" => true ,
                             "msg" => 'Problema ao realizar a consulta da tabela `product_brands` no Banco de Dados'
-                        ]);
-                        http_response_code(200); // Success
+                        ]);                        
                         exit;
                     endif;
                 else:
@@ -447,27 +448,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                                 'CATEGORY_ID' => $valueSearch
                             ], TRUE);
         
-                        if (!empty($dados)):                            
+                        if (!empty($dados)):
+                            http_response_code(200); // Success
                             echo json_encode([
                                 "error" => false ,
                                 'data' => $dados
                             ]);
-                            http_response_code(200); // Success
                             exit;     
-                        else:                            
+                        else:
+                            http_response_code(200); // Success
                             echo json_encode([
                                 "error" => true ,
                                 "msg" => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
-                            ]);
-                            http_response_code(200); // Success
+                            ]);                            
                             exit;
                         endif;
-                    else:                        
+                    else:
+                        http_response_code(406); // Not Acceptable                      
                         echo json_encode([
                             "error" => true ,
                             "msg" => 'Valor de Categoria inválido!'
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;                    
                 endif;                            
@@ -495,19 +496,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         ) b;",
                         [], TRUE);
 
-                    if (!empty($dados)):                        
+                    if (!empty($dados)):
+                        http_response_code(200); // Success
                         echo json_encode([
                             "error" => false ,
                             'data' => $dados
-                        ]);
-                        http_response_code(200); // Success
+                        ]);                        
                         exit;     
-                    else:                        
+                    else:
+                        http_response_code(200); // Success
                         echo json_encode([
                             "error" => true ,
                             "msg" => 'Problema ao realizar a consulta da tabela `product_models` no Banco de Dados'            
-                        ]);
-                        http_response_code(200); // Success
+                        ]);                        
                         exit;
                     endif;                    
                     
@@ -516,11 +517,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     $brandToSeek    = (isset($_GET["brand"]))   ? $_GET["brand"] : "" ;
 
                     if ( empty($brandToSeek) || !is_numeric($categoryToSeek) || !is_numeric($brandToSeek) ):
+                        http_response_code(406); // Not Acceptable
                         echo json_encode([
                             "error" => true ,
                             "msg" => 'Categoria ou Valor INVÁLIDOS!'
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;
 
@@ -545,19 +546,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             'BRAND_ID' => $brandToSeek
                         ], TRUE);
     
-                    if (!empty($dados)):                            
+                    if (!empty($dados)):
+                        http_response_code(200); // Success
                         echo json_encode([
                             "error" => false ,
                             'data' => $dados
-                        ]);
-                        http_response_code(200); // Success
+                        ]);                        
                         exit;     
-                    else:                            
+                    else:
+                        http_response_code(200); // Success                          
                         echo json_encode([
                             "error" => true ,
                             "msg" => 'Problema ao realizar a consulta da tabela `product_brands` com base na Categoria!'
-                        ]);
-                        http_response_code(200); // Success
+                        ]);                        
                         exit;
                     endif;
                 endif;            
@@ -583,27 +584,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                     ORDER BY `description`);",
                     [], TRUE);
 
-                if (!empty($dados)):                    
+                if (!empty($dados)):
+                    http_response_code(200); // Success
                     echo json_encode([
                         "error" => false ,
                         'data' => $dados
-                    ]);
-                    http_response_code(200); // Success
+                    ]);                    
                     exit;     
                 else:
+                    http_response_code(200); // Success
                     echo json_encode([
                         "error" => true ,
                         "msg" => 'Problema ao realizar a consulta da tabela `colors` no Banco de Dados'
                     ]);
-                    http_response_code(200); // Success
                     exit;
                 endif;
             endif;
 
         endif;            
-    else:                        
-        echo json_encode(["msg" => 'Parâmetro não preenchido na consulta!']);
+    else:
         http_response_code(406); // Not Acceptable
+        echo json_encode([
+            "error" => true ,
+            "msg"   => 'Parâmetro não preenchido na consulta!'
+        ]);
     endif;
 
 endif;
@@ -623,21 +627,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     // exit
 
     // Token Validation
-    if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):        
+    if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):
+        http_response_code(401); // Unauthorized
         echo json_encode([
             "error" => true ,
             "msg" => 'Erro: Token is not Valid!'
-        ]);
-        http_response_code(401); // Unauthorized
+        ]);        
         exit;
     endif;
     
+    // http_response_code(200); // Unauthorized
     // echo json_encode([
     //     "error" => true ,
     //     'Data' => $_POST,
     //     'Files' => $_FILES
-    // ]);
-    // http_response_code(200); // Unauthorized
+    // ]);    
     // exit;
 
     // Variables
@@ -676,22 +680,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         $possuiNF       == 3
         ):
         
+        http_response_code(406);
         echo json_encode([
             "error" => true ,
             "msg" => 'Erro: Informe Todos os Parâmetros!'
-        ]);
-        http_response_code(406);
+        ]);        
         exit;
     endif;
 
     if ( $actionPost == 0 ):  // 0 = Create, 1 = Update
         $count = count($_FILES['files']['name']);
 
+        // http_response_code(200); // Not Acceptable
         // echo json_encode([
         //     "error" => false ,
         //     'Dados'   => $_FILES['files']
-        // ]);
-        // http_response_code(200); // Not Acceptable
+        // ]);        
         // exit;
     
         if ( $count > 0 ):
@@ -730,32 +734,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                     $valid_extensions = array("jpg","jpeg","png");
                     
                     // File Extension Validation
-                    if ($fileSize > $maxsize):            
+                    if ($fileSize > $maxsize):
+                        http_response_code(406); // Not Acceptable
                         echo json_encode([
                             "error" => true ,
                             "msg"   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;
         
                     // File Size Validation
-                    if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):            
+                    if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):
+                        http_response_code(406); // Not Acceptable
                         echo json_encode([
                             "error" => true ,
                             "msg"   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos! '
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;
         
                     $imageUpload = true;
                 else:
+                    http_response_code(406); // Not Acceptable
                     echo json_encode([
                         "error" => true ,
                         "msg"   => 'Problema no leitura das Imagens para Upload!'
-                    ]);
-                    http_response_code(406); // Not Acceptable
+                    ]);                    
                     exit;
                 endif;
             }        
@@ -799,56 +803,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                                 'image_name'    => "'" . $a_FileNames[$i] . "'" ,
                                 'trade_post_id' => "'" . intval($dados[0]->post_id) . "'" ,
                             ]);
-                
-                            if ( !$dbReturnTwo ):       
+
+                            if ( !$dbReturnTwo ):
+                                http_response_code(500); // Internal Server Error
                                 echo json_encode([
                                     "error" => false ,
                                     "msg" => "Anúncio incluído, porém tivemos um Erro na Gravação das imagens no Banco"
-                                ]);
-                                http_response_code(500); // Internal Server Error
+                                ]);                                
                                 exit;
                             endif;
                         else:
+                            http_response_code(500); // Internal Server Error
                             echo json_encode([
                                 "error" => false ,
                                 "msg" => "Anúncio incluído mas não encontrado para relacionar imagens!"
-                            ]);
-                            http_response_code(500); // Internal Server Error
+                            ]);                            
                             exit;
                         endif;
-                    else:                
+                    else:
+                        http_response_code(500); // Internal Server Error              
                         echo json_encode([
                             "error" => true ,
                             "msg"   => 'Anúncio incluído, porém tivemos um Erro no Upload da(s) imagem(ns) ao Servidor'
-                        ]);
-                        http_response_code(500); // Internal Server Error
+                        ]);                        
                         exit;
                     endif;
                 }
     
             // Desired Goal
+            http_response_code(201); // Created
             echo json_encode([
                 "error" => false ,
                 "msg" => "Anúncio incluído com êxito!"
-            ]);
-            http_response_code(201); // Created
+            ]);            
             exit;
     
-            else:            
+            else:
+                http_response_code(201); // Created          
                 echo json_encode([
                     "error" => false ,
                     "msg" => "Anúncio incluído com êxito!"
-                ]);
-                http_response_code(201); // Created
+                ]);                
                 exit;        
             endif;
     
-        else:                    
+        else:
+            http_response_code(500); // Internal Server Error                  
             echo json_encode([
                 "error" => true ,
                 "msg"   => 'Erro ao Inserir Anúncio no Banco de Dados'
-            ]);
-            http_response_code(500); // Internal Server Error
+            ]);            
             exit;
         endif;        
 
@@ -893,32 +897,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                     $valid_extensions = array("jpg","jpeg","png");
                     
                     // File Extension Validation
-                    if ($fileSize > $maxsize):            
+                    if ($fileSize > $maxsize):
+                        http_response_code(406); // Not Acceptable
                         echo json_encode([
                             "error" => true ,
                             "msg"   => 'Erro: O tamanho do arquivo deve ser de no máximo 4mb!'
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;
         
                     // File Size Validation
-                    if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):            
+                    if (!in_array(substr(strtolower($imageFileType), 1), $valid_extensions)):
+                        http_response_code(406); // Not Acceptable
                         echo json_encode([
                             "error" => true ,
                             "msg"   => 'Erro: Somente os formatos jpg, jpeg e png são permitidos! '
-                        ]);
-                        http_response_code(406); // Not Acceptable
+                        ]);                        
                         exit;
                     endif;
 
                     $imageUpload = true;
                 else:
+                    http_response_code(406); // Not Acceptable
                     echo json_encode([
                         "error" => true ,
                         "msg"   => 'Problema no leitura das Imagens para Upload!'
-                    ]);
-                    http_response_code(406); // Not Acceptable
+                    ]);                    
                     exit;
                 endif;
             }
@@ -1033,47 +1037,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
                             'trade_post_id' => "'" . $post_id . "'" ,
                         ]);
             
-                        if ( !$dbReturnTwo ):       
+                        if ( !$dbReturnTwo ):
+                            http_response_code(500); // Internal Server Error
                             echo json_encode([
                                 "error" => false ,
                                 "msg" => "Anúncio Atualizado e Imagem(ns) movida(s) ao Servidor, porém tivemos um Erro na Gravação das imagens no Banco de Dados!"
-                            ]);
-                            http_response_code(500); // Internal Server Error
+                            ]);                            
                             exit;
                         endif;                        
-                    else:                
+                    else:
+                        http_response_code(500); // Internal Server Error              
                         echo json_encode([
                             "error" => true ,
                             "msg"   => 'Anúncio Atualizado com Sucesso, porém um dos Arquivos não pode ser copiado ao Servidor com Sucesso!'
-                        ]);
-                        http_response_code(500); // Internal Server Error
+                        ]);                        
                         exit;
                     endif;
                 }
     
                 // Desired Goal
+                http_response_code(202); // Accepted
                 echo json_encode([
                     "error" => false ,
                     "msg" => "Anúncio Atualizado com êxito!"
-                ]);
-                http_response_code(202); // Accepted
+                ]);                
                 exit;
     
-            else:            
+            else:
+                http_response_code(202); // Accepted          
                 echo json_encode([
                     "error" => false ,
                     "msg" => "Anúncio Atualizado com êxito!"
-                ]);
-                http_response_code(202); // Accepted
+                ]);                
                 exit;        
             endif;
     
-        else:                    
+        else:
+            http_response_code(500); // Internal Server Error                  
             echo json_encode([
                 "error" => true ,
                 "msg"   => 'Erro ao ATUALIZAR Anúncio no Banco de Dados'
-            ]);
-            http_response_code(500); // Internal Server Error
+            ]);            
             exit;
         endif;         
 
@@ -1110,22 +1114,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
 
     // Token Validation
     if (!($_DELETE['token'] === '16663056-351e723be15750d1cc90b4fcd')):
+        http_response_code(401); // Unauthorized
         echo json_encode([
             "error" => true ,
             "msg" => 'Erro: Token is not Valid!'
-        ]);
-        http_response_code(401); // Unauthorized
+        ]);        
         exit;
     endif;
 
     $post_id = (isset($_DELETE['post_id'])) ? intval($_DELETE['post_id']) : 0 ;
 
     if (!is_numeric($post_id)):
+        http_response_code(406); // Not Acceptable
         echo json_encode([
             "error" => true ,
             "msg" => 'O parâmetro não é numérico'
-        ]);
-        http_response_code(406); // Not Acceptable
+        ]);        
         exit;
     else:        
         $dados = CrudDB::select("SELECT tp.post_id FROM trade_posts tp WHERE tp.activity_status = 1 AND tp.post_id = :POST_ID", ["POST_ID" => $post_id], FALSE);

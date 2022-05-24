@@ -8,6 +8,12 @@
 		},
 		{
 			"path": "..\\_Heroku"
+		},
+		{
+			"path": "..\\..\\..\\mtc-app"
+		},
+		{
+			"path": "..\\..\\..\\WEFLOG-MobileApp"
 		}
 	],
 	"settings": {}
