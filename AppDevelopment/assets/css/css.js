@@ -16,24 +16,28 @@ const css = StyleSheet.create({
   container:{
     flex:1,
     flexDirection: "column" ,
-    backgroundColor: '#1c1c1d'
+    backgroundColor: '#151516'
   } ,
 
-  // Alginment
+  // Alignment
   centerSelf: { alignSelf: 'center' } ,
   centerChildren: { alignItems: 'center' } ,
   centerVerticaly: { justifyContent: 'center' } ,
 
+  startHorizontaly: { alignSelf: 'flex-start' } ,
+  endtHorizontaly: { alignSelf: 'flex-end' } ,
+
+  // Flex
   rowOrientation: { flexDirection: 'row' , } ,
   rowReverseOrientation: { flexDirection: 'row-reverse' , } ,
   colOrientation: { flexDirection: 'column' , } ,
   colReverseOrientation: { flexDirection: 'column-reverse' , } ,
 
-  widthAuto: { width: '100%' , } ,
-  
   flexOne:{ flex: 1 },
   flexTwo:{ flex: 2 },
   flexThree:{ flex: 3 },
+
+  widthAuto: { width: '100%' , } ,  
 
   // Background Colors
   bkGray:       { backgroundColor: '#1C2124' } ,

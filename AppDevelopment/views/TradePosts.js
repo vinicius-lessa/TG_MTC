@@ -14,8 +14,7 @@ import {
   View,
   TouchableOpacity,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
+  ScrollView,  
   ActivityIndicator,
   Alert 
 } from 'react-native'; // Core Components
@@ -44,7 +43,7 @@ const LoadingIcon = () => {
 };
 
 // Trade Post Row Component
-const TpRow = (props) => {    
+const TpRow = (props) => {
   return (
     <View style = {[
       css.tradePostRow ,
@@ -110,8 +109,7 @@ const TradePosts = (props) => {
   var lastId  = 0;  
 
   const pageTitle = "Anúncios";  
-
-  // ### FUNCTIONS  
+  
   // Lista Anúncios
   async function listTradePosts() {    
 
@@ -189,9 +187,7 @@ const TradePosts = (props) => {
         />
         <LoadingIcon/>
       </View>
-    ) ;
-  
-  // console.log(errorMessage);
+    ) ;    
 
   // Just Like 'Render' method
   return (
@@ -203,6 +199,7 @@ const TradePosts = (props) => {
         isLoggedUser={false}
         userName={null}
         userPhotoURL={null}
+        navigation={props.navigation}
       />
 
       {/* Messages */}      

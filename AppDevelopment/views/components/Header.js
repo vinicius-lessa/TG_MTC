@@ -12,7 +12,8 @@
    Text,
    View,
    SafeAreaView,
-   TouchableOpacity ,
+   TouchableOpacity , 
+   Image,  
    StatusBar
  } from 'react-native'; // Core Components
    
@@ -37,9 +38,19 @@
 
             {/* Menu */}
             <View style = { [css.flexOne, css.centerVerticaly] }>
-                <Text style={css.colorWhite}>
-                    Menu
-                </Text>
+                <View style = { [ { alignSelf: 'flex-start' } ] }>
+                    <TouchableOpacity                    
+                        // onPress={()=>props.navigation.navigate('SignIn')}
+                        // Menu Drawer
+                    >
+                        <Image
+                            source={require('../../assets/img/menu.png')}
+                            style={ [ css.startHorizontaly , {
+                                width: 60, height: 60, right: 15
+                            }] }
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
 
             {/* Title */}
@@ -51,19 +62,21 @@
 
             {/* Login / User */}
             <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>
-                <TouchableOpacity                    
-                    onPress={()=>props.navigation.navigate('SignIn')}>
+                <View style = { [ { alignSelf: 'flex-end', marginRight:8 } ] }>
+                    <TouchableOpacity                    
+                        onPress={()=>props.navigation.navigate('Entrar')}>
 
-                    <Animatable.Image
-                        animation="flipInY"
-                        source={require('../../assets/img/entrar.png')}
-                        resizeMode = "contain"
-                        style={{
-                        width: 80,
-                        height: 80,  
-                        }}
-                    />
-                </TouchableOpacity>
+                        <Animatable.Image
+                            animation="flipInY"
+                            source={require('../../assets/img/signin.png')}
+                            resizeMode = "contain"
+                            style={{
+                                width: 55,
+                                height: 55,  
+                            }}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     </SafeAreaView>

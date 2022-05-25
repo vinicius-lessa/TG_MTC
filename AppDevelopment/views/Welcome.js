@@ -42,7 +42,7 @@ export default function Welcome(props) // Could recieve "{navigation}" instead o
             <Animatable.View delay={600} animation="fadeInUp">
                 <TouchableOpacity
                     style={ [css.buttonWelcome, css.centerChildren, css.centerSelf] }
-                    onPress={()=>props.navigation.navigate('TradePosts')}
+                    onPress={()=>props.navigation.navigate('Anúncios')}
                 >
                     <Text style={ [css.size20, css.colorWhite, css.fontBold] }>
                         Começar !
