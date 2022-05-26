@@ -5,6 +5,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 18/05/2022: Inclusão da documentação de Cebeçalho. Mudanças na utilização de Navigators, como nome nome de arquivos, suas funções e Localização no Projeto (Vide histórico de mudanças de cada arquivo).
  *  - Vinícius Lessa - 23/05/2022: Importação de Fontes Customizadas.
+ *  - Vinícius Lessa - 25/05/2022: Implementação do Novo NAVIGATOR Drawer.
  * 
  */
 
@@ -16,15 +17,15 @@ import React from 'react'; // JSX Compilation
 // React Navigation Module
 import { NavigationContainer } from '@react-navigation/native';
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContent } from '@react-navigation/drawer';
 
 // Views
 import { 
   TradePosts, 
   Welcome, 
   SignIn, 
-  SignUp, 
-  NewTradePost 
+  SignUp,
+  NewTradePost  
 } from './views'; //index
 
 // Fonts
@@ -32,15 +33,8 @@ import { useFonts } from 'expo-font';
 
 import AppLoading from 'expo-app-loading';
 
-// const Routes = createAppContainer(
-//   createDrawerNavigator({
-//     Welcome,
-//     TradePosts,
-//     SignIn,
-//     SignUp,
-//     NewTradePost,
-//   })
-// )
+import SideBar from './views/components/SideBar';
+
 
 export default function App() {
   // Load Fonts
@@ -60,11 +54,13 @@ export default function App() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator>
-
+    <NavigationContainer>      
+      <Drawer.Navigator
+        drawerContent={props => <SideBar {...props} />}
+        initialRouteName="Anúncios"
+      >                
         {/* Bem-Vindo */}
-        <Drawer.Screen          
+        <Drawer.Screen
           name="Bem Vindo"
           component={Welcome}
           options={{headerShown: false}}
@@ -75,7 +71,6 @@ export default function App() {
           name="Anúncios"
           component={TradePosts}
           options={{headerShown: false}}
-
         />
 
         {/* SignIn (Antigo 'LogIn') */}

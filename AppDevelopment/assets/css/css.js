@@ -8,21 +8,69 @@
  */
 
 import { StyleSheet} from 'react-native';
-
+import { Dimensions } from 'react-native';
 
 const css = StyleSheet.create({    
 
   // ############ Generic Elements
   container:{
     flex:1,
-    flexDirection: "column" ,
-    backgroundColor: '#151516'
+    flexDirection: "column"  ,
+    backgroundColor: '#151516' ,    
   } ,
+
+  headerDefault: {
+    flexDirection: 'row' ,    
+    width: '100%' , 
+    minWidth: 100 , 
+    minHeight: 100 ,
+    backgroundColor: '#151516' ,
+  } ,
+
+  // Margins / Paddings
+  m_One: { margin: 5 } ,
+  m_Two: { margin: 10 } ,
+  m_Three: { margin: 15 } ,
+  m_Four: { margin: 25 } ,
+
+  // Top - Right - Bottom - Left
+  m_OneTop: { marginTop: 5 } ,
+  m_TwoTop: { marginTop: 10 } ,
+  m_ThreeTop: { marginTop: 15 } ,
+  m_FourTop: { marginTop: 25 } ,
+
+  m_OneRight: { marginRight: 5 } ,
+  m_TwoRight: { marginRight: 10 } ,
+  m_ThreeRight: { marginRight: 15 } ,
+  m_FourRight: { marginRight: 25 } ,
+
+  m_OneBottom: { marginBottom: 5 } ,
+  m_TwoBottom: { marginBottom: 10 } ,
+  m_ThreeBottom: { marginBottom: 15 } ,
+  m_FourBottom: { marginBottom: 25 } ,
+
+  m_OneLeft: { marginLeft: 5 } ,
+  m_TwoLeft: { marginLeft: 10 } ,
+  m_ThreeLeft: { marginLeft: 15 } ,
+  m_FourLeft: { marginLeft: 25 } ,
+
+  // Horizonta - Vertical
+  m_OneX: { marginHorizontal: 5 } ,
+  m_TwoX: { marginHorizontal: 10 } ,
+  m_ThreeX: { marginHorizontal: 15 } ,
+  m_FourX: { marginHorizontal: 25 } ,
+
+  m_OneY: { marginVertical: 5 } ,
+  m_TwoY: { marginVertical: 10 } ,
+  m_ThreeY: { marginVertical: 15 } ,
+  m_FourY: { marginVertical: 25 } ,
 
   // Alignment
   centerSelf: { alignSelf: 'center' } ,
-  centerChildren: { alignItems: 'center' } ,
+  centerChildren: { alignItems: 'center', alignContent: 'center' } ,
   centerVerticaly: { justifyContent: 'center' } ,
+
+  centerText: { textAlign: 'center' } ,
 
   startHorizontaly: { alignSelf: 'flex-start' } ,
   endtHorizontaly: { alignSelf: 'flex-end' } ,
@@ -51,7 +99,7 @@ const css = StyleSheet.create({
   bkGreen:      { backgroundColor: '#29c418' } ,
   bkChat:       { backgroundColor: '#111415' } ,
 
-  // Fonts
+  // Font Size
   size12: { fontSize: 12 } ,
   size14: { fontSize: 14 } ,
   size15: { fontSize: 15 } ,
@@ -60,18 +108,30 @@ const css = StyleSheet.create({
   size20: { fontSize: 20 } ,
   size22: { fontSize: 22 } ,
 
+  // Font Family
   fontBebas: { fontFamily: 'BebasNeue' } ,
   fontGhotic: { fontFamily: 'CenturyGothic' , } ,
 
-  colorWhite: { color: 'white' } ,
-  colorRed: { color: '#eb1f36' } ,  
+  // Font Colors
+  textWhite:    { color: '#ffffff' } ,
+  textRed:      { color: '#eb1f36' } ,  
+  textBlack:    {color: '#000'} ,
+  textLightred: {color: '#e73b4f'} ,
+  textBlueLink: {color: '#1cb7e6'} ,
+  textLightgray:{color: '#d3d1d1'} ,
+  textGray:     {color: '#868484'} ,
+  textDeepGray: {color: '#545252'} ,
 
+  // Font Style
   fontBold: { fontWeight: 'bold' } ,
-
-  titleText:{    
-    textAlign: 'center',
-    color:'#FFF',
-    fontSize: 40,
+  underlineText: { textDecorationLine: 'underline' } ,
+  
+  // Default Text's
+  titleText:{
+    textAlign: 'center' ,
+    color:'#FFF' ,
+    fontSize: 40 ,
+    letterSpacing: 1 ,
   } ,
 
   // Visual
@@ -81,7 +141,13 @@ const css = StyleSheet.create({
     marginVertical: 15 ,
   } ,
 
-  loadingCircle: {        
+  // Buttons
+  buttonDefault:{
+    backgroundColor: '#eb1f36' ,
+    borderRadius: 20 ,
+    paddingVertical: 8 ,
+    alignSelf: 'center' ,
+    alignItems: 'center' ,
   } ,
 
   // ############ TradePosts.js
@@ -122,196 +188,32 @@ const css = StyleSheet.create({
   tpInfoBox: {
     paddingVertical: 5 ,
     // backgroundColor: 'darkorange' ,
-  } ,
-
-  buttonDefault:{
-    backgroundColor: '#eb1f36' ,
-    borderRadius: 20 ,
-    paddingVertical: 8 ,
-    alignSelf: 'center' ,
-    alignItems: 'center' ,
-  } ,
+  } ,  
 
 
   // ############ Welcome
   buttonWelcome:{    
     width: '60%',
-    backgroundColor: 'red',
+    backgroundColor: '#eb1f36',
     borderRadius: 50,
     paddingVertical: 13
-  } ,    
-
-
-  // ############ ************************************************************* ANALISAR
-  // ############ Generic Elements  
-
-  // ############ Welcome    
-
-  title:{
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 28,
-    marginBottom: 12,
-  },  
-
-  // ############ TradePosts.js
-
-  textped:{
-    color:'gray',
-    fontSize: 13,
-    position:'absolute',
-    left:163,
-    top:145  
   } ,
 
-  stats1:{
-    color:'red',
-    fontSize: 13,
-    position:'absolute',
-    left:100,
-    top:165,  
-  } ,
 
-  statsS1:{
-    color:'gray',
-    fontSize: 13,
-    position:'absolute',
-    left:143,
-    top:165 
-  },
-  preco1:{
-    color:'white',
-    fontSize: 20,
-    position:'absolute',
-    left:100,
-    top:190 
-  },
+  // ############ SignIn
+  loginMsg:(text='none')=>({
+    color: "#eb1f36",
+    display: text
+  }),
 
-  imganuncio2:{
-    position:'absolute',
-    bottom:410,
-    left:300,
-  },
-  anuncio2T:{
-    fontSize: 20,
-    color:'#FFF',
-    position:'absolute',
-    right:185,
-    top:275
-  },
-  anuncio2C:{
-    fontSize: 13,
-    color:'red',
-    position:'absolute',
-    right:345,
-    top:305  
-  },
-  textbai:{
-    color:'gray',
-    fontSize: 13,
-    position:'absolute',
-    right:239,
-    top:305  
-  },
-  stats2:{
-    color:'red',
-    fontSize: 13,
-    position:'absolute',
-    right:363,
-    top:330,  
-  },
-  statsU2:{
-    color:'gray',
-    fontSize: 13,
-    position:'absolute',
-    right:320,
-    top:330,
-  },
-  preco2:{
-    color:'white',
-    fontSize: 20,
-    position:'absolute',
-    right:135,
-    top:355 
-  },
-  button2:{
-    position: 'absolute',
-    backgroundColor: 'red',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '35%',
-    alignSelf: 'center',
-    left: '2%',
-    bottom: '50%',
-    alignItems: 'center',
-  },
-  buttonText2:{
-    fontSize: 18,
-    color: '#FFF',
-    fontWeight: 'bold'
-  },
-  imganuncio3:{
-    position:'absolute',
-    bottom:210,
-    right:300,
-  },
-  anuncio3T:{
-    fontSize: 20,
-    color:'#FFF',
-    position:'absolute',
-    left:120,
-    top:475
-  },
-  anuncio3C:{
-    fontSize: 13,
-    color:'red',
-    position:'absolute',
-    left:121,
-    top:505  
-  },
-  textgui:{
-    color:'gray',
-    fontSize: 13,
-    position:'absolute',
-    left:185,
-    top:505  
-  },
-  stats3:{
-    color:'red',
-    fontSize: 13,
-    position:'absolute',
-    left:121,
-    top:530,  
-  },
-  statsU3:{
-    color:'gray',
-    fontSize: 13,
-    position:'absolute',
-    left:165,
-    top:530,
-  },
-  preco3:{
-    color:'white',
-    fontSize: 20,
-    position:'absolute',
-    left:120,
-    top:555 
-  },
-  button3:{
-    position: 'absolute',
-    backgroundColor: 'red',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '35%',
-    alignSelf: 'center',
-    right: '5%',
-    bottom: '25%',
-    alignItems: 'center',
-  },
-  buttonText3:{
-    fontSize: 18,
-    color: '#FFF',
-    fontWeight: 'bold'
+  inputDefault:{
+    textAlign: 'center' ,
+    alignContent: 'center' ,
+    height: 50 ,
+    borderWidth: 1 ,
+    borderColor: '#d3d1d1' ,
+    borderRadius: 20 ,
+    backgroundColor : "#fff" ,
   },
 
 });

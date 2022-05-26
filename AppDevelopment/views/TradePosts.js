@@ -16,18 +16,17 @@ import {
   SafeAreaView,
   ScrollView,  
   ActivityIndicator,
-  Alert 
 } from 'react-native'; // Core Components
 
 import HeaderDefault from './components/Header';
 
-import api from '../services/api'; // API Sauce
-
 import { css } from '../assets/css/css.js'; // Style - css
-
 import * as Animatable from 'react-native-animatable'; // Animation
 
+import api from '../services/api'; // API Sauce
+
 import AsyncStorageLib from '@react-native-async-storage/async-storage'; // AsyncStorage
+
 
 // Loading Component
 const LoadingIcon = () => {
@@ -70,25 +69,25 @@ const TpRow = (props) => {
         {/* TP General Info */}
         <View style = { css.tpInfoBox }>
           <Text style={ [ css.size16, css.fontGhotic ] }>
-            <Text style={ [ css.colorRed ] }>Categoria: </Text>
-            <Text style={ [ css.colorWhite ] }>{props.cateogory}</Text>
+            <Text style={ [ css.textRed ] }>Categoria: </Text>
+            <Text style={ [ css.textWhite ] }>{props.cateogory}</Text>
           </Text>
 
           <Text style={ [ css.size16, css.fontGhotic ] }>
-            <Text style={ [ css.colorRed, css.fontGhotic ] }>Por: </Text>
-            <Text style={ [ css.colorWhite, css.fontGhotic ] }>{props.creator}</Text>
+            <Text style={ [ css.textRed, css.fontGhotic ] }>Por: </Text>
+            <Text style={ [ css.textWhite, css.fontGhotic ] }>{props.creator}</Text>
           </Text>          
         </View>
         
         {/* Price + Details */}
         <View style = { [ css.rowOrientation, { marginTop:10 } ]}>
           <View style = { [ css.centerVerticaly, css.centerChildren , { width: '50%' }] }>
-            <Text style={ [ css.size18, css.colorWhite, css.fontGhotic ]}>R$ {props.price}</Text>
+            <Text style={ [ css.size18, css.textWhite, css.fontGhotic ]}>R$ {props.price}</Text>
           </View>
                       
           <View style = { [ css.centerVerticaly, css.centerChildren, { width: '50%' } ] }>
             <TouchableOpacity style={ [ css.buttonDefault, { width: '90%' } ] }>
-              <Text style={ [ css.colorWhite, css.size15, css.fontGhotic ] }>Detalhes</Text>
+              <Text style={ [ css.textWhite, css.size15, css.fontGhotic ] }>Detalhes</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -106,9 +105,7 @@ const TradePosts = (props) => {
 
   // Iterate
   var counter = 0;
-  var lastId  = 0;  
-
-  const pageTitle = "Anúncios";  
+  var lastId  = 0;
   
   // Lista Anúncios
   async function listTradePosts() {    
@@ -118,54 +115,21 @@ const TradePosts = (props) => {
     // let route     = '/trade_posts.php/?token=' + tokenUrl + '&key=224';
 
     try {
-      const response = await api.get(route);      
+      const response = await api.get(route);
 
       let a_Values = response.data;
       
+      // Doesn't replace
       tradePostList.length == 0 && setTradePostList( a_Values );
       
     } catch (response) {
-      setErrorMessage(response.data.msg);
-
-    }
-  }  
-
-  // SignIn
-  async function signIn() {
-    let tokenUrl = '16663056-351e723be15750d1cc90b4fcd' ;
-    let route  = "/users.php/?token=" + tokenUrl + "&key=SignIn";
-
-    try {
-      const response = await api.post(route, {
-        email: 'vinicius.lessa33@gmail.com' ,
-        password: '123456' ,
-      });
-
-      const { user, token } = response.data ;
-
-      await AsyncStorageLib.multiSet([
-        ['@MTC:token', token],
-        ['@MTC:userName', JSON.stringify(user)],
-      ]);
-
-      setLoggedInUser(JSON.stringify(user)); //State
-
-      Alert.Alert("Login Realizado com Sucesso!");
-      // Continuar de: https://youtu.be/fBrOtR3pgPU - 25:35      
-
-    } catch(response) {
       setErrorMessage("Erro: " + response.data.msg);
 
     }
-
-    // response.headers
-    // response.ok 
-    //  true/false - http +400 = false
-    
   }
 
   // Similar ao componentDidMount e componentDidUpdate: 
-  useEffect( async () => {        
+  useEffect( async () => {
     await listTradePosts();
 
     const token     = await AsyncStorageLib.getItem('@MTC:token');
@@ -180,14 +144,16 @@ const TradePosts = (props) => {
     return (
       <View style={css.container}>
         <HeaderDefault 
-          title="Anúncios"
-          isLoggedUser={false}
+          title="Anúncios"          
           userName={null}
           userPhotoURL={null}
+          navigation={props.navigation}
+          isLoggedUser={false}
+          hideRightIcon={true}          
         />
         <LoadingIcon/>
       </View>
-    ) ;    
+    ) ;
 
   // Just Like 'Render' method
   return (
@@ -196,22 +162,23 @@ const TradePosts = (props) => {
       {/* Header */}
       <HeaderDefault 
         title="Anúncios"
-        isLoggedUser={false}
         userName={null}
         userPhotoURL={null}
         navigation={props.navigation}
+        isLoggedUser={false}
+        hideRightIcon={false}        
       />
 
-      {/* Messages */}      
+      {/* Log Messages */}      
       { !!errorMessage && 
         <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
-          <Text style={ [css.size20, css.colorWhite, css.fontBold,  { marginVertical: 20 } ] }>
+          <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
             Desculpe, não conseguimos no Conectar!
           </Text>
-          <Text style={ [css.size22, css.colorWhite, { marginVertical: 20 } ] }>
+          <Text style={ [css.size22, css.textWhite, { marginVertical: 20 } ] }>
             ¯\_(ツ)_/¯
           </Text>
-          <Text style={ [css.size18, css.colorRed, css.fontBold,  { marginVertical: 20 } ] }>
+          <Text style={ [css.size18, css.textRed, css.fontBold,  { marginVertical: 20 } ] }>
             { errorMessage }
           </Text>
         </View>
@@ -220,10 +187,7 @@ const TradePosts = (props) => {
 
       {/* Trade Posts List */}
       { !errorMessage && 
-        <SafeAreaView style={ {
-          flex: 1,
-          paddingTop: 10,
-        } }>
+        <SafeAreaView style={ [ css.flexOne, css.m_ThreeTop ] }>
           <ScrollView>
 
             {

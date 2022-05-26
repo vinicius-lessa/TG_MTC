@@ -4,44 +4,52 @@
  * @Description Componente de Cabeçalho padronizado que recebe alguns parâmetros, como Título.
  * @ChangeLog 
  *  - Vinícius Lessa - 24/05/2022: Criação do Arquivo e documentação de Cabeçalho.
+ *  - Vinícius Lessa - 26/05/2022: Implementação do comportamento do MENU baseado em suas props. Botões já funcionais.
  * 
  */
 
- import React, { useState, useEffect } from 'react';  // JSX Compilation
+ import React from 'react';  // JSX Compilation
  import {
    Text,
    View,
    SafeAreaView,
    TouchableOpacity , 
-   Image,  
+   Image,
    StatusBar
  } from 'react-native'; // Core Components
    
- import { css } from '../../assets/css/css.js'; // Style - css
+import { css } from '../../assets/css/css.js'; // Style - css
+
+import * as Animatable from 'react-native-animatable'; // Animation  
+
+import { MaterialIcons } from '@expo/vector-icons'; // Icons
  
- import * as Animatable from 'react-native-animatable'; // Animation  
+// Left Icon
+const openMenu = (props) => {
+    props.navigation.openDrawer();
+}
+
+const HeaderDefault = (props) => {   
  
- const HeaderDefault = (props) => {   
- 
-   const pageTitle      = props.title;
-   const isLoggedUser   = props.isLoggedUser; // Bool
+   const pageTitle      = props.title;   
    const userName       = props.userName;      
    const userPhotoURL   = props.userPhotoURL; 
+
+    // Booleans
+   const isLoggedUser   = props.isLoggedUser; 
+   const hideRightIcon  = props.hideRightIcon;
     
    return (
     <SafeAreaView>
         <StatusBar/>
-        <View style = {[            
-            css.rowOrientation, 
-            css.centerSelf,
-            { width: '100%', minWidth: 100, minHeight: 100 } ]}>
+        <View style = { [ css.headerDefault ] }>
 
             {/* Menu */}
             <View style = { [css.flexOne, css.centerVerticaly] }>
                 <View style = { [ { alignSelf: 'flex-start' } ] }>
-                    <TouchableOpacity                    
-                        // onPress={()=>props.navigation.navigate('SignIn')}
+                    <TouchableOpacity
                         // Menu Drawer
+                        onPress={()=>openMenu(props)}
                     >
                         <Image
                             source={require('../../assets/img/menu.png')}
@@ -54,29 +62,33 @@
             </View>
 
             {/* Title */}
-            <View style = { [css.flexTwo, css.centerVerticaly, css.centerChildren ] }>
-                <Animatable.View animation="fadeInLeft" delay={500} style={css.containerHeader}>
+            <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren ] }>
+                {/* <Animatable.View animation="fadeInLeft" delay={500} style={css.containerHeader}> */}
                     <Text style={ [css.titleText, css.fontBebas] }>{pageTitle}</Text>
-                </Animatable.View>
+                {/* </Animatable.View> */}
             </View>
 
             {/* Login / User */}
             <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>
-                <View style = { [ { alignSelf: 'flex-end', marginRight:8 } ] }>
-                    <TouchableOpacity                    
-                        onPress={()=>props.navigation.navigate('Entrar')}>
+                {
+                    !hideRightIcon &&
+                    <View style = { [ { alignSelf: 'flex-end', marginRight:8 } ] }>
+                        <TouchableOpacity                    
+                            onPress={()=>props.navigation.navigate('Entrar')}>
 
-                        <Animatable.Image
-                            animation="flipInY"
-                            source={require('../../assets/img/signin.png')}
-                            resizeMode = "contain"
-                            style={{
-                                width: 55,
-                                height: 55,  
-                            }}
-                        />
-                    </TouchableOpacity>
-                </View>
+                            <Animatable.Image
+                                animation="flipInY"
+                                source={require('../../assets/img/signin.png')}
+                                resizeMode = "contain"
+                                style={{
+                                    width: 55,
+                                    height: 55,  
+                                }}
+                            />
+                        </TouchableOpacity>
+                    </View>                    
+                }
+                
             </View>
         </View>
     </SafeAreaView>

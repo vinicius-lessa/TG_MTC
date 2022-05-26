@@ -15,6 +15,7 @@ api.addAsyncRequestTransform(request => async () => {
 
 // Server > Client
 api.addResponseTransform(response => {
+    //  true/false - http +400 = false
     if (!response.ok || response.data.error) throw response;
     
 });

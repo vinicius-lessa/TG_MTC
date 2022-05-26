@@ -6,11 +6,11 @@
 
 # NODE MODULES (used within the project)    
 - expo CLI
-    - <desc> Expo is a set of tools built around React Native
+    - Description: Expo is a set of tools built around React Native
     - command: $ npm install -g expo-cli (https://reactnative.dev/docs/environment-setup)
 
 - react Navigation
-    - <desc> React Navigation is made up of some core utilities and those are then used by navigators to create the navigation structure in your app.
+    - Description: React Navigation is made up of some core utilities and those are then used by navigators to create the navigation structure in your app.
     - commands:
         Base
         - $ npm install @react-navigation/native (https://reactnavigation.org/docs/getting-started)
@@ -25,15 +25,15 @@
             ** Necessário Adicionar plugin no arquivo babel.config.js **
 
 - expo AppLoadging
-    - <desc> Utilizado no Root do projeto (App.js) para validar o carregamento das fontes customizadas
+    - Description: Utilizado no Root do projeto (App.js) para validar o carregamento das fontes customizadas
     - command: $ expo install expo-app-loading
 
 - API Sauce
-    - <desc> ... (TradePost.js)
+    - Description: ... (TradePost.js)
     - command: $ npm i apisauce --save
 
 - Async Storage
-    - <desc> An asynchronous, persistent, key-value storage system for React Native.
-    - <doc> Documentation: https://react-native-async-storage.github.io/async-storage/docs/install/
-    - <git> Documentation: https://github.com/react-native-async-storage/async-storage    
+    - Description: An asynchronous, persistent, key-value storage system for React Native.
+    - Documentation: https://react-native-async-storage.github.io/async-storage/docs/install/
+    - Git Source: https://github.com/react-native-async-storage/async-storage    
     - command: $ expo install @react-native-async-storage/async-storage
