@@ -170,15 +170,21 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                   endif;
                   $lastId = $a_tpItem['post_id'];
               ?>
-                <!--
-                  > 990 (lg)= 3
-                  < 990 (md)= 2
-                  > 575 (sm)= 1
-                -->
                 <div class="col-12 col-sm-6 col-lg-4 mt-3">
                   <div class="image_container">
                     <a class="d-flex justify-content-center" href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $a_tpItem['post_id'] ?>">
-                      <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="">
+                      <?php
+                        if ( isset($a_tpItem['image_name']) && $a_tpItem['image_name'] != null ):
+                          if ( validateImageSource($a_tpItem['image_name']) ):?>                                                  
+                            <img src="<?php echo $a_tpItem['image_name'] ?>" class="image_default" alt="">
+                        <?php
+                          else: ?>
+                            <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
+                        <?php endif; ?>
+                      <?php 
+                        else: ?>  
+                        <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" class="image_default" alt="" style="">
+                      <?php endif; ?>
                     </a>
                   </div>
                     <p class="card-title text-white mt-2" style="text-align:left;"><strong><?php echo $a_tpItem['title'] ?></strong></p>
