@@ -10,12 +10,12 @@
 
 import React, { useState, useEffect } from 'react';  // JSX Compilation
 import { 
-  Text,
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,  
-  ActivityIndicator,
+  Text ,
+  View ,
+  TouchableOpacity ,
+  SafeAreaView ,
+  ScrollView ,  
+  ActivityIndicator ,
 } from 'react-native'; // Core Components
 
 import HeaderDefault from './components/Header';
@@ -103,6 +103,13 @@ const TradePosts = (props) => {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [tradePostList, setTradePostList] = useState([]);  
 
+  // User Data
+  const [userEmail        , setUserEmail]     = useState(null);
+  const [userProfilePic   , setProfilePic]    = useState(null);
+  const [userPass         , setUserPass]      = useState(null);
+  const [userId           , setUserID]        = useState(null);
+  const [userName         , setUserName]      = useState(null);
+
   // Iterate
   var counter = 0;
   var lastId  = 0;
@@ -131,12 +138,19 @@ const TradePosts = (props) => {
   // Similar ao componentDidMount e componentDidUpdate: 
   useEffect( async () => {
     await listTradePosts();
+    
+    const userEmailSession      = await AsyncStorageLib.getItem('@MTC:userEmail');
+    const userProfilePicSession = await AsyncStorageLib.getItem('@MTC:userProfilePic');
+    const userPasswordSession   = await AsyncStorageLib.getItem('@MTC:userPassword');
+    const userIDSession         = await AsyncStorageLib.getItem('@MTC:userID');
+    const userNameSession       = await AsyncStorageLib.getItem('@MTC:userName');
 
-    const token     = await AsyncStorageLib.getItem('@MTC:token');
-    const userName  = await AsyncStorageLib.getItem('@MTC:userName');
-
-    if ( token && userName )
-      loggedInUser = userName;    
+    if ( userEmailSession && userProfilePicSession && userPasswordSession && userIDSession && userNameSession )            
+      setUserEmail(userEmailSession);
+      setProfilePic(userProfilePicSession);
+      setUserPass(userPasswordSession);
+      setUserID(userIDSession);
+      setUserName(userNameSession);           
   });
 
   // Loading
@@ -145,11 +159,10 @@ const TradePosts = (props) => {
       <View style={css.container}>
         <HeaderDefault 
           title="Anúncios"          
-          userName={null}
-          userPhotoURL={null}
-          navigation={props.navigation}
-          isLoggedUser={false}
+          userName={userName}
+          userPhotoURL={userProfilePic}
           hideRightIcon={true}
+          navigation={props.navigation}
         />
         <LoadingIcon/>
       </View>
@@ -161,12 +174,11 @@ const TradePosts = (props) => {
 
       {/* Header */}
       <HeaderDefault 
-        title="Anúncios"
-        userName={null}
-        userPhotoURL={null}
+        title="Anúncios"          
+        userName={userName}
+        userPhotoURL={userProfilePic}
+        hideRightIcon={false}
         navigation={props.navigation}
-        isLoggedUser={false}
-        hideRightIcon={false}        
       />
 
       {/* Log Messages */}      

@@ -29,49 +29,37 @@ const openMenu = (props) => {
     props.navigation.openDrawer();
 }
 
-const HeaderDefault = (props) => {   
- 
-   const pageTitle      = props.title;   
-   const userName       = props.userName;      
-   const userPhotoURL   = props.userPhotoURL; 
 
-    // Booleans
-   const isLoggedUser   = props.isLoggedUser; 
-   const hideRightIcon  = props.hideRightIcon;
+const RightIcon = (props) => {
+
+    var url = (props.userPhotoURL).replace(/['"]+/g, '');
+    var name = (props.userName).replace(/['"]+/g, '');
     
-   return (
-    <SafeAreaView>
-        <StatusBar/>
-        <View style = { [ css.headerDefault ] }>
+    console.log(url);
 
-            {/* Menu */}
-            <View style = { [ css.centerVerticaly ] }>
-                <View style = { [ { alignSelf: 'flex-start' } ] }>
-                    <TouchableOpacity
-                        // Menu Drawer
-                        onPress={()=>openMenu(props)}
-                    >
-                        <Image
-                            source={require('../../assets/img/menu.png')}
-                            style={ [ css.startHorizontaly , {
-                                width: 60, height: 60, right: 15
-                            }] }
-                        />
-                    </TouchableOpacity>
+    if (!props.hideRightIcon) {
+
+        if (props.isLoggedUser) {
+            return(
+                <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren, css.rowOrientation ] }>
+                    <View style = { [ css.flexTwo, css.m_OneRight ] }>
+                        <Text style={ [ css.textWhite, css.size12, css.endtHorizontaly ] }>Bem Vindo</Text>
+                        <Text style={ [ css.textWhite, css.size18, css.fontBebas, css.endtHorizontaly ] }>{name}</Text>
+                    </View>
+                    <View style = { [ css.flexOne, css.m_ThreeRight] }>
+                        <TouchableOpacity>
+                            <Image
+                                source={ {uri: url } }
+                                style={ css.profileImageHeader }
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            );
+        } else {
 
-            {/* Title */}
-            <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren ] }>
-                {/* <Animatable.View animation="fadeInLeft" delay={500} style={css.containerHeader}> */}
-                    <Text style={ [ css.titleText, css.fontBebas, css.startHorizontaly ] }>{pageTitle}</Text>
-                {/* </Animatable.View> */}
-            </View>
-
-            {/* Login / User */}
-            {
-                !hideRightIcon &&
-                <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>                
+            return(
+                <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>
                     <View style = { [ { alignSelf: 'flex-end', marginRight:8 } ] }>
                         <TouchableOpacity                    
                             onPress={()=>props.navigation.navigate('Entrar')}>
@@ -88,9 +76,61 @@ const HeaderDefault = (props) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            }
-        </View>
-    </SafeAreaView>
+            );
+        }
+    } else {
+        return null;
+    }
+}
+
+const HeaderDefault = (props) => {   
+ 
+    const pageTitle      = props.title;   
+    const userName       = props.userName;      
+    const userPhotoURL   = props.userPhotoURL; 
+
+    // Booleans
+    const isLoggedUser   = !!props.userName;
+    const hideRightIcon  = props.hideRightIcon;    
+
+    return (
+        <SafeAreaView>
+            <StatusBar/>
+            <View style = { [ css.headerDefault ] }>
+
+                {/* Menu */}
+                <View style = { [ css.centerVerticaly ] }>
+                    <View style = { [ { alignSelf: 'flex-start' } ] }>
+                        <TouchableOpacity
+                            // Menu Drawer
+                            onPress={()=>openMenu(props)}
+                        >
+                            <Image
+                                source={require('../../assets/img/menu.png')}
+                                style={ [ css.startHorizontaly , {
+                                    width: 60, height: 60, right: 15
+                                }] }
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+                {/* Title */}
+                <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren ] }>
+                    {/* <Animatable.View animation="fadeInLeft" delay={500} style={css.containerHeader}> */}
+                        <Text style={ [ css.titleText, css.fontBebas, css.startHorizontaly ] }>{pageTitle}</Text>
+                    {/* </Animatable.View> */}
+                </View>
+
+                <RightIcon
+                    userName={userName}
+                    userPhotoURL={userPhotoURL}
+                    hideRightIcon={hideRightIcon}
+                    isLoggedUser={isLoggedUser}
+                />
+
+            </View>
+        </SafeAreaView>
    );
  }
  

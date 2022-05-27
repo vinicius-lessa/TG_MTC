@@ -211,10 +211,10 @@ const css = StyleSheet.create({
 
 
   // ############ SignIn
-  loginMsg:(text='none')=>({
+  loginMsg: {
     color: "#eb1f36",
-    display: text
-  }),
+    display: 'flex' ,
+  } ,
 
   inputDefault:{
     textAlign: 'center' ,
@@ -224,7 +224,16 @@ const css = StyleSheet.create({
     borderColor: '#d3d1d1' ,
     borderRadius: 20 ,
     backgroundColor : "#fff" ,
-  },
+  } ,
+
+  // ############ Header
+  profileImageHeader: {
+    width: 60 ,
+    height: 60 ,
+    borderRadius: 40 ,
+    borderWidth: 2 ,
+    borderColor: '#eb1f36'
+  }
 
 });
 

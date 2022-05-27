@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 12/04/2022: Inclusão da documentação do arquivo;
  *  - Renata Carrillo - 21/04/2022: Ajuste no Card: ENCONTRE ARTISTAS pós mudança no Bootstrap.
+ *  - Vinícius Lessa - 27/05/2022: Ajuste no erro de Image Source.
  * 
  * @ Notes:
  * 
