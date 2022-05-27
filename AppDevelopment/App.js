@@ -21,12 +21,16 @@ import { createDrawerNavigator, DrawerContent } from '@react-navigation/drawer';
 
 // Views
 import { 
-  TradePosts, 
-  Welcome, 
-  SignIn, 
-  SignUp,
-  NewTradePost  
+  TradePosts , 
+  NewTradePost ,    
+  Welcome ,
+  SignIn , 
+  SignUp ,  
 } from './views'; //index
+
+import MusicTradeCenter from './views/MusicTradeCenter';
+
+import FeedMusical from './views/FeedMusical';
 
 // Fonts
 import { useFonts } from 'expo-font';
@@ -34,6 +38,7 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 
 import SideBar from './views/components/SideBar';
+import { css } from './assets/css/css';
 
 
 export default function App() {
@@ -55,23 +60,42 @@ export default function App() {
 
   return (
     <NavigationContainer>      
-      <Drawer.Navigator
+      <Drawer.Navigator      
         drawerContent={props => <SideBar {...props} />}
         initialRouteName="Anúncios"
-      >                
-        {/* Bem-Vindo */}
-        <Drawer.Screen
-          name="Bem Vindo"
-          component={Welcome}
-          options={{headerShown: false}}
-        />
-
+        screenOptions={{
+          drawerLabelStyle: {
+            fontSize: 20 ,
+            fontFamily: 'CenturyGothic' ,
+            color: '#000' ,
+          },
+        }}
+      >
         {/* Anúncios (Antiga Home) */}
         <Drawer.Screen
           name="Anúncios"
           component={TradePosts}
           options={{headerShown: false}}
         />
+
+        {/* Criar Post (Antigo 'CreateAd') */}
+        <Drawer.Screen
+          name="Anunciar"
+          component={NewTradePost}
+          options={{headerShown: false}}
+        />
+        
+        <Drawer.Screen
+          name="Music Trade Center"
+          component={MusicTradeCenter}
+          options={{headerShown: false}}
+        />
+
+        <Drawer.Screen
+          name="Feed Musical"
+          component={FeedMusical}
+          options={{headerShown: false}}
+        />        
 
         {/* SignIn (Antigo 'LogIn') */}
         <Drawer.Screen
@@ -87,10 +111,26 @@ export default function App() {
           options={{headerShown: false}}
         />
 
-        {/* Criar Post (Antigo 'CreateAd') */}
+        {/* Bem-Vindo */}
+        {/* <Drawer.Screen
+          name="Bem Vindo"
+          component={Welcome}
+          options={{
+            headerShown: false ,            
+          }}
+        /> */}
+
+        {/* <View style={css.hrLightGrey} /> */}
+
         <Drawer.Screen
-          name="Novo Post"
-          component={NewTradePost}
+          name="Quem Somos"
+          component={SignUp}
+          options={{headerShown: false}}
+        />        
+
+        <Drawer.Screen
+          name="Ajuda"
+          component={SignUp}
           options={{headerShown: false}}
         />
 

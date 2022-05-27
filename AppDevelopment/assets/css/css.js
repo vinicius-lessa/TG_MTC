@@ -107,6 +107,9 @@ const css = StyleSheet.create({
   size18: { fontSize: 18 } ,
   size20: { fontSize: 20 } ,
   size22: { fontSize: 22 } ,
+  size24: { fontSize: 24 } ,
+  size26: { fontSize: 26 } ,
+  size30: { fontSize: 30 } ,
 
   // Font Family
   fontBebas: { fontFamily: 'BebasNeue' } ,
@@ -140,6 +143,12 @@ const css = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 15 ,
   } ,
+
+  hrLightGrey: {
+    borderBottomColor: '#777676',
+    borderBottomWidth: 1,
+    marginVertical: 15 ,
+  } ,  
 
   // Buttons
   buttonDefault:{

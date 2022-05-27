@@ -10,8 +10,7 @@
 import React, { useEffect, useState } from 'react';  // JSX Compilation
 import { 
     View,
-    Text,
-    StyleSheet,
+    Text,    
     TextInput,
     TouchableOpacity,
     SafeAreaView,
@@ -113,20 +112,13 @@ const SignIn = (props) => {
             {/* Header */}
             <View style={ [ css.flexOne, css.centerVerticaly ]}>
                 <View style={css.centerVerticaly}>
-                    <Animatable.View animation="fadeInLeft" delay={500}>
-                        {/* <Text style={ [
-                            css.titleText ,
-                            css.fontBebas                            
-                        ] }>
-                            ENTRAR
-                        </Text> */}
-
+                    <Animatable.View animation="fadeInLeft" delay={300}>
                         <Text style={ [ 
                             css.textLightgray, 
                             css.centerSelf ,
                             css.m_FourTop
                         ]}>
-                            Digite seus dados para entrar no sistema
+                            Digite seus dados para entrar no App
                         </Text>
                     </Animatable.View>
                 </View>
@@ -207,10 +199,5 @@ const SignIn = (props) => {
         </SafeAreaView>
     );
 }
-
-//Styles
-const styles = StyleSheet.create({
-    
-})
 
 export default SignIn;

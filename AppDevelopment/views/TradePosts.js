@@ -108,7 +108,7 @@ const TradePosts = (props) => {
   var lastId  = 0;
   
   // Lista Anúncios
-  async function listTradePosts() {    
+  async function listTradePosts() {
 
     let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;
     let route    = '/trade_posts.php/?token=' + tokenUrl + '&key=all';
@@ -149,7 +149,7 @@ const TradePosts = (props) => {
           userPhotoURL={null}
           navigation={props.navigation}
           isLoggedUser={false}
-          hideRightIcon={true}          
+          hideRightIcon={true}
         />
         <LoadingIcon/>
       </View>
