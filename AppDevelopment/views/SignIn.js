@@ -39,9 +39,10 @@ const SignIn = (props) => {
     const [errorMessage, setErrorMessage]   = useState(null);
 
     // User Info / Backend
+    const [userId        , setUserID]   = useState(null);
     const [userName      , setUserName]     = useState(null);
     const [userEmail     , setUserEmail]    = useState(null);
-    const [userProfilePic, setProfilePic]   = useState(null);
+    const [userProfilePic, setProfilePic]   = useState(null);    
 
 
     // SignIn Function
@@ -59,9 +60,10 @@ const SignIn = (props) => {
 
         // await AsyncStorageLib.multiSet([
             // ['@MTC:token', token],
-            // ['@MTC:userName', JSON.stringify(user)],
-            // ['@MTC:userName', ];
+            // ['@MTC:userID', JSON.stringify(id)],
+            // ['@MTC:userName', JSON.stringify(user)],            
             // ['@MTC:userEmail', ];
+            // ['@MTC:userPassword', ];
             // ['@MTC:userProfilePic', ];
         // ]);
 
@@ -84,6 +86,7 @@ const SignIn = (props) => {
         // console.log(userPassword);
 
         // const token         = await AsyncStorageLib.getItem('@MTC:token');
+        const userID                = await AsyncStorageLib.getItem('@MTC:userID');
         const userNameLocal         = await AsyncStorageLib.getItem('@MTC:userName');
         const userEmailLocal        = await AsyncStorageLib.getItem('@MTC:userEmail');
         const userProfilePicLocal   = await AsyncStorageLib.getItem('@MTC:userProfilePic');
@@ -91,6 +94,7 @@ const SignIn = (props) => {
         // console.log(userNameLocal);
 
         if ( userNameLocal && userEmailLocal && userProfilePicLocal)
+            setUserID(userID);
             setUserName(userNameLocal);
             setUserEmail(userEmailLocal);
             setProfilePic(userProfilePicLocal);

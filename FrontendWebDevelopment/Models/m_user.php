@@ -5,6 +5,7 @@
  * @Description Model dos usuários, aqui são criadas funções chamadas pelo Controller de Usuários.
  * @ChangeLog 
  *  - Vinícius Lessa - 05/05/2022: Implementação da Função 'userUpdate' para a Atualização dos Dados dos Usúrarios.
+ *  - Vinícius Lessa - 27/05/2022: Mudanças no formato da função UserValidation, agora a autenticação do usuário será feita na RestAPI.
  * 
  * @ Notes:
  * 
@@ -40,10 +41,12 @@ function userCreation($data) {
     // Tranforms Json in Array
     $aData = json_decode($returnJson, true); // Trasnforma em Array
 
-    // Servers Problems // ***************** VERIFICAR STATUS DO SERVER NO INÍCIO DE CADA PÁGINA **********************
-    // if (count($aData) == 0 || $aData == false):
-    //     $aData = array("erro" => true , "msg" => "A requisição ao Servidor falhou! Tente Novamente" );
-    // endif;
+    if (count($aData) == 0 || $aData == false):        
+        $aReturn = [
+            'erro'      => true , 
+            'msg'       => "<div class='alert alert-danger' role='alert'>Erro: A requisição ao Servidor falhou! Tente Novamente</div>" ,
+        ];
+    endif;
 
     // Query/DB Problems
     $status_line = $http_response_header[0];
@@ -68,21 +71,27 @@ function userCreation($data) {
     return $aReturn;
 }
 
-
-// QUERY / GET
-function userValidation($email, $password)
+// SignIn
+function userValidation($data)
 {
-    $token  = "16663056-351e723be15750d1cc90b4fcd";
-    $url    = BACKEND_URL . "/users.php/?token=" . $token . "&key=email&value=" . $email;
+    $token  = "16663056-351e723be15750d1cc90b4fcd";    
+    $url        = BACKEND_URL . "/SignIn/index.php";
 
+    $data       += ["token" => $token];
+
+    $postdata = http_build_query(
+        $data
+    );
+    
     $opts = array('http' =>
         array(
-            'method'        => "GET",
+            'method'        => 'POST',
             'header'        => 'Content-Type: application/x-www-form-urlencoded',
-            'ignore_errors' => true
+            'ignore_errors' => true,
+            'content'       => $postdata
         )
-    );    
-      
+    );
+    
     $context = stream_context_create($opts);    
 
     // file_get_contents
@@ -91,13 +100,22 @@ function userValidation($email, $password)
     // Tranforms Json in Array
     $aData = json_decode($returnJson, true); // Trasnforma em Array    
 
-    if (count($aData) == 0 || $aData == false):        
-        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Usuário ou a senha inválida!</div>"];
-    else:
-        if (password_verify($password, $aData[0]["password"])):            
-            $retorna = ['erro'=> false, 'dados' => $aData[0]];
+    if (count($aData) == 0 || $aData == false):
+        $retorna = [
+            'erro'  => true , 
+            'msg'   => "<div class='alert alert-danger' role='alert'>Erro: Problemas ao Se Conectar Ao Server!</div>"
+        ];
+
+    else:        
+        if ( !$aData["error"] ):
+            $retorna = $aData ;
+
         else:
-            $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Usuário ou a senha inválida!</div>"];
+            $retorna = [
+                'error' => true ,
+                'msg' => "<div class='alert alert-danger' role='alert'>Erro: " . $aData["msg"] . "</div>"
+            ];
+
         endif;
     endif;
 

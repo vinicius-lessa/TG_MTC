@@ -3,6 +3,7 @@ import { create } from "apisauce";
 
 const api = create({
     baseURL: 'https://musictradecenter.000webhostapp.com/BackendDevelopment',
+    timeout: 15000 , // 15 Segundos
 });
 
 // Client > Server

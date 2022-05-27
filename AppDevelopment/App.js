@@ -45,7 +45,8 @@ export default function App() {
   // Load Fonts
   let [fontsLoaded] = useFonts({
     'BebasNeue': require('./assets/fonts/BebasNeue-Regular.ttf') ,
-    'CenturyGothic': require('./assets/fonts/GOTHIC.ttf')
+    'CenturyGothic': require('./assets/fonts/GOTHIC.ttf') ,
+    'CenturyGothicB': require('./assets/fonts/GOTHICB.ttf') ,
   }) ;
 
   if (!fontsLoaded) {    
@@ -61,54 +62,84 @@ export default function App() {
   return (
     <NavigationContainer>      
       <Drawer.Navigator      
-        drawerContent={props => <SideBar {...props} />}
+        drawerContent={ (props) => <SideBar {...props} /> }
         initialRouteName="Anúncios"
-        screenOptions={{
+        screenOptions={{          
           drawerLabelStyle: {
             fontSize: 20 ,
             fontFamily: 'CenturyGothic' ,
-            color: '#000' ,
           },
         }}
       >
         {/* Anúncios (Antiga Home) */}
         <Drawer.Screen
           name="Anúncios"
-          component={TradePosts}
-          options={{headerShown: false}}
+          component={TradePosts}          
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
         />
 
         {/* Criar Post (Antigo 'CreateAd') */}
         <Drawer.Screen
-          name="Anunciar"
+          name="Criar Anúncio"
           component={NewTradePost}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
         />
         
         <Drawer.Screen
           name="Music Trade Center"
           component={MusicTradeCenter}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
         />
 
         <Drawer.Screen
           name="Feed Musical"
           component={FeedMusical}
-          options={{headerShown: false}}
-        />        
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
+        />
 
         {/* SignIn (Antigo 'LogIn') */}
         <Drawer.Screen
           name="Entrar"
           component={SignIn}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
         />        
         
         {/* SignUp (Antigo 'Create') */}
         <Drawer.Screen
           name="Criar Conta"
           component={SignUp}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false ,
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+            drawerItemStyle: {              
+              fontSize: 20 ,
+              fontFamily: 'CenturyGothicB' ,              
+              borderBottomWidth: 1 ,
+              borderBottomColor: '#777676' ,
+              paddingBottom: 15
+            } ,
+          }}
         />
 
         {/* Bem-Vindo */}
@@ -116,7 +147,7 @@ export default function App() {
           name="Bem Vindo"
           component={Welcome}
           options={{
-            headerShown: false ,            
+            headerShown: false ,
           }}
         /> */}
 
@@ -125,13 +156,21 @@ export default function App() {
         <Drawer.Screen
           name="Quem Somos"
           component={SignUp}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
         />        
 
         <Drawer.Screen
           name="Ajuda"
           component={SignUp}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false ,            
+            drawerActiveTintColor: '#eb1f36' ,
+            drawerInactiveTintColor: '#000' ,
+          }}
         />
 
       </Drawer.Navigator>

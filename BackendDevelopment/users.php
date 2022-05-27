@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
     // For example: .../users.php/?token=...&key=email&value=vinicius@gmail.com
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
 
     // Token Validation
     if (!($_GET["token"] === '16663056-351e723be15750d1cc90b4fcd')):       
@@ -362,54 +363,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         'error' => true,
                         'msg' => 'Erro: Parâmetro ID não é numérico!'
                     ]);
-                endif;
-    
-            // Used for LOGIN
-            // #################### MUDAR PARA POST - MUDAR VALIDAÇÃO DE SENHA PELO BACKEND ("/users.php/?token=" + token + "&key=SignIn")
-            elseif ($_GET['key'] == 'email'):                
-
-                $userEmail = $valueSearch;
-
-                if (!is_numeric($userEmail)):
-                    $dbReturn = CrudDB::select('SELECT 
-                                                u.user_id, 
-                                                u.user_name, 
-                                                u.email, 
-                                                u.password ,
-                                                (SELECT ip.image_name FROM images_profile ip 
-                                                    WHERE ip.user_id = u.user_id AND
-                                                        ip.activity_status = 1
-                                                    ORDER BY ip.created_on desc limit 1) AS `image_name`
-                                            FROM users u 
-                                            WHERE u.email =:USER_EMAIL AND 
-                                                activity_status = 1 
-                                            ORDER BY u.created_on DESC LIMIT 1;'
-                        ,['USER_EMAIL' => $userEmail]
-                        ,TRUE);
-                    
-                    // Se possuir Imagem de Perfil                    
-                    if ( !empty($dbReturn) && !empty($dbReturn[0]->image_name) ):
-                        foreach ($dbReturn as $user) {
-                            if ( !empty($user->image_name) ):
-                                $user->image_name = SITE_URL . "/uploads/user-profile/" . $user->image_name;
-                            endif;
-                        }
-                    endif;
-                else:                    
-                    http_response_code(406); // Not Acceptable
-                    echo json_encode(['msg' => 'Parâmetro E-mail inválido!']);
-                    exit;
-                endif;    
-            
-            // Unknown Key
-            else:                                
-                http_response_code(406); // Not Acceptable
-                echo json_encode(['msg' => 'Informe uma Chave (key) correta!']);
-                exit;
+                endif;                
             endif;          
         endif;
-
-        // Final DATA
+        
         // if (!Empty($dbReturn)):
             http_response_code(200);
             echo json_encode($dbReturn);

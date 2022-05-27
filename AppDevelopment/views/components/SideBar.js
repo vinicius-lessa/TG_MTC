@@ -23,7 +23,9 @@ import {
     DrawerItemList,
 } from '@react-navigation/drawer';
 
-import { Ionicons } from '@expo/vector-icons'; // Icons
+// Icons
+import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 const SideBar = (props) => {
@@ -31,7 +33,7 @@ const SideBar = (props) => {
     // console.log(props);
 
     return (
-        <ScrollView style={ [ { backgroundColor: '#bcbcbc' } ] }>
+        <ScrollView style={ [ { backgroundColor: '#dadada' } ] }>
             <DrawerContentScrollView>
                 <View style={ [ css.rowOrientation ] }>
                     <View style={ [ css.centerSelf, css.flexOne ] }>
@@ -47,7 +49,10 @@ const SideBar = (props) => {
                 <View style={ css.hrLightGrey } />
                 
                 <View style={ [ {paddingHorizontal: 10} ] }>
-                    <Text style = { [css.size30, css.textBlack, css.fontBebas, css.m_ThreeLeft, css.m_ThreeY] }>CONTEÚDO</Text>
+                    <View style={css.rowOrientation}>
+                        <Text style = { [css.size24, css.textBlack, css.fontBebas, css.m_ThreeLeft, css.m_ThreeY] }>Navegação</Text>
+                        <AntDesign name="down" size={20} color="black" style={{ top: 18, left: 10 }} />
+                    </View>
 
                     {/* <TouchableOpacity onPress={()=>props.navigation.navigate('Anúncios')}>
                         <Text style = { [css.size24, css.textRed] }>Anúncios</Text>

@@ -45,7 +45,7 @@ const HeaderDefault = (props) => {
         <View style = { [ css.headerDefault ] }>
 
             {/* Menu */}
-            <View style = { [css.flexOne, css.centerVerticaly] }>
+            <View style = { [ css.centerVerticaly ] }>
                 <View style = { [ { alignSelf: 'flex-start' } ] }>
                     <TouchableOpacity
                         // Menu Drawer
@@ -64,14 +64,14 @@ const HeaderDefault = (props) => {
             {/* Title */}
             <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren ] }>
                 {/* <Animatable.View animation="fadeInLeft" delay={500} style={css.containerHeader}> */}
-                    <Text style={ [css.titleText, css.fontBebas] }>{pageTitle}</Text>
+                    <Text style={ [ css.titleText, css.fontBebas, css.startHorizontaly ] }>{pageTitle}</Text>
                 {/* </Animatable.View> */}
             </View>
 
             {/* Login / User */}
-            <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>
-                {
-                    !hideRightIcon &&
+            {
+                !hideRightIcon &&
+                <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>                
                     <View style = { [ { alignSelf: 'flex-end', marginRight:8 } ] }>
                         <TouchableOpacity                    
                             onPress={()=>props.navigation.navigate('Entrar')}>
@@ -86,10 +86,9 @@ const HeaderDefault = (props) => {
                                 }}
                             />
                         </TouchableOpacity>
-                    </View>                    
-                }
-                
-            </View>
+                    </View>
+                </View>
+            }
         </View>
     </SafeAreaView>
    );

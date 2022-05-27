@@ -81,9 +81,9 @@ const css = StyleSheet.create({
   colOrientation: { flexDirection: 'column' , } ,
   colReverseOrientation: { flexDirection: 'column-reverse' , } ,
 
-  flexOne:{ flex: 1 },
-  flexTwo:{ flex: 2 },
-  flexThree:{ flex: 3 },
+  flexOne:  { flex: 1 },
+  flexTwo:  { flex: 2 },
+  flexThree:{ flex: 3 },  
 
   widthAuto: { width: '100%' , } ,  
 
@@ -114,6 +114,7 @@ const css = StyleSheet.create({
   // Font Family
   fontBebas: { fontFamily: 'BebasNeue' } ,
   fontGhotic: { fontFamily: 'CenturyGothic' , } ,
+  fontGhoticB: { fontFamily: 'CenturyGothicB' , } ,
 
   // Font Colors
   textWhite:    { color: '#ffffff' } ,

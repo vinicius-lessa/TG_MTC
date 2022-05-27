@@ -57,13 +57,13 @@ loginForm.submit(async function( event ){
 
     setTimeout(function () {
 
-        if(resposta['erro']){
+        if(resposta['error']){
             msgAlertErroLogin.html(resposta['msg']);
         } else {
             // Recarrega PHP
             document.location.reload();
         }
         
-        spinnerWrapper.style.display = 'none';        
-    }, 2000);    
+        spinnerWrapper.style.display = 'none';
+    }, 2000);
 });

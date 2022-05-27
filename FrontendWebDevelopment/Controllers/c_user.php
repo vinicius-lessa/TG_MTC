@@ -8,6 +8,7 @@
  *  - Vinícius Lessa - 13/04/2022: Correção simples do botão sair + identação.
  *  - Vinícius Lessa - 2022/04/16: Implementação da função de retorno das informações do usuário (ID, Email e Nome.
  *  - Vinícius Lessa - 05/05/2022: Implementação do 'if' para Atualização do Cadastro de Usuários.
+ *  - Vinícius Lessa - 27/05/2022: Mudanças no formato de autenticação do usuário, que será feito na RestAPI.
  * 
  * @ Notes: As requisições nesta página vem através de JavaScript, pela função FETCH, enviando requisições POST.
  * 
@@ -74,20 +75,33 @@ endif;
 // SignIn / Logar
 if ($dados['action'] === "SignIn"):    
 
-    if(empty($dados["userEmail"])){
-        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>"];
-    }elseif(empty($dados["userPassword"])){
-        $retorna = ['erro'=> true, 'msg' => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo senha!</div>"];
-    }else{
+    $data = [        
+        "userEmail"     => (isset($dados["userEmail"]))     ? $dados["userEmail"] : ''      ,
+        "userPassword"  => (isset($dados["userPassword"]))     ? $dados["userPassword"] : ''      ,        
+    ];
+
+    if(empty($data["userEmail"])){
+        $retorna = [
+            'erro'  => true , 
+            'msg'   => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo usuário!</div>"
+        ];
+
+    }elseif(empty($data["userPassword"])){
+        $retorna = [
+            'erro'  => true , 
+            'msg'   => "<div class='alert alert-danger' role='alert'>Erro: Necessário preencher o campo senha!</div>"
+        ];
+
+    }else{                
+
+        $retorna = userValidation($data);
         
-        $retorna = userValidation($dados["userEmail"], $dados["userPassword"]);
-        
-        if(!$retorna["erro"]):            
-            $_SESSION['user_id']        =  $retorna["dados"]["user_id"];
-            $_SESSION['user_name']      =  $retorna["dados"]["user_name"];
-            $_SESSION['user_email']     =  $retorna["dados"]["email"];
-            $_SESSION['user_password']  =  $dados["userPassword"];
-            $_SESSION['profile-pic']    =  $retorna["dados"]["image_name"];
+        if(!$retorna["erro"]):
+            $_SESSION['user_id']        =  $retorna["data"]["user_id"];
+            $_SESSION['user_name']      =  $retorna["data"]["user_name"];
+            $_SESSION['user_email']     =  $retorna["data"]["email"];
+            $_SESSION['user_password']  =  $data["userPassword"];   
+            $_SESSION['profile-pic']    =  $retorna["data"]["image_name"];
         endif;
     }
 

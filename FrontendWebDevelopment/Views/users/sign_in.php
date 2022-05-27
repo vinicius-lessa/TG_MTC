@@ -72,18 +72,18 @@ $titlePage = "MTC | SignUp";
           <?php else:  ?>
             <!-- Form -->
             <div class="form-default">            
-              <form id="singIn-form">
-                <span id="msgAlertErroLogin"></span>
+              <form id="singIn-form">                
                 
                 <!-- ICON -->
                 <div class="text-center">
-                <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
-                  <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
-                </a>
+                  <a href="<?php echo SITE_URL ?>/Views/homepage/index.php" class="d-flex align-items-center mb-md-0 me-md-auto text-dark text-decoration-none">
+                    <img src="<?php echo SITE_URL ?>/images/icon.png" alt="ícone MTC" width="75" height="75">
+                  </a>
                 </div>
 
                 <h3 class="text-white"><strong>Faça seu Login</strong></h3>
                 <p class="text-white" style="font-size:14px;">Edite seu perfill, publique seus produtos e negocie!</p>
+                
                 <div class="form-floating">
                   <input type="email" class="form-control" placeholder="name@example.com" id="userEmail" name="email">
                   <label for="userEmail">E-mail</label>
@@ -94,9 +94,12 @@ $titlePage = "MTC | SignUp";
                   <label for="userPassword">Senha</label>
                 </div>
 
+                <!-- Error Logs -->
+                <span id="msgAlertErroLogin"></span>
+
                 <div class="text-center mt-5">
                   <input class="btn-default btn btn-danger border-0" type="submit" value="ENTRAR" name="signIn" id="signIn-btn">
-                </div>
+                </div>                
 
                 <div class="mt-5 text-white text-center">
                   <span>Não possui conta?

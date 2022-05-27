@@ -34,9 +34,9 @@ function loadTradePosts($userID){
 
     $opts = array('http' =>
         array(
-            'method'        =>"GET",
-            'header'        => 'Content-Type: application/x-www-form-urlencoded',
-            'ignore_errors' => true
+          'method'        =>"GET",
+          'header'        => 'Content-Type: application/x-www-form-urlencoded',
+          'ignore_errors' => true
         )
     );
       
@@ -62,9 +62,9 @@ function loadTradePostDetails($tradePostID){
 
   $opts = array('http' =>
       array(
-          'method'        =>"GET",
-          'header'        => 'Content-Type: application/x-www-form-urlencoded',
-          'ignore_errors' => true
+        'method'        =>"GET",
+        'header'        => 'Content-Type: application/x-www-form-urlencoded',
+        'ignore_errors' => true
       )
   );
     
