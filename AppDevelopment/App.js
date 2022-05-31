@@ -17,7 +17,7 @@ import React from 'react'; // JSX Compilation
 // React Navigation Module
 import { NavigationContainer } from '@react-navigation/native';
 // import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createDrawerNavigator, DrawerContent } from '@react-navigation/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // Views
 import { 
@@ -42,6 +42,7 @@ import { css } from './assets/css/css';
 
 
 export default function App() {
+  
   // Load Fonts
   let [fontsLoaded] = useFonts({
     'BebasNeue': require('./assets/fonts/BebasNeue-Regular.ttf') ,
@@ -49,90 +50,101 @@ export default function App() {
     'CenturyGothicB': require('./assets/fonts/GOTHICB.ttf') ,
   }) ;
 
-  if (!fontsLoaded) {    
-    return <AppLoading />;    
+  if (!fontsLoaded) {
+    return <AppLoading />;
   }
 
   // React Navigation - Stack (Default) (https://reactnavigation.org/docs/hello-react-navigation/)
   // const Stack = createNativeStackNavigator();
 
   // React Navigation - Drawer (https://reactnavigation.org/docs/drawer-navigator/)
-  const Drawer = createDrawerNavigator();
+  const Drawer = createDrawerNavigator();  
 
   return (
-    <NavigationContainer>      
-      <Drawer.Navigator      
+    <NavigationContainer>
+      <Drawer.Navigator        
         drawerContent={ (props) => <SideBar {...props} /> }
-        initialRouteName="Anúncios"
+        initialRouteName="TradePosts"        
         screenOptions={{          
           drawerLabelStyle: {
             fontSize: 20 ,
-            fontFamily: 'CenturyGothic' ,
+            fontFamily: 'CenturyGothic' ,                        
           },
         }}
       >
         {/* Anúncios (Antiga Home) */}
         <Drawer.Screen
-          name="Anúncios"
-          component={TradePosts}          
+          name='TradePosts'
+          component={TradePosts}
           options={{
-            headerShown: false ,            
+            drawerLabel: 'Anúncios',
+            headerShown: false ,
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
+            unmountOnBlur: true,
           }}
         />
 
-        {/* Criar Post (Antigo 'CreateAd') */}
+        {/* Criar Post */}
         <Drawer.Screen
-          name="Criar Anúncio"
+          name='NewTradePost'
           component={NewTradePost}
           options={{
+            drawerLabel: 'Criar Anúncio',
             headerShown: false ,            
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
           }}
         />
         
+        {/* Music Trade Center */}
         <Drawer.Screen
-          name="Music Trade Center"
+          name='MusicTradeCenter'
           component={MusicTradeCenter}
           options={{
+            drawerLabel: 'Music Trade Center',
             headerShown: false ,            
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
           }}
         />
 
+        {/* Feed Musical */}
         <Drawer.Screen
-          name="Feed Musical"
+          name='FeedMusical'
           component={FeedMusical}
           options={{
-            headerShown: false ,            
+            drawerLabel: 'Feed Musical',
+            headerShown: false ,
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
           }}
         />
 
-        {/* SignIn (Antigo 'LogIn') */}
+        {/* SignIn */}
         <Drawer.Screen
-          name="Entrar"
+          name="SignIn"
           component={SignIn}
           options={{
-            headerShown: false ,            
+            drawerLabel: 'Entrar',
+            headerShown: false ,
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
+            unmountOnBlur: true,
           }}
         />        
         
         {/* SignUp (Antigo 'Create') */}
         <Drawer.Screen
-          name="Criar Conta"
+          name="SignUp"
           component={SignUp}
           options={{
+            drawerLabel: 'Criar Conta',
             headerShown: false ,
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
-            drawerItemStyle: {              
+            unmountOnBlur: true,
+            drawerItemStyle: {
               fontSize: 20 ,
               fontFamily: 'CenturyGothicB' ,              
               borderBottomWidth: 1 ,
@@ -143,13 +155,13 @@ export default function App() {
         />
 
         {/* Bem-Vindo */}
-        {/* <Drawer.Screen
-          name="Bem Vindo"
+        <Drawer.Screen
+          name="Welcome"
           component={Welcome}
           options={{
             headerShown: false ,
           }}
-        /> */}
+        />
 
         {/* <View style={css.hrLightGrey} /> */}
 

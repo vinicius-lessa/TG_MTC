@@ -1,8 +1,9 @@
 {
   "expo": {
     "name": "MTC",
-    "slug": "MTC",
+    "slug": "mtcApp",
     "version": "1.0.0",
+    "owner": "lesslax",    
     "orientation": "portrait",
     "icon": "./assets/img/icon.png",
     "splash": {
@@ -23,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.lesslax.mtcApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"

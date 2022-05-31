@@ -97,10 +97,9 @@ const TpRow = (props) => {
 };
 
 const TradePosts = (props) => {
-  
+
   // SignIn Hooks
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);  
   const [tradePostList, setTradePostList] = useState([]);  
 
   // User Data
@@ -145,12 +144,14 @@ const TradePosts = (props) => {
     const userIDSession         = await AsyncStorageLib.getItem('@MTC:userID');
     const userNameSession       = await AsyncStorageLib.getItem('@MTC:userName');
 
+    // console.log( 'TradePosts.js' + userEmailSession + " - " + userProfilePicSession + ' - ' + userPasswordSession + ' - ' + userIDSession + ' - ' + userNameSession);
+
     if ( userEmailSession && userProfilePicSession && userPasswordSession && userIDSession && userNameSession )            
       setUserEmail(userEmailSession);
       setProfilePic(userProfilePicSession);
       setUserPass(userPasswordSession);
       setUserID(userIDSession);
-      setUserName(userNameSession);           
+      setUserName(userNameSession);
   });
 
   // Loading
@@ -171,7 +172,7 @@ const TradePosts = (props) => {
   // Just Like 'Render' method
   return (
     <View style={css.container}>
-
+            
       {/* Header */}
       <HeaderDefault 
         title="Anúncios"          
@@ -182,7 +183,7 @@ const TradePosts = (props) => {
       />
 
       {/* Log Messages */}      
-      { !!errorMessage && 
+      { !!errorMessage &&
         <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
           <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
             Desculpe, não conseguimos no Conectar!
@@ -195,7 +196,6 @@ const TradePosts = (props) => {
           </Text>
         </View>
       }
-      {/* { !!loggedInUser && <Text>{ loggedInUser }</Text> } */}
 
       {/* Trade Posts List */}
       { !errorMessage && 
@@ -231,18 +231,7 @@ const TradePosts = (props) => {
                   </View>
                 );                            
               })
-            }
-
-            {/* Non Functional Examples */}          
-            {/* <TpRow 
-              title='Bateria Mapex Vermelha'
-              cateogory='Baterias'
-              brand='Mapex'
-              condition='Boas Condições'
-              price='2500,00'
-              uri='https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-16_5235.png'
-              rowReverse={false}
-            /> */}
+            }            
 
             {/* Horizontal Line */}
             {/* <View style={ css.hrDefault } /> */}        

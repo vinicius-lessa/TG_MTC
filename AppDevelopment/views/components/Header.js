@@ -20,9 +20,8 @@
    
 import { css } from '../../assets/css/css.js'; // Style - css
 
-import * as Animatable from 'react-native-animatable'; // Animation  
+import * as Animatable from 'react-native-animatable'; // Animation
 
-import { MaterialIcons } from '@expo/vector-icons'; // Icons
  
 // Left Icon
 const openMenu = (props) => {
@@ -30,26 +29,23 @@ const openMenu = (props) => {
 }
 
 
-const RightIcon = (props) => {
-
-    var url = (props.userPhotoURL).replace(/['"]+/g, '');
-    var name = (props.userName).replace(/['"]+/g, '');
-    
-    console.log(url);
+const RightIcon = (props) => {        
 
     if (!props.hideRightIcon) {
+        
+        // Loagado
+        if (props.isLoggedUser) {                        
 
-        if (props.isLoggedUser) {
             return(
                 <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren, css.rowOrientation ] }>
-                    <View style = { [ css.flexTwo, css.m_OneRight ] }>
-                        <Text style={ [ css.textWhite, css.size12, css.endtHorizontaly ] }>Bem Vindo</Text>
-                        <Text style={ [ css.textWhite, css.size18, css.fontBebas, css.endtHorizontaly ] }>{name}</Text>
+                    <View style = { [ css.flexTwo, css.m_TwoRight ] }>
+                        <Text style={ [ css.textGray, css.size12, css.endtHorizontaly, css.fontGhotic ] }>Bem Vindo</Text>
+                        <Text style={ [ css.textWhite, css.size18, css.fontBebas, css.endtHorizontaly ] }>{props.userName}</Text>
                     </View>
                     <View style = { [ css.flexOne, css.m_ThreeRight] }>
                         <TouchableOpacity>
                             <Image
-                                source={ {uri: url } }
+                                source={ {uri: props.userPhotoURL } }
                                 style={ css.profileImageHeader }
                             />
                         </TouchableOpacity>
@@ -62,7 +58,7 @@ const RightIcon = (props) => {
                 <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren] }>
                     <View style = { [ { alignSelf: 'flex-end', marginRight:8 } ] }>
                         <TouchableOpacity                    
-                            onPress={()=>props.navigation.navigate('Entrar')}>
+                            onPress={()=>props.navigation.navigate('SignIn')}>
 
                             <Animatable.Image
                                 animation="flipInY"
@@ -127,6 +123,7 @@ const HeaderDefault = (props) => {
                     userPhotoURL={userPhotoURL}
                     hideRightIcon={hideRightIcon}
                     isLoggedUser={isLoggedUser}
+                    navigation={props.navigation}
                 />
 
             </View>

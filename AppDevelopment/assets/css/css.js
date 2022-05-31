@@ -33,26 +33,54 @@ const css = StyleSheet.create({
   m_Three: { margin: 15 } ,
   m_Four: { margin: 25 } ,
 
-  // Top - Right - Bottom - Left
+  p_One: { padding: 5 } ,
+  p_Two: { padding: 10 } ,
+  p_Three: { padding: 15 } ,
+  p_Four: { padding: 25 } ,
+
+  // Top
   m_OneTop: { marginTop: 5 } ,
   m_TwoTop: { marginTop: 10 } ,
   m_ThreeTop: { marginTop: 15 } ,
   m_FourTop: { marginTop: 25 } ,
 
+  p_OneTop: { paddingTop: 5 } ,
+  p_TwoTop: { paddingTop: 10 } ,
+  p_ThreeTop: { paddingTop: 15 } ,
+  p_FourTop: { paddingTop: 25 } ,
+
+  // Right
   m_OneRight: { marginRight: 5 } ,
   m_TwoRight: { marginRight: 10 } ,
   m_ThreeRight: { marginRight: 15 } ,
   m_FourRight: { marginRight: 25 } ,
 
+  p_OneRight: { paddingRight: 5 } ,
+  p_TwoRight: { paddingRight: 10 } ,
+  p_ThreeRight: { paddingRight: 15 } ,
+  p_FourRight: { paddingRight: 25 } ,
+
+  // Bottom
   m_OneBottom: { marginBottom: 5 } ,
   m_TwoBottom: { marginBottom: 10 } ,
   m_ThreeBottom: { marginBottom: 15 } ,
   m_FourBottom: { marginBottom: 25 } ,
 
+  p_OneBottom: { paddingBottom: 5 } ,
+  p_TwoBottom: { paddingBottom: 10 } ,
+  p_ThreeBottom: { paddingBottom: 15 } ,
+  p_FourBottom: { paddingBottom: 25 } ,  
+
+  // Left
   m_OneLeft: { marginLeft: 5 } ,
   m_TwoLeft: { marginLeft: 10 } ,
   m_ThreeLeft: { marginLeft: 15 } ,
   m_FourLeft: { marginLeft: 25 } ,
+
+  p_OneLeft: { paddingLeft: 5 } ,
+  p_TwoLeft: { paddingLeft: 10 } ,
+  p_ThreeLeft: { paddingLeft: 15 } ,
+  p_FourLeft: { paddingLeft: 25 } ,
 
   // Horizonta - Vertical
   m_OneX: { marginHorizontal: 5 } ,
@@ -60,10 +88,20 @@ const css = StyleSheet.create({
   m_ThreeX: { marginHorizontal: 15 } ,
   m_FourX: { marginHorizontal: 25 } ,
 
+  p_OneX: { paddingHorizontal: 5 } ,
+  p_TwoX: { paddingHorizontal: 10 } ,
+  p_ThreeX: { paddingHorizontal: 15 } ,
+  p_FourX: { paddingHorizontal: 25 } ,  
+
   m_OneY: { marginVertical: 5 } ,
   m_TwoY: { marginVertical: 10 } ,
   m_ThreeY: { marginVertical: 15 } ,
   m_FourY: { marginVertical: 25 } ,
+
+  p_OneY: { paddingVertical: 5 } ,
+  p_TwoY: { paddingVertical: 10 } ,
+  p_ThreeY: { paddingVertical: 15 } ,
+  p_FourY: { paddingVertical: 25 } ,    
 
   // Alignment
   centerSelf: { alignSelf: 'center' } ,
@@ -233,7 +271,16 @@ const css = StyleSheet.create({
     borderRadius: 40 ,
     borderWidth: 2 ,
     borderColor: '#eb1f36'
-  }
+  } ,
+
+  // ############ SideBar
+  profileImageSideBar: {
+    width: 100 ,
+    height: 100 ,
+    borderRadius: 50 ,
+    borderWidth: 2 ,
+    borderColor: '#eb1f36'
+  } ,
 
 });
 

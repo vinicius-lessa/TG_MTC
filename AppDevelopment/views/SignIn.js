@@ -26,6 +26,7 @@ import * as Animatable from 'react-native-animatable'  // Animation
 import api from '../services/api'; // API Sauce
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage'; // AsyncStorage
+
 import { ScrollView } from 'react-native-gesture-handler';
 
 
@@ -48,15 +49,17 @@ const SignIn = (props) => {
     const [emailInput    , setEmailInput]       = useState(null);
     const [passwordInput , setPasswordInput]    = useState(null);
     
+    // Error Msg
     const [errorMessage  , setErrorMessage]     = useState(null);
 
-    // User Data
+    // User Logged Data
     const [userEmail        , setUserEmail]     = useState(null);
     const [userProfilePic   , setProfilePic]    = useState(null);
     const [userPass         , setUserPass]      = useState(null);
     const [userId           , setUserID]        = useState(null);
     const [userName         , setUserName]      = useState(null);
 
+    // Loading Bool
     const [isLoading  , setIsLoading]       = useState(false);
 
 
@@ -84,32 +87,27 @@ const SignIn = (props) => {
             const nameText      = response.data.data.user_name ;            
 
             await AsyncStorageLib.multiSet([
-            //     // ['@MTC:token'           , token],
-                ['@MTC:userEmail'       , JSON.stringify(emailText)] ,
-                ['@MTC:userProfilePic'  , JSON.stringify(photoUrl)] ,
+                // ['@MTC:token'           , token],
+                ['@MTC:userEmail'       , emailText] ,
+                ['@MTC:userProfilePic'  , photoUrl] ,
                 ['@MTC:userPassword'    , passwordInput ] ,
-                ['@MTC:userID'          , JSON.stringify(idText)] ,
-                ['@MTC:userName'        , JSON.stringify(nameText)] , 
+                ['@MTC:userID'          , idText] ,
+                ['@MTC:userName'        , nameText] , 
             ]);
+            
+            console.log("SignIn com sucesso!!!")
 
-            // setLoggedInUser(JSON.stringify(user)); //State
-            // setLoggedInUser(JSON.stringify(user)); //State
-            // setLoggedInUser(JSON.stringify(user)); //State
-            // setLoggedInUser(JSON.stringify(user)); //State
-            // setLoggedInUser(JSON.stringify(user)); //State
+            setIsLoading(false);
 
-            Alert.alert("Login Realizado com Sucesso!");
-
-            // Continuar de: https://youtu.be/fBrOtR3pgPU - 25:35
+            return props.navigation.navigate('Welcome');
 
         } catch(response) {                            
             setErrorMessage(response.data.msg);
 
             console.log(response.data);
 
-        }
-
-        setIsLoading(false);
+            setIsLoading(false);
+        }        
     }    
 
     // Similar ao componentDidMount e componentDidUpdate: 
@@ -123,7 +121,7 @@ const SignIn = (props) => {
         const userProfilePicSession = await AsyncStorageLib.getItem('@MTC:userProfilePic');
         const userPasswordSession   = await AsyncStorageLib.getItem('@MTC:userPassword');
         const userIDSession         = await AsyncStorageLib.getItem('@MTC:userID');
-        const userNameSession       = await AsyncStorageLib.getItem('@MTC:userName');
+        const userNameSession       = await AsyncStorageLib.getItem('@MTC:userName');        
 
         if ( userEmailSession && userProfilePicSession && userPasswordSession && userIDSession && userNameSession )            
             setUserEmail(userEmailSession);
@@ -201,7 +199,7 @@ const SignIn = (props) => {
                             />
                         </View>
 
-                        {/* Bottom Page */}
+                        {/* Bottom of Page */}
                         <View>
                             <View style = { [ css.m_FourBottom ] }>
                                 <TouchableOpacity 
@@ -227,7 +225,7 @@ const SignIn = (props) => {
                         
                             <View style = { [ css.m_FourTop ] }>
                                 <TouchableOpacity
-                                    onPress={()=>props.navigation.navigate('Criar Conta')}
+                                    onPress={()=>props.navigation.navigate('SignUp')}
                                 >
                                     <Text style={ [css.textWhite, css.centerText] }>
                                         Não possui Conta?  <Text style={ [ css.fontBold, css.underlineText ] }>Cadastre-se</Text>

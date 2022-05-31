@@ -37,3 +37,8 @@
     - Documentation: https://react-native-async-storage.github.io/async-storage/docs/install/
     - Git Source: https://github.com/react-native-async-storage/async-storage    
     - command: $ expo install @react-native-async-storage/async-storage
+
+- EAS Cli
+    - Description: EAS Build is a new and rapidly evolving service.
+    - Documentation: https://docs.expo.dev/build/setup/ (App Store) - https://docs.expo.dev/build-reference/apk/ (APK)
+    - command: $ npm install -g eas-cli    

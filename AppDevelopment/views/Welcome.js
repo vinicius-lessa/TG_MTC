@@ -5,6 +5,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 18/05/2022: Inclusão da Documentação de Cabeçalho. Mudança na Utilização do componente Navigator.
  *  - Vinícius Lessa - 24/05/2022: Novos ajustes na estrutura e Estilo.
+ *  - Vinícius Lessa - 35/05/2022: Finzalização do processo de naveção após SignIn/SignOut (CustomActions.reset).
  * 
  */
 
@@ -18,14 +19,18 @@ import {
     StatusBar
 } from 'react-native'; // Core Components
 
+import { CommonActions } from '@react-navigation/native'; // React Navigation
+
 import * as Animatable from 'react-native-animatable'
 
 import { css } from '../assets/css/css.js'; // Style - css
+import { State } from 'react-native-gesture-handler';
+
 
 export default function Welcome(props) // Could recieve "{navigation}" instead of "props"
 {
     // console.log(props);
-
+  
     return (  
     <SafeAreaView style={css.container}>
         <StatusBar/>
@@ -41,8 +46,18 @@ export default function Welcome(props) // Could recieve "{navigation}" instead o
         <View style={ [css.flexOne, css.centerVerticaly ] }>
             <Animatable.View delay={600} animation="fadeInUp">
                 <TouchableOpacity
-                    style={ [css.buttonWelcome, css.centerChildren, css.centerSelf] }
-                    onPress={()=>props.navigation.navigate('Anúncios')}
+                    style={ [css.buttonWelcome, css.centerChildren, css.centerSelf] }                    
+                    onPress={() => {
+                            return props.navigation.dispatch(
+                                CommonActions.reset({
+                                    index: 0, // Home
+                                    routes: [
+                                        { name: 'TradePosts' },
+                                    ],
+                                })
+                            )
+                        }
+                    }
                 >
                     <Text style={ [
                         css.size20, 
