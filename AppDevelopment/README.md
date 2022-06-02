@@ -34,11 +34,31 @@
 
 - Async Storage
     - Description: An asynchronous, persistent, key-value storage system for React Native.
-    - Documentation: https://react-native-async-storage.github.io/async-storage/docs/install/
+    - Docs: https://react-native-async-storage.github.io/async-storage/docs/install/
     - Git Source: https://github.com/react-native-async-storage/async-storage    
     - command: $ expo install @react-native-async-storage/async-storage
 
 - EAS Cli
     - Description: EAS Build is a new and rapidly evolving service.
-    - Documentation: https://docs.expo.dev/build/setup/ (App Store) - https://docs.expo.dev/build-reference/apk/ (APK)
-    - command: $ npm install -g eas-cli    
+    - Docs: https://docs.expo.dev/build/setup/ (App Store) - https://docs.expo.dev/build-reference/apk/ (APK)
+    - command: $ npm install -g eas-cli
+
+- Picker Select
+    - Description: A Picker component for React Native which emulates the native <select> interfaces for iOS and Android.
+    - Docs: https://www.npmjs.com/package/react-native-picker-select - https://github.com/lawnstarter/react-native-picker-select#styling
+    - command(s): 
+        - $ npm install react-native-picker-select
+        - # Expo
+        - $ expo install @react-native-picker/picker
+
+- Radio Input
+    - Description: Simple and useful radio button component for React Native.
+    - Docs: https://www.npmjs.com/package/react-native-simple-radio-button
+    - command(s):
+        - $ npm i react-native-simple-radio-button --save
+
+- React Native Mask Input
+    - Description: A simple and effective Text Input with mask for ReactNative on iOS, Android, and Web.
+    - Docs: https://www.npmjs.com/package/react-native-mask-input - https://github.com/CaioQuirinoMedeiros/react-native-mask-input
+    - command(s):
+        - $ npm install react-native-mask-input

@@ -4,6 +4,7 @@
  * @Description Estilo CSS do Projeto.
  * @ChangeLog 
  *  - Vinícius Lessa - 18/05/2022: Inclusão da Documentação de Cabeçalho. Organização e Análise geral das classes utilizadas.
+ *  - Vinícius Lessa - 01/05/2022: Adição da Constante '' referente ao estile aplicado para os "Select Inputs" do projeto.
  * 
  */
 
@@ -176,6 +177,27 @@ const css = StyleSheet.create({
     letterSpacing: 1 ,
   } ,
 
+  // Inputs
+  inputDefault:{
+    textAlign: 'center' ,
+    alignContent: 'center' ,
+    height: 50 ,
+    borderWidth: 1 ,
+    borderColor: '#d3d1d1' ,
+    borderRadius: 20 ,
+    backgroundColor : "#fff" ,
+  } ,
+
+  inputTextArea: (isFocused=false) => ({
+    textAlign: (isFocused ? 'left' : 'center') ,    
+    textAlignVertical: (isFocused ? 'top' : 'center') ,
+    borderWidth: 1 ,
+    borderColor: '#d3d1d1' ,
+    borderRadius: 20 ,
+    backgroundColor : "#fff" ,
+    height:100 ,    
+  }) ,
+
   // Visual
   hrDefault: {
     borderBottomColor: '#434343',
@@ -254,16 +276,6 @@ const css = StyleSheet.create({
     display: 'flex' ,
   } ,
 
-  inputDefault:{
-    textAlign: 'center' ,
-    alignContent: 'center' ,
-    height: 50 ,
-    borderWidth: 1 ,
-    borderColor: '#d3d1d1' ,
-    borderRadius: 20 ,
-    backgroundColor : "#fff" ,
-  } ,
-
   // ############ Header
   profileImageHeader: {
     width: 60 ,
@@ -282,6 +294,37 @@ const css = StyleSheet.create({
     borderColor: '#eb1f36'
   } ,
 
+  // ############ NewTrade Post
+
 });
 
-export{css};
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    color: '#000',    
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    textAlign: 'center' ,
+    alignContent: 'center' ,
+    height: 50 ,
+    borderWidth: 1 ,
+    borderColor: '#d3d1d1' ,
+    borderRadius: 20 ,
+    backgroundColor : "#fff" ,
+    margin: 15 ,
+  } ,
+  inputAndroid: {
+    color: '#000',    
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    textAlign: 'center' ,
+    alignContent: 'center' ,
+    height: 50 ,
+    borderWidth: 1 ,
+    borderColor: '#d3d1d1' ,
+    borderRadius: 20 ,
+    backgroundColor : "#fff" ,
+    margin: 15 ,
+  } ,
+});
+
+export{ css, pickerSelectStyles };

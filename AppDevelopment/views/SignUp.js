@@ -260,7 +260,8 @@ const SignUp = (props) => {
                             <View style = { [ css.m_ThreeY, css.p_ThreeY ] }>
                                 <TouchableOpacity
                                     style={ [css.buttonDefault, { width: '55%' }] }
-                                    onPress={()=>signUpUser()}
+                                    // onPress={()=>signUpUser()}
+                                    onPress={()=>{Alert.alert("Função em Desenvolvimento!")}}
                                 >
                                     <Text style={ [css.size18, css.textWhite, css.fontBold] }>
                                         CRIAR !

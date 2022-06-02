@@ -90,10 +90,11 @@ export default function App() {
           name='NewTradePost'
           component={NewTradePost}
           options={{
-            drawerLabel: 'Criar Anúncio',
+            drawerLabel: 'Novo Anúncio',
             headerShown: false ,            
             drawerActiveTintColor: '#eb1f36' ,
             drawerInactiveTintColor: '#000' ,
+            unmountOnBlur: true,
           }}
         />
         
