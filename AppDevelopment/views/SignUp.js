@@ -55,7 +55,7 @@ const SignUp = (props) => {
     const [phoneInput       , setPhoneInput]    = useState(null);
     const [zipCodeInput     , setZipCodeInput]  = useState(null);
     
-    // Error Msg
+    // API Error Msg
     const [errorMessage  , setErrorMessage]     = useState(null);
 
     // User Logged Data

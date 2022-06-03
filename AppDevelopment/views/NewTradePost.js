@@ -1,9 +1,10 @@
 /**
  * File DOC
  * 
- * @Description Página 'SignIn' para login de usuários. Pode apontar para SignUp ocasionalmente.
+ * @Description Página 'NewTradePost' onde um usuário (já logado) poderá incluir um Novo anúncio ao sistema.
  * @ChangeLog 
  *  - Vinícius Lessa - 31/05/2022: Criação da documentação de Cabeçalho e Mudanças iniciais na estrutura e Estilo da página.
+ *  - Vinícius Lessa - 01/05/2022: Continução da criação do Formulário, diversos avanços visuais e funcionas, inclusão de 3 novos pacotes para os Inputs do Tipo SELECT e RADIO, bem como para user máscara no campo "Valor do Item".
  * 
  */
 
@@ -32,7 +33,7 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 
 // Icons
-import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons'; 
 
 // Form Features
 import RNPickerSelect from 'react-native-picker-select';
@@ -101,6 +102,20 @@ const LoadingIcon = () => {
     );
 };
 
+// Input Msg Model
+const ErrorMsg = (props) => {
+    return(
+        <Text style = { [ 
+            css.textRed, 
+            css.size12, 
+            css.m_OneTop, 
+            css.m_OneLeft 
+        ] }>
+            {props.msg}
+        </Text>
+    );
+};
+
 const NewTradePost = (props) => {
 
     // Form
@@ -125,10 +140,16 @@ const NewTradePost = (props) => {
     const [userName         , setUserName]      = useState(null);
 
     // Loading Bool
-    const [isLoading  , setIsLoading]       = useState(false);
+    const [isLoading  , setIsLoading]   = useState(false);
     
-    // Styles
-    const [isFocused , setFocused] = useState(false);
+    // Form Style/Validation
+    const [isFocused    , setFocused]   = useState(false);        
+    
+    const [titleError       , setTitleError]    = useState(null);
+    const [categoryError    , setCategoryError] = useState(null);
+    const [brandError       , setBrandError]    = useState(null);
+    const [modelError       , setModelError]    = useState(null);    
+    const [priceError       , setPriceError]    = useState(null);    
 
     const placeholderCategory = {
         label: 'Selecionar Categoria',
@@ -152,22 +173,68 @@ const NewTradePost = (props) => {
         label: 'Selecionar Cor',
         value: null,
         color: '#9EA0A4',
-    };    
-
+    };
 
     // New Trade Post Function
     async function InsertNewTP() {
 
-        console.log("Título: " + titleInput);
-        console.log("Categoria: " + categoryInput);
-        console.log("Marca: " + brandInput);
-        console.log("Modelo: " + modelInput);
-        console.log("Cor: " + colorInput);
-        console.log("R$: " +priceInput);
-        console.log("Descrição: " + descriptionInput);
-        console.log("Condição: " + conditionInput);
-        console.log("Possui NF? " + hasNFInput );
-        console.log("**********************************");
+        let isError = false;
+
+        // Validations
+        // Title
+        if ( titleInput === "" || titleInput === null ) {
+            setTitleError(true);
+            isError = true;
+        } else {            
+            setTitleError(false);
+        }
+
+        // Category        
+        if ( categoryInput === "" || categoryInput === null ) {
+            setCategoryError(true);
+            isError = true;
+        } else {
+            setCategoryError(false);
+        }
+
+        // Brand
+        if ( brandInput === "" || brandInput === null ) {
+            setBrandError(true);
+            isError = true;
+        } else {
+            setBrandError(false);
+        }
+                
+        // Model
+        if ( modelInput === "" || modelInput === null ) {
+            setModelError(true);
+            isError = true;
+        } else {            
+            setModelError(false);
+        }        
+        
+        // Price
+        if ( priceInput === "" || priceInput === null ) {
+            setPriceError(true);
+            isError = true;
+        } else {
+            setPriceError(false);
+        }
+
+        if ( isError ) return false;
+
+        console.log("Formulário Validado!");
+
+        // console.log("Título: " + titleInput);
+        // console.log("Categoria: " + categoryInput);
+        // console.log("Marca: " + brandInput);
+        // console.log("Modelo: " + modelInput);
+        // console.log("Cor: " + colorInput);
+        // console.log("R$: " +priceInput);
+        // console.log("Descrição: " + descriptionInput);
+        // console.log("Condição: " + conditionInput);
+        // console.log("Possui NF? " + hasNFInput );
+        // console.log("**********************************");        
 
         // setIsLoading(true);
 
@@ -214,7 +281,7 @@ const NewTradePost = (props) => {
     }    
 
     // Similar ao componentDidMount e componentDidUpdate: 
-    useEffect( async () => {        
+    useEffect( async () => {
 
         // const token         = await AsyncStorageLib.getItem('@MTC:token');
         const userEmailSession      = await AsyncStorageLib.getItem('@MTC:userEmail');
@@ -248,7 +315,7 @@ const NewTradePost = (props) => {
                 
                 {isLoading && <LoadingIcon />}                
 
-                {/* Header */}
+                {/* Briefing */}
                 <View style={ [ css.centerVerticaly, { height: 50 } ]}>
                     <View style={css.centerVerticaly}>
                         <Animatable.View animation="fadeInLeft" delay={300}>
@@ -267,7 +334,7 @@ const NewTradePost = (props) => {
                 <View style={ [ css.flexThree, css.m_FourBottom ]}>
                     <Animatable.View animation="fadeInUp" style={ [ css.m_Three ]}>                    
                                             
-                        {/* Log Messages */}
+                        {/* API Error Messages */}
                         { !!errorMessage && 
                             <View>
                                 <Text style={ [ css.loginMsg, css.size16, css.centerSelf ]}>
@@ -279,139 +346,175 @@ const NewTradePost = (props) => {
                         {/* Inputs */}
                         <View>
                             <View>
+
                                 {/* Title */}
-                                <TextInput
-                                    placeholder="Título"                                    
-                                    maxLength={35}
-                                    style={ [ css.inputDefault, css.m_Three ] }
-                                    onChangeText={text=>setTitleInput(text)}
-                                />                                
+                                <View style = { [ css.m_Three ] }>
+                                    <TextInput
+                                        placeholder="Título"
+                                        maxLength={35}
+                                        style={css.inputDefault}
+                                        onChangeText={text=>setTitleInput(text)}
+                                    />
+                                    { !!titleError && 
+                                        <ErrorMsg 
+                                            msg="Por favor, preencha o campo Título"
+                                        />
+                                    }
+                                </View>
 
                                 {/* Category */}
-                                <RNPickerSelect
-                                    placeholder={placeholderCategory}
-                                    items={sports}
-                                    onValueChange={value => {
-                                        setCategoryInput(value);
-                                    }}
-                                    style={{
-                                        ...pickerSelectStyles,
-                                        iconContainer: {
-                                            top: 25,
-                                            right: 20,                                            
-                                        },
-                                        placeholder: {
-                                            color: '#9EA0A4',
-                                        },
-                                    }}
-                                    // value={this.state.favSport4}
-                                    useNativeAndroidPickerStyle={false}
-                                    textInputProps={{ underlineColor: 'yellow' }}
-                                    Icon={() => {
-                                        return <Ionicons name="md-arrow-down" size={28} color="gray" />;
-                                    }}
-                                />
+                                <View style = { [ css.m_Three ] }>
+                                    <RNPickerSelect
+                                        placeholder={placeholderCategory}
+                                        items={sports}
+                                        onValueChange={value => {
+                                            setCategoryInput(value);
+                                        }}
+                                        style={{
+                                            ...pickerSelectStyles,
+                                            iconContainer: {
+                                                top: 12,
+                                                right: 10,
+                                            },
+                                            placeholder: {
+                                                color: '#9EA0A4',
+                                            },
+                                        }}
+                                        // value={this.state.favSport4}
+                                        useNativeAndroidPickerStyle={false}
+                                        textInputProps={{ underlineColor: 'yellow' }}
+                                        Icon={() => {
+                                            return <Entypo name="chevron-small-down" size={28} color="gray" />;
+                                        }}
+                                    />
+                                    { !!categoryError && 
+                                        <ErrorMsg 
+                                            msg="Por favor, preencha o campo Título"
+                                        />
+                                    }
+                                </View>
 
                                 {/* Brand */}
-                                <RNPickerSelect
-                                    placeholder={placeholderBrand}
-                                    items={sports}
-                                    onValueChange={value => {
-                                        setBrandInput(value);
-                                    }}
-                                    style={{
-                                        ...pickerSelectStyles,
-                                        iconContainer: {
-                                            top: 25,
-                                            right: 20,                                            
-                                        },
-                                        placeholder: {
-                                            color: '#9EA0A4',
-                                        },
-                                    }}
-                                    // value={this.state.favSport4}
-                                    useNativeAndroidPickerStyle={false}
-                                    textInputProps={{ underlineColor: 'yellow' }}
-                                    Icon={() => {
-                                        return <Ionicons name="md-arrow-down" size={28} color="gray" />;
-                                    }}
-                                />
+                                <View style = { [ css.m_Three ] }>
+                                    <RNPickerSelect
+                                        placeholder={placeholderBrand}
+                                        items={sports}
+                                        onValueChange={value => {
+                                            setBrandInput(value);
+                                        }}
+                                        style={{
+                                            ...pickerSelectStyles,
+                                            iconContainer: {
+                                                top: 12,
+                                                right: 10,                                           
+                                            },
+                                            placeholder: {
+                                                color: '#9EA0A4',
+                                            },
+                                        }}                                        
+                                        useNativeAndroidPickerStyle={false}
+                                        textInputProps={{ underlineColor: 'yellow' }}
+                                        Icon={() => {
+                                            return <Entypo name="chevron-small-down" size={28} color="gray" />;
+                                        }}
+                                    />
+                                    { !!brandError && 
+                                        <ErrorMsg 
+                                            msg="Por favor, preencha o campo Marca"
+                                        />
+                                    }
+                                </View>
 
                                 {/* Model */}
-                                <RNPickerSelect
-                                    placeholder={placeholderModel}
-                                    items={sports}
-                                    onValueChange={value => {
-                                        setModelInput(value);
-                                    }}
-                                    style={{
-                                        ...pickerSelectStyles,
-                                        iconContainer: {
-                                            top: 25,
-                                            right: 20,                                            
-                                        },
-                                        placeholder: {
-                                            color: '#9EA0A4',
-                                        },
-                                    }}
-                                    // value={this.state.favSport4}
-                                    useNativeAndroidPickerStyle={false}
-                                    textInputProps={{ underlineColor: 'yellow' }}
-                                    Icon={() => {
-                                        return <Ionicons name="md-arrow-down" size={28} color="gray" />;
-                                    }}
-                                />
+                                <View style = { [ css.m_Three ] }>
+                                    <RNPickerSelect
+                                        placeholder={placeholderModel}
+                                        items={sports}
+                                        onValueChange={value => {
+                                            setModelInput(value);
+                                        }}
+                                        style={{
+                                            ...pickerSelectStyles,
+                                            iconContainer: {
+                                                top: 12,
+                                                right: 10,                                           
+                                            },
+                                            placeholder: {
+                                                color: '#9EA0A4',
+                                            },
+                                        }}
+                                        useNativeAndroidPickerStyle={false}
+                                        textInputProps={{ underlineColor: 'yellow' }}
+                                        Icon={() => {
+                                            return <Entypo name="chevron-small-down" size={28} color="gray" />;
+                                        }}
+                                    />
+                                    { !!modelError && 
+                                        <ErrorMsg 
+                                            msg="Por favor, preencha o campo Modelo"
+                                        />
+                                    }
+                                </View>
 
                                 {/* Color */}
-                                <RNPickerSelect
-                                    placeholder={placeholderColor}
-                                    items={sports}
-                                    onValueChange={value => {
-                                        setColorInput(value);
-                                    }}
-                                    style={{
-                                        ...pickerSelectStyles,
-                                        iconContainer: {
-                                            top: 25,
-                                            right: 20,                                            
-                                        },
-                                        placeholder: {
-                                            color: '#9EA0A4',
-                                        },
-                                    }}
-                                    // value={this.state.favSport4}
-                                    useNativeAndroidPickerStyle={false}
-                                    textInputProps={{ underlineColor: 'yellow' }}
-                                    Icon={() => {
-                                        return <Ionicons name="md-arrow-down" size={28} color="gray" />;
-                                    }}
-                                />                                
+                                <View style = { [ css.m_Three ] }>
+                                    <RNPickerSelect
+                                        placeholder={placeholderColor}
+                                        items={sports}
+                                        onValueChange={value => {
+                                            setColorInput(value);
+                                        }}
+                                        style={{
+                                            ...pickerSelectStyles,
+                                            iconContainer: {
+                                                top: 12,
+                                                right: 10,                                           
+                                            },
+                                            placeholder: {
+                                                color: '#9EA0A4',
+                                            },
+                                        }}
+                                        // value={this.state.favSport4}
+                                        useNativeAndroidPickerStyle={false}
+                                        textInputProps={{ underlineColor: 'yellow' }}
+                                        Icon={() => {
+                                            return <Entypo name="chevron-small-down" size={28} color="gray" />;
+                                        }}
+                                    />
+                                </View>                              
                                 
                                 {/* Price */}
-                                <MaskInput                                    
-                                    maxLength={12}
-                                    keyboardType="number-pad"
-                                    value={priceInput}
-                                    style={ [ css.inputDefault, css.m_Three ] }
-                                    onChangeText={(masked, unmasked) => {
+                                <View style = { [ css.m_Three ] }>
+                                    <MaskInput
+                                        maxLength={12}
+                                        keyboardType="number-pad"
+                                        value={priceInput}
+                                        style={ [ css.inputDefault ] }
+                                        onChangeText={(masked, unmasked) => {
 
-                                        var finalValue = unmasked;                                        
+                                            var finalValue = unmasked;                                        
 
-                                        // Add '.' character
-                                        if ( unmasked.length > 2 ) {
-                                            var valueOne = '';
-                                            var valueTwo = '';
-                                            
-                                            valueOne = finalValue.substring(0, finalValue.length-2);
-                                            valueTwo = ('.' + finalValue.slice(-2));
+                                            // Add '.' character
+                                            if ( unmasked.length > 2 ) {
+                                                var valueOne = '';
+                                                var valueTwo = '';
+                                                
+                                                valueOne = finalValue.substring(0, finalValue.length-2);
+                                                valueTwo = ('.' + finalValue.slice(-2));
 
-                                            finalValue = valueOne + valueTwo;                                            
-                                        }
+                                                finalValue = valueOne + valueTwo;                                            
+                                            }
 
-                                        setPriceInput(finalValue);
-                                    }}
-                                    mask={Masks.BRL_CURRENCY}
-                                />
+                                            setPriceInput(finalValue);
+                                        }}
+                                        mask={Masks.BRL_CURRENCY}
+                                    />
+                                    { !!priceError && 
+                                        <ErrorMsg 
+                                            msg="Por favor, preencha o Preço do Item"
+                                        />
+                                    }
+                                </View>
 
                                 {/* Description */}
                                 <TextInput
@@ -456,9 +559,8 @@ const NewTradePost = (props) => {
                                         style={ [ css.m_ThreeTop ] }
                                         labelStyle={ [ css.m_FourBottom, css.m_OneTop ] }
                                         onPress={(value) => {
-                                            console.log(value)
-                                            setConditionInput(value)
-                                            console.log(conditionInput);
+                                            // console.log(value)
+                                            setConditionInput(value)                                            
                                         }}
                                     />
                                 </View>                            
@@ -481,8 +583,7 @@ const NewTradePost = (props) => {
                                         style={ [ css.m_ThreeTop ] }
                                         labelStyle={ [ css.m_FourBottom, css.m_OneTop, { width: '50%' } ] }
                                         onPress={(value) => {
-                                            setHasNFInput(value);
-                                            console.log(hasNFInput);
+                                            setHasNFInput(value);                                            
                                         }}
                                     />
                                 </View>
@@ -509,7 +610,7 @@ const NewTradePost = (props) => {
                                     onPress={()=>props.navigation.navigate('SignIn')}
                                 >
                                     <Text style={ [css.textWhite, css.centerText] }>
-                                        Já possui uma Conta?  <Text style={ [ css.fontBold, css.underlineText ] }>Entre</Text>
+                                        Para ver seus Anúncios, Clique <Text style={ [ css.fontBold, css.underlineText ] }>Aqui</Text>
                                     </Text>
                                 </TouchableOpacity>
                             </View>

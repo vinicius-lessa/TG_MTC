@@ -21,7 +21,7 @@
         Others
         - $ npm install @react-navigation/native-stack (https://reactnavigation.org/docs/hello-react-navigation)
         - $ npm install @react-navigation/drawer (https://reactnavigation.org/docs/drawer-navigator/)
-        - $ expo install react-native-gesture-handler react-native-reanimated (https://reactnavigation.org/docs/drawer-navigator/)
+        - $ expo install react-native-gesture-handler react-native-reanimated (https://reactnavigation.org/docs/drawer-navigator/ - https://docs.swmansion.com/react-native-gesture-handler/)
             ** Necessário Adicionar plugin no arquivo babel.config.js **
 
 - expo AppLoadging

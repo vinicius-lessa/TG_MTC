@@ -21,11 +21,14 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // Views
 import { 
-  TradePosts , 
-  NewTradePost ,    
+  TradePosts ,
+  TradePostDetailed ,
+  NewTradePost ,  
   Welcome ,
-  SignIn , 
-  SignUp ,  
+  SignIn ,
+  SignUp , 
+  WhoWeAre,
+  HelpScreen, 
 } from './views'; //index
 
 import MusicTradeCenter from './views/MusicTradeCenter';
@@ -58,104 +61,86 @@ export default function App() {
   // const Stack = createNativeStackNavigator();
 
   // React Navigation - Drawer (https://reactnavigation.org/docs/drawer-navigator/)
-  const Drawer = createDrawerNavigator();  
+  const Drawer = createDrawerNavigator();
 
   return (
     <NavigationContainer>
       <Drawer.Navigator        
         drawerContent={ (props) => <SideBar {...props} /> }
         initialRouteName="TradePosts"        
-        screenOptions={{          
-          drawerLabelStyle: {
-            fontSize: 20 ,
-            fontFamily: 'CenturyGothic' ,                        
-          },
-        }}
       >
-        {/* Anúncios (Antiga Home) */}
+        {/* Home / Anúncios - Index: 0 */}
         <Drawer.Screen
-          name='TradePosts'
+          name='TradePosts'          
           component={TradePosts}
-          options={{
-            drawerLabel: 'Anúncios',
+          options={{            
             headerShown: false ,
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
-            unmountOnBlur: true,
+            // unmountOnBlur: true,
           }}
         />
 
-        {/* Criar Post */}
+        {/* TradePostDetailed - Index: 1 */}
+        <Drawer.Screen
+          name='TradePostDetailed'
+          component={TradePostDetailed}          
+          options={{            
+            headerShown: false ,
+            unmountOnBlur: true,
+            gestureHandlerProps:{
+              enabled: false
+            }
+          }}
+        />        
+
+        {/* Criar Post - Index: 2 */}
         <Drawer.Screen
           name='NewTradePost'
           component={NewTradePost}
           options={{
-            drawerLabel: 'Novo Anúncio',
-            headerShown: false ,            
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
-            unmountOnBlur: true,
+            headerShown: false ,
+            unmountOnBlur: true,            
           }}
         />
         
-        {/* Music Trade Center */}
+        {/* Music Trade Center - Index: 3 */}
         <Drawer.Screen
           name='MusicTradeCenter'
           component={MusicTradeCenter}
           options={{
-            drawerLabel: 'Music Trade Center',
             headerShown: false ,            
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
-          }}
+          }}          
         />
 
-        {/* Feed Musical */}
+        {/* Feed Musical - Index: 4 */}
         <Drawer.Screen
           name='FeedMusical'
           component={FeedMusical}
           options={{
-            drawerLabel: 'Feed Musical',
             headerShown: false ,
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
           }}
         />
 
-        {/* SignIn */}
+        {/* SignIn - Index: 5 */}
         <Drawer.Screen
           name="SignIn"
           component={SignIn}
           options={{
-            drawerLabel: 'Entrar',
             headerShown: false ,
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
             unmountOnBlur: true,
           }}
         />        
         
-        {/* SignUp (Antigo 'Create') */}
+        {/* SignUp (Antigo 'Create') - Index: 6 */}
         <Drawer.Screen
           name="SignUp"
           component={SignUp}
           options={{
-            drawerLabel: 'Criar Conta',
             headerShown: false ,
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
             unmountOnBlur: true,
-            drawerItemStyle: {
-              fontSize: 20 ,
-              fontFamily: 'CenturyGothicB' ,              
-              borderBottomWidth: 1 ,
-              borderBottomColor: '#777676' ,
-              paddingBottom: 15
-            } ,
           }}
         />
 
-        {/* Bem-Vindo */}
+        {/* Bem-Vindo - Index: 7 */}
         <Drawer.Screen
           name="Welcome"
           component={Welcome}
@@ -164,122 +149,28 @@ export default function App() {
           }}
         />
 
-        {/* <View style={css.hrLightGrey} /> */}
-
+        {/* Quem Somos - Index: 8 */}
         <Drawer.Screen
-          name="Quem Somos"
-          component={SignUp}
+          name="WhoWeAre"
+          component={WhoWeAre}
           options={{
-            headerShown: false ,            
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
+            drawerLabel: 'Quem Somos',
+            headerShown: false ,
           }}
-        />        
+        />
 
+        {/* Ajuda - Index: 9 */}
         <Drawer.Screen
-          name="Ajuda"
-          component={SignUp}
+          name="Help"
+          component={HelpScreen}
           options={{
-            headerShown: false ,            
-            drawerActiveTintColor: '#eb1f36' ,
-            drawerInactiveTintColor: '#000' ,
+            drawerLabel: 'Ajuda',
+            headerShown: false ,
           }}
         />
 
       </Drawer.Navigator>
       
-    </NavigationContainer>
-    
-    // <NavigationContainer>
-    //   <Stack.Navigator>
-        
-    //     <Stack.Screen
-    //       name="Welcome"
-    //       component={Welcome}
-    //       options={{headerShown: false}}
-    //     />
-
-    //     {/* Antiga Home */}
-    //     <Stack.Screen
-    //       name="TradePosts"
-    //       component={TradePosts}
-    //       options={{headerShown: false}}
-    //     />
-
-    //     {/* Antigo 'LogIn' */}
-    //     <Stack.Screen
-    //       name="SignIn"
-    //       component={SignIn}
-    //       options={{
-    //         title:"",
-    //         headerTintColor: "white",
-    //         headerStyle: {backgroundColor: '#151516'},
-    //         headerTitleStyle: {fontWeight: 'bold'},
-    //         headerTitleAlign: 'center'
-    //       }}          
-    //     />        
-        
-    //     {/* Antigo 'Create' */}
-    //     <Stack.Screen
-    //       name="SignUp"
-    //       component={SignUp}
-    //       options={{headerShown: false}}
-    //     />
-
-    //     {/* Antigo 'CreateAd' */}
-    //     <Stack.Screen
-    //       name="NewTradePost"
-    //       component={NewTradePost}
-    //       options={{headerShown: false}}
-    //     />        
-
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
-    // <NavigationContainer>      
-    //   <Stack.Navigator>
-        
-    //     <Stack.Screen
-    //       name="Welcome"
-    //       component={Welcome}
-    //       options={{headerShown: false}}
-    //     />
-
-    //     {/* Antiga Home */}
-    //     <Stack.Screen
-    //       name="TradePosts"
-    //       component={TradePosts}
-    //       options={{headerShown: false}}
-    //     />
-
-    //     {/* Antigo 'LogIn' */}
-    //     <Stack.Screen
-    //       name="SignIn"
-    //       component={SignIn}
-    //       options={{
-    //         title:"",
-    //         headerTintColor: "white",
-    //         headerStyle: {backgroundColor: '#151516'},
-    //         headerTitleStyle: {fontWeight: 'bold'},
-    //         headerTitleAlign: 'center'
-    //       }}          
-    //     />        
-        
-    //     {/* Antigo 'Create' */}
-    //     <Stack.Screen
-    //       name="SignUp"
-    //       component={SignUp}
-    //       options={{headerShown: false}}
-    //     />
-
-    //     {/* Antigo 'CreateAd' */}
-    //     <Stack.Screen
-    //       name="NewTradePost"
-    //       component={NewTradePost}
-    //       options={{headerShown: false}}
-    //     />        
-
-    //   </Stack.Navigator>
-    // </NavigationContainer>
+    </NavigationContainer>    
   );
 }

@@ -46,7 +46,7 @@ export default function Welcome(props) // Could recieve "{navigation}" instead o
         <View style={ [css.flexOne, css.centerVerticaly ] }>
             <Animatable.View delay={600} animation="fadeInUp">
                 <TouchableOpacity
-                    style={ [css.buttonWelcome, css.centerChildren, css.centerSelf] }                    
+                    style={ [css.buttonWelcome, css.centerChildren, css.centerSelf] }
                     onPress={() => {
                             return props.navigation.dispatch(
                                 CommonActions.reset({

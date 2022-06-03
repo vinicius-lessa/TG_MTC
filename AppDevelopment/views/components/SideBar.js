@@ -26,6 +26,7 @@ import { css } from '../../assets/css/css.js'; // Style - css
 import {
     DrawerContentScrollView,
     DrawerItemList,
+    DrawerItem,
 } from '@react-navigation/drawer';
 
 // Icons
@@ -116,14 +117,6 @@ const SideBar = (props) => {
 
     const [isLoading        , setIsLoading]     = useState(false);
 
-    // Remove 'Welcome' from Drawer List
-    const { state, ...rest } = props;
-    
-    const newState = { ...state}  // Copy from state before applying any filter. do not change original state
-    
-    newState.routes = newState.routes.filter(item => item.name !== 'Welcome') // Replace "Welcome' with your route name
-
-
     // Sing-Out Function
     async function signOutUser() {
 
@@ -174,17 +167,19 @@ const SideBar = (props) => {
             setProfilePic(userProfilePicSession);
             setUserPass(userPasswordSession);
             setUserID(userIDSession);
-            setUserName(userNameSession);           
-    });    
+            setUserName(userNameSession);
+    });
 
     // Booleans
-    const isLoggedUser   = !!userName;    
+    const isLoggedUser   = !!userName;
+
+    var currentPageIndex = props.navigation.getState().index;
 
     return (
         <ScrollView style={ [ { backgroundColor: '#dadada' } ] }>
             <DrawerContentScrollView>
 
-                <ProfileSection 
+                <ProfileSection
                     userName={userName}
                     userPhotoURL={userProfilePic}                    
                     isLoggedUser={isLoggedUser}
@@ -194,7 +189,7 @@ const SideBar = (props) => {
 
                 {isLoading && <LoadingIcon />}
 
-                <View style={ css.hrLightGrey } />
+                <View style={ [css.hrDefault, css.m_TwoX ] } />
                 
                 <View style={ [ {paddingHorizontal: 10} ] }>
                     <View style={css.rowOrientation}>
@@ -202,13 +197,107 @@ const SideBar = (props) => {
                         <AntDesign name="down" size={20} color="black" style={{ top: 18, left: 10 }} />
                     </View>
 
-                    {/* <TouchableOpacity onPress={()=>props.navigation.navigate('Exemple')}>
-                        <Text style = { [css.size24, css.textRed] }>Exemple</Text>
-                    </TouchableOpacity> */}                    
-
-                    <DrawerItemList
-                        state={newState} {...rest}
+                    {/* Trade Posts */}
+                    <DrawerItem
+                        label="Anúncios"
+                        focused={ currentPageIndex == 0 && true }
+                        onPress={() => props.navigation.navigate('TradePosts')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }                        
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
                     />
+
+                    {/* New Trade Post */}
+                    <DrawerItem
+                        label="Novo Anúncio"
+                        focused={ currentPageIndex == 2 && true }
+                        onPress={() => props.navigation.navigate('NewTradePost')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* Music Trade Center */}
+                    <DrawerItem
+                        label="Music Trade Center"
+                        focused={ currentPageIndex == 3 && true }
+                        onPress={() => props.navigation.navigate('MusicTradeCenter')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+                    
+                    {/* Feed Musical */}
+                    <DrawerItem
+                        label="Feed Musical"
+                        focused={ currentPageIndex == 4 && true }
+                        onPress={() => props.navigation.navigate('FeedMusical')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* SignIn */}
+                    <DrawerItem
+                        label="Login"
+                        focused={ currentPageIndex == 5 && true }
+                        onPress={() => props.navigation.navigate('SignIn')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* SignUp */}
+                    <DrawerItem
+                        label="Cadastrar"
+                        focused={ currentPageIndex == 6 && true }
+                        onPress={() => props.navigation.navigate('SignUp')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    <View style={ css.hrDefault } />
+
+                    {/* Who We Are */}
+                    <DrawerItem
+                        label="Sobre"
+                        focused={ currentPageIndex == 8 && true }
+                        onPress={() => props.navigation.navigate('WhoWeAre')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />                    
+
+                    {/* Help */}
+                    <DrawerItem
+                        label="Ajuda"
+                        focused={ currentPageIndex == 9 && true }
+                        onPress={() => props.navigation.navigate('Help')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* <DrawerItemList
+                        {...props}
+                    /> */}
                 </View>
                 
             </DrawerContentScrollView>

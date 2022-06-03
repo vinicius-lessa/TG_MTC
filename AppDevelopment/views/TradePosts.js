@@ -14,8 +14,7 @@ import {
   View ,
   TouchableOpacity ,
   SafeAreaView ,
-  ScrollView ,  
-  ActivityIndicator ,
+  ScrollView ,
 } from 'react-native'; // Core Components
 
 import HeaderDefault from './components/Header';
@@ -27,22 +26,12 @@ import api from '../services/api'; // API Sauce
 
 import AsyncStorageLib from '@react-native-async-storage/async-storage'; // AsyncStorage
 
+import LoadingIcon from './components/LoadingDefault'; // Loading Component
 
-// Loading Component
-const LoadingIcon = () => {
-  return (
-    <View style={css.container}>
-      <View style = { [ css.flexOne, css.rowOrientation, css.centerChildren ] }>
-        <View style = { [ css.centerSelf, css.widthAuto ] }>
-          <ActivityIndicator size="large" color="#eb1f36" style = { [ css.centerSelf ] } />
-        </View>
-      </View>
-    </View>
-  );
-};
 
 // Trade Post Row Component
-const TpRow = (props) => {
+const TpRow = (props) => {  
+  
   return (
     <View style = {[
       css.tradePostRow ,
@@ -86,7 +75,20 @@ const TpRow = (props) => {
           </View>
                       
           <View style = { [ css.centerVerticaly, css.centerChildren, { width: '50%' } ] }>
-            <TouchableOpacity style={ [ css.buttonDefault, { width: '90%' } ] }>
+            <TouchableOpacity 
+              onPress={()=>props.navigation.navigate('TradePostDetailed', {
+                cateogory: props.cateogory ,
+                creator: props.creator ,
+                description: props.description ,
+                post_id: props.post_id ,
+                price: props.price ,
+                title: props.title ,
+                uri: props.uri
+              })}
+              style={[ 
+                css.buttonDefault, { width: '90%' } 
+              ]}
+            >
               <Text style={ [ css.textWhite, css.size15, css.fontGhotic ] }>Detalhes</Text>
             </TouchableOpacity>
           </View>
@@ -98,8 +100,8 @@ const TpRow = (props) => {
 
 const TradePosts = (props) => {
 
-  // SignIn Hooks
-  const [errorMessage, setErrorMessage] = useState(null);  
+  // TradePost Hooks
+  const [errorMessage, setErrorMessage] = useState(null);
   const [tradePostList, setTradePostList] = useState([]);  
 
   // User Data
@@ -219,11 +221,13 @@ const TradePosts = (props) => {
                     <TpRow
                       post_id={tpRow.post_id}
                       title={tpRow.title}
+                      description={tpRow.tp_desc}
                       cateogory={tpRow.pc_desc}
                       creator={tpRow.user_name}                    
                       price={tpRow.price}
                       uri={tpRow.image_name}
                       rowReverse={ isEven ? false : true }
+                      navigation={props.navigation}
                     />
 
                     <View style={ css.hrDefault } />

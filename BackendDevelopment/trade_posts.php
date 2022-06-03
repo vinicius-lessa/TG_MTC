@@ -271,7 +271,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                             u.user_name ,
                             tp.category_id ,
                             pc.description as pc_desc ,
-                            pc.description , 
                             tp.price , 
                             (SELECT image_name FROM images_trade_posts itp 
                             WHERE 	itp.activity_status = 1 AND

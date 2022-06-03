@@ -149,6 +149,7 @@ const css = StyleSheet.create({
   size24: { fontSize: 24 } ,
   size26: { fontSize: 26 } ,
   size30: { fontSize: 30 } ,
+  size35: { fontSize: 35 } ,
 
   // Font Family
   fontBebas: { fontFamily: 'BebasNeue' } ,
@@ -235,7 +236,7 @@ const css = StyleSheet.create({
     height: '100%' ,
     borderRadius: 10 ,
     backgroundColor: '#adadae3a' ,    
-  } ,
+  } ,  
 
   imgDefault: {
     width: '100%' ,
@@ -296,6 +297,16 @@ const css = StyleSheet.create({
 
   // ############ NewTrade Post
 
+  // ############ Trade Post Detailed
+  imgDetailedRow: {
+    width: '100%' ,
+    height: 300 ,
+    marginVertical: 5 ,    
+    alignItems: 'center' ,
+    backgroundColor: '#adadae3a',
+    borderRadius: 10 ,
+  } ,
+
 });
 
 const pickerSelectStyles = StyleSheet.create({
@@ -309,8 +320,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 1 ,
     borderColor: '#d3d1d1' ,
     borderRadius: 20 ,
-    backgroundColor : "#fff" ,
-    margin: 15 ,
+    backgroundColor : "#fff" ,    
   } ,
   inputAndroid: {
     color: '#000',    
@@ -322,8 +332,7 @@ const pickerSelectStyles = StyleSheet.create({
     borderWidth: 1 ,
     borderColor: '#d3d1d1' ,
     borderRadius: 20 ,
-    backgroundColor : "#fff" ,
-    margin: 15 ,
+    backgroundColor : "#fff" ,    
   } ,
 });
 
