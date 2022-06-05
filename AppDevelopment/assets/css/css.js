@@ -28,6 +28,16 @@ const css = StyleSheet.create({
     backgroundColor: '#151516' ,
   } ,
 
+  headerNoDrawer: {
+    flexDirection: 'row' ,
+    width: '100%' ,
+    minWidth: 100 ,
+    minHeight: 75 ,
+    backgroundColor: '#151516' ,    
+    borderBottomColor: '#343434',
+    borderBottomWidth: 1,    
+  } ,
+
   // Margins / Paddings
   m_One: { margin: 5 } ,
   m_Two: { margin: 10 } ,
@@ -109,7 +119,9 @@ const css = StyleSheet.create({
   centerChildren: { alignItems: 'center', alignContent: 'center' } ,
   centerVerticaly: { justifyContent: 'center' } ,
 
+  // Text
   centerText: { textAlign: 'center' } ,
+  justifyText: { textAlign: 'justify' } ,
 
   startHorizontaly: { alignSelf: 'flex-start' } ,
   endtHorizontaly: { alignSelf: 'flex-end' } ,
@@ -150,6 +162,7 @@ const css = StyleSheet.create({
   size26: { fontSize: 26 } ,
   size30: { fontSize: 30 } ,
   size35: { fontSize: 35 } ,
+  size40: { fontSize: 40 } ,
 
   // Font Family
   fontBebas: { fontFamily: 'BebasNeue' } ,
@@ -300,11 +313,24 @@ const css = StyleSheet.create({
   // ############ Trade Post Detailed
   imgDetailedRow: {
     width: '100%' ,
-    height: 300 ,
-    marginVertical: 5 ,    
+    height: 270 ,
+    marginVertical: 5 ,
+    padding: 5 ,    
     alignItems: 'center' ,
-    backgroundColor: '#adadae3a',
+  } ,
+
+  tpDetailedImgBox: {
+    width: '100%' ,
+    height: '100%' ,
     borderRadius: 10 ,
+    backgroundColor: '#adadae3a' ,    
+  } ,
+
+  // ############ UserProfile
+  profileImage: {
+    width: 250 ,
+    height: 250 ,
+    borderRadius: 125 ,
   } ,
 
 });

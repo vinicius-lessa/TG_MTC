@@ -5,7 +5,9 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 26/05/2022: Criação do Arquivo e documentação de Cabeçalho. Início da Estilização.
  *  - Vinícius Lessa - 28/05/2022: Continuação da implementação dos estilos e funcionalidades, como de Sign-out.
- *  - Vinícius Lessa - 35/05/2022: Finzalização do processo de naveção após SignIn/SignOut (CustomActions.reset).
+ *  - Vinícius Lessa - 30/05/2022: Finzalização do processo de naveção após SignIn/SignOut (CustomActions.reset).
+ *  - Vinícius Lessa - 05/06/2022: Aidção das Página 'User Profile' e 'Chats', configuração de 'onPress' ao clicar na foto de Perfil.
+ * 
  */
 
 import React, { useState, useEffect } from 'react';  // JSX Compilation
@@ -62,7 +64,16 @@ const ProfileSection = (props) => {
 
                     {/* Profile Pic */}
                     <View style={ [ css.centerSelf, css.flexOne, { left: 11 } ] }>
-                        <TouchableOpacity style={ [ css.endtHorizontaly, css.m_TwoRight ] }>
+                        <TouchableOpacity 
+                            style={ [ css.endtHorizontaly, css.m_TwoRight ] }
+                            onPress={()=>props.navigation.navigate('UserProfile', {
+                                userId: props.userId ,
+                                userName: props.userName ,
+                                userProfilePic: props.userPhotoURL ,
+                                userEmail: props.userEmail ,
+                                userPass: props.userPass ,
+                            })}
+                        >
                             <Image
                                 source={ {uri: props.userPhotoURL } }
                                 style={ css.profileImageSideBar }
@@ -177,14 +188,17 @@ const SideBar = (props) => {
 
     return (
         <ScrollView style={ [ { backgroundColor: '#dadada' } ] }>
-            <DrawerContentScrollView>
-
+            <DrawerContentScrollView>            
+                
                 <ProfileSection
                     userName={userName}
-                    userPhotoURL={userProfilePic}                    
+                    userPhotoURL={userProfilePic}
+                    userId={userId}
+                    userEmail={userEmail}
+                    userPass={userPass}
                     isLoggedUser={isLoggedUser}
                     navigation={props.navigation}
-                    signOutUser={signOutUser}
+                    signOutUser={signOutUser}                    
                 />
 
                 {isLoading && <LoadingIcon />}
@@ -269,12 +283,42 @@ const SideBar = (props) => {
                         activeTintColor='#eb1f36'
                     />
 
+                    {/* UserProfile */}
+                    <DrawerItem
+                        label="Meu Perfil"
+                        focused={ currentPageIndex == 8 && true }                        
+                        onPress={()=>props.navigation.navigate('UserProfile', {
+                            userId: userId ,
+                            userName: userName ,
+                            userProfilePic: userProfilePic ,
+                            userEmail: userEmail ,
+                            userPass: userPass ,
+                          })}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* Chats */}
+                    <DrawerItem
+                        label="Chats"
+                        focused={ currentPageIndex == 9 && true }
+                        onPress={() => props.navigation.navigate('Chats')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
                     <View style={ css.hrDefault } />
 
                     {/* Who We Are */}
                     <DrawerItem
                         label="Sobre"
-                        focused={ currentPageIndex == 8 && true }
+                        focused={ currentPageIndex == 10 && true }
                         onPress={() => props.navigation.navigate('WhoWeAre')}
                         labelStyle={ [ 
                             css.size20, css.fontGhotic
@@ -286,7 +330,7 @@ const SideBar = (props) => {
                     {/* Help */}
                     <DrawerItem
                         label="Ajuda"
-                        focused={ currentPageIndex == 9 && true }
+                        focused={ currentPageIndex == 11 && true }
                         onPress={() => props.navigation.navigate('Help')}
                         labelStyle={ [ 
                             css.size20, css.fontGhotic

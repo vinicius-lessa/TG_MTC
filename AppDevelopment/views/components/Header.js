@@ -28,13 +28,12 @@ const openMenu = (props) => {
     props.navigation.openDrawer();
 }
 
-
 const RightIcon = (props) => {        
-
+    
     if (!props.hideRightIcon) {
         
         // Loagado
-        if (props.isLoggedUser) {                        
+        if (props.isLoggedUser) {            
 
             return(
                 <View style = { [css.flexOne, css.centerVerticaly, css.centerChildren, css.rowOrientation ] }>
@@ -43,7 +42,17 @@ const RightIcon = (props) => {
                         <Text style={ [ css.textWhite, css.size18, css.fontBebas, css.endtHorizontaly ] }>{props.userName}</Text>
                     </View>
                     <View style = { [ css.flexOne, css.m_ThreeRight] }>
-                        <TouchableOpacity>
+                        {/* UserProfile */}
+                        <TouchableOpacity
+                            onPress={()=>props.navigation.navigate('UserProfile', {
+                                userId: props.userId ,
+                                userName: props.userName ,
+                                userProfilePic: props.userPhotoURL ,
+                                userEmail: props.userEmail ,
+                                userPass: props.userPass ,
+                            })}
+                        >                            
+                        
                             <Image
                                 source={ {uri: props.userPhotoURL } }
                                 style={ css.profileImageHeader }
@@ -81,9 +90,14 @@ const RightIcon = (props) => {
 
 const HeaderDefault = (props) => {   
  
-    const pageTitle      = props.title;   
-    const userName       = props.userName;      
-    const userPhotoURL   = props.userPhotoURL; 
+    const pageTitle      = props.title; 
+    
+    // User Info
+    const userName      = props.userName ;
+    const userPhotoURL  = props.userPhotoURL ;
+    const userEmail     = props.userEmail ;
+    const userPass      = props.userPass ;
+    const userId        = props.userId ;        
 
     // Booleans
     const isLoggedUser   = !!props.userName;
@@ -121,6 +135,9 @@ const HeaderDefault = (props) => {
                 <RightIcon
                     userName={userName}
                     userPhotoURL={userPhotoURL}
+                    userEmail={userEmail}
+                    userPass={userPass}
+                    userId={userId}
                     hideRightIcon={hideRightIcon}
                     isLoggedUser={isLoggedUser}
                     navigation={props.navigation}

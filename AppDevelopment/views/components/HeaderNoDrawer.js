@@ -27,22 +27,17 @@ import { useDrawerStatus } from '@react-navigation/drawer'; // Navigation
 
 const HeaderNoDrawer = (props) => {
 
-    const pageTitle      = props.title;   
-    const userName       = props.userName;      
-    const userPhotoURL   = props.userPhotoURL; 
-
-    // Booleans
-    const isLoggedUser   = !!props.userName;
+    const pageTitle      = props.title;
 
     return (
         <SafeAreaView>
             <StatusBar/>
-            <View style = { [ css.headerDefault ] }>
+            <View style = { [ css.headerNoDrawer ] }>
 
                 {/* Arrow Left */}
                 <View style = { [ 
                     css.centerVerticaly, 
-                    css.p_ThreeX,                    
+                    css.p_ThreeX,
                 ] }>
                     <View style = { [ { alignSelf: 'flex-start' } ] }>
                         <TouchableOpacity                                                        
@@ -58,7 +53,7 @@ const HeaderNoDrawer = (props) => {
                     css.flexOne, 
                     css.centerVerticaly, 
                     css.centerChildren,
-                    css.p_ThreeLeft,                    
+                    css.p_ThreeLeft,
                 ] }>                    
                     <Text style={ [ css.titleText, css.fontBebas, css.startHorizontaly ] }>{pageTitle}</Text>                    
                 </View>

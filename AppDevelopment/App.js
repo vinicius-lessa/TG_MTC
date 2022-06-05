@@ -6,6 +6,7 @@
  *  - Vinícius Lessa - 18/05/2022: Inclusão da documentação de Cebeçalho. Mudanças na utilização de Navigators, como nome nome de arquivos, suas funções e Localização no Projeto (Vide histórico de mudanças de cada arquivo).
  *  - Vinícius Lessa - 23/05/2022: Importação de Fontes Customizadas.
  *  - Vinícius Lessa - 25/05/2022: Implementação do Novo NAVIGATOR Drawer.
+ *  - Vinícius Lessa - 05/06/2022: Aidção das Página 'User Profile' e 'Chats'.
  * 
  */
 
@@ -26,7 +27,9 @@ import {
   NewTradePost ,  
   Welcome ,
   SignIn ,
-  SignUp , 
+  SignUp ,
+  UserProfile,
+  Chats,
   WhoWeAre,
   HelpScreen, 
 } from './views'; //index
@@ -90,7 +93,7 @@ export default function App() {
               enabled: false
             }
           }}
-        />        
+        />
 
         {/* Criar Post - Index: 2 */}
         <Drawer.Screen
@@ -149,7 +152,27 @@ export default function App() {
           }}
         />
 
-        {/* Quem Somos - Index: 8 */}
+        {/* UserProfile - Index: 8 */}
+        <Drawer.Screen
+          name='UserProfile'
+          component={UserProfile}          
+          options={{            
+            headerShown: false ,
+            unmountOnBlur: true,
+          }}
+        />
+
+        {/* Chats - Index: 9 */}
+        <Drawer.Screen
+          name='Chats'
+          component={Chats}          
+          options={{            
+            headerShown: false ,
+            unmountOnBlur: true,            
+          }}
+        />
+
+        {/* Quem Somos - Index: 10 */}
         <Drawer.Screen
           name="WhoWeAre"
           component={WhoWeAre}
@@ -159,7 +182,7 @@ export default function App() {
           }}
         />
 
-        {/* Ajuda - Index: 9 */}
+        {/* Ajuda - Index: 11 */}
         <Drawer.Screen
           name="Help"
           component={HelpScreen}

@@ -5,7 +5,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 18/05/2022: Mudança do nome do arquivo de 'Home' para 'TradePosts', seguindo padrão WEB. Mudanças estruturais e visuais.
  *  - Vinícius Lessa - 23/05/2022: Continuação da tratative de carregamento das Fonts e Consumo da API (Utilização da API Sauce).
- * 
+ *  - Vinícius Lessa - 05/06/2022: Ajuste do comprimento dos dados do anúncio (para evitar estouro de layout).
  */
 
 import React, { useState, useEffect } from 'react';  // JSX Compilation
@@ -53,18 +53,22 @@ const TpRow = (props) => {
       <View style={css.tpDescriptionBox}>
         
         {/* TP Title */}
-        <Text style={ [css.tradePostTitle, css.fontGhotic ] }>{props.title}</Text>
+        <Text style={ [css.tradePostTitle, css.fontGhotic ] }> { props.title.length < 40 ? props.title : props.title.substring(0, 40) + "..." } </Text>
 
         {/* TP General Info */}
         <View style = { css.tpInfoBox }>
           <Text style={ [ css.size16, css.fontGhotic ] }>
             <Text style={ [ css.textRed ] }>Categoria: </Text>
-            <Text style={ [ css.textWhite ] }>{props.cateogory}</Text>
+            <Text style={ [ css.textWhite ] }>              
+              { props.cateogory.length < 13 ? props.cateogory : props.cateogory.substring(0, 13) + "..." } 
+              </Text>
           </Text>
 
           <Text style={ [ css.size16, css.fontGhotic ] }>
             <Text style={ [ css.textRed, css.fontGhotic ] }>Por: </Text>
-            <Text style={ [ css.textWhite, css.fontGhotic ] }>{props.creator}</Text>
+            <Text style={ [ css.textWhite, css.fontGhotic ] }>              
+              { props.creator.length < 20 ? props.creator : props.creator.substring(0, 20) + "..." }
+            </Text>
           </Text>          
         </View>
         
@@ -164,6 +168,9 @@ const TradePosts = (props) => {
           title="Anúncios"          
           userName={userName}
           userPhotoURL={userProfilePic}
+          userEmail={userEmail}  
+          userPass={userPass}
+          userId={userId}
           hideRightIcon={true}
           navigation={props.navigation}
         />
@@ -180,6 +187,9 @@ const TradePosts = (props) => {
         title="Anúncios"          
         userName={userName}
         userPhotoURL={userProfilePic}
+        userEmail={userEmail}  
+        userPass={userPass}
+        userId={userId}
         hideRightIcon={false}
         navigation={props.navigation}
       />

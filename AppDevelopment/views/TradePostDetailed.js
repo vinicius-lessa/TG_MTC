@@ -59,12 +59,11 @@ const TradePostDetailed = ( {route, navigation} ) => {
       let a_Values = response.data;
       
       // Doesn't replace
-      tpInfo.length == 0 && setTPInfo( a_Values );
-
-      console.log(tpInfo.data[0]);
+      tpInfo.length == 0 && setTPInfo( a_Values );      
       
     } catch (response) {
       setErrorMessage("Erro: " + response.data.msg);
+      console.log(response);
 
     }
   }
@@ -118,7 +117,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
         <ScrollView>
 
           {/* Main Post */}
-          <View style={ [ css.p_Three ] }>
+          <View style={ [ css.p_Three, css.m_ThreeTop ] }>
 
             {/* Post Title */}
             <View style={ [
@@ -136,6 +135,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
                       css.textLightgray,
                       css.endtHorizontaly,
                       css.m_TwoTop,
+                      css.m_OneRight,
                       css.size12
                   ] }>
                   Post #{post_id}
@@ -143,29 +143,30 @@ const TradePostDetailed = ( {route, navigation} ) => {
             </View>
 
             {/* Images */}
-            <View style={ [
+            <View style = {[
               css.imgDetailedRow ,
-              css.centerVerticaly,
-              css.m_ThreeTop
-            ]}>
-              <TouchableOpacity
-                onPress={()=>Alert.alert("Função em Desenvolvimento!")}
-              >
-                <Image
-                  source={ {uri: tpInfo.data[0].image_name } }
-                  resizeMode = "contain"
-                  style={ [ {
-                    width: 300, height: 300
-                  }] }
-                />
-                
-              </TouchableOpacity>
-            </View>
+              css.rowOrientation ,
+              { width: "auto", minWidth: 100, },
+            ]}
+            >
+              <View style={css.tpDetailedImgBox}>
+                <TouchableOpacity
+                  onPress={()=>Alert.alert("Função em Desenvolvimento!")}
+                >
+                  <Image
+                    source={ {uri: tpInfo.data[0].image_name } }
+                    resizeMode = 'contain'
+                    // resizeMethod = 'resize'
+                    style={ css.imgDefault }
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>            
 
             {/* Trade Post Detailed */}
             <View style ={ [
               css.centerChildren,
-              css.m_ThreeTop ,
+              css.m_OneTop ,
               css.p_TwoY,
             ]}>
 
@@ -177,16 +178,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
                   css.fontGhotic,
                   css.centerText
                 ] }>
-                  Categoria:
-                </Text>
-
-                <Text style={ [
-                  css.size18, 
-                  css.textWhite,
-                  css.fontGhotic,
-                  css.centerText
-                ] }>
-                  {cateogory}
+                  Categoria: <Text style = { css.textWhite }>{cateogory}</Text>
                 </Text>
               </View>
 
@@ -198,16 +190,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
                   css.fontGhotic,
                   css.centerText
                 ] }>
-                  Marca:
-                </Text>
-
-                <Text style={ [
-                  css.size18, 
-                  css.textWhite,
-                  css.fontGhotic,
-                  css.centerText
-                ] }>
-                  {tpInfo.data[0].pb_desc}
+                  Marca: <Text style = { css.textWhite }>{tpInfo.data[0].pb_desc}</Text>
                 </Text>
               </View>
               
@@ -219,16 +202,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
                   css.fontGhotic,
                   css.centerText
                 ] }>
-                  Model:
-                </Text>
-
-                <Text style={ [
-                  css.size18,
-                  css.textWhite,
-                  css.fontGhotic,
-                  css.centerText
-                ] }>
-                  {tpInfo.data[0].pm_desc}
+                  Modelo: <Text style = { css.textWhite }>{tpInfo.data[0].pm_desc}</Text>
                 </Text>
               </View>              
 
@@ -253,10 +227,9 @@ const TradePostDetailed = ( {route, navigation} ) => {
                 </Text>              
               </View>
 
-                  
             </View>
 
-            {/* Other Info */}
+            {/* Other Info */}            
             <View style={[ css.p_ThreeY ]}>
               <Text style={[ css.size30, css.textWhite, css.fontGhotic, css.centerText ]}>
                 R$ {price}
@@ -282,7 +255,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
 
             </View>
           </View>
-        </ScrollView>
+        </ScrollView>       
 
     </SafeAreaView>
   );
