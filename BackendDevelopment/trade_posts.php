@@ -663,7 +663,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
 
     $imageUpload    = false; // By default, image upload will not happen    
     
-    // Check Recieved Data
+    // Check Received Data
     // echo json_encode([
     //     "error" => true ,
     //     "msg"   => 'Teste' ,
@@ -703,7 +703,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             $a_NewLocations = array();
             $a_FileNames    = array();
             
-            // Check recieved values
+            // Check Received values
             // echo var_dump($_FILES); // Doesn't work with JS
             // echo json_encode( ['Arquivos' => $_FILES] );
     
@@ -866,7 +866,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
             $a_NewLocations = array();
             $a_FileNames    = array();
             
-            // Check recieved values
+            // Check Received values
             // echo var_dump($_FILES); // Doesn't work with JS
             // echo json_encode( ['Arquivos' => $_FILES] );            
     

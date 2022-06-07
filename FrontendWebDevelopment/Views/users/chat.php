@@ -365,9 +365,11 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                         endif;
                         $lastId = $chat['post_id'];
                     ?>                      
-                      <?php if ( $chat["userid_tp_creator"] == $userLogged ):
-                        $countChatRows += 1;
-                      ?>                      
+                      <?php
+                        // Only if User Logged = Author
+                        if ( $chat["userid_tp_creator"] == $userLogged ):
+                          $countChatRows += 1;
+                      ?>
 
                         <div class="col-12">                          
                           <div class="row mb-1">                            
@@ -378,7 +380,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                               >
                                 <strong>
                                   <p class="mb-2">
-                                  <?php echo $chat["post_title"] ?>
+                                    <?php echo $chat["post_title"] ?>
                                   </p>
                                 </strong>
                               </a>

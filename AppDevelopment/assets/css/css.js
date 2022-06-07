@@ -32,7 +32,7 @@ const css = StyleSheet.create({
     flexDirection: 'row' ,
     width: '100%' ,
     minWidth: 100 ,
-    minHeight: 75 ,
+    minHeight: 65 ,
     backgroundColor: '#151516' ,    
     borderBottomColor: '#343434',
     borderBottomWidth: 1,    
@@ -147,10 +147,10 @@ const css = StyleSheet.create({
   bkOrange:     { backgroundColor: '#eb8d0b' } ,
   bkBlue:       { backgroundColor: '#177bd9' } ,
   bkPurple:     { backgroundColor: '#6f1fc0' } ,
-  bkGreen:      { backgroundColor: '#29c418' } ,
-  bkChat:       { backgroundColor: '#111415' } ,
+  bkGreen:      { backgroundColor: '#29c418' } ,  
 
   // Font Size
+  size10: { fontSize: 10 } ,
   size12: { fontSize: 12 } ,
   size14: { fontSize: 14 } ,
   size15: { fontSize: 15 } ,
@@ -162,7 +162,6 @@ const css = StyleSheet.create({
   size26: { fontSize: 26 } ,
   size30: { fontSize: 30 } ,
   size35: { fontSize: 35 } ,
-  size40: { fontSize: 40 } ,
 
   // Font Family
   fontBebas: { fontFamily: 'BebasNeue' } ,
@@ -181,6 +180,7 @@ const css = StyleSheet.create({
 
   // Font Style
   fontBold: { fontWeight: 'bold' } ,
+  fontNormal: { fontWeight: 'normal' } ,  
   underlineText: { textDecorationLine: 'underline' } ,
   
   // Default Text's
@@ -188,6 +188,13 @@ const css = StyleSheet.create({
     textAlign: 'center' ,
     color:'#FFF' ,
     fontSize: 40 ,
+    letterSpacing: 1 ,
+  } ,
+
+  headerNavText:{
+    textAlign: 'center' ,
+    color:'#FFF' ,
+    fontSize: 30 ,
     letterSpacing: 1 ,
   } ,
 
@@ -218,12 +225,6 @@ const css = StyleSheet.create({
     borderBottomWidth: 1,
     marginVertical: 15 ,
   } ,
-
-  hrLightGrey: {
-    borderBottomColor: '#777676',
-    borderBottomWidth: 1,
-    marginVertical: 15 ,
-  } ,  
 
   // Buttons
   buttonDefault:{
@@ -276,11 +277,11 @@ const css = StyleSheet.create({
 
 
   // ############ Welcome
-  buttonWelcome:{    
-    width: '60%',
+  buttonWelcome:{
+    width: '50%',
     backgroundColor: '#eb1f36',
     borderRadius: 50,
-    paddingVertical: 13
+    paddingVertical: 10
   } ,
 
 
@@ -333,8 +334,51 @@ const css = StyleSheet.create({
     borderRadius: 125 ,
   } ,
 
+  // ############ Chats
+  profileImage: {
+    width: 250 ,
+    height: 250 ,
+    borderRadius: 125 ,
+  } ,
+  
+  // Chat List
+  chatList: {
+    backgroundColor: '#383a3b' ,
+    margin: 6 ,
+    padding: 5 ,
+    borderRadius: 5 ,    
+  } ,
+
+  chatListRow: {    
+    marginVertical: 5 ,
+    padding: 5 ,
+    height: 70 ,
+    width: '100%' ,
+    flexDirection: 'row' ,
+    alignItems: 'center' ,
+  } ,
+
+  chatListImgBox: {
+    width: '25%' ,
+    height: '100%' ,
+    borderRadius: 10 ,
+    backgroundColor: '#adadae3a' ,
+  } ,
+
+  chatListDescBox: {
+    width: '75%' ,
+    height: '100%' ,    
+  } ,
+
+  hrChatList: {
+    borderBottomColor: '#2b2a2a',
+    borderBottomWidth: .6,
+    marginVertical: 8,
+  } ,  
+
 });
 
+// Especific Style used whitin "SignUp" and "NewTradePost" screen's
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     color: '#000',    

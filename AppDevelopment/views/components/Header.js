@@ -97,11 +97,11 @@ const HeaderDefault = (props) => {
     const userPhotoURL  = props.userPhotoURL ;
     const userEmail     = props.userEmail ;
     const userPass      = props.userPass ;
-    const userId        = props.userId ;        
+    const userId        = props.userId ;
 
     // Booleans
     const isLoggedUser   = !!props.userName;
-    const hideRightIcon  = props.hideRightIcon;    
+    const hideRightIcon  = props.hideRightIcon;
 
     return (
         <SafeAreaView>

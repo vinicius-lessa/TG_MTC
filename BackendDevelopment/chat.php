@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     $newMessage     = (isset($_POST['newMessage']))     ? $_POST['newMessage'] : 0          ;
     // $chat_id        = (isset($_POST['chat_id']))        ? intval($_POST['chat_id']) : 0     ;
     
-    // Check Recieved Data
+    // Check Received Data
     // http_response_code(201);
     // echo json_encode([
     //     'error' => true ,

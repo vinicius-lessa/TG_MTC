@@ -6,8 +6,8 @@
  *  - Vinícius Lessa - 26/05/2022: Criação do Arquivo e documentação de Cabeçalho. Início da Estilização.
  *  - Vinícius Lessa - 28/05/2022: Continuação da implementação dos estilos e funcionalidades, como de Sign-out.
  *  - Vinícius Lessa - 30/05/2022: Finzalização do processo de naveção após SignIn/SignOut (CustomActions.reset).
- *  - Vinícius Lessa - 05/06/2022: Aidção das Página 'User Profile' e 'Chats', configuração de 'onPress' ao clicar na foto de Perfil.
- * 
+ *  - Vinícius Lessa - 05/06/2022: Adição das Página 'User Profile' e 'Chats', configuração de 'onPress' ao clicar na foto de Perfil.
+ *  - Vinícius Lessa - 06/06/2022: Tratativa para mudança dos Links de navegação baseado no estado de Login do Usuário.
  */
 
 import React, { useState, useEffect } from 'react';  // JSX Compilation
@@ -52,7 +52,7 @@ const LoadingIcon = () => {
     );
 };
 
-const ProfileSection = (props) => {            
+const ProfileSection = (props) => {
 
     // Loagado
     if (props.isLoggedUser) {
@@ -108,13 +108,169 @@ const ProfileSection = (props) => {
                     <Ionicons style={ [ css.endtHorizontaly ] } name="person-circle-sharp" size={100} color="#eb1f36" />
                 </View>
                 <View style={ [ css.centerSelf, css.flexOne ] }>
-                    <TouchableOpacity onPress={()=>props.navigation.navigate('Entrar')}>
+                    <TouchableOpacity onPress={()=>props.navigation.navigate('SignIn')}>
                         <Text style = { [css.size24, css.textRed] }>ENTRAR</Text>
                     </TouchableOpacity>
                 </View>
             </View>  
         );
     }
+}
+
+const DrawerItens = (props) => {    
+    return (
+        <View>
+            {/* Trade Posts */}
+            <DrawerItem
+                label="Anúncios"
+                focused={ props.currentPageIndex == 0 && true }
+                onPress={() => props.navigation.navigate('TradePosts')}
+                labelStyle={ [ 
+                    css.size20, css.fontGhotic
+                ] }                        
+                inactiveTintColor='#575757'
+                activeTintColor='#eb1f36'
+            />
+
+            {/* New Trade Post */}
+            <DrawerItem
+                label="Novo Anúncio"
+                focused={ props.currentPageIndex == 2 && true }
+                onPress={() => props.navigation.navigate('NewTradePost')}
+                labelStyle={ [ 
+                    css.size20, css.fontGhotic
+                ] }
+                inactiveTintColor='#575757'
+                activeTintColor='#eb1f36'
+            />
+
+            {/* Music Trade Center */}
+            <DrawerItem
+                label="Music Trade Center"
+                focused={ props.currentPageIndex == 3 && true }
+                onPress={() => props.navigation.navigate('MusicTradeCenter')}
+                labelStyle={ [ 
+                    css.size20, css.fontGhotic
+                ] }
+                inactiveTintColor='#575757'
+                activeTintColor='#eb1f36'
+            />
+            
+            {/* Feed Musical */}
+            <DrawerItem
+                label="Feed Musical"
+                focused={ props.currentPageIndex == 4 && true }
+                onPress={() => props.navigation.navigate('FeedMusical')}
+                labelStyle={ [ 
+                    css.size20, css.fontGhotic
+                ] }
+                inactiveTintColor='#575757'
+                activeTintColor='#eb1f36'
+            />
+            
+            {/* Unlogged */}
+            {
+                !props.isLoggedUser &&
+                <View>
+                    {/* SignIn */}
+                    <DrawerItem
+                        label="Login"
+                        focused={ props.currentPageIndex == 5 && true }
+                        onPress={() => props.navigation.navigate('SignIn')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* SignUp */}
+                    <DrawerItem
+                        label="Cadastrar"
+                        focused={ props.currentPageIndex == 6 && true }
+                        onPress={() => props.navigation.navigate('SignUp')}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+                </View>
+            }
+
+            {/* Logged */}
+            {
+                props.isLoggedUser &&
+                <View>
+                    {/* UserProfile */}
+                    <DrawerItem
+                        label="Meu Perfil"
+                        focused={ props.currentPageIndex == 8 && true }
+                        onPress={()=>props.navigation.navigate('UserProfile', {
+                            userId: props.userId ,
+                            userName: props.userName ,
+                            userProfilePic: props.userProfilePic ,
+                            userEmail: props.userEmail ,
+                            userPass: props.userPass ,
+                        })}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+
+                    {/* Chats */}
+                    <DrawerItem
+                        label="Chats"
+                        focused={ props.currentPageIndex == 9 && true }                        
+                        onPress={()=>props.navigation.navigate('Chats', {
+                            userId: props.userId ,
+                            userName: props.userName ,
+                            userProfilePic: props.userProfilePic ,
+                            userEmail: props.userEmail ,
+                            userPass: props.userPass ,                            
+                        })}
+                        labelStyle={ [ 
+                            css.size20, css.fontGhotic
+                        ] }
+                        inactiveTintColor='#575757'
+                        activeTintColor='#eb1f36'
+                    />
+                </View>
+            }                    
+
+            <View style={ css.hrDefault } />
+
+            {/* Who We Are */}
+            <DrawerItem
+                label="Sobre"
+                focused={ props.currentPageIndex == 10 && true }
+                onPress={() => props.navigation.navigate('WhoWeAre')}
+                labelStyle={ [ 
+                    css.size20, css.fontGhotic
+                ] }
+                inactiveTintColor='#575757'
+                activeTintColor='#eb1f36'
+            />                    
+
+            {/* Help */}
+            <DrawerItem
+                label="Ajuda"
+                focused={ props.currentPageIndex == 11 && true }
+                onPress={() => props.navigation.navigate('Help')}
+                labelStyle={ [ 
+                    css.size20, css.fontGhotic
+                ] }
+                inactiveTintColor='#575757'
+                activeTintColor='#eb1f36'
+            />
+
+            {/* <DrawerItemList
+                {...props}
+            /> */}
+        </View>
+    );    
 }
 
 const SideBar = (props) => {    
@@ -182,8 +338,9 @@ const SideBar = (props) => {
     });
 
     // Booleans
-    const isLoggedUser   = !!userName;
+    const isLoggedUser   = !!userName && !!userEmail && !!userProfilePic && !!userPass && !!userId;
 
+    // Navigation
     var currentPageIndex = props.navigation.getState().index;
 
     return (
@@ -211,137 +368,19 @@ const SideBar = (props) => {
                         <AntDesign name="down" size={20} color="black" style={{ top: 18, left: 10 }} />
                     </View>
 
-                    {/* Trade Posts */}
-                    <DrawerItem
-                        label="Anúncios"
-                        focused={ currentPageIndex == 0 && true }
-                        onPress={() => props.navigation.navigate('TradePosts')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }                        
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* New Trade Post */}
-                    <DrawerItem
-                        label="Novo Anúncio"
-                        focused={ currentPageIndex == 2 && true }
-                        onPress={() => props.navigation.navigate('NewTradePost')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* Music Trade Center */}
-                    <DrawerItem
-                        label="Music Trade Center"
-                        focused={ currentPageIndex == 3 && true }
-                        onPress={() => props.navigation.navigate('MusicTradeCenter')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
+                    {/* Drawer List */}
+                    <DrawerItens
+                        userName={userName}
+                        userProfilePic={userProfilePic}
+                        userId={userId}
+                        userEmail={userEmail}
+                        userPass={userPass}
+                        isLoggedUser={isLoggedUser}
+                        currentPageIndex={currentPageIndex}
+                        navigation={props.navigation}
+                    />                                        
                     
-                    {/* Feed Musical */}
-                    <DrawerItem
-                        label="Feed Musical"
-                        focused={ currentPageIndex == 4 && true }
-                        onPress={() => props.navigation.navigate('FeedMusical')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* SignIn */}
-                    <DrawerItem
-                        label="Login"
-                        focused={ currentPageIndex == 5 && true }
-                        onPress={() => props.navigation.navigate('SignIn')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* SignUp */}
-                    <DrawerItem
-                        label="Cadastrar"
-                        focused={ currentPageIndex == 6 && true }
-                        onPress={() => props.navigation.navigate('SignUp')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* UserProfile */}
-                    <DrawerItem
-                        label="Meu Perfil"
-                        focused={ currentPageIndex == 8 && true }                        
-                        onPress={()=>props.navigation.navigate('UserProfile', {
-                            userId: userId ,
-                            userName: userName ,
-                            userProfilePic: userProfilePic ,
-                            userEmail: userEmail ,
-                            userPass: userPass ,
-                          })}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* Chats */}
-                    <DrawerItem
-                        label="Chats"
-                        focused={ currentPageIndex == 9 && true }
-                        onPress={() => props.navigation.navigate('Chats')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    <View style={ css.hrDefault } />
-
-                    {/* Who We Are */}
-                    <DrawerItem
-                        label="Sobre"
-                        focused={ currentPageIndex == 10 && true }
-                        onPress={() => props.navigation.navigate('WhoWeAre')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />                    
-
-                    {/* Help */}
-                    <DrawerItem
-                        label="Ajuda"
-                        focused={ currentPageIndex == 11 && true }
-                        onPress={() => props.navigation.navigate('Help')}
-                        labelStyle={ [ 
-                            css.size20, css.fontGhotic
-                        ] }
-                        inactiveTintColor='#575757'
-                        activeTintColor='#eb1f36'
-                    />
-
-                    {/* <DrawerItemList
-                        {...props}
-                    /> */}
+                    
                 </View>
                 
             </DrawerContentScrollView>

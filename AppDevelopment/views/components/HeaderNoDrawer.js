@@ -18,16 +18,14 @@
    
 import { css } from '../../assets/css/css.js'; // Style - css
 
-import * as Animatable from 'react-native-animatable'; // Animation
-
 import { AntDesign } from '@expo/vector-icons'; // Icons
-
-import { useDrawerStatus } from '@react-navigation/drawer'; // Navigation
  
 
 const HeaderNoDrawer = (props) => {
 
-    const pageTitle      = props.title;
+    const pageTitle = props.title;
+    
+    console.log(props.navigation.getState());
 
     return (
         <SafeAreaView>
@@ -43,7 +41,7 @@ const HeaderNoDrawer = (props) => {
                         <TouchableOpacity                                                        
                             onPress={() => props.navigation.goBack()}
                         >                            
-                            <AntDesign name="arrowleft" size={28} color="#eb1f36" />
+                            <AntDesign name="arrowleft" size={24} color="#eb1f36" />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -55,7 +53,13 @@ const HeaderNoDrawer = (props) => {
                     css.centerChildren,
                     css.p_ThreeLeft,
                 ] }>                    
-                    <Text style={ [ css.titleText, css.fontBebas, css.startHorizontaly ] }>{pageTitle}</Text>                    
+                    <Text style={ [ 
+                        css.headerNavText,
+                        css.fontBebas,
+                        css.startHorizontaly
+                    ] }>
+                        {pageTitle}
+                    </Text>
                 </View>
 
             </View>

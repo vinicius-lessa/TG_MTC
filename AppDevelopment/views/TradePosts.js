@@ -37,8 +37,7 @@ const TpRow = (props) => {
       css.tradePostRow ,
       props.rowReverse ? css.rowReverseOrientation : css.rowOrientation ,
       { width: "auto", minWidth: 100, },
-    ]}
-    >
+    ]}>
       {/* Image */}
       <View style={css.tpImgBox}>
         <Animatable.Image
@@ -66,10 +65,10 @@ const TpRow = (props) => {
 
           <Text style={ [ css.size16, css.fontGhotic ] }>
             <Text style={ [ css.textRed, css.fontGhotic ] }>Por: </Text>
-            <Text style={ [ css.textWhite, css.fontGhotic ] }>              
+            <Text style={ [ css.textWhite, css.fontGhotic ] }>
               { props.creator.length < 20 ? props.creator : props.creator.substring(0, 20) + "..." }
             </Text>
-          </Text>          
+          </Text>
         </View>
         
         {/* Price + Details */}
@@ -77,17 +76,11 @@ const TpRow = (props) => {
           <View style = { [ css.centerVerticaly, css.centerChildren , { width: '50%' }] }>
             <Text style={ [ css.size18, css.textWhite, css.fontGhotic ]}>R$ {props.price}</Text>
           </View>
-                      
+
           <View style = { [ css.centerVerticaly, css.centerChildren, { width: '50%' } ] }>
             <TouchableOpacity 
               onPress={()=>props.navigation.navigate('TradePostDetailed', {
-                cateogory: props.cateogory ,
-                creator: props.creator ,
-                description: props.description ,
-                post_id: props.post_id ,
-                price: props.price ,
-                title: props.title ,
-                uri: props.uri
+                post_id: props.post_id ,                
               })}
               style={[ 
                 css.buttonDefault, { width: '90%' } 
@@ -135,7 +128,11 @@ const TradePosts = (props) => {
       tradePostList.length == 0 && setTradePostList( a_Values );
       
     } catch (response) {
-      setErrorMessage("Erro: " + response.data.msg);
+      if ( response.data.msg ) {
+        setErrorMessage("Erro: " + response.data.msg);
+      } else {
+        setErrorMessage("Erro Inesperado! " + response);
+      }        
 
     }
   }

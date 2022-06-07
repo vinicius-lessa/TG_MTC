@@ -46,9 +46,14 @@ $uri = basename($_SERVER['REQUEST_URI']);
 // ### GET (Consulta)
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
 
-    // For example:  .../users.php/?token=...&key=allUsers
-    // For example: .../users.php/?token=...&key=id&value=7
-    // For example: .../users.php/?token=...&key=email&value=vinicius@gmail.com
+    /*
+    Posible GET Requests:
+        All Users: 
+            For example:  .../users.php/?token=...&key=allUsers
+        
+        Especific User:
+            For example: .../users.php/?token=...&key=id&value=7
+    */
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
     // exit;
@@ -666,7 +671,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         // Checks IMAGES to UPLOAD
         if(isset($_FILES['file']['name']) && !empty($_FILES['file']['name'])):
             
-            // Check recieved values
+            // Check Received values
             // echo var_dump($_FILES); // Doesn't work with JS
             // echo json_encode( ['Arquivos' => $_FILES] );            
     
@@ -786,7 +791,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
     $activity_status  = (isset($_PUT['activity_status'])) ? $_PUT['activity_status'] : 1  ;
     $password       = (isset($_PUT['password'])) ? $_PUT['password'] : ''           ;
 
-    //  Verifies recieved parameters
+    //  Verifies Received parameters
     // echo json_encode( [$username] );
 
     if (

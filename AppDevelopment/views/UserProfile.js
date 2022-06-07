@@ -4,7 +4,7 @@
  * @Description Página 'UserProfile', que irá exibir informações sobre o Perfil do usuário Logado.
  * @ChangeLog 
  *  - Vinícius Lessa - 05/06/2022: Criação da documentação de Cabeçalho e Mudanças iniciais na estrutura e Estilo da página.
- * 
+ *  - Vinícius Lessa - 06/06/2022: Implementação da consulta via GET dos dados do usuário selecionado.
  */
 
 import React, { useState, useEffect } from 'react';  // JSX Compilation
@@ -29,17 +29,14 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage'; // Asyn
 import LoadingIcon from './components/LoadingDefault'; // Loading Component
 
 
-const UserProfile = ( {route, navigation} ) => {
-  
-  // console.log(route);
+const UserProfile = ( {route, navigation} ) => {    
 
-  // Params Recieved (From SideBar.js)    
+  // Params Received
   const { userId, userName, userProfilePic, userEmail, userPass } = route.params
   
-
   // TradePost Hooks
   const [errorMessage , setErrorMessage]  = useState(null);
-  const [tpInfo       , setTPInfo]        = useState([]);
+  const [userInfo     , setUserInfo]      = useState([]);
 
   // User Data
   // const [userEmail        , setUserEmail]     = useState(null);
@@ -49,24 +46,29 @@ const UserProfile = ( {route, navigation} ) => {
   // const [userName         , setUserName]      = useState(null);
 
   // Lista Anúncios
-  async function getUserInfo(post_id) {
+  async function getUserInfo(userId) {    
 
-    let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;    
-    let route     = '/trade_posts.php/?token=' + tokenUrl + '&key=' + post_id;    
+    let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;
+    let route     = '/users.php/?token=' + tokenUrl + '&key=id&value=' + userId;
 
-    // try {
-    //   const response = await api.get(route);
+    try {
+      const response = await api.get(route);
 
-    //   let a_Values = response.data;
+      let a_Values = response.data;
       
-    //   // Doesn't replace
-    //   tpInfo.length == 0 && setTPInfo( a_Values );      
+      // Doesn't replace
+      userInfo.length == 0 && setUserInfo( a_Values );      
       
-    // } catch (response) {
-    //   setErrorMessage("Erro: " + response.data.msg);
-    //   console.log(response);
+    } catch (response) {
+      if ( response.data.msg ) {
+        setErrorMessage("Erro: " + response.data.msg);
+      } else {
+        setErrorMessage("Erro Inesperado! " + response);
+      }
+      
+      console.log(response);            
 
-    // }
+    }
   }
 
   // Similar ao componentDidMount e componentDidUpdate: 
@@ -90,17 +92,17 @@ const UserProfile = ( {route, navigation} ) => {
   });
 
   // Loading
-  // if (tpInfo.length == 0 && !errorMessage)
-  //   return (
-  //     <View style={css.container}>
-  //       {/* Header With No Drawer */}
-  //       <HeaderNoDrawer
-  //         title="MINHA CONTA"
-  //         navigation={navigation}
-  //       />
-  //       <LoadingIcon/>
-  //     </View>
-  //   ) ;
+  if (userInfo.length == 0 && !errorMessage)
+    return (
+      <View style={css.container}>
+        {/* Header With No Drawer */}
+        <HeaderNoDrawer
+          title="MINHA CONTA"
+          navigation={navigation}
+        />
+        <LoadingIcon/>
+      </View>
+    ) ;
 
   return (
     <SafeAreaView style={css.container}>
@@ -156,11 +158,10 @@ const UserProfile = ( {route, navigation} ) => {
               ] }>
                 Bem Vindo
               </Text>
-              <Text style={ [
-                css.m_OneTop ,
+              <Text style={ [                
                 css.textWhite ,
                 css.fontBebas ,
-                css.size40
+                { fontSize: 44 }
               ] }>
                 {userName}                
               </Text>
@@ -218,7 +219,7 @@ const UserProfile = ( {route, navigation} ) => {
               {/* Bio */}
               <View style={ [ css.m_ThreeY ] }>                
                 <Text style={ [
-                  css.m_OneBottom,
+                  css.m_TwoBottom,
                   css.size20,
                   css.textRed,
                   css.fontGhotic,
@@ -226,14 +227,15 @@ const UserProfile = ( {route, navigation} ) => {
                 ] }>
                   Biografia:
                 </Text>
-                <View style={ [ css.bkGray, css.p_Two, {borderRadius: 5} ] }>
+                <View style={ [ css.bkGray, css.p_Two, css.p_ThreeBottom, {borderRadius: 5} ] }>
                   <Text style={ [ 
                     css.size18,
                     css.textWhite,
                     css.fontGhotic,
-                    css.justifyText
+                    css.justifyText ,
+                    { lineHeight: 30 }
                   ] }>
-                    Estou a procura de pessoas do meio musical para firmar meu aprendizado nos instrumentos. Já tenho conhecimentos básicos em instrumentos de corda, como violão e contra baixo.
+                    {userInfo.data[0].bio}
                   </Text>
                 </View>
               </View>

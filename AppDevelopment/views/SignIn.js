@@ -99,7 +99,9 @@ const SignIn = (props) => {
 
             setIsLoading(false);
 
-            return props.navigation.navigate('Welcome');
+            return props.navigation.navigate('Welcome', {
+                userName: nameText
+            });
 
         } catch(response) {                            
             setErrorMessage(response.data.msg);

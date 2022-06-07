@@ -4,7 +4,8 @@
  * @Description Página 'NewTradePost' onde um usuário (já logado) poderá incluir um Novo anúncio ao sistema.
  * @ChangeLog 
  *  - Vinícius Lessa - 31/05/2022: Criação da documentação de Cabeçalho e Mudanças iniciais na estrutura e Estilo da página.
- *  - Vinícius Lessa - 01/05/2022: Continução da criação do Formulário, diversos avanços visuais e funcionas, inclusão de 3 novos pacotes para os Inputs do Tipo SELECT e RADIO, bem como para user máscara no campo "Valor do Item".
+ *  - Vinícius Lessa - 01/06/2022: Continução da criação do Formulário, diversos avanços visuais e funcionas, inclusão de 3 novos pacotes para os Inputs do Tipo SELECT e RADIO, bem como para user máscara no campo "Valor do Item".
+ *  - Vinícius Lessa - 06/06/2022: Validação para estado de Login de usuário utilizando Classe 'Alert'.
  * 
  */
 
@@ -298,6 +299,27 @@ const NewTradePost = (props) => {
             setUserName(userNameSession);
             
     });
+
+    // Booleans
+    const isLoggedUser   = !!userName && !!userEmail && !!userProfilePic && !!userPass && !!userId;
+
+    // Only if Logged
+    if ( !isLoggedUser )
+        Alert.alert(
+            "Login Necessário",
+            "Uma conta é necessária para criar um Anúncio!",
+            [
+                {
+                    text: "Voltar",
+                    onPress: () => props.navigation.navigate('TradePosts'),
+                    style: "cancel"
+                },
+                { 
+                    text: "Login",
+                    onPress: () => props.navigation.navigate('SignIn'),
+                }
+            ]
+        );
 
     return (
         <SafeAreaView style={css.container}>
@@ -607,7 +629,7 @@ const NewTradePost = (props) => {
                         
                             <View style = { [ css.m_FourTop ] }>
                                 <TouchableOpacity
-                                    onPress={()=>props.navigation.navigate('SignIn')}
+                                    onPress={()=>props.navigation.navigate('UserProfile')}
                                 >
                                     <Text style={ [css.textWhite, css.centerText] }>
                                         Para ver seus Anúncios, Clique <Text style={ [ css.fontBold, css.underlineText ] }>Aqui</Text>
