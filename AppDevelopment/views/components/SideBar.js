@@ -229,7 +229,7 @@ const DrawerItens = (props) => {
                             userName: props.userName ,
                             userProfilePic: props.userProfilePic ,
                             userEmail: props.userEmail ,
-                            userPass: props.userPass ,                            
+                            userPass: props.userPass ,
                         })}
                         labelStyle={ [ 
                             css.size20, css.fontGhotic

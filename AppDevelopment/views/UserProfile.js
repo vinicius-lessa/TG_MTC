@@ -63,7 +63,7 @@ const UserProfile = ( {route, navigation} ) => {
       if ( response.data.msg ) {
         setErrorMessage("Erro: " + response.data.msg);
       } else {
-        setErrorMessage("Erro Inesperado! " + response);
+        setErrorMessage("Erro Inesperado!");
       }
       
       console.log(response);            

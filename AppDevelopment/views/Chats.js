@@ -5,25 +5,65 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 05/06/2022: Criação da documentação de Cabeçalho e Mudanças iniciais na estrutura e Estilo da página.
  *  - Vinícius Lessa - 06/06/2022: Início da criação da página em si, realizando requisições via GET ao Backend baseado no userId.
+ *  - Vinícius Lessa - 08/06/2022: Finalização da página na parte Lógica, onde já está realizando a requisição GET dos chats o qual o usuário participa, além da estilização.
+ * 
  */
 
-import React from 'react';  // JSX Compilation
+import React, { useState, useEffect } from 'react';  // JSX Compilation
 import { 
   View ,
   Text ,
   SafeAreaView ,
   ScrollView ,
   Image ,
-  TouchableOpacity ,
+  TouchableOpacity, 
+  Alert,
 } from 'react-native'; // Core Components
 
 import HeaderNoDrawer from './components/HeaderNoDrawer.js';
 
+import api from '../services/api'; // API Sauce
+
+import LoadingIcon from './components/LoadingDefault'; // Loading Component
+
 import { css } from '../assets/css/css.js'; // Style - css
 
 
-const ChatRow = (props) => {
+const ChatRow = (props) => {      
   
+  console.log(props.navigation);
+
+  // Message Text Logic
+  let sender        = "";  
+  let lastMessage   = props.message;
+
+  let messageConcat = "";
+  
+  // Rementente
+  sender = props.isSameUser ? "Você" : props.nameUserLastMessage;  
+
+  messageConcat = sender + ": " + lastMessage
+    if (messageConcat.length > 35)
+      lastMessage = lastMessage.substring(0, 25) + "..." ;
+
+  // Message Date/Time Logic
+  let currentDate = new Date().getTime();
+  let messageDate = new Date(props.hour.replace(" ", "T"));
+
+  let dayDifference = (currentDate - messageDate.getTime()) / (1000 * 3600 * 24)  
+  
+  // const yyyy = messageDate.getFullYear();
+  let mm = messageDate.getMonth() + 1; // Months start at 0!
+  let dd = messageDate.getDate();
+
+  if (dd < 10) dd = '0' + dd;
+  if (mm < 10) mm = '0' + mm;  
+
+  let messageTimeLabel = 
+    dayDifference >= 1 ?
+    dd + '/' + mm : // Outro dia
+    messageDate.getHours() - 3 + ":" + messageDate.getMinutes(); // Hoje
+
   return (
     <View>
       <View style = {[
@@ -31,39 +71,45 @@ const ChatRow = (props) => {
       ]}>
         {/* Chat Info */}
         <View style={css.chatListDescBox}>
-
           <View style = { [ css.flexTwo ] }>
-            {/* Chat Title */}
-            <Text style = {[
-              css.textWhite ,
-              css.fontBold ,
-              css.size14,
-            ]}>
-              {props.title} <Text style={[ css.size12, css.fontNormal ]}>({props.author})</Text>
-            </Text>
+            <TouchableOpacity
+              // onPress={() => Alert.alert("Função em Desenvolvimento!")}
+              onPress={()=>props.navigation.navigate('ChatMessage', {
+                userId: '14' ,
+              })}
+            >
+              {/* Chat Title */}
+              <Text style = {[
+                css.textRed ,
+                css.fontBold ,
+                css.size14,
+              ]}>
+                {props.title} <Text style={[ css.size12, css.fontNormal ]}>({props.author})</Text>
+              </Text>
+            </TouchableOpacity>
           </View>
 
           {/* Message */}
           <View style = { [ css.flexOne, css.rowOrientation, css.p_TwoRight ] }>
             <View style = { [ css.centerSelf, { width: '90%' } ] }>
               <Text style = {[ css.textWhite, css.size12 ]}>
-                { props.isSameUser && <Text style = { css.fontBold }>Você: </Text> }{props.message}
+                <Text style = { css.fontBold }>{sender}: </Text>{lastMessage}
               </Text>
             </View>
 
+            {/* Hour / Day */}
             <View style = { [ css.centerSelf, css.m_TwoRight, { width: '10%' } ] }>
-              <Text style = {[ css.textWhite, { fontSize: 9 } ]}>  {props.hour}</Text>
+              <Text style = {[ css.textWhite, { fontSize: 9 } ]}>{messageTimeLabel}</Text>
             </View>
           </View>
-
         </View>
 
         {/* Image */}
         <View style={css.chatListImgBox}>
           <TouchableOpacity 
-            onPress={()=>props.navigation.navigate('TradePostDetailed', {
-              post_id: props.postId ,
-            })}            
+            onPress={()=>props.navigation.jumpTo('TradePostDetailed', {
+              postId: props.postId ,
+            })}
           >
             <Image
               source={ {uri: props.photoUrl} }
@@ -81,10 +127,72 @@ const ChatRow = (props) => {
 
 const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of "{navigation}"
 
-  // Params Received
-  const { userId, userName, userProfilePic, userEmail, userPass } = route.params
+  // const lastScreen = navigation.getState().history[1];
 
-  return (
+  // Params Received
+  const { userId, userName, userProfilePic, userEmail, userPass } = route.params ;
+
+  // TradePost Hooks
+  const [errorMessage , setErrorMessage]  = useState(null);
+  const [noChatMessage, setNoChat]        = useState(null);
+  const [chatList     , setChatList]      = useState([]);
+  
+  // Iterate
+  const [countChatRows , setCountChatRows] = useState(0);  
+  var countSelfTp   = 0;
+  var countOthersTp = 0;
+  var lastId        = 0;
+
+  // Lista Anúncios
+  async function listChats() {
+
+    let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;
+    let route    = '/chat.php/?token=' + tokenUrl + '&userLogged=' + userId + '&key=chatList';
+
+    try {
+      const response = await api.get(route);
+
+      let a_Values = response.data;
+      
+      // Doesn't replace
+      chatList.length == 0 && setChatList( a_Values );            
+
+      if (chatList.error)
+        setNoChat(chatList.msg);
+      
+    } catch (response) {
+
+      if ( response.data.msg ) {
+        setErrorMessage("Erro: " + response.data.msg);
+      } else {
+        setErrorMessage("Erro Inesperado!");
+      }        
+
+    }
+  }
+
+  // Similar ao componentDidMount e componentDidUpdate: 
+  useEffect( async () => {
+    await listChats();
+        
+  });  
+
+  // Loading
+  if ( (chatList.length == 0 && !errorMessage) || (chatList.error && noChatMessage === null) ) {
+    return (
+      <View style={css.container}>
+        {/* Header With No Drawer */}
+        <HeaderNoDrawer
+          title="CHATS"
+          navigation={navigation}
+        />
+
+        <LoadingIcon/>
+      </View>
+    ) ;
+  }  
+
+  return (    
     <SafeAreaView style={css.container}>
         
       {/* Header With No Drawer */}
@@ -92,130 +200,219 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
         title="CHATS"
         navigation={navigation}
       />
+
+      {/* Log Messages */}      
+      { !!errorMessage ?
+        <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
+          <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
+            Desculpe, não conseguimos nos Conectar!
+          </Text>
+          <Text style={ [css.size22, css.textWhite, { marginVertical: 20 } ] }>
+            ¯\_(ツ)_/¯
+          </Text>
+          <Text style={ [css.size18, css.textRed, css.fontBold,  { marginVertical: 20 } ] }>
+            { errorMessage }
+          </Text>
+        </View>
+      :
+      <View style={ css.flexOne }>
+
+        { 
+          !!noChatMessage ?
+
+          <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
+            <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
+              Você ainda não possui Nenhum Chat
+            </Text>
+            <Text style={ [css.size22, css.textWhite, { marginVertical: 20 } ] }>
+              ¯\_(ツ)_/¯
+            </Text>
+            <Text style={ [css.size18, css.textRed, css.fontBold,  { marginVertical: 20 } ] }>
+              { noChatMessage }
+            </Text>
+          </View>
+        :
+          <View style={ css.flexOne }>
+            {/* SEUS ANÚNCIOS */}
+            <View style={[ css.flexOne, css.centerVerticaly ]}>
+              <View style = {[
+                css.flexOne ,
+                css.m_TwoY
+              ]}>
+                <Text style={ [
+                    css.titleText ,
+                    css.fontBebas ,              
+                ] }>
+                  SEUS ANÚNCIOS
+                </Text>
+              </View>
+
+              <View style= {[
+                css.chatList ,
+                { flex: 5 }
+              ]}>
+                <ScrollView>
+                  
+                  {
+                    chatList.data.map(function(chatRow) {
+                      // Pula Repetidos (por imagem)
+                      if (lastId == chatRow.post_id)
+                        return null;
+
+                      countSelfTp++;
+
+                      lastId = chatRow.post_id;
+
+                      if ( chatRow.userid_tp_creator == userId ) {
+                        return (
+                          <View key={lastId.toString()}>                            
+                            <ChatRow
+                              postId={chatRow.post_id}
+                              isLastRow={false}
+                              isSameUser={chatRow.userid_tp_creator == userId}
+                              nameUserLastMessage={chatRow.username_lastmessage}
+                              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
+                              title={chatRow.post_title}
+                              author={chatRow.username_tp_creator}
+                              message={chatRow.last_message}
+                              hour={chatRow.message_date}
+                              photoUrl={chatRow.image_name}
+                              navigation={navigation}
+                            />    
+                          </View>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })
+                  }                                                       
+                  
+                  {/* Chat List Row - No Functional Example */}                  
+                  {/* <ChatRow
+                    postId={304}
+                    isLastRow={false}
+                    isSameUser={true}
+                    section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
+                    title={'Bateria Shelter STD82'}
+                    author={'José Guilherme'}
+                    message={'Tudo sim e Você ??'}
+                    hour={'2022-05-29 21:16:15'}
+                    photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_9408.jpg'}
+                    navigation={navigation}
+                  />
+                  <ChatRow
+                    postId={304}
+                    isLastRow={true}
+                    isSameUser={true}
+                    section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
+                    title={'Contrabaixo Condor XB25A'}
+                    author={'Vinicius Lessa'}
+                    message={'Faço por no mínimo R$ 1100,00'}
+                    hour={'2022-04-18 10:20:40'}
+                    photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_8748.jpg'}
+                    navigation={navigation}
+                  /> */}
+
+                </ScrollView>
+
+                {
+                  countSelfTp == 0 &&
+                  <View style = { [css.flexTwo] }>
+                    <Text style = { [ css.textWhite, css.size16, css.centerSelf ] }>
+                      Nenhuma Proposta Recebida!
+                    </Text>
+                  </View>
+                }
+              </View>
+            </View>
+
+            {/* SEUS INTERESSES */}
+            <View style={[ css.flexOne, css.centerVerticaly ]}>
+              <View style = {[
+                css.flexOne ,
+                css.m_TwoY
+              ]}>
+                <Text style={ [
+                    css.titleText ,
+                    css.fontBebas ,              
+                ] }>
+                  SEUS INTERESSES
+                </Text>
+              </View>
+
+              <View style= {[
+                css.chatList ,
+                { flex: 5 }
+              ]}>
+                <ScrollView>                  
+                  {
+                    chatList.data.map(function(chatRow) {
+                      // Pula Repetidos (por imagem)
+                      if (lastId == chatRow.post_id)
+                        return null;                      
+
+                      // setCountChatRows(countChatRows + 1);                      
+                      countOthersTp++;
+
+                      lastId = chatRow.post_id;
+
+                      if ( chatRow.userid_tp_creator != userId ) {
+                        return (
+                          <View key={lastId.toString()}>                            
+                            <ChatRow
+                              postId={chatRow.post_id}
+                              isLastRow={false}
+                              isSameUser={chatRow.userid_tp_creator == userId}
+                              nameUserLastMessage={chatRow.username_lastmessage}
+                              section={2} // 1 = Seus Anúncios - 2 = Seus Interesses
+                              title={chatRow.post_title}
+                              author={chatRow.username_tp_creator}
+                              message={chatRow.last_message}
+                              hour={chatRow.message_date}
+                              photoUrl={chatRow.image_name}
+                              navigation={navigation}
+                            />                            
+    
+                          </View>
+                        );
+                      } else {
+                        return null;
+                      }
+                    })
+                  }
+
+                  {/* Chat List Row */}
+                  {/* <ChatRow 
+                    postId={304}
+                    isLastRow={false}
+                    isSameUser={false}
+                    section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
+                    title={'Amplificador Borne Vorax 1050'}
+                    author={'Renata Carrillo'}
+                    message={'Olá, tudo bem contigo amigo?'}
+                    hour={'18:21'}
+                    photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_3384.jpg'}
+                    navigation={navigation}
+                  />*/}
+
+                </ScrollView>
+
+                {
+                  countOthersTp == 0 &&
+                  <View style = { [css.flexTwo] }>
+                    <Text style = { [ css.textWhite, css.size16, css.centerSelf ] }>
+                      Nenhuma Conversa Iniciada!
+                    </Text>
+                  </View>
+                }
+              </View>
+            </View>
+          </View>
+        }
+        
+      </View>
+      }      
       
-      {/* SEUS ANÚNCIOS */}
-      <View style={[ css.flexOne, css.centerVerticaly ]}>
-        <View style = {[
-          css.flexOne ,
-          css.m_TwoY
-        ]}>
-          <Text style={ [
-              css.titleText ,
-              css.fontBebas ,              
-          ] }>
-            SEUS ANÚNCIOS
-          </Text>
-        </View>
-
-        <View style= {[
-          css.chatList ,
-          { flex: 5 }
-        ]}>
-          <ScrollView>
-            
-            {/* Chat List Row */}
-            <ChatRow
-              postId={304}
-              isLastRow={false}
-              isSameUser={false}
-              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-              title={'Amplificador Borne Vorax 1050'}
-              author={'Renata Carrillo'}
-              message={'Olá, tudo bem contigo amigo?'}
-              hour={'18:21'}
-              photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_3384.jpg'}
-              navigation={navigation}
-            />
-            <ChatRow
-              postId={304}
-              isLastRow={false}
-              isSameUser={true}
-              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-              title={'Bateria Shelter STD82'}
-              author={'José Guilherme'}
-              message={'Tudo sim e Você ??'}
-              hour={'11:40'}
-              photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_9408.jpg'}
-              navigation={navigation}
-            />
-            <ChatRow
-              postId={304}
-              isLastRow={true}
-              isSameUser={true}
-              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-              title={'Contrabaixo Condor XB25A'}
-              author={'Vinicius Lessa'}
-              message={'Faço por no mínimo R$ 1100,00'}
-              hour={'11:40'}
-              photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_8748.jpg'}
-              navigation={navigation}
-            />
-
-          </ScrollView>
-        </View>
-      </View>
-
-      {/* SEUS INTERESSES */}
-      <View style={[ css.flexOne, css.centerVerticaly ]}>
-        <View style = {[
-          css.flexOne ,
-          css.m_TwoY
-        ]}>
-          <Text style={ [
-              css.titleText ,
-              css.fontBebas ,              
-          ] }>
-            SEUS INTERESSES
-          </Text>
-        </View>
-
-        <View style= {[
-          css.chatList ,
-          { flex: 5 }
-        ]}>
-          <ScrollView>
-
-            {/* Chat List Row */}
-            <ChatRow 
-              postId={304}
-              isLastRow={false}
-              isSameUser={false}
-              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-              title={'Amplificador Borne Vorax 1050'}
-              author={'Renata Carrillo'}
-              message={'Olá, tudo bem contigo amigo?'}
-              hour={'18:21'}
-              photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_3384.jpg'}
-              navigation={navigation}
-            />
-            <ChatRow
-              postId={304}
-              isLastRow={false}
-              isSameUser={true}
-              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-              title={'Bateria Shelter STD82'}
-              author={'José Guilherme'}
-              message={'Tudo sim e Você ??'}
-              hour={'11:40'}
-              photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_9408.jpg'}
-              navigation={navigation}
-            />
-            <ChatRow
-              postId={304}
-              isLastRow={true}
-              isSameUser={true}
-              section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-              title={'Contrabaixo Condor XB25A'}
-              author={'Vinicius Lessa'}
-              message={'Faço por no mínimo R$ 1100,00'}
-              hour={'11:40'}
-              photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_8748.jpg'}
-              navigation={navigation}
-            />
-
-          </ScrollView>
-        </View>
-      </View>
 
     </SafeAreaView>
   );

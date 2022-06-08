@@ -80,7 +80,7 @@ const TpRow = (props) => {
           <View style = { [ css.centerVerticaly, css.centerChildren, { width: '50%' } ] }>
             <TouchableOpacity 
               onPress={()=>props.navigation.navigate('TradePostDetailed', {
-                post_id: props.post_id ,                
+                postId: props.post_id ,                
               })}
               style={[ 
                 css.buttonDefault, { width: '90%' } 
@@ -99,7 +99,7 @@ const TradePosts = (props) => {
 
   // TradePost Hooks
   const [errorMessage, setErrorMessage] = useState(null);
-  const [tradePostList, setTradePostList] = useState([]);  
+  const [tradePostList, setTradePostList] = useState([]);
 
   // User Data
   const [userEmail        , setUserEmail]     = useState(null);
@@ -131,7 +131,7 @@ const TradePosts = (props) => {
       if ( response.data.msg ) {
         setErrorMessage("Erro: " + response.data.msg);
       } else {
-        setErrorMessage("Erro Inesperado! " + response);
+        setErrorMessage("Erro Inesperado!");
       }        
 
     }
@@ -195,7 +195,7 @@ const TradePosts = (props) => {
       { !!errorMessage &&
         <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
           <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
-            Desculpe, não conseguimos no Conectar!
+            Desculpe, não conseguimos nos Conectar!
           </Text>
           <Text style={ [css.size22, css.textWhite, { marginVertical: 20 } ] }>
             ¯\_(ツ)_/¯

@@ -29,12 +29,12 @@ import AsyncStorageLib from '@react-native-async-storage/async-storage'; // Asyn
 import LoadingIcon from './components/LoadingDefault'; // Loading Component
 
 
-const TradePostDetailed = ( {route, navigation} ) => {
-  
-  // console.log(route);
+const TradePostDetailed = ( {route, navigation} ) => {        
 
   // Params Received (From TradePost.js)
-  const { post_id } = route.params;
+  const postId      = route.params.postId;  
+
+  // console.log(lastScreen);
 
   // TradePost Hooks
   const [errorMessage , setErrorMessage]  = useState(null);
@@ -48,10 +48,10 @@ const TradePostDetailed = ( {route, navigation} ) => {
   const [userName         , setUserName]      = useState(null);
 
   // Lista Anúncios
-  async function getTradePostInfo(post_id) {
+  async function getTradePostInfo(postId) {
 
     let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;    
-    let route     = '/trade_posts.php/?token=' + tokenUrl + '&key=' + post_id;    
+    let route     = '/trade_posts.php/?token=' + tokenUrl + '&key=' + postId;    
 
     try {
       const response = await api.get(route);
@@ -70,7 +70,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
 
   // Similar ao componentDidMount e componentDidUpdate: 
   useEffect( async () => {
-    await getTradePostInfo(post_id);
+    await getTradePostInfo(postId);
     
     const userEmailSession      = await AsyncStorageLib.getItem('@MTC:userEmail');
     const userProfilePicSession = await AsyncStorageLib.getItem('@MTC:userProfilePic');
@@ -107,7 +107,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
         {/* Header With No Drawer */}
         <HeaderNoDrawer
           title="DETALHES"
-          navigation={navigation}
+          navigation={navigation}          
         />
 
         {/* Log Messages */}      
@@ -151,7 +151,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
                         css.m_OneRight,
                         css.size12
                     ] }>
-                    Post #{post_id}
+                    Post #{postId}
                   </Text>
               </View>
 

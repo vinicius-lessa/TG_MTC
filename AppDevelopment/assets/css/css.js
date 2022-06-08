@@ -356,6 +356,8 @@ const css = StyleSheet.create({
     width: '100%' ,
     flexDirection: 'row' ,
     alignItems: 'center' ,
+    backgroundColor: '#151516' ,
+    borderRadius: 5 ,
   } ,
 
   chatListImgBox: {
@@ -367,7 +369,7 @@ const css = StyleSheet.create({
 
   chatListDescBox: {
     width: '75%' ,
-    height: '100%' ,    
+    height: '100%' ,     
   } ,
 
   hrChatList: {

@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
         http_response_code(401); // Unauthorized
         echo json_encode([
             'error' => true ,
-            'msg' => 'Erro: Token is not Valid!'            
+            'msg' => 'Token is not Valid!'            
         ]);
         exit;
     endif;
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                         WHERE 	u2.activity_status = 1 AND
                                 u2.user_id = userid_lastmessage
                     ) AS 'username_lastmessage' ,	
-                    (SELECT m.created_on 
+                    (SELECT m.created_on
                         FROM messages m
                         WHERE	m.activity_status 	= 1 AND
                                 m.message_chat_guid = c.chat_guid AND
@@ -242,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         http_response_code(401); // Unauthorized
         echo json_encode([
             'error' => true ,
-            'msg' => 'Erro: Token is not Valid!'            
+            'msg' => 'Token is not Valid!'            
         ]);
         exit;
     endif;
@@ -269,7 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         http_response_code(406);
         echo json_encode([
             'error' => true ,
-            'msg' => 'Erro: Informe Todos os Parâmetros!'
+            'msg' => 'Informe Todos os Parâmetros!'
         ]);
         exit;
     endif;

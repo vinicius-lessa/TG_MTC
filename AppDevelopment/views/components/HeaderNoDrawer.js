@@ -23,9 +23,10 @@ import { AntDesign } from '@expo/vector-icons'; // Icons
 
 const HeaderNoDrawer = (props) => {
 
-    const pageTitle = props.title;
+    const pageTitle = props.title;            
     
-    console.log(props.navigation.getState());
+    // console.log(props.navigation);
+    // console.log(props.navigation.getState().history[1]);
 
     return (
         <SafeAreaView>
@@ -38,7 +39,7 @@ const HeaderNoDrawer = (props) => {
                     css.p_ThreeX,
                 ] }>
                     <View style = { [ { alignSelf: 'flex-start' } ] }>
-                        <TouchableOpacity                                                        
+                        <TouchableOpacity
                             onPress={() => props.navigation.goBack()}
                         >                            
                             <AntDesign name="arrowleft" size={24} color="#eb1f36" />

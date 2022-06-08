@@ -17,7 +17,7 @@ import React from 'react'; // JSX Compilation
 
 // React Navigation Module
 import { NavigationContainer } from '@react-navigation/native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // Views
@@ -30,6 +30,7 @@ import {
   SignUp ,
   UserProfile,
   Chats,
+  ChatMessage,
   WhoWeAre,
   HelpScreen, 
 } from './views'; //index
@@ -61,17 +62,18 @@ export default function App() {
   }
 
   // React Navigation - Stack (Default) (https://reactnavigation.org/docs/hello-react-navigation/)
-  // const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator();
 
   // React Navigation - Drawer (https://reactnavigation.org/docs/drawer-navigator/)
-  const Drawer = createDrawerNavigator();
+  const Drawer = createDrawerNavigator();  
 
   return (
-    <NavigationContainer>
-      <Drawer.Navigator        
+    <NavigationContainer>      
+      <Drawer.Navigator
         drawerContent={ (props) => <SideBar {...props} /> }
         initialRouteName="TradePosts"        
-      >
+      >        
+
         {/* Home / Anúncios - Index: 0 */}
         <Drawer.Screen
           name='TradePosts'          
@@ -80,13 +82,13 @@ export default function App() {
             headerShown: false ,
             // unmountOnBlur: true,
           }}
-        />
+        />        
 
         {/* TradePostDetailed - Index: 1 */}
-        <Drawer.Screen
-          name='TradePostDetailed'
-          component={TradePostDetailed}          
-          options={{            
+        <Stack.Screen 
+          name="TradePostDetailed" 
+          component={TradePostDetailed} 
+          options={{
             headerShown: false ,
             unmountOnBlur: true,
             gestureHandlerProps:{
@@ -94,6 +96,18 @@ export default function App() {
             }
           }}
         />
+        
+        {/* <Drawer.Screen
+          name='TradePostDetailed'
+          component={TradePostDetailed}
+          options={{
+            headerShown: false ,
+            unmountOnBlur: true,
+            gestureHandlerProps:{
+              enabled: false
+            }
+          }}
+        /> */}
 
         {/* Criar Post - Index: 2 */}
         <Drawer.Screen
@@ -168,7 +182,7 @@ export default function App() {
           component={Chats}          
           options={{            
             headerShown: false ,
-            unmountOnBlur: true,            
+            unmountOnBlur: true,
           }}
         />
 
@@ -192,7 +206,20 @@ export default function App() {
           }}
         />
 
-      </Drawer.Navigator>
+        {/* TradePostDetailed - Index: 12 */}
+        <Stack.Screen
+          name="ChatMessage"
+          component={ChatMessage} 
+          options={{
+            headerShown: false ,
+            unmountOnBlur: true,
+            gestureHandlerProps:{
+              enabled: false
+            }
+          }}
+        />
+
+      </Drawer.Navigator>      
       
     </NavigationContainer>    
   );

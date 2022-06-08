@@ -5,6 +5,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UserProfile from './UserProfile';
 import Chats from './Chats';
+import ChatMessage from './ChatMessage';
 import NewTradePost from './NewTradePost'; // TP Creation
 import WhoWeAre from './WhoWeAre' // Sobre
 import HelpScreen from './HelpScreen' // Ajuda
@@ -17,6 +18,7 @@ export {
     SignUp,
     UserProfile,
     Chats,
+    ChatMessage,
     NewTradePost, 
     WhoWeAre,
     HelpScreen,
