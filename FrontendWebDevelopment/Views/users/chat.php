@@ -376,7 +376,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             <div class="col-9">
                               
                               <a class="linkdefault" 
-                                 href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
+                                href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
                               >
                                 <strong>
                                   <p class="mb-2">

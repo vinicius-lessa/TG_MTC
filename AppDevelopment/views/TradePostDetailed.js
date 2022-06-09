@@ -34,8 +34,6 @@ const TradePostDetailed = ( {route, navigation} ) => {
   // Params Received (From TradePost.js)
   const postId      = route.params.postId;  
 
-  // console.log(lastScreen);
-
   // TradePost Hooks
   const [errorMessage , setErrorMessage]  = useState(null);
   const [tpInfo       , setTPInfo]        = useState([]);
@@ -47,7 +45,7 @@ const TradePostDetailed = ( {route, navigation} ) => {
   const [userId           , setUserID]        = useState(null);
   const [userName         , setUserName]      = useState(null);
 
-  // Lista Anúncios
+  // Get TradePost Info
   async function getTradePostInfo(postId) {
 
     let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;    
@@ -138,19 +136,19 @@ const TradePostDetailed = ( {route, navigation} ) => {
                 css.centerVerticaly,
               ]}>
                   <Text style={ [
-                      css.textWhite ,
-                      css.fontBebas ,
-                      css.size35
+                    css.textWhite ,
+                    css.fontBebas ,
+                    css.size35
                   ] }>                    
                       {tpInfo.data[0].title}
                   </Text>
                   <Text style={ [
-                        css.textLightgray,
-                        css.endtHorizontaly,
-                        css.m_TwoTop,
-                        css.m_OneRight,
-                        css.size12
-                    ] }>
+                    css.textLightgray,
+                    css.endtHorizontaly,
+                    css.m_TwoTop,
+                    css.m_OneRight,
+                    css.size12
+                  ]}>
                     Post #{postId}
                   </Text>
               </View>

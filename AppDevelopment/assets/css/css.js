@@ -17,7 +17,7 @@ const css = StyleSheet.create({
   container:{
     flex:1,
     flexDirection: "column"  ,
-    backgroundColor: '#151516' ,    
+    backgroundColor: '#151516' ,
   } ,
 
   headerDefault: {
@@ -148,6 +148,7 @@ const css = StyleSheet.create({
   bkBlue:       { backgroundColor: '#177bd9' } ,
   bkPurple:     { backgroundColor: '#6f1fc0' } ,
   bkGreen:      { backgroundColor: '#29c418' } ,  
+  bkChat:       { backgroundColor: '#111415' } ,
 
   // Font Size
   size10: { fontSize: 10 } ,
@@ -334,14 +335,13 @@ const css = StyleSheet.create({
     borderRadius: 125 ,
   } ,
 
-  // ############ Chats
+  // ############ Chat List
   profileImage: {
     width: 250 ,
     height: 250 ,
     borderRadius: 125 ,
   } ,
-  
-  // Chat List
+    
   chatList: {
     backgroundColor: '#383a3b' ,
     margin: 6 ,
@@ -376,7 +376,63 @@ const css = StyleSheet.create({
     borderBottomColor: '#2b2a2a',
     borderBottomWidth: .6,
     marginVertical: 8,
-  } ,  
+  } ,
+
+  // ############ Chat Messages
+  chatMessageBox: {
+    backgroundColor: '#383a3b' ,
+    margin: 5 ,
+    borderRadius: 10 ,
+  } ,
+
+  hrChatHeader: {
+    borderBottomColor: '#2b2a2a',
+    borderBottomWidth: .6,
+    marginVertical: 0,
+  } ,
+
+  chatImgBox: {
+    width: '32%' ,
+    height: '100%' ,
+    borderRadius: 10 ,
+    backgroundColor: '#adadae3a' ,
+  } ,
+
+  chatDescriptionBox: {
+    width: '68%' ,
+    height: '100%' ,
+    paddingStart: 10 ,
+    paddingEnd: 5 ,    
+  } ,
+
+  selfMessageBox: {
+    paddingHorizontal: 5 ,
+    paddingVertical: 8 ,
+    borderRadius: 5 ,
+    marginVertical: 10,
+    marginHorizontal: 5,
+    width: '80%' ,
+    alignSelf: 'flex-end' ,
+    backgroundColor: '#542020' ,
+  } ,
+
+  userTwoMessageBox: {
+    padding: 5 ,
+    borderRadius: 5 ,
+    marginVertical: 10,
+    marginHorizontal: 5,
+    width: '80%'
+  } ,
+
+  inputChatMessage:{
+    textAlign: 'left' ,
+    paddingHorizontal: 5 ,
+    color: '#000' ,
+    height: '90%' ,
+    borderWidth: .8 ,    
+    borderRadius: 10 ,
+    backgroundColor : "#fff" ,
+  } ,
 
 });
 

@@ -52,7 +52,9 @@ const TpRow = (props) => {
       <View style={css.tpDescriptionBox}>
         
         {/* TP Title */}
-        <Text style={ [css.tradePostTitle, css.fontGhotic ] }> { props.title.length < 40 ? props.title : props.title.substring(0, 40) + "..." } </Text>
+        <Text style={ [css.tradePostTitle, css.fontGhotic ] }>
+          { props.title.length < 40 ? props.title : props.title.substring(0, 40) + "..." }
+        </Text>
 
         {/* TP General Info */}
         <View style = { css.tpInfoBox }>

@@ -29,9 +29,7 @@ import LoadingIcon from './components/LoadingDefault'; // Loading Component
 import { css } from '../assets/css/css.js'; // Style - css
 
 
-const ChatRow = (props) => {      
-  
-  console.log(props.navigation);
+const ChatRow = (props) => {  
 
   // Message Text Logic
   let sender        = "";  
@@ -75,7 +73,9 @@ const ChatRow = (props) => {
             <TouchableOpacity
               // onPress={() => Alert.alert("Função em Desenvolvimento!")}
               onPress={()=>props.navigation.navigate('ChatMessage', {
-                userId: '14' ,
+                userId: props.userId ,
+                userTwoId: props.userTwoId ,
+                postId: props.postId ,                
               })}
             >
               {/* Chat Title */}
@@ -113,11 +113,11 @@ const ChatRow = (props) => {
           >
             <Image
               source={ {uri: props.photoUrl} }
-              resizeMode = 'contain'                  
+              resizeMode = 'contain'
               style={ css.imgDefault }
             />
           </TouchableOpacity>          
-        </View>                           
+        </View>
       </View>
 
       { !props.isLastRow && <View style={ css.hrChatList } /> }
@@ -267,7 +267,10 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                         return (
                           <View key={lastId.toString()}>                            
                             <ChatRow
+                              userId={userId}
+                              userTwoId={chatRow.userTwo}
                               postId={chatRow.post_id}
+                              photoUrl={chatRow.image_name}
                               isLastRow={false}
                               isSameUser={chatRow.userid_tp_creator == userId}
                               nameUserLastMessage={chatRow.username_lastmessage}
@@ -276,9 +279,8 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                               author={chatRow.username_tp_creator}
                               message={chatRow.last_message}
                               hour={chatRow.message_date}
-                              photoUrl={chatRow.image_name}
                               navigation={navigation}
-                            />    
+                            />
                           </View>
                         );
                       } else {
@@ -360,7 +362,10 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                         return (
                           <View key={lastId.toString()}>                            
                             <ChatRow
+                              userId={userId}
+                              userTwoId={chatRow.userTwo}
                               postId={chatRow.post_id}
+                              photoUrl={chatRow.image_name}                              
                               isLastRow={false}
                               isSameUser={chatRow.userid_tp_creator == userId}
                               nameUserLastMessage={chatRow.username_lastmessage}
@@ -368,8 +373,7 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                               title={chatRow.post_title}
                               author={chatRow.username_tp_creator}
                               message={chatRow.last_message}
-                              hour={chatRow.message_date}
-                              photoUrl={chatRow.image_name}
+                              hour={chatRow.message_date}                              
                               navigation={navigation}
                             />                            
     
