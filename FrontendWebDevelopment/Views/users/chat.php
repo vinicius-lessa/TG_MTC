@@ -9,6 +9,7 @@
  *  - Vinícius Lessa - 23/04/2022: Implementação da mensagem imediata do usuário + ajustes visuais.
  *  - Vinícius Lessa - 27/04/2022: Implementação de "Outras Conversas".
  *  - Vinícius Lessa - 06/05/2022: Correção dos Bugs na Disposição das Imagens.
+ *  - Vinícius Lessa - 10/06/2022: Mudança na seção de "Outras Conversas", alteração das fotos utilizadas e títulos das Conversas.
  * 
  * @ Notes: 
  * 
@@ -360,10 +361,10 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                       $countChatRows = 0;
                       $lastId = 0;
                       foreach ($a_OtherChats["data"] as $chat) {
-                        if ( $lastId == $chat['post_id'] ):
+                        if ( $lastId == $chat['chat_id'] ):
                           continue; // Skip Iteration
                         endif;
-                        $lastId = $chat['post_id'];
+                        $lastId = $chat['chat_id'];
                     ?>                      
                       <?php
                         // Only if User Logged = Author
@@ -378,11 +379,15 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                               <a class="linkdefault" 
                                 href="<?php echo SITE_URL ; ?>/Views/users/chat.php/?user=<?php echo $chat['userTwo'] ; ?>&post_id=<?php echo $chat['post_id'] ; ?>&img_url=<?php echo $chat['image_name'] ?>"
                               >
-                                <strong>
-                                  <p class="mb-2">
+                                <p class="mb-2">
+                                  <strong>
                                     <?php echo $chat["post_title"] ?>
-                                  </p>
-                                </strong>
+                                  </strong>
+                                  
+                                  <small> 
+                                    (<?php echo $chat["userTwo_Name"] ?>)
+                                  </small>
+                                </p>
                               </a>
 
                               <small>
@@ -399,27 +404,35 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             </div>
                             
                             <!-- TP Image -->
-                            <div class="col-3 p-0 image-container-new" style="height: 70px;">
-                              <?php if ( isset($chat['image_name']) && $chat['image_name'] != null && validateImageSource($chat['image_name']) ): ?>
+                            <!-- <div class="col-3 p-0 image-container-new" style="height: 70px;"> -->
+                              <!-- <?php if ( isset($chat['userTwo_Image']) && $chat['userTwo_Image'] != null && validateImageSource($chat['userTwo_Image']) ): ?> -->
 
                                 <!-- Blur -->
-                                <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
-                                </div>
+                                <!-- <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['userTwo_Image'] ?>');">
+                                </div> -->
 
                                 <!-- Image -->
-                                <div class="img-default-content img_tp">
+                                <!-- <div class="img-default-content img_tp">
                                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
-                                    <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
+                                    <img src="<?php echo $chat['userTwo_Image'] ?>" class="img-tag-tp-default" alt="" style="">
                                   </a>
-                                </div>
+                                </div> -->
                               <?php else: ?>
-                                <div class="img-default-content">
+                                <!-- <div class="img-default-content">
                                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
                                     <img src="<?php echo SITE_URL ?>/images/icons/no-image-icon.png" alt="Imagem ilustrativa de um produto voltado ao meio musical.">
                                   </a>
-                                </div>
+                                </div> -->
                               <?php endif; ?>
-                            </div>                                                     
+                            <!-- </div> -->
+
+                            <div class="col-3 d-flex justify-content-center">
+                              <?php if ( isset($chat['userTwo_Image']) && $chat['userTwo_Image'] != null && validateImageSource($chat['userTwo_Image']) ): ?>
+                                <img src="<?php echo $chat['userTwo_Image'] ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">
+                              <?php else: ?>
+                                <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">                                
+                              <?php endif; ?>
+                            </div>
 
                           </div>                          
                         </div>
@@ -448,10 +461,10 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
 
                       foreach ($a_OtherChats["data"] as $chat) {
                         
-                        if ( $lastId == $chat['post_id'] ):
+                        if ( $lastId == $chat['chat_id'] ):
                           continue; // Skip Iteration
                         endif;
-                        $lastId = $chat['post_id'];                                              
+                        $lastId = $chat['chat_id'];                                              
                     ?>
                       <?php if ( !($chat["userid_tp_creator"] == $userLogged) ): 
                         $countChatRows += 1;
@@ -469,7 +482,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                                   </strong>
                                   
                                   <small> 
-                                    (<?php echo $chat["username_tp_creator"] ?>)
+                                    (<?php echo $chat["userTwo_Name"] ?>)
                                   </small>
                                 </p>                                
                               </a>
@@ -489,15 +502,15 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             </div>
                             
                             <!-- TP Image -->
-                            <div class="col-3 p-0 image-container-new" style="height: 70px;">
-                              <?php if ( isset($chat['image_name']) && $chat['image_name'] != null && validateImageSource($chat['image_name']) ): ?>
+                            <!-- <div class="col-3 p-0 image-container-new" style="height: 70px;">
+                              <?php if ( isset($chat['image_name']) && $chat['image_name'] != null && validateImageSource($chat['image_name']) ): ?> -->
 
                                 <!-- Blur -->
-                                <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
-                                </div>
+                                <!-- <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                                </div> -->
 
                                 <!-- Image -->
-                                <div class="img-default-content img_tp">
+                                <!-- <div class="img-default-content img_tp">
                                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
                                     <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
                                   </a>
@@ -509,7 +522,15 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                                   </a>
                                 </div>
                               <?php endif; ?>
-                            </div>                            
+                            </div>  -->
+                            
+                            <div class="col-3 d-flex justify-content-center">
+                              <?php if ( isset($chat['userTwo_Image']) && $chat['userTwo_Image'] != null && validateImageSource($chat['userTwo_Image']) ): ?>
+                                <img src="<?php echo $chat['userTwo_Image'] ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">
+                              <?php else: ?>
+                                <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">                                
+                              <?php endif; ?>                              
+                            </div>
 
                           </div>                          
                         </div>

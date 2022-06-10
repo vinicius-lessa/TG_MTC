@@ -41,8 +41,8 @@ const ChatRow = (props) => {
   sender = props.isSameUser ? "Você" : props.nameUserLastMessage;  
 
   messageConcat = sender + ": " + lastMessage
-    if (messageConcat.length > 35)
-      lastMessage = lastMessage.substring(0, 25) + "..." ;
+    if (messageConcat.length > 30)
+      lastMessage = lastMessage.substring(0, 22) + "..." ;
 
   // Message Date/Time Logic
   let currentDate = new Date().getTime();
@@ -84,7 +84,7 @@ const ChatRow = (props) => {
                 css.fontBold ,
                 css.size14,
               ]}>
-                {props.title} <Text style={[ css.size12, css.fontNormal ]}>({props.author})</Text>
+                {props.title} <Text style={[ css.size12, css.fontNormal ]}>({props.userTwoName})</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -113,14 +113,18 @@ const ChatRow = (props) => {
           >
             <Image
               source={ {uri: props.photoUrl} }
+              style={ css.profileImageChatList }
+            />
+            {/* <Image
+              source={ {uri: props.photoUrl} }
               resizeMode = 'contain'
               style={ css.imgDefault }
-            />
+            /> */}
           </TouchableOpacity>          
         </View>
       </View>
 
-      { !props.isLastRow && <View style={ css.hrChatList } /> }
+      {/* { !props.isLastRow && <View style={ css.hrChatList } /> } */}
     </View>
   );
 }
@@ -256,27 +260,29 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                   {
                     chatList.data.map(function(chatRow) {
                       // Pula Repetidos (por imagem)
-                      if (lastId == chatRow.post_id)
+                      if (lastId == chatRow.chat_id)
                         return null;
 
                       countSelfTp++;
 
-                      lastId = chatRow.post_id;
+                      lastId = chatRow.chat_id;
 
                       if ( chatRow.userid_tp_creator == userId ) {
+                        
                         return (
-                          <View key={lastId.toString()}>                            
+                          <View key={Math.floor(Math.random() * 100000).toString()}>
                             <ChatRow
                               userId={userId}
                               userTwoId={chatRow.userTwo}
+                              userTwoName={chatRow.userTwo_Name}
                               postId={chatRow.post_id}
-                              photoUrl={chatRow.image_name}
+                              // photoUrl={chatRow.image_name}
+                              photoUrl={chatRow.userTwo_Image}
                               isLastRow={false}
                               isSameUser={chatRow.userid_tp_creator == userId}
                               nameUserLastMessage={chatRow.username_lastmessage}
                               section={1} // 1 = Seus Anúncios - 2 = Seus Interesses
-                              title={chatRow.post_title}
-                              author={chatRow.username_tp_creator}
+                              title={chatRow.post_title}                              
                               message={chatRow.last_message}
                               hour={chatRow.message_date}
                               navigation={navigation}
@@ -360,12 +366,14 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
 
                       if ( chatRow.userid_tp_creator != userId ) {
                         return (
-                          <View key={lastId.toString()}>                            
+                          <View key={Math.floor(Math.random() * 100000).toString()}>
                             <ChatRow
                               userId={userId}
                               userTwoId={chatRow.userTwo}
+                              userTwoName={chatRow.userTwo_Name}
                               postId={chatRow.post_id}
-                              photoUrl={chatRow.image_name}                              
+                              // photoUrl={chatRow.image_name}
+                              photoUrl={chatRow.userTwo_Image}
                               isLastRow={false}
                               isSameUser={chatRow.userid_tp_creator == userId}
                               nameUserLastMessage={chatRow.username_lastmessage}

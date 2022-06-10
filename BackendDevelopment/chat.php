@@ -6,6 +6,7 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 19/04/2022: Criação do arquivo e primeiras tratativas para receber a INCLUSÃO de anúncios via POST.
  *  - Vinícius Lessa - 26/04/2022: Reformulação da query de GET dos chats, pois estava com erro quando um mesmo POST tinha mais de um chat.
+ *  - Vinícius Lessa - 10/05/2022: Adição dos campos 'userTwo_Name' e 'userTwo_Image' na listagem dos chats.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -147,6 +148,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                                 uc2.user_chat_chat_guid = c.chat_guid AND
                                 uc2.user_chat_user_id !=:USER_ID
                     ) AS `userTwo` 	,
+                    (SELECT u4.user_name 
+                        FROM users u4
+                        WHERE 	u4.user_id = userTwo AND
+                                u4.activity_status = 1
+                    ) AS `userTwo_Name` 	,
+                    (SELECT ip.image_name
+                        FROM images_profile ip
+                        WHERE 	ip.user_id = userTwo AND
+                                ip.activity_status = 1
+                    ) AS `userTwo_Image` 	,
                     (SELECT m.message_user_id 
                         FROM messages m
                         WHERE	m.activity_status 	= 1 AND
@@ -173,12 +184,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                                 m.message_user_id IN (userTwo, :USER_ID)
                         order by m.created_on DESC LIMIT 1
                     ) AS 'message_date' ,	
-                    itp.image_name  AS `image_name`
+                    (SELECT itp.image_name 
+                        FROM images_trade_posts itp 
+                        WHERE	itp.trade_post_id = c.trade_post_id AND
+                                itp.activity_status = 1
+                        order by itp.created_on DESC LIMIT 1
+                    ) AS `image_name`
                     FROM user_chat uc
                     INNER JOIN chat c ON c.chat_guid = uc.user_chat_chat_guid
                     INNER JOIN users u ON u.user_id = uc.user_chat_user_id
-                    INNER JOIN trade_posts tp ON tp.post_id = c.trade_post_id
-                    left JOIN images_trade_posts itp ON itp.trade_post_id = c.trade_post_id
+                    INNER JOIN trade_posts tp ON tp.post_id = c.trade_post_id                    
                     WHERE c.activity_status = 1 AND	  
                         uc.user_chat_user_id =:USER_ID
                     order by 'message_date', userid_tp_creator desc;",
@@ -189,6 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                 if ( !empty($dados) ):
                     foreach ($dados as $chat) {
                         $chat->image_name = SITE_URL . "/uploads/" . $chat->image_name;
+                        $chat->userTwo_Image = SITE_URL . "/uploads/user-profile/" . $chat->userTwo_Image;
                     }
                     
                     http_response_code(200); // Success

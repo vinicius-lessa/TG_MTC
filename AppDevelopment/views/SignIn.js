@@ -136,17 +136,17 @@ const SignIn = (props) => {
 
     return (
         <SafeAreaView style={css.container}>
-            <ScrollView>
-            
-                {/* Header */}
-                <HeaderDefault 
-                    title="Entrar"                
-                    userName={null}
-                    userPhotoURL={null}
-                    navigation={props.navigation}
-                    isLoggedUser={false}
-                    hideRightIcon={true}
-                />
+            {/* Header */}
+            <HeaderDefault 
+                title="Entrar"                
+                userName={null}
+                userPhotoURL={null}
+                navigation={props.navigation}
+                isLoggedUser={false}
+                hideRightIcon={true}
+            />
+
+            <ScrollView>                            
                 
                 {isLoading && <LoadingIcon />}
 

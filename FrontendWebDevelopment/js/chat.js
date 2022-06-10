@@ -53,7 +53,7 @@ function refreshChat(){
 }
       
 // Repeat - 10 seconds
-setInterval(function(){refreshChat();}, 4000);
+setInterval(function(){refreshChat();}, 10000);
 
 // Events
 // Insert New Message

@@ -352,7 +352,7 @@ const css = StyleSheet.create({
   chatListRow: {    
     marginVertical: 5 ,
     padding: 5 ,
-    height: 70 ,
+    height: 90 ,
     width: '100%' ,
     flexDirection: 'row' ,
     alignItems: 'center' ,
@@ -363,8 +363,6 @@ const css = StyleSheet.create({
   chatListImgBox: {
     width: '25%' ,
     height: '100%' ,
-    borderRadius: 10 ,
-    backgroundColor: '#adadae3a' ,
   } ,
 
   chatListDescBox: {
@@ -376,6 +374,13 @@ const css = StyleSheet.create({
     borderBottomColor: '#2b2a2a',
     borderBottomWidth: .6,
     marginVertical: 8,
+  } ,
+
+  profileImageChatList: {
+    width: 80 ,
+    height: 80 ,
+    borderRadius: 90 ,
+    alignSelf: 'center'
   } ,
 
   // ############ Chat Messages
@@ -409,7 +414,7 @@ const css = StyleSheet.create({
     paddingHorizontal: 5 ,
     paddingVertical: 8 ,
     borderRadius: 5 ,
-    marginVertical: 10,
+    marginVertical: 6,
     marginHorizontal: 5,
     width: '80%' ,
     alignSelf: 'flex-end' ,
@@ -419,7 +424,7 @@ const css = StyleSheet.create({
   userTwoMessageBox: {
     padding: 5 ,
     borderRadius: 5 ,
-    marginVertical: 10,
+    marginVertical: 6,
     marginHorizontal: 5,
     width: '80%'
   } ,
