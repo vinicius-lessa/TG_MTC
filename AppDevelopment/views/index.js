@@ -4,6 +4,7 @@ import Welcome from './Welcome';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UserProfile from './UserProfile';
+import PublicUserProfile from './PublicUserProfile';
 import Chats from './Chats';
 import ChatMessage from './ChatMessage';
 import NewTradePost from './NewTradePost'; // TP Creation
@@ -17,6 +18,7 @@ export {
     SignIn, 
     SignUp,
     UserProfile,
+    PublicUserProfile,
     Chats,
     ChatMessage,
     NewTradePost, 

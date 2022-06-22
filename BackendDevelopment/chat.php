@@ -252,6 +252,12 @@ endif;
 if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    // exit;
+
+    // Doesn't Work in React Native
+    if ( empty($_POST) ):
+        $_POST = json_decode(file_get_contents("php://input"), true);
+    endif;
 
     // Token Validation
     if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):
@@ -267,7 +273,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     $aUsers         = (isset($_POST['users']))          ? $_POST['users'] : ''              ;
     $post_id        = (isset($_POST['post_id']))        ? intval($_POST['post_id']) : 0     ;
     $newMessage     = (isset($_POST['newMessage']))     ? $_POST['newMessage'] : 0          ;
-    // $chat_id        = (isset($_POST['chat_id']))        ? intval($_POST['chat_id']) : 0     ;
     
     // Check Received Data
     // http_response_code(201);
@@ -306,17 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
     );
 
     // Insere tabela CHAT: trade_post_id com $post_id (Somente se for uma nova conversa)
-    if ( empty($dados) ):
-               
-        // http_response_code(500); // Internal Server Error
-        // echo json_encode([
-        //     'error'     => true ,
-        //     'msg'       => "SELECT c.chat_guid FROM chat c 
-        //     WHERE  c.trade_post_id =$post_id AND 
-        //            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = c.chat_guid AND uc.user_chat_user_id =".$aUsers[0]." LIMIT 1) AND
-        //            EXISTS (SELECT uc.user_chat_chat_guid FROM user_chat uc WHERE uc.user_chat_chat_guid = c.chat_guid AND uc.user_chat_user_id =".$aUsers[1]." LIMIT 1) ;"
-        // ]);
-        // exit;
+    if ( empty($dados) ):               
 
         CrudDB::setTabela('chat');
             
@@ -445,8 +440,9 @@ endif;
 // **************** PUT (ALTERAÇÃO)
 // No INSOMINIA, utilizar o "FORM URL ENCODED" (Structured)
 if ($_SERVER['REQUEST_METHOD'] == 'PUT'):
-    
+        
     echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    exit;
 
 endif;
 
@@ -457,6 +453,7 @@ endif;
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE'):
     
     echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
+    exit;
 
 endif;
 ?>

@@ -4,6 +4,7 @@
  * @Description Página 'SignIn' para login de usuários. Pode apontar para SignUp ocasionalmente.
  * @ChangeLog 
  *  - Vinícius Lessa - 26/05/2022: Criação da documentação de Cabeçalho e Mudanças iniciais na estrutura e Estilo da página.
+ *  - Vinícius Lessa - 21/06/2022: Mudança método utilizado para a navgação entre telas (ateriormente 'Navigate', agora 'JumpTo').
  * 
  */
 
@@ -88,18 +89,18 @@ const SignIn = (props) => {
 
             await AsyncStorageLib.multiSet([
                 // ['@MTC:token'           , token],
-                ['@MTC:userEmail'       , emailText] ,
-                ['@MTC:userProfilePic'  , photoUrl] ,
-                ['@MTC:userPassword'    , passwordInput ] ,
-                ['@MTC:userID'          , idText] ,
-                ['@MTC:userName'        , nameText] , 
+                ['@MTC:userEmail'       , emailText],
+                ['@MTC:userProfilePic'  , photoUrl],
+                ['@MTC:userPassword'    , passwordInput ],
+                ['@MTC:userID'          , idText],
+                ['@MTC:userName'        , nameText],
             ]);
             
             console.log("SignIn com sucesso!!!")
 
             setIsLoading(false);
 
-            return props.navigation.navigate('Welcome', {
+            return props.navigation.jumpTo('Welcome', {
                 userName: nameText
             });
 
@@ -138,7 +139,7 @@ const SignIn = (props) => {
         <SafeAreaView style={css.container}>
             {/* Header */}
             <HeaderDefault 
-                title="Entrar"                
+                title="LOGIN"                
                 userName={null}
                 userPhotoURL={null}
                 navigation={props.navigation}

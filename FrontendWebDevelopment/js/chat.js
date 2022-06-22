@@ -58,7 +58,7 @@ setInterval(function(){refreshChat();}, 10000);
 // Events
 // Insert New Message
 newMessageForm.submit(async function( event ){
-    event.preventDefault();        
+    event.preventDefault();
 
     requestServer = false;
 
@@ -91,7 +91,7 @@ newMessageForm.submit(async function( event ){
     $( "#chat" ).css("display", "flex");
     $( "#chat" ).html( function() {
         return innerMessage + $( "#chat" ).html();
-    });    
+    });
     
     // Send Form to REST API
     const formData = new FormData(event.target); // All Form Values

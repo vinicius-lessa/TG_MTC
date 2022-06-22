@@ -34,11 +34,15 @@ CrudDB::setConexao($pdo);
 $uri = basename($_SERVER['REQUEST_URI']);
 
 
-// HTTP METHODS
 #############################################################################################
+// HTTP METHODS
     
 // ### GET (Consulta)
 if ($_SERVER['REQUEST_METHOD'] == 'GET'):
+
+    // For example:  .../users.php/?token=...&key=allUsers
+    // For example: .../users.php/?token=...&key=id&value=7
+    // For example: .../users.php/?token=...&key=email&value=vinicius@gmail.com
 
     echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
     exit;
@@ -58,6 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
 
     // echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
     // exit;
+
+    // Doesn't Work in JS
+    if ( empty($_POST) ):
+        $_POST = json_decode(file_get_contents("php://input"), true);
+    endif;
 
     // Token Validation
     if (!($_POST["token"] === '16663056-351e723be15750d1cc90b4fcd')):
@@ -84,7 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'):
         exit;
     endif;        
         
-    // Autentication
+    // Autentication        
+
     if (!is_numeric($userEmail)):
         $dbReturn = CrudDB::select(
             'SELECT

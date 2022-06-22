@@ -8,9 +8,6 @@
 		},
 		{
 			"path": "..\\_Heroku"
-		},
-		{
-			"path": "..\\..\\..\\WEFLOG-MobileApp"
 		}
 	],
 	"settings": {}

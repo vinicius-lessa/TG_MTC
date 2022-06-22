@@ -103,13 +103,13 @@ const ProfileSection = (props) => {
     } else {
 
         return(
-            <View style={ [ css.rowOrientation ] }>
+            <View>
                 <View style={ [ css.centerSelf, css.flexOne ] }>
-                    <Ionicons style={ [ css.endtHorizontaly ] } name="person-circle-sharp" size={100} color="#eb1f36" />
+                    <Ionicons style={ [ css.endtHorizontaly ] } name="person-circle-sharp" size={80} color="#eb1f36" />
                 </View>
                 <View style={ [ css.centerSelf, css.flexOne ] }>
                     <TouchableOpacity onPress={()=>props.navigation.navigate('SignIn')}>
-                        <Text style = { [css.size24, css.textRed] }>ENTRAR</Text>
+                        <Text style = { [css.size26, css.textRed, css.fontGhotic] }>LOGIN</Text>
                     </TouchableOpacity>
                 </View>
             </View>  

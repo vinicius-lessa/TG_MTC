@@ -71,7 +71,6 @@ const ChatRow = (props) => {
         <View style={css.chatListDescBox}>
           <View style = { [ css.flexTwo ] }>
             <TouchableOpacity
-              // onPress={() => Alert.alert("Função em Desenvolvimento!")}
               onPress={()=>props.navigation.navigate('ChatMessage', {
                 userId: props.userId ,
                 userTwoId: props.userTwoId ,
@@ -106,20 +105,24 @@ const ChatRow = (props) => {
 
         {/* Image */}
         <View style={css.chatListImgBox}>
-          <TouchableOpacity 
-            onPress={()=>props.navigation.jumpTo('TradePostDetailed', {
-              postId: props.postId ,
-            })}
+          <TouchableOpacity
+            onPress={
+              props.section == 1 ? // Seus Anúncios
+              ()=>props.navigation.navigate('PublicUserProfile', {
+                userId: props.userTwoId ,
+                userName: props.userTwoName ,
+                userProfilePic: props.photoUrl ,
+                userEmail: 'empty' ,
+              }) :
+              ()=>props.navigation.jumpTo('TradePostDetailed', {
+                postId: props.postId ,
+              })
+            }
           >
             <Image
               source={ {uri: props.photoUrl} }
               style={ css.profileImageChatList }
             />
-            {/* <Image
-              source={ {uri: props.photoUrl} }
-              resizeMode = 'contain'
-              style={ css.imgDefault }
-            /> */}
           </TouchableOpacity>          
         </View>
       </View>
@@ -142,7 +145,6 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
   const [chatList     , setChatList]      = useState([]);
   
   // Iterate
-  const [countChatRows , setCountChatRows] = useState(0);  
   var countSelfTp   = 0;
   var countOthersTp = 0;
   var lastId        = 0;
@@ -194,7 +196,7 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
         <LoadingIcon/>
       </View>
     ) ;
-  }  
+  }
 
   return (    
     <SafeAreaView style={css.container}>
@@ -205,7 +207,7 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
         navigation={navigation}
       />
 
-      {/* Log Messages */}      
+      {/* Log Messages */}
       { !!errorMessage ?
         <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
           <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
@@ -261,13 +263,12 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                     chatList.data.map(function(chatRow) {
                       // Pula Repetidos (por imagem)
                       if (lastId == chatRow.chat_id)
-                        return null;
-
-                      countSelfTp++;
+                        return null;                      
 
                       lastId = chatRow.chat_id;
-
+                      
                       if ( chatRow.userid_tp_creator == userId ) {
+                        countSelfTp++;
                         
                         return (
                           <View key={Math.floor(Math.random() * 100000).toString()}>
@@ -325,11 +326,11 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
 
                 {
                   countSelfTp == 0 &&
-                  <View style = { [css.flexTwo] }>
-                    <Text style = { [ css.textWhite, css.size16, css.centerSelf ] }>
+                  <View style = { [css.flexThree] }>
+                    <Text style = { [ css.textLightgray, css.size16, css.centerSelf ] }>
                       Nenhuma Proposta Recebida!
                     </Text>
-                  </View>
+                  </View>                  
                 }
               </View>
             </View>
@@ -352,19 +353,19 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                 css.chatList ,
                 { flex: 5 }
               ]}>
-                <ScrollView>                  
+                <ScrollView>
+                  
                   {
                     chatList.data.map(function(chatRow) {
                       // Pula Repetidos (por imagem)
                       if (lastId == chatRow.post_id)
-                        return null;                      
+                        return null;
 
-                      // setCountChatRows(countChatRows + 1);                      
-                      countOthersTp++;
-
-                      lastId = chatRow.post_id;
+                      lastId = chatRow.post_id;                      
 
                       if ( chatRow.userid_tp_creator != userId ) {
+                        countOthersTp++;
+
                         return (
                           <View key={Math.floor(Math.random() * 100000).toString()}>
                             <ChatRow
@@ -372,8 +373,8 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                               userTwoId={chatRow.userTwo}
                               userTwoName={chatRow.userTwo_Name}
                               postId={chatRow.post_id}
-                              // photoUrl={chatRow.image_name}
-                              photoUrl={chatRow.userTwo_Image}
+                              photoUrl={chatRow.image_name}
+                              // photoUrl={chatRow.userTwo_Image}
                               isLastRow={false}
                               isSameUser={chatRow.userid_tp_creator == userId}
                               nameUserLastMessage={chatRow.username_lastmessage}
@@ -406,17 +407,16 @@ const Chats = ( {route, navigation} ) => {  // Could recieve "props" instead of 
                     photoUrl={'https://musictradecenter.000webhostapp.com/BackendDevelopment/uploads/imagem-2022-05-13_3384.jpg'}
                     navigation={navigation}
                   />*/}
-
+                  
                 </ScrollView>
-
                 {
                   countOthersTp == 0 &&
-                  <View style = { [css.flexTwo] }>
-                    <Text style = { [ css.textWhite, css.size16, css.centerSelf ] }>
+                  <View style = { [css.flexThree] }>
+                    <Text style = { [ css.textLightgray, css.size16, css.centerSelf ] }>
                       Nenhuma Conversa Iniciada!
                     </Text>
                   </View>
-                }
+                  }
               </View>
             </View>
           </View>

@@ -29,6 +29,7 @@ import {
   SignIn ,
   SignUp ,
   UserProfile,
+  PublicUserProfile,
   Chats,
   ChatMessage,
   WhoWeAre,
@@ -96,18 +97,6 @@ export default function App() {
             }
           }}
         />
-        
-        {/* <Drawer.Screen
-          name='TradePostDetailed'
-          component={TradePostDetailed}
-          options={{
-            headerShown: false ,
-            unmountOnBlur: true,
-            gestureHandlerProps:{
-              enabled: false
-            }
-          }}
-        /> */}
 
         {/* Criar Post - Index: 2 */}
         <Drawer.Screen
@@ -169,17 +158,20 @@ export default function App() {
         {/* UserProfile - Index: 8 */}
         <Drawer.Screen
           name='UserProfile'
-          component={UserProfile}          
+          component={UserProfile}
           options={{            
             headerShown: false ,
             unmountOnBlur: true,
+            gestureHandlerProps:{
+              enabled: false
+            }
           }}
         />
 
         {/* Chats - Index: 9 */}
         <Drawer.Screen
           name='Chats'
-          component={Chats}          
+          component={Chats}
           options={{            
             headerShown: false ,
             unmountOnBlur: true,
@@ -210,6 +202,19 @@ export default function App() {
         <Stack.Screen
           name="ChatMessage"
           component={ChatMessage} 
+          options={{
+            headerShown: false ,
+            unmountOnBlur: true,
+            gestureHandlerProps:{
+              enabled: false
+            }
+          }}
+        />
+
+        {/* PublicUserProfile - Index: 13 */}
+        <Stack.Screen 
+          name="PublicUserProfile" 
+          component={PublicUserProfile} 
           options={{
             headerShown: false ,
             unmountOnBlur: true,

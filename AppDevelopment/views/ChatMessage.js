@@ -5,10 +5,11 @@
  * @ChangeLog 
  *  - Vinícius Lessa - 08/06/2022: Criação do Arquivo juntamente com sua base estrutural, dando continuidade posteriormente. Início da Estilização e da passagem de Parâmetros da página anterior. 
  *  - Vinícius Lessa - 09/06/2022: Continuação da parte Funcional da screen de mensagens, primeiramente lendo o chat atual, e depois permitindo o envio de mensagens.
+ *  - Vinícius Lessa - 22/06/2022: Implementação do Envio de mensagens via APP, antes somente realizada a leitura das mensagens. Utilizado método POST (assim como na WEB).
  * 
  */
 
-import React, { useState, useEffect } from 'react';  // JSX Compilation
+import React, { useState, useEffect, useRef } from 'react';  // JSX Compilation
 import { 
     View ,
     Text ,
@@ -102,6 +103,8 @@ const ChatMessageRow = (props) => {
 
 const ChatMessage = ( {route, navigation} ) => {
 
+    const scrollRef = useRef()
+
     const windowHeight = Dimensions.get('window').height;    
 
     // Params Received (From Chats.js)    
@@ -112,6 +115,9 @@ const ChatMessage = ( {route, navigation} ) => {
     const [tpInfo       , setTPInfo]        = useState([]);
     const [chatStory    , setChatStory]     = useState([]);    
     const [arrChatStory , setArrChat]       = useState([]);
+
+    const [requestServer , setRequestServ]  = useState(true); // Does the Refresh Server? Default: Yes
+    
 
     // Input
     const [messageInput    , setMessageInput] = useState(null);
@@ -141,23 +147,14 @@ const ChatMessage = ( {route, navigation} ) => {
     async function refreshChat(){        
 
         let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;    
-        let route     = '/chat.php/?token=' + tokenUrl + '&userLogged=' + userId + '&userTwo=' + userTwoId + '&post_id=' + postId + '&key=refreshChat';        
+        let route     = '/chat.php/?token=' + tokenUrl + '&userLogged=' + userId + '&userTwo=' + userTwoId + '&post_id=' + postId + '&key=refreshChat';
 
         try {
             const response = await api.get(route);
 
             const a_Values = Array.from(response.data.data).reverse();
                         
-            chatStory.length === 0 && setChatStory( a_Values );            
-            
-            // Doesn't replace
-            // chatStory.length === 0 && setChatStory( a_Values );
-
-            // arrChatStory = ( chatStory.length > 0 ? Array.from(chatStory.data).reverse() : [] );
-            // setArrChat(new Map([
-            //     ['one', 1],
-            //     ['two', 2],
-            // ]));
+            chatStory.length === 0 && setChatStory( a_Values );
         
         } catch (response) {
             if ( !!response.data.msg ) {
@@ -173,24 +170,57 @@ const ChatMessage = ( {route, navigation} ) => {
     // Send New Message
     async function SendMessage() {
 
-        console.log(messageInput);
-
-        // let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd' ;    
-        // let route     = '/trade_posts.php/?token=' + tokenUrl + '&key=' + postId;    
-
-        // try {
-        // const response = await api.get(route);
-
-        // let a_Values = response.data;
+        let message = messageInput;
         
-        // // Doesn't replace
-        // tpInfo.length == 0 && setTPInfo( a_Values );      
-        
-        // } catch (response) {
-        // setErrorMessage("Erro: " + response.data.msg);
-        // console.log(response);
+        if ( !messageInput ) {
+            console.log("Nenhuma Mensagem a ser Enviada.");
+            return null;
+        }
 
-        // }
+        setMessageInput(""); // CLear Input
+        setRequestServ(false); // Pauses Chat Refresh
+
+        let aUsers = [userId, userTwoId];
+        
+        let tokenUrl  = '16663056-351e723be15750d1cc90b4fcd';
+        let route     = '/chat.php/';
+        
+        let aData = {
+            token: tokenUrl,
+            users: aUsers,
+            post_id: postId,
+            newMessage: message,
+        }
+
+        try {
+            const response = await api.post(route, 
+                { 
+                    token: tokenUrl,
+                    users: aUsers,
+                    post_id: postId,
+                    newMessage: message,
+                } ,
+                { headers: { 'Content-Type': 'multipart/form-data' } } 
+            );
+
+            // console.log(response.data);
+
+            if ( !response.data.error ) {
+                setTimeout(() => {
+                    setRequestServ(true);
+                    refreshChat();
+                }, 3000); // Allow Refresh Chat
+            }
+
+        } catch(response) {
+            setTimeout(() => {
+                setErrorMessage("Erro: " + response.data.msg);
+
+                console.log(response.data);
+
+                setRequestServ(true); // Allow Refresh Chat
+            }, 3000);
+        }                
     }    
 
     // Similar ao componentDidMount e componentDidUpdate: 
@@ -200,11 +230,15 @@ const ChatMessage = ( {route, navigation} ) => {
         getTradePostInfo(postId);
      
         const interval = setInterval(() => {
-            console.log("Atualizando...");
-            refreshChat();
-        }, 8000);
+            if (requestServer){
+                console.log("Refreshing Messages...");
+                refreshChat();
+            } else {
+                console.log("Refresh Disabled...");                
+            }
+        }, 7000);
 
-        return () => {            
+        return () => {
             // Anything in here is fired on component unmount.
             clearInterval(interval);
         }
@@ -247,7 +281,7 @@ const ChatMessage = ( {route, navigation} ) => {
                     { !!errorMessage &&
                         <View style={ [ css.container, css.centerVerticaly, css.centerChildren ] }>
                             <Text style={ [css.size20, css.textWhite, css.fontBold,  { marginVertical: 20 } ] }>
-                                Desculpe, não encontramos o Anúncios Solicitado!
+                                Desculpe, Tivemos um problema no Chat!
                             </Text>
                             
                             <Text style={ [css.size22, css.textWhite, { marginVertical: 20 } ] }>¯\_(ツ)_/¯</Text>
@@ -347,22 +381,24 @@ const ChatMessage = ( {route, navigation} ) => {
                                         />
                                     </View>
                                     :
-                                    <ScrollView>
-                                        
-                                            {
-                                                chatStory.map(function(chatMessage) {
-                                                    return (
-                                                        <View key={chatMessage.created_on.toString()}>                                                        
-                                                            <ChatMessageRow
-                                                                name={chatMessage.user_name}
-                                                                message={chatMessage.message}
-                                                                messageDate={chatMessage.created_on}
-                                                                isSelf={chatMessage.message_user_id == userId}
-                                                            />
-                                                        </View>
-                                                    );                                                
-                                                })
-                                            } 
+                                    <ScrollView
+                                        ref={scrollRef}
+                                        onContentSizeChange= {() => scrollRef.current.scrollToEnd({animated: true})}
+                                    >
+                                        {
+                                            chatStory.map(function(chatMessage) {
+                                                return (
+                                                    <View key={chatMessage.created_on.toString()}>                                                        
+                                                        <ChatMessageRow
+                                                            name={chatMessage.user_name}
+                                                            message={chatMessage.message}
+                                                            messageDate={chatMessage.created_on}
+                                                            isSelf={chatMessage.message_user_id == userId}
+                                                        />
+                                                    </View>
+                                                );                                                
+                                            })
+                                        } 
 
                                             {/* No Functional Examples */}
                                             {/* 
@@ -381,7 +417,8 @@ const ChatMessage = ( {route, navigation} ) => {
                                                     isSelf={14 == userId}
                                                 /> 
                                             </View>
-                                            */}                                        
+                                            */} 
+                                            { !requestServer && <LoadingIcon/> }
                                     </ScrollView>
                                 }
 
@@ -399,7 +436,8 @@ const ChatMessage = ( {route, navigation} ) => {
                                 ]}>
                                     <TextInput
                                         placeholder="Menssagem..."
-                                        maxLength={35}
+                                        maxLength={60}
+                                        value={messageInput}
                                         style={[
                                             css.inputChatMessage ,                                    
                                         ]}

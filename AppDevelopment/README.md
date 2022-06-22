@@ -35,7 +35,7 @@
 - Async Storage
     - Description: An asynchronous, persistent, key-value storage system for React Native.
     - Docs: https://react-native-async-storage.github.io/async-storage/docs/install/
-    - Git Source: https://github.com/react-native-async-storage/async-storage    
+    - Git Source: https://github.com/react-native-async-storage/async-storage
     - command: $ expo install @react-native-async-storage/async-storage
 
 - EAS Cli
