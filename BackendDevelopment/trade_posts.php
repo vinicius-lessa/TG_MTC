@@ -10,6 +10,7 @@
  *  - Vinícius Lessa - 01/05/2022: Implementação do método DELETE.
  *  - Vinícius Lessa - 02/05/2022: Implementação da Criação de Anúncios com 3 imagens.
  *  - Vinícius Lessa - 04/05/2022: Finalização da implementação da ATUALIZAÇÃO (via Post) dos anúncios.
+ *  - Vinícius Lessa - 24/06/2022: (Dia da apresentação do TG rs) Atualizada a Query de consulta das cores no momento da inclusão de um novo TP.
  * 
  * @ Tips & Tricks: 
  *      - To check the METHOD type use this: echo json_encode( ['verbo_http' => $_SERVER['REQUEST_METHOD']] );
@@ -534,7 +535,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
                                                         pm2.description LIKE ('%Outr%'))
                         ORDER BY `description`) a
                         UNION ALL
-                        select * FROM (SELECT pm.model_id, pm.description AS `description` FROM product_models pm
+                        SELECT * FROM (SELECT pm.model_id, pm.description AS `description` FROM product_models pm
                         WHERE pm.activity_status = 1 AND
                                 pm.model_id = (SELECT pm2.model_id FROM product_models pm2
                                                 WHERE pm2.activity_status = 1 AND
@@ -566,21 +567,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'):
             elseif ($keySearch == 'colors'):
                             
                 $dados = CrudDB::select(
-                    "(SELECT c.color_id , c.description as `description`
+                    "SELECT * FROM (SELECT c.color_id , c.description AS `description`
                     FROM colors c
-                    WHERE c.activity_status = 1 and
-                          c.color_id != (select c2.color_id from colors c2
-                                           where c2.activity_status = 1 and
-                                                 c2.description like ('%Outr%'))
-                    ORDER BY `description`)
+                    WHERE c.activity_status = 1 AND
+                          c.color_id != (SELECT c2.color_id from colors c2
+                                           WHERE c2.activity_status = 1 AND
+                                                 c2.description LIKE ('%Outr%'))
+                    ORDER BY `description`) a
                     UNION
-                    (SELECT c.color_id , c.description as `description`
+                    SELECT * FROM (SELECT c.color_id , c.description AS `description`
                     FROM colors c
-                    WHERE c.activity_status = 1 and
-                          c.color_id = (select c2.color_id from colors c2
-                                           where c2.activity_status = 1 and
+                    WHERE c.activity_status = 1 AND
+                          c.color_id = (SELECT c2.color_id from colors c2
+                                           WHERE c2.activity_status = 1 AND
                                                  c2.description like ('%Outr%'))
-                    ORDER BY `description`);",
+                    ORDER BY `description`) b;",
                     [], TRUE);
 
                 if (!empty($dados)):

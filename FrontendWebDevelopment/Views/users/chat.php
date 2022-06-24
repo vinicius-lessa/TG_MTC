@@ -502,15 +502,15 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                             </div>
                             
                             <!-- TP Image -->
-                            <!-- <div class="col-3 p-0 image-container-new" style="height: 70px;">
+                            <div class="col-3 p-0 image-container-new" style="height: 70px;">
                               <?php if ( isset($chat['image_name']) && $chat['image_name'] != null && validateImageSource($chat['image_name']) ): ?> -->
 
                                 <!-- Blur -->
-                                <!-- <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
-                                </div> -->
+                                <div class="img-default-content img_background_blur " style=" background-image: url('<?php echo $chat['image_name'] ?>');">
+                                </div>
 
                                 <!-- Image -->
-                                <!-- <div class="img-default-content img_tp">
+                                <div class="img-default-content img_tp">
                                   <a href="<?php echo SITE_URL ?>/Views/trade_posts/trade_post_detailed.php/?trade_post=<?php echo $chat['post_id'] ?>">
                                     <img src="<?php echo $chat['image_name'] ?>" class="img-tag-tp-default" alt="" style="">
                                   </a>
@@ -522,15 +522,15 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                                   </a>
                                 </div>
                               <?php endif; ?>
-                            </div>  -->
+                            </div> 
                             
-                            <div class="col-3 d-flex justify-content-center">
+                            <!-- <div class="col-3 d-flex justify-content-center">
                               <?php if ( isset($chat['userTwo_Image']) && $chat['userTwo_Image'] != null && validateImageSource($chat['userTwo_Image']) ): ?>
                                 <img src="<?php echo $chat['userTwo_Image'] ?>" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">
                               <?php else: ?>
-                                <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">                                
-                              <?php endif; ?>                              
-                            </div>
+                                <img src="<?php echo SITE_URL ?>/images/icons/default-profile-img.png" class="img-fluid rounded-circle" alt="" style="max-width:100%;width:60px;height:60px;object-fit:cover;">
+                              <?php endif; ?>
+                            </div> -->
 
                           </div>                          
                         </div>

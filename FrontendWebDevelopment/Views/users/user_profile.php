@@ -355,8 +355,9 @@ require SITE_PATH . '/Controllers/c_trade_posts.php';
                                           minlength="10"
                                           spellcheck="true"
                                           rows="5"
-                                          ><?php echo (isset($profileDetails['data'][0]['bio']) ? $profileDetails['data'][0]['bio'] : "Escreva Sobre Você...") ; ?>
-                                        </textarea>
+                                          disabled
+                                          placeholder="Escreva Sobre Você..."
+                                          ><?php echo (isset($profileDetails['data'][0]['bio']) && strlen($profileDetails['data'][0]['bio']) > 0 ? $profileDetails['data'][0]['bio'] : "" ) ; ?></textarea>
                                       </div>
                                     </div>                                  
                                   </div>

@@ -38,11 +38,6 @@
     - Git Source: https://github.com/react-native-async-storage/async-storage
     - command: $ expo install @react-native-async-storage/async-storage
 
-- EAS Cli
-    - Description: EAS Build is a new and rapidly evolving service.
-    - Docs: https://docs.expo.dev/build/setup/ (App Store) - https://docs.expo.dev/build-reference/apk/ (APK)
-    - command: $ npm install -g eas-cli
-
 - Picker Select
     - Description: A Picker component for React Native which emulates the native <select> interfaces for iOS and Android.
     - Docs: https://www.npmjs.com/package/react-native-picker-select - https://github.com/lawnstarter/react-native-picker-select#styling
@@ -62,3 +57,8 @@
     - Docs: https://www.npmjs.com/package/react-native-mask-input - https://github.com/CaioQuirinoMedeiros/react-native-mask-input
     - command(s):
         - $ npm install react-native-mask-input
+
+- EAS Cli
+    - Description: EAS Build is a new and rapidly evolving service.
+    - Docs: https://docs.expo.dev/build/setup/ (App Store) - https://docs.expo.dev/build-reference/apk/ (APK)
+    - command: $ npm install -g eas-cli
