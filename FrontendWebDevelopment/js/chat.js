@@ -25,7 +25,7 @@ var requestServer   = true;
 // Functions
 
 // Refresh Chat
-function refreshChat(){        
+function refreshChat(){
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function(){

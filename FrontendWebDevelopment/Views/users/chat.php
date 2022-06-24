@@ -251,7 +251,7 @@ $isOwnPost        = $userCreator === $_SESSION['user_id']
                               <input type="hidden" id="userLogged" name="userLogged"  value="<?php echo $userLogged; ?>">
                               <input type="hidden" id="userTwo" name="userTwo"        value="<?php echo $userTwo; ?>">
                               <input type="hidden" id="post_id" name="post_id"        value="<?php echo $post_id; ?>">
-                              <!-- <input type="hidden" id="current_time" name="current_time" value="<?php echo date("h:i"); ?>"> -->
+                              <input type="hidden" id="current_time" name="current_time" value="<?php echo date("h:i"); ?>">
 
                               <input type="submit" value="Enviar" class="btn-send" name="messageSubmit" id="messageSubmit">
 
