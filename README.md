@@ -9,7 +9,7 @@ Repositório do projeto MTC (Music Trade Center), o qual é um Sistema para Inte
 ## Links
 
 - Visite o site [Music Trade Center](https://musictradecenter.herokuapp.com).
-- Baixe o [APK](https://musictradecenter.herokuapp.com).
+- Baixe o [APK](https://1drv.ms/u/s!AteoqhMa-6UIgs0X7jKvl1HHpP8z1Q?e=ArOiOK).
 
 ## Crew
 
