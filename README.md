@@ -18,7 +18,7 @@ Repositório do projeto MTC (Music Trade Center), o qual é um Sistema para Inte
 
 ## Mockups & ScreenShots
 
-###Site
+> Site
 
 ![Desktop - CADASTRO](https://user-images.githubusercontent.com/48829382/180828716-14e0b8f9-25cd-42bf-8695-b1edc94077e2.png)
 
@@ -28,7 +28,7 @@ Repositório do projeto MTC (Music Trade Center), o qual é um Sistema para Inte
 
 ![Desktop - HOME](https://user-images.githubusercontent.com/48829382/180829455-b7c549ce-301f-403e-bb6d-406ae4e38416.png)
 
-###Mobile
+> Mobile
 
 ![Mobile - HOME_LOGADO](https://user-images.githubusercontent.com/48829382/180829647-dfa7710e-9862-4d1c-adff-1c7c10503f19.png)
 
