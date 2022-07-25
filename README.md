@@ -29,3 +29,7 @@ Repositório do projeto MTC (Music Trade Center), o qual é um Sistema para Inte
 - Site - HOME PAGE
 
 ![Desktop - HOME](https://user-images.githubusercontent.com/48829382/180829455-b7c549ce-301f-403e-bb6d-406ae4e38416.png)
+
+- Mobile - HOME PAGE
+
+![Mobile - HOME_LOGADO](https://user-images.githubusercontent.com/48829382/180829647-dfa7710e-9862-4d1c-adff-1c7c10503f19.png)
