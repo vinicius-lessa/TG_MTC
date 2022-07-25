@@ -19,7 +19,7 @@ Repositório do projeto MTC (Music Trade Center), o qual é um Sistema para Inte
 ## Mockups & ScreenShots
 
 - Site - SIGNUP
--
+
 ![Desktop - CADASTRO](https://user-images.githubusercontent.com/48829382/180828716-14e0b8f9-25cd-42bf-8695-b1edc94077e2.png)
 
 - Site - FEED MUSICAL
