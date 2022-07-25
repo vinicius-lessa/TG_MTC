@@ -1,8 +1,6 @@
 # Music Trade Center
 
-![This is an image](https://myoctocat.com/assets/images/base-octocat.svg)
-
-![Main Logotype (1280x1280) - MTC](https://user-images.githubusercontent.com/48829382/180826827-c142ca79-2e25-4dc2-ba4e-9734c8a70f9b.png)
+![Main Logotype - MTC](https://user-images.githubusercontent.com/48829382/180827032-4b3e109b-1a6f-4ccc-b6e9-8a4954fe6005.png)
 
 ## About
 Repositório do projeto MTC (Music Trade Center). Este é um Sistema pensado para facilitar a negociação (compra ou venda) de artigos voltados ao meio Musical, tais como Instrumentos musicais, equipamentos e produtos, é similar a OLX ou Facebook Marketplace. Este trabalho foi desenvolvido no 6º Semestre do curso de  Sistemas para Internet - FATEC 2022/01, como **TRABALHO DE GRADUAÇÃO**.
