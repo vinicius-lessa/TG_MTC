@@ -11,7 +11,6 @@
  * @ Notes: 
  * 
  */
-
 if (!defined('SITE_URL')) {
   include_once '../../config.php';
 }
